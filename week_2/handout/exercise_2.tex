@@ -1,0 +1,370 @@
+\documentclass{article}
+
+\input{../../handout_preamble}
+
+
+% ***************************************************
+% HEADER INFORMATION
+
+\title{Exercise 2}
+\author{Molecular Statistic, Week 2}
+\date{2014}
+
+% ***************************************************
+
+\begin{document}
+
+
+% ***************************************************
+% BEGIN DOCUMENT
+% ***************************************************
+
+\maketitle
+
+\section{Introduction}
+
+This is the second exercise in the course Molecular Statistics. The exercises
+in this course are split in two parts. The first part of each exercise is a
+general introduction to new concepts and programming techniques in the python
+programming language, which covers and extends what is written in the
+curriculum.
+Just like last week.
+
+\section{Functions}
+
+Last week, the computer program you wrote was executed line by line in a top to
+bottom approach, i.e. the programs way of execution is easily followed by just
+reading the source file as you would read a book. It turns out, however, that
+when the programs become large enough, it is no longer a clever way to organize
+your program since you'll eventually loose track of what is going on. What one
+usually does is to break up the program into logical parts, such as “Initialize
+particles”, “perturb the particles” and “calculate properties”. Today's
+exercise is an exercise in restructuring the code
+from last week into logical parts which we can easily distinguish. Before we
+get to the exercise, however, we shall have a look at functions, which are
+essential in this process.\\
+
+As in mathematics, functions in any programming language can be seen as a
+means to get a predefined output based on some input. Also, just as in
+mathematics, functions can have several variables, but in programming languages
+such as python, you can essentially parse whatever you want to into these
+functions, i.e. lists, floats, text and even your own data types. To keep it
+simple we'll start with some simple functions that arise in mathematics and
+continually extend upon them until you are ready to start with the exercise.\\
+
+The highly noteworthy function $f(x)=x^2$ which has many uses is a good example
+of how you can turn mathematics into code in python without much hassle
+
+\begin{lstlisting}
+def f(x):
+    y = x * x
+    return y
+\end{lstlisting}
+
+
+\begin{enumerate}
+  \item Insert the above code into your text file, save and execute. What
+      happens? Can you explain why? {\em Hint:} Nothing happens right now. Why?
+\end{enumerate}
+
+In programming languages you provide the {\em definition} of a function, and
+just like on your calculator you need to {\em call} those functions before they
+are actually executed.
+
+\begin{enumerate}
+  \setcounter{enumi}{1}
+  \item Below the code you wrote above, insert the following lines of code and
+    explain what happens when you run the script
+
+\begin{lstlisting}
+print f(-1.0)
+print f(0.0)
+print f(1.0)
+print f(2.0)
+\end{lstlisting}
+
+  \item Instead of printing directly as you did in (2), assign the values of
+    the functions to variables and print them afterwards, i.e. \code{a =
+    f(6.0)}.
+
+\end{enumerate}
+
+The reality is that our custom functions actually works like the built in
+functions (remember the \code{len(arg)} function from last week for instance)
+in python so once you know how to make one, you can essentially create however
+many you like.\\
+
+To test functions we would need a list of $x$-values for our functions.
+We could use the \code{range()} function from last week, but that would limit us to
+integers. Instead we use a very useful tool call NumPy and is imported as all other tools;
+
+\begin{lstlisting}
+import numpy
+\end{lstlisting}
+
+We can then use the \code{arange(start, end, step)} function.
+This will produce a list just like the \code{range()} function, but this time the
+\code{start},
+\code{end}, and
+\code{step}
+can be floats instead of only integers.
+
+\begin{lstlisting}
+x_list = numpy.arange(0, 10, 0.1)
+\end{lstlisting}
+
+\begin{enumerate}
+  \setcounter{enumi}{3}
+  \item Define the following function
+    \begin{align}
+        h(x) = \frac{1}{x} + e^{5x}
+    \end{align}
+
+  \item Define a list of $x$-values, ranging from -1 to 1 with a step size of 0.1, using the \code{arange()} function.
+
+  \item Plot the result using pylab.
+
+\end{enumerate}
+
+Next let us plot something fun.
+
+\begin{enumerate}
+  \setcounter{enumi}{6}
+  \item Define the following two functions
+    \begin{align}
+        q(t) = 13\sin(t)^3 && \text{and} && p(t) = 13\cos(t) - 5 \cos(2t) - 2 \cos(3t) - \cos(4t)
+    \end{align}
+
+  \item Define a list of $t$-values from $-2\pi$ to $2\pi$.
+      {\em Hint:} Use \code{math.pi} to get the values of $\pi$.
+
+  \item Plot the result using the results of $q(t)$ as $x$-values and $p(t)$ as
+      $y$-values in a pylab plot.
+
+\end{enumerate}
+
+\newpage
+\section{Interacting particles - The Hard Sphere Model}
+
+Goal of today
+
+\begin{itemize}
+  \item Restructure the program from last week using functions.
+  \item Allow the particles to interact by measuring the distance from all the other particles
+    and if two particles are close make a reflection.
+  \item Count particles and estimate when an equilibrium condition has been established.
+\end{itemize}
+
+As a starting point for your code, you should copy over your solution to last
+weeks exercise. If you didn't finish the exercises last week, download the file
+\code{week1\_solution.py} from Absalon. The following code should be seen as
+inspiration for how the code should be structured after this exercise is done.
+
+\begin{lstlisting}
+import random
+import pylab
+import video # 2d Video
+
+def distance(xi, yi, xj, yj):
+    """ Calculate the distance between particle i and particle j
+    """
+    return d
+
+
+def initialize_particles(n_particles):
+    """ Initialze particles, positions and velocities
+    """
+    return x_positions, y_positions, x_velocities, y_velocities
+
+
+def simulate_step(x_positions, y_positions, x_velocities, y_velocities, dt):
+    """ Here we simulate a step dt for all particles.
+    """
+    return x_positions, y_positions, x_velocities, y_velocities
+
+
+def plot_particles(X, Y, filename):
+    """Insert code to save a picture
+    of the particle positions
+    """
+
+
+# Run the simulation
+n_particles = 40
+n_steps = 10000
+dt = 0.001
+X, Y, Vx, Vy = initialize_particles(n_particles)
+
+plot_particles(X, Y, 'coordinates_start.png')
+
+for n in range(n_steps):
+    X, Y, Vx, Vy = simulate_step(X, Y, Vx, Vy, dt)
+
+    if n % 10 == 0:
+        video.add_frame(X, Y)
+
+plot_particles(X, Y, 'coordinates_end.png')
+video.save('exercise_2')
+
+\end{lstlisting}
+
+\newpage
+Important Note.
+Notice how the bottom part of the script is the code that actually calls the
+appropriate functions to make the simulation.  This makes reading the overall
+structure of the program easier because you can now see how the program is
+executed and then inspect the appropriate functions.  Also, is not important
+in what order your functions are defined, unlike variables which have to be
+defined and have a value before you use them, but the order in which you
+call them are.
+
+\begin{enumerate}
+  \setcounter{enumi}{0}
+  \item Inspect the above code and restructure your own code from last week to have the
+    same structure and functions as above.
+\end{enumerate}
+
+Interestingly enough, this is only done because it is easier to read and in
+the end, it us up to yourself to decide how you want to structure your
+programs.
+
+\begin{enumerate}
+  \setcounter{enumi}{1}
+  \item Finish the function \code{distance()} and make it return
+    the distance \code{d} between particle $i$ and $j$.
+
+  \item Extend your program to create a new variable $r_{min}$ and set its
+    value to 0.03.
+    This is the distance that the two particles $i$ and $j$ have to be within
+    in order to make a reflection.
+
+% TODO Reflection = elastic impact
+
+\end{enumerate}
+
+Since we need to get the interaction with the other $(N-1)$ particles,
+we will need to loop over these $(N-1)$ particles while we are within a loop
+that loops over the $i$ particle.
+It is a common technique to get the pair interaction.
+
+\begin{lstlisting}
+for i in range(n_particles):
+    for j in range(n_particles):
+        print "Interacting particles", i, "and", j
+\end{lstlisting}
+
+Since the potential looks the same from all directions, we can make use of the
+fact that calculating the interaction between particle $i$ and $j$ is the same
+as calculating it between $j$ and $i$.
+Because of this, we can avoid calculating the particle interaction twice ($I(j,
+i)$ and $I(i, j)$).  We also wants to skip the interaction if particle $i$ is
+the same as $j$.
+All this can be solved by a simple \code{if}-statement.
+
+\begin{lstlisting}
+if i > j:
+    print "Interacting particles", i, "and", j
+
+\end{lstlisting}
+
+\begin{enumerate}
+  \setcounter{enumi}{3}
+  \item Before implementing the solution, consider why the above loop and
+    if-statement really only checks the other $(N-1)$ particles. {\em Hint: Use
+    a print statement.}
+
+  \item Modify your code to loop over all particle interactions. Print the
+    distance between the two particles interacting.
+
+\end{enumerate}
+
+% TODO move too earlier
+To let the particles interact, we will make a simple approximations; the
+particles are small disks with a radius of $r_{min}$ and they should make
+perfect elastic scatterings when particles $i$ moves into particle $j$.  The
+first allows for the particles to have physical extent so that they indeed
+collide, and the latter part makes sure of momentum transfer.  Now in our case
+we assume that the particles are very small, so what is needed is a simple
+exchange of velocities for the particles which is done by simply setting
+
+\begin{align}
+  \vec{v}_i = \vec{v}_j & & \text{and} & & \vec{v}_j = \vec{v}_i
+\end{align}
+
+In short, the particle exchange velocities upon collision.
+
+\begin{enumerate}
+  \setcounter{enumi}{5}
+  \item Implement in your code that the particles exchange velocities upon
+    collision. Use the following if-statement as inspiration.
+    {Hint:} Save the velocity of particle $i$ in a temporary variable.
+
+\begin{lstlisting}
+if d < r_min:
+    # Collision
+\end{lstlisting}
+
+\end{enumerate}
+
+As a final part of todays exercise, we should extract useful information from
+the simulation.
+Since the system we are investigating is not the most physical correct one and
+particle positions do tend to be a bit boring by them selves, we shall instead
+sample a property, which shows that the system is indeed random.
+
+\begin{enumerate}
+  \setcounter{enumi}{6}
+  \item For each 5 steps in your simulation, calculate the number of particles
+    that are present in the interval $x \in [0, 1]$ and $y \in [-1, 1]$.
+    Append that number to a list named \code{partdist}.  To get proper results,
+    you need to change \code{n\_steps} to 20000 and \code{n\_particles} to 40.
+
+    {\em Note:} Remember to disable saving of the video when running with large
+    steps!
+
+\end{enumerate}
+
+What we want is a histogram of the times $N$ particles occurred in the above
+interval. So along the $x$-axis gives you the number of particles we have
+encountered in the interval, and on the $y$-axis we many times that number
+has occurred.\\
+
+To plot the information from the list we can use the pylab histogram as follows
+
+\begin{lstlisting}
+pylab.hist(partdist, bins=range(0, n_particles), align='left')
+pylab.savefig('dist_histogram.png')
+\end{lstlisting}
+
+which is inserted after the main loop over \code{n\_steps}.
+
+\begin{enumerate}
+  \setcounter{enumi}{7}
+  \item Plot the histogram and comment on the results, i.e. how is the
+    distribution of particles in interval?
+
+  \item Make another list named \code{partdisteq}. Here you should store the
+    number of particles in the same interval as above, but only {\bf after}
+    10000 calibration steps have passed. Plot it on a new figure and comment
+    on the result.
+
+\end{enumerate}
+
+\begin{figure}[htb]
+  \subfloat[Before equilibrium steps]{\includegraphics[width=0.5\textwidth]{partdist.eps}}
+  \subfloat[After equilibrium steps]{\includegraphics[width=0.5\textwidth]{partdisteq.eps}}
+  \label{fig:partdist}
+  \caption{
+     Count of the number of particles placed to the right in a container in the
+     before and after equilibrium steps.
+  }
+\end{figure}
+
+
+
+% ***************************************************
+% END DOCUMENT
+% ***************************************************
+
+\end{document}
+
