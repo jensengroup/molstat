@@ -1,13 +1,7 @@
 # Import pylab and a function to create random numbers
 import random
 import pylab
-
-# JCK Video
-from video import save_video
-import copy
-
-x_frames = []
-y_frames = []
+import video
 
 # initialize some variables
 n_particles = 100
@@ -52,8 +46,7 @@ for n in range(n_steps):
 
     # save a 'frame' for the video every 10 step
     if n % 10 == 0:
-        x_frames.append(copy.copy(pos_x))
-        y_frames.append(copy.copy(pos_y))
+        video.add_frame(pos_x, y_pos)
 
 
 # Plot the x- and y- coordinates
@@ -66,5 +59,5 @@ pylab.savefig("coordinates_end.png")
 
 # Save video
 pylab.clf()
-save_video(x_frames, y_frames, 1.0, 'non_interacting_particles')
+video.save(1.0, 'non_interacting_particles')
 
