@@ -227,7 +227,7 @@ and we want to create $y$ values as a function of these $x$ values,
 then we want to iterate over the list elements and create a new list.
 This is where we want to use {\em for-loops}.
 Let's jump straight into the syntax. Say that we already
-have defined a variables containing $x$-values, \code{x\_list},
+have defined variables containing $x$-values, \code{x\_list},
 then the \code{y\_list} is filled out as,
 
 \begin{lstlisting}
@@ -365,10 +365,9 @@ particles random velocities to allow the particles to move around.
 \begin{enumerate}
   \setcounter{enumi}{2}
   \item Create
-    two new lists named \code{vel\_x} and \code{vel\_y} which we shall use to
+    two new lists, \code{vel\_x} and \code{vel\_y}, which we shall use too
     store the velocities for the particles.
-    They should be random, as the positions were and equal possibility to go
-    in all directions.
+    The velocities should be a random number between -1 and 1.
 \end{enumerate}
 
 If you want to visualize the velocity vectors for each particle you can
@@ -419,7 +418,7 @@ velocity at the previous position times a time step.
 
 \end{enumerate}
 
-What you simulate is how particles in vacuum would behave if they cannot feel
+What you simulate is how particles in vacuum behave if they can not feel
 each other and have kinetic energy. What remains is to keep the particles
 inside a box, i.e. they should make an elastic reflection on the walls and
 change direction. \\
@@ -429,14 +428,14 @@ the sign of the velocity for that particle. For simplicity, we shall add a box
 which corresponds to the region we are plotting, that is $x \in [-1,1]$ 
 and $y \in [-1,1]$.
 For simplicity we start out with the $x$-coordinates first and then, when we
-have confirmed that it is working, we move onto the $y$-coordinates.
+have confirmed that it is working, we move on to the $y$-coordinates.
 
 \begin{enumerate}
   \setcounter{enumi}{7}
   \item Modify your code to check if the position plus velocity of particle $i$
       is outside the boundary of the box.
-      If it is outside the box, change the sign of the velocity of that
-      particle before the displacement is made. 
+      If the particle is outside the box, change the sign of the velocity of that
+      particular particle before the displacement is made.
       {\em Hint}; you will need if-statements to solve this problem. Also, it
       is a good idea to draw your plan for what happens with a pen and paper.
 
@@ -447,7 +446,7 @@ have confirmed that it is working, we move onto the $y$-coordinates.
 \newpage
 
 Now we would like to visualize the simulation we have made, because
-it is a bit hard to see if simulation has been implemented correctly by
+it is a bit hard to see if the simulation has been implemented correctly by
 just looking at a few images.
 What we would like to do is to save a video of what we have done.
 To make things easy (and as any good cooking show), we have prepared
@@ -485,9 +484,6 @@ A video will be created called \code{week1\_video.mp4}
     Is the video of the simulation as you expect?
 
 \end{enumerate}
-
-
-\newpage
 
 
 % ***************************************************

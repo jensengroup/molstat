@@ -213,10 +213,10 @@ Important Note.
 Notice how the bottom part of the script is the code that actually calls the
 appropriate functions to make the simulation.  This makes reading the overall
 structure of the program easier because you can now see how the program is
-executed and then inspect the appropriate functions.  Also, is not important
+executed and then inspect the appropriate functions.  Also, it is not important
 in what order your functions are defined, unlike variables which have to be
 defined and have a value before you use them, but the order in which you
-call them are.
+call them.
 
 \begin{enumerate}
   \setcounter{enumi}{0}
@@ -225,7 +225,7 @@ call them are.
 \end{enumerate}
 
 Interestingly enough, this is only done because it is easier to read and in
-the end, it us up to yourself to decide how you want to structure your
+the end, it is up to yourself to decide how you want to structure your
 programs.
 
 \begin{enumerate}
@@ -257,7 +257,7 @@ Since the potential looks the same from all directions, we can make use of the
 fact that calculating the interaction between particle $i$ and $j$ is the same
 as calculating it between $j$ and $i$.
 Because of this, we can avoid calculating the particle interaction twice ($I(j,
-i)$ and $I(i, j)$).  We also wants to skip the interaction if particle $i$ is
+i)$ and $I(i, j)$).  We also want to skip the interaction if particle $i$ is
 the same as $j$.
 All this can be solved by a simple \code{if}-statement.
 
@@ -291,7 +291,7 @@ exchange of velocities for the particles which is done by simply setting
   \vec{v}_i = \vec{v}_j & & \text{and} & & \vec{v}_j = \vec{v}_i
 \end{align}
 
-In short, the particle exchange velocities upon collision.
+In short, the particles exchange velocities upon collision.
 
 \begin{enumerate}
   \setcounter{enumi}{5}
@@ -326,7 +326,7 @@ sample a property, which shows that the system is indeed random.
 
 What we want is a histogram of the times $N$ particles occurred in the above
 interval. So along the $x$-axis gives you the number of particles we have
-encountered in the interval, and on the $y$-axis we many times that number
+encountered in the interval, and on the $y$-axis how many times that number
 has occurred.\\
 
 To plot the information from the list we can use the pylab histogram as follows
