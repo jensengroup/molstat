@@ -36,11 +36,11 @@ def simulate_step(x_positions, y_positions, x_velocities, y_velocities, dt):
     for i in range(N):
 
         # make reflections if the particles are hitting the walls
-        if abs(X[i] + Vx[i] * dt) > 1.0:
-            Vx[i] = -Vx[i]
+        if abs(x_positions[i] + x_velocities[i] * dt) > 1.0:
+            x_velocities[i] = -x_velocities[i]
 
-        if abs(Y[i] + Vy[i] * dt) > 1.0:
-            Vy[i] = -Vy[i]
+        if abs(x_positions[i] + y_velocities[i] * dt) > 1.0:
+            y_velocities[i] = -y_velocities[i]
 
 
         # make reflections if particle distances are small
@@ -61,8 +61,8 @@ def simulate_step(x_positions, y_positions, x_velocities, y_velocities, dt):
 
 
         # make the move
-        X[i] += Vx[i] * dt
-        Y[i] += Vy[i] * dt
+        x_positions[i] += x_velocities[i] * dt
+        y_positions[i] += y_velocities[i] * dt
 
     return x_positions, y_positions, x_velocities, y_velocities
 

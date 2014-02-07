@@ -43,7 +43,7 @@ The Lennard-Jones potential energy between two interacting particles $i$ and
 $j$ is given by:
 
 \begin{equation}
-    U_{ij} = 4 \epsilon \left[ (\frac{\sigma}{r_{ij}} )^{12} - (\frac{\sigma}{r_{ij}} )^6 \right]
+    U_{ij} = 4 \epsilon \left[ \left(\frac{\sigma}{r_{ij}} \right)^{12} - \left(\frac{\sigma}{r_{ij}} \right)^6 \right]
 \end{equation}
 
 Here $r_{ij}$ is the distance between the two particles. For simplicity, we
@@ -51,13 +51,13 @@ set $\epsilon = 1$ and $\sigma = 1$, in which case the energy is reduced
 to:
 
 \begin{equation}
-    U_{ij} = 4 \left[ (\frac{1}{r_{ij}} )^{12} - (\frac{1}{r_{ij}} )^6 \right]
+    U_{ij} = 4 \left[ \left(\frac{1}{r_{ij}} \right)^{12} - \left(\frac{1}{r_{ij}} \right)^6 \right]
 \end{equation}
 
 The total potential energy of the system is then:
 
 \begin{equation}
-    U_{\mathrm{Total}} = 4 \sum_{i>j} \left[ (\frac{1}{r_{ij}} )^{12} - (\frac{1}{r_{ij}} )^6 \right]
+    U_{\mathrm{Total}} = 4 \sum_{i>j} \left[ \left(\frac{1}{r_{ij}} \right)^{12} - \left(\frac{1}{r_{ij}} \right)^6 \right]
 \end{equation}
 
 You should now be able to see, how the summation $\sum_{i>j}$ requires a double
@@ -90,11 +90,11 @@ The $x$-components of the force between two interacting particles $i$ and $j$
 are:
 
 \begin{align}
--\frac{\partial}{\partial x_i} U_{ij} &= -48\ \frac{x_j - x_i}{r^2_{ij}}\left[ (\frac{1}{r_{ij}} )^{12} - 0.5 (\frac{1}{r_{ij}} )^6 \right] \label{eq:velo_pos} \\
--\frac{\partial}{\partial x_j} U_{ij} &= 48\ \frac{x_j - x_i}{r^2_{ij}}\left[ (\frac{1}{r_{ij}} )^{12} - 0.5 (\frac{1}{r_{ij}} )^6 \right] \label{eq:velo_vel}
+-\frac{\partial}{\partial x_i} U_{ij} &= -48\ \frac{x_j - x_i}{r^2_{ij}}\left[ \left(\frac{1}{r_{ij}} \right)^{12} - 0.5 \left(\frac{1}{r_{ij}} \right)^6 \right] \label{eq:velo_pos} \\
+-\frac{\partial}{\partial x_j} U_{ij} &=  48\ \frac{x_j - x_i}{r^2_{ij}}\left[ \left(\frac{1}{r_{ij}} \right)^{12} - 0.5 \left(\frac{1}{r_{ij}} \right)^6 \right]
 \end{align}
 
-The $y$-components are, of course, similar. 
+The $y$-components are, of course, similar.
 
 \subsection{The Velo-Verlet solver}
 
@@ -107,7 +107,7 @@ $x$-direction for one particle):
 
 \begin{eqnarray}
 x(t + dt) &=& x(t) + dt\ v_x(t) + 0.5\ dt^2\ a_x(t)\\
-v_x(t + dt) &=& v_x(t) + 0.5\ dt \left[a_x(t) + a_x(t+dt)\right]
+v_x(t + dt) &=& v_x(t) + 0.5\ dt \left[a_x(t) + a_x(t+dt)\right] \label{eq:velo_vel}
 \end{eqnarray}
 
 In the program you will be implementing today, we set the mass of the particles
@@ -151,7 +151,7 @@ def distance(xi,yi,xj,yj):
     return math.sqrt(dx**2 + dy**2)
 
 
-def initialize_particles(n_particles):
+def initialize_particles(n_particles, box_width):
     """ initialize particles, positions and velocities for n_particles """
     return x_positions, y_positions, x_velocities, y_velocities
 
@@ -163,8 +163,9 @@ def simulate_step(x_positions, y_positions, x_velocities, y_velocities, dt):
 
 
 # Define simulation
-n_particles = 40
-n_steps     = 100
+box_with    = 10
+n_particles = 20
+n_steps     = 1000
 dt          = 0.001
 
 # Initialize particles
@@ -214,6 +215,7 @@ it's time to test whether you function works or not.
 Define two lists:
 
 \begin{lstlisting}[language=python]
+n_particles = 2
 X_test = [0.0, 0.0]
 Y_test = [0.0, 1.4]
 \end{lstlisting}
@@ -242,7 +244,7 @@ like the velocities
         Use the code below for inspiration.
 
 \begin{lstlisting}[language=python]
-def lennard_jones(X, Y):
+def lennard_jones(x_positions, y_positions, n_particles):
     energy = 0.0
 
     x_force = [0.0 for i in range(len(X))]
@@ -326,8 +328,8 @@ Now it's time to implement the Velo-Verlet solver.
     \setcounter{enumi}{5}
     \item Copy your simulate\_step function to a new function called velo\_verlet.
     \item The Velo-Verlet algorithm takes the forces as input in
-        addition to the positions, velocities and time-step (dt). Edit the
-        velo\_verlet function to also take x\_foces and y\_forces as arguments.
+        addition to the positions, velocities and time-step ($dt$). Edit the
+        velo\_verlet function to also take x\_forces and y\_forces as arguments.
 
     \item Last time our code checked for particle collisions and used this
         information to update the velocities and positions. This code does not

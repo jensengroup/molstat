@@ -131,6 +131,7 @@ def plot_box(X, Y, Vx, Vy, box_width, filename):
 ## Simulation Initialization
 box_width = 10.0
 n_particles = 7*7
+n_particles = 42
 n_steps = 5000
 dt = 0.001
 
@@ -167,6 +168,6 @@ pylab.plot(energy_list)
 pylab.savefig('energy_time.png')
 
 # Save video
-video.save(box_width, "week3video")
+# video.save(box_width, "week3video")
 
 
