@@ -16,7 +16,7 @@ basic python syntax and program structure of Lennard-Jones potential, molecular
 dynamics equations, periodic boundary conditions, energy minimization, force
 fields theory.
 
-## You will optain the following skills
+## You will obtain the following skills
 
 Plan, implement and use software packages 
 Using python for simulation of nanosystems 
