@@ -23,10 +23,37 @@ Using python for simulation of nanosystems
 Applying selected mathematical algorithms, such as molecular dynamics methods
 
 
-# What is next?
+## What is next?
 
 Oh, so you want to learn? Well firstly, you will need to install Python and
 other packages which is done using the 'setup' guide.
 
 After you've setup your computer, follow the week exercises.
+
+## Reading material
+
+Too solve the excercises you'll need to use Google or read in the following books.
+
+### Books
+ - http://www.greenteapress.com/thinkpython/
+ - http://learnpythonthehardway.org/book/
+ - http://openbookproject.net/thinkcs/python/english2e/
+
+### Websites
+
+Other websites for learning python programming
+
+ - http://www.pythontutor.com/
+ - https://www.khanacademy.org/science/computer-science
+ - http://www.codecademy.com/
+ - http://teachcomputers.wordpress.com/category/programming/python/
+
+### Math
+
+Websites for illustrating math
+
+ - http://www.wolframalpha.com/
+
+
+
 
