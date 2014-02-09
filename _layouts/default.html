@@ -8,18 +8,23 @@
 
     ------------------------------------------------------------- -->
 
-    <title></title>
+    <title>{% if page.title %}{{page.title}} . {% endif %} MolStat</title>
     <meta charset="utf-8">
 
     <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <link rel="stylesheet" href="/sites/all/themes/customtemplate/style/screenIE7.css">
     <![endif]-->
 
     <!--
     <script src="/sites/all/themes/charnley_blog/script/jquery-1.7.1.min.js"></script>
     <script src="/sites/all/themes/charnley_blog/script/template.js"></script>
     -->
+
+    <!-- <meta http&#45;equiv="X&#45;UA&#45;Compatible" content="chrome=1"> -->
+    <!-- <meta name="viewport" content="width=device&#45;width, initial&#45;scale=1, maximum&#45;scale=1"> -->
+
+    <link rel="stylesheet" type="text/css" href="{{site.baseurl}}/style/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="{{site.baseurl}}/style/print.css" media="print" />
 
     <script type='text/x-mathjax-config'>
     MathJax.Hub.Config({
@@ -37,22 +42,47 @@
 
     <script src='https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js'></script>
 
-    <!-- <link href='http://blogstyle.charnley.dk/style/screen.css' media='screen' rel='stylesheet'/> -->
-
 </head>
 <body>
 
-    <header>
-        <strong>Site</strong>
-        <nav>
-            <ul>
-                <li><a href="{{site.baseurl}}/index.html">Home</a></li>
-                <li><a href="{{site.baseurl}}/news.html">News</a></li>
-            </ul>
-        </nav>
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="http://github.com/jensengroup/molstat">View on GitHub</a>
+
+          <h1 id="project_title">Molecular Statistic</h1>
+          <h2 id="project_tagline">A course on Molecular Dynamics and scientific programming</h2>
+
+          <!-- <section id="downloads"> -->
+          <!--   <a class="zip_download_link" href="#">Download this project as a .zip file</a> -->
+          <!--   <a class="tar_download_link" href="#">Download this project as a tar.gz file</a> -->
+          <!-- </section> -->
+
+{% include nav.html %}
+
+        </header>
+    </div>
+
+
+
     </header>
 
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+
 {{content}}
+
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p>MolStat is maintained by <a href="https://github.com/jensengroup">jensengroup</a></p>
+        <p class="copyright">theme by <a href="https://github.com/jsncostello">Jason Costello</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
 
 
 </body>

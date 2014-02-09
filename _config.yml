@@ -1,3 +1,4 @@
 markdown: redcarpet
 baseurl: /molstat
 exclude: ['README.md']
+permalink: pretty
