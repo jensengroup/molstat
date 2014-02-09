@@ -34,10 +34,12 @@ After you've setup your computer, follow the week exercises.
 
 Too solve the excercises you'll need to use Google or read in the following books.
 
-### Books
- - http://www.greenteapress.com/thinkpython/
- - http://learnpythonthehardway.org/book/
- - http://openbookproject.net/thinkcs/python/english2e/
+### Books/Reading
+ - http://www.greenteapress.com/thinkpython
+ - http://pymbook.readthedocs.org/en/latest
+ - http://www.learnpython.org
+ - http://learnpythonthehardway.org/book
+ - http://openbookproject.net/thinkcs/python/english2e
 
 ### Websites
 
