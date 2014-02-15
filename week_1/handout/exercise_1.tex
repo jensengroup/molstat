@@ -51,7 +51,8 @@ different files so you can find it again when needed.
     {\em Hint}; what is the difference between {\bf integer} and {\bf float}?
 
     \begin{centering}
-      \code{5+9, 5-9, 5*9, 5/9, 5+2*9, 5.0+2.0*9.0, 5.0/9}
+      \code{5+9, 5-9, 5*9, 5/9, 5+2*9, 5.0+2.0*9.0, 5.0/9 5**2,
+        5\%2}
     \end{centering}
 \end{enumerate}
 
@@ -204,7 +205,9 @@ print len(another_list)
   \setcounter{enumi}{11}
   \item Initialize the following list and test your knowledge about
     lists with the following print-statements.
-    Describe the result of every print-statement.
+    Describe the result of every print-statement. Test your
+    understanding of lists by guessing what the output will be before
+    you run it. 
     {\em Hint;} one of the lines will give an error. Why?
 
 \begin{lstlisting}
@@ -257,7 +260,9 @@ Another one-line way of working with lists is the following syntax;
   y_list = [x**2 for x in x_list]
 \end{lstlisting}
 
-which does exactly the same as the above example.
+which does exactly the same as the above example\footnote{This method is
+called ``list comprehension''. Knowing what methods are called makes
+it easier to get help from Google when you get stuck. }.
 
 \begin{enumerate}
   \setcounter{enumi}{14}
@@ -265,7 +270,7 @@ which does exactly the same as the above example.
 \end{enumerate}
 
 What if we want to use math functions (or other modules)?
-We can import them! This is always done in the head of the
+We can import them! This is always done in the top of the
 python file using the syntax;
 
 \begin{lstlisting}
@@ -284,7 +289,7 @@ print math.exp(180.0)
 \begin{enumerate}
   \setcounter{enumi}{15}
   \item Create a list of $x$ values from -5 to 5 (both included).
-    Calculate sinuous values, $f(x) = \sin{x}$ using the math module,
+    Calculate sine values, $f(x) = \sin{x}$ using the math module,
     for the $x$-list.
     Print the result.
   \item Use the pylab-manual (found on the website) to save plots of 
