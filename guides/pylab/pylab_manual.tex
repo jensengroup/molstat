@@ -38,7 +38,7 @@
 % HEADER INFORMATION
 
 \title{Pylab (Matplotlib) Introduction}
-\author{Molecular Statistic}
+\author{Molecular Statistics}
 \date{2014}
 
 % ***************************************************
@@ -86,19 +86,19 @@ showstringspaces=false
 
 \section{Introduction}
 
-Pylab is a module for Python used for plotting. It is a module which uses
-another module called Matplotlib.  Pylab is very useful for plotting all kinds
-of data and is exteremly customizable.  See the gallery
+Pylab is a module for Python used for plotting, which utilizes
+another module called Matplotlib. It is very useful for plotting all kinds
+of data and is extremely customizable.  See the gallery
 \href{http://matplotlib.org/gallery.html}{matplotlib.org/gallery.html}, or
 \href{http://webloria.loria.fr/~rougier/teaching/matplotlib/}{webloria.loria.fr/\~{}rougier/teaching/matplotlib}
 for examples. \\
 
 In this short introduction we will go through small useful examples with
 provided code. For more advanced examples (like 3D plots), see the links above
-or use Google.\\
+or do a Google-search. \\
 
 All the examples below will be using the python package \code{pylab}, and
-must thus be included in your script. Which is done by including
+must thus be included in your script. This is done by including
 
 \begin{lstlisting}
 import pylab
@@ -106,8 +106,8 @@ import pylab
 
 in the head of the \code{.py}-file.\\
 
-To illustrate the result of the plot/graph, you can either show it or save the
-plot as a image.
+To illustrate the result of a plot/graph, you can either show it in a new window or save the
+plot as an image.
 
 \begin{lstlisting}
 # Show the result in a new window
@@ -127,14 +127,14 @@ The \code{savefig()} method can save to
 as well as
 \code{.pdf}.\\
 
-When creating multiple plots in the same figure, remember {\em clear figure},
+When creating multiple plots in the same script, remember to {\em clear figure} after each plot,
 using
 
 \begin{lstlisting}
 pylab.clf()
 \end{lstlisting}
 
-which will erase all work done in pylab.
+which will erase all previous work done in pylab.
 
 
 
@@ -143,7 +143,7 @@ which will erase all work done in pylab.
 
 \subsection{XY}
 
-The simplest example is to plot $x$ and $y$ coordinates,
+A simple example is to plot $x$ and $y$ coordinates
 based on two simple python lists.
 
 \begin{multicols}{2}
@@ -167,8 +167,8 @@ pylab.savefig('xy_figure.png')
 \newpage
 \subsection{Titles and labels}
 
-However a graph is worth nothing without title and axis.
-Which can be included by the following syntax.
+However a graph is worth nothing without title and axis-labels,
+which can be included by the following syntax.
 It is also possible to include latex code in the strings.
 
 \begin{multicols}{2}
@@ -231,8 +231,8 @@ pylab.savefig('figure_name.png')
 \newpage
 \subsection{Multiple lines}
 
-Plotting multiple datasets in same plot
-can be done by visually choosing a color and
+Plotting multiple datasets in the same figure
+can be done by choosing a color and
 a line style for the plot.
 See appendix A for a full list of
 colors and line styles.
@@ -259,8 +259,8 @@ pylab.savefig('figure_sincos1.png')
 \includegraphics[width=0.6\textwidth]{py/figure_sincos1.eps}
 \end{multicols}
 
-Having labels/legends on the plots can be fairly important, this
-is done by giving the plots labels, and insert them by using the legend
+Having labels/legends on the plots can be fairly important. This
+is done by assigning each plot a label, and inserting them in the figure by using the legend
 command.
 Note that the location of the legend box can be set by changing the string location.
 

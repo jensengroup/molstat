@@ -1,22 +1,23 @@
 
 # Setup
 
-The easiest way to setup a working Python environment
-on a non-linux is to setup a working Anaconda environment.
 
 
 ## Microsoft Windows
 
-- Download an install [Anaconda](https://store.continuum.io/cshop/anaconda/)
+The easiest way to setup a working Python environment
+on Microsoft Windows is by installing the Anaconda packages.
+
+- Download and install [Anaconda](https://store.continuum.io/cshop/anaconda/)
 
 - Download ffmpeg from [here](http://ffmpeg.zeranoe.com/builds/).
-  The file is in 7z format, which you will need to extract. Extract all the files too
-  c:/ffmpeg.
+  The file is in 7z format, which you will need to extract. Extract all the files to
+  c:\ffmpeg.
 
-- For everything to work in a terminal on windows, you will need too setup environmental variables.
-  by follow [this guide on stackoverflow](http://stackoverflow.com/questions/3701646/how-to-add-to-the-pythonpath-in-windows-7).
+- For everything to work in a terminal on windows, you will need to set up environmental variables.
+  by following [this guide on stackoverflow](http://stackoverflow.com/questions/3701646/how-to-add-to-the-pythonpath-in-windows-7).
 
-- You will need a texteditor for creating and editing Python files. If you do not already have a favorite we recommend [notepad++](http://notepad-plus-plus.org/).
+- You will need a text-editor for creating and editing Python files. If you do not already have a favorite we recommend [notepad++](http://notepad-plus-plus.org/).
 
 
 ## Apple OS X

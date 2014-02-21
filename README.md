@@ -1,7 +1,7 @@
 
 # Molecular Statistic
 
-This the repository for molstat files
+This is the repository for molstat files
 
 
 # Setup
