@@ -68,9 +68,11 @@ my_first_variable = 5.0
 
 where a variable named \code{my\_first\_variable} has been assigned the value
 of $5.0$.
-Some restrictions apply for variable names (must start with letters etc fix later) We are not restricted in our naming of variables, but we encourage you to give
+Some restrictions apply for variable names (must start with a letter, can't have names of
+in-build functions etc.), but otherwise we are not restricted in the naming. We encourage you to give
 them useful names, such as \code{no\_particles} for representing number of
-particles. That way you can more easily remember what values are stored.\\
+particles. That way you can more easily remember what values are stored in the variable
+and it makes the code more readable for others to read.\\
 
 Since a variable can contain anything a very useful function is \code{type(arg)},
 where \code{arg} is a variable. This function will return the type of value stored
@@ -84,9 +86,9 @@ in the variable.
 \end{enumerate}
 
 Usually when working with a program we work with a range of numbers
-that we need to execute, and so it is fairly useful to create a Python {\bf list}
+that we need to manipulate, and for this it is fairly useful to create a Python {\bf list}
 of numbers.
-A list is defined in same syntax as a float variable;
+A list is defined with the same syntax as a float variable;
 
 \begin{lstlisting}
 simple_list = []
@@ -118,22 +120,22 @@ simple_list.append(2.0)
 \end{enumerate}
 
 
-Different variables have different attributes, and are called {\em methods}.
-These methods is executed using 'dot'.
-For instances,
+Different variables have different attributes, which are called {\em methods}.
+These methods are executed using 'dot'.
+For instance,
 the variable of type list has the method \code{sort()},
-and can be called like this;
+which can be called as follows;
 
 \begin{lstlisting}
 simple_list.sort()
 \end{lstlisting}
 
-to sort the list.\\
+For a list of floats, this results in the items of the list being sorted by value.\\
 
 Another way of populating a list with numbers is to do it directly when
 we create the list.
 This is done almost the same way as when we created the empty list, except we
-provide the initial content right away. eg.
+provide the initial content right away. Eg.
 
 \begin{lstlisting}
 another_list = [1.0, 2.0, 3.0, 4.0, -2.0, -4.5, -1.0]
@@ -155,13 +157,13 @@ another_list = [1.0, 2.0, 3.0, 4.0, -2.0, -4.5, -1.0]
 % >>> L = [0,10,20,40]
 % >>> L.reverse()
 
-We've now seen that python lists can be created in various ways and even
-sorted, but it is quite tedious to enter the data manually, especially if
+We've now seen that python lists can be created in various ways and even be
+sorted, but it is quite tedious to enter all data manually. Especially if
 there is a lot of it.
 Luckily, Python provides us with the means to construct
-lists using various other approaches.
-The \code{range()} command is one of them, probably the
-command you will spend most time with during this course.
+lists using other approaches.
+The \code{range()} command is one of them and is probably the
+command that you will spend the most time with during this course.
 
 \begin{enumerate}
   \setcounter{enumi}{9}
@@ -181,8 +183,8 @@ print range(-3, 10, 4)
 \end{enumerate}
 
 
-Now if we want to access the i'th element in a list
-you use square brackets. To print the second element
+If we want to access the i'th element in a list
+we use square brackets. To print the second element
 in the list from above you write;
 
 \begin{lstlisting}
@@ -218,6 +220,7 @@ print q_list[0]
 print q_list[-1]
 print q_list[len(q_list)]
 print q_list[len(q_list)-1]
+print q_list[-1]
 \end{lstlisting}
 
   \item What is the index of the first item in a list? What is the index of
@@ -225,13 +228,13 @@ print q_list[len(q_list)-1]
 
 \end{enumerate}
 
-Creating lists from lists. Say that we have a list \code{x\_list},
-and we want to create $y$ values as a function of these $x$ values,
-then we want to iterate over the list elements and create a new list.
+Creating lists from lists. Say that we have a list \code{x\_list}
+and we want to create $y$ values as a function of these $x$ values.
+To do this we want to iterate over the elements of \code{x\_list} to create the new list.
 This is where we want to use {\em for-loops}.
 Let's jump straight into the syntax. Say that we already
-have defined variables containing $x$-values, \code{x\_list},
-then the \code{y\_list} is filled out as,
+have defined a variable containing the $x$-values, \code{x\_list},
+then \code{y\_list} is created as,
 
 \begin{lstlisting}
 y_list = []
@@ -240,11 +243,11 @@ for x in x_list:
   y_list.append(y)
 \end{lstlisting}
 
-First we initialize a new list
+First we initialize a new list,
 then we fill in $y$ values by iterating over
 all $x$ values in \code{x\_list}.
-As you might have guessed the above code is equivalent to have
-a function $f(x) = x^2$.\\
+As you might have guessed the above code is equivalent to 
+the function $f(x) = x^2$.\\
 
 \begin{enumerate}
   \setcounter{enumi}{13}
@@ -301,7 +304,7 @@ print math.exp(180.0)
 \section{Non-Interacting particles}
 
 The goal of today's simulation is to initialize particles with random
-coordinates and random velocities, confined in a 2 dimensional box,
+coordinates and random velocities confined in a 2 dimensional box,
 and propagate the particle positions in time.\\
 
 The code below is your starting point for today's exercise.
