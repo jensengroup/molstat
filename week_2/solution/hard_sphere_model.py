@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 import random
-import math
+import numpy
 import pylab
 
 import video
@@ -10,17 +10,17 @@ def distance(xi, yi, xj, yj):
     """ Calculate the distance between particle i and particle j """
     dx = xj-xi
     dy = yj-yi
-    d = math.sqrt(dx**2 + dy**2)
+    d = numpy.sqrt(dx**2 + dy**2)
     return d
 
 
 def initialize_particles(n_particles):
     """ initialize particles, positions and velocities for n_particles """
-    x_positions  = [random.random() for i in range(n_particles)]
-    y_positions  = [2 * (random.random() - 0.5) for i in range(n_particles)]
-    x_velocities = [2 * (random.random() - 0.5) for i in range(n_particles)]
-    y_velocities = [2 * (random.random() - 0.5) for i in range(n_particles)]
-    return x_positions, y_positions, x_velocities, y_velocities
+    pos_x  = [random.random() for i in range(n_particles)]
+    pos_y  = [2 * (random.random() - 0.5) for i in range(n_particles)]
+    vel_x  = [2 * (random.random() - 0.5) for i in range(n_particles)]
+    vel_y  = [2 * (random.random() - 0.5) for i in range(n_particles)]
+    return pos_x, pos_y, vel_x, vel_y
 
 
 def simulate_step(x_positions, y_positions, x_velocities, y_velocities, dt):
@@ -79,7 +79,7 @@ def plot_particles(X, Y, filename):
 # Constants
 n_particles = 40
 n_step = 2000 # for movie
-# n_step = 20000 # for historgram
+# n_step = 20000 # for histogram
 dt = 0.001
 
 # Histogram
@@ -114,10 +114,11 @@ for n in range(n_step):
                 no_part += 1
 
 
-        if( n < n_step / 2 ):
+        if( n < n_step / 2.0 ):
             particle_dist.append( no_part )
-        if( n > n_step / 2 ):
+        if( n > n_step / 2.0 ):
             particle_dist_eq.append( no_part )
+            particle_dist.append( no_part )
 
 
 

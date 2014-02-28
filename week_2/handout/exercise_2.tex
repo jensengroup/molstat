@@ -47,13 +47,11 @@ essential in this process.\\
 As in mathematics, functions in any programming language can be seen as a
 means to get a predefined output based on some input. Also, just as in
 mathematics, functions can have several variables, but in programming languages
-such as python, you can essentially parse whatever you want to into these
-functions, i.e. lists, floats, text and even your own data types. To keep it
-simple we'll start with some simple functions that arise in mathematics and
+such as python, you can essentially parse anything into these
+functions, i.e. lists, floats, text and even your own data types. We'll start with some simple functions that arise in mathematics and
 continually extend upon them until you are ready to start with the exercise.\\
 
-The highly noteworthy function $f(x)=x^2$ which has many uses is a good example
-of how you can turn mathematics into code in python without much hassle
+They function $f(x)=x^2$ is a good example of how you can turn mathematics into code in python without much hassle.
 
 \begin{lstlisting}
 def f(x):
@@ -90,13 +88,12 @@ print f(2.0)
 \end{enumerate}
 
 The reality is that our custom functions actually works like the built in
-functions (remember the \code{len(arg)} function from last week for instance)
-in python so once you know how to make one, you can essentially create however
-many you like.\\
+functions in python (remember the \code{len(arg)} function from last week for instance)
+,so once you know how to make one, you can essentially create as many you like.\\
 
-To test functions we would need a list of $x$-values for our functions.
+To test functions we would need a list of $x$-values as input.
 We could use the \code{range()} function from last week, but that would limit us to
-integers. Instead we use a very useful tool call NumPy and is imported as all other tools;
+integers. Instead we use a very useful tool call NumPy which is imported as all other tools;
 
 \begin{lstlisting}
 import numpy
@@ -115,7 +112,7 @@ x_list = numpy.arange(0, 10, 0.1)
 
 \begin{enumerate}
   \setcounter{enumi}{3}
-  \item Define the following function
+  \item Define the following function using \code{numpy.exp()}.
     \begin{align}
         h(x) = \frac{1}{x} + e^{5x}
     \end{align}
@@ -126,7 +123,7 @@ x_list = numpy.arange(0, 10, 0.1)
 
 \end{enumerate}
 
-Next let us plot something fun.
+Next let us plot something more complex. Use \code{numpy.sin()} and \code{numpy.cos()}.
 
 \begin{enumerate}
   \setcounter{enumi}{6}
@@ -136,10 +133,9 @@ Next let us plot something fun.
     \end{align}
 
   \item Define a list of $t$-values from $-2\pi$ to $2\pi$.
-      {\em Hint:} Use \code{math.pi} to get the values of $\pi$.
+      {\em Hint:} Use \code{numpy.pi} to get the values of $\pi$.
 
-  \item Plot the result using the results of $q(t)$ as $x$-values and $p(t)$ as
-      $y$-values in a pylab plot.
+  \item For each value of $t$, plot $p(t)$ vs. $q(t)$, with $p(t)$ as the $y$-value and $q(t)$ as the $x$-value.
 
 \end{enumerate}
 
@@ -174,13 +170,13 @@ def distance(xi, yi, xj, yj):
 def initialize_particles(n_particles):
     """ Initialze particles, positions and velocities
     """
-    return x_positions, y_positions, x_velocities, y_velocities
+    return pos_x, pos_y, vel_x, vel_y
 
 
-def simulate_step(x_positions, y_positions, x_velocities, y_velocities, dt):
+def simulate_step(pos_x, pos_y, vel_x, vel_y, dt):
     """ Here we simulate a step dt for all particles.
     """
-    return x_positions, y_positions, x_velocities, y_velocities
+    return pos_x, pos_y, vel_x, vel_y
 
 
 def plot_particles(X, Y, filename):
@@ -214,17 +210,16 @@ Notice how the bottom part of the script is the code that actually calls the
 appropriate functions to make the simulation.  This makes reading the overall
 structure of the program easier because you can now see how the program is
 executed and then inspect the appropriate functions.  Also, it is not important
-in what order your functions are defined, unlike variables which have to be
-defined and have a value before you use them, but the order in which you
-call them.
+in what order your functions are defined. What matters is the order in which you
+call them. This is.different than i.e. variables, which have to be defined and have a value assigned before you use them.
 
 \begin{enumerate}
   \setcounter{enumi}{0}
   \item Inspect the above code and restructure your own code from last week to have the
-    same structure and functions as above.
+    same structure and functions.
 \end{enumerate}
 
-Interestingly enough, this is only done because it is easier to read and in
+Remember that this is only done because it is easier to read and in
 the end, it is up to yourself to decide how you want to structure your
 programs.
 
@@ -242,10 +237,8 @@ programs.
 
 \end{enumerate}
 
-Since we need to get the interaction with the other $(N-1)$ particles,
-we will need to loop over these $(N-1)$ particles while we are within a loop
-that loops over the $i$ particle.
-It is a common technique to get the pair interaction.
+We need to get the interaction between all the possible particle pairs.
+By looping over each particle twice, we can get all the possible interactions.
 
 \begin{lstlisting}
 for i in range(n_particles):
@@ -253,12 +246,8 @@ for i in range(n_particles):
         print "Interacting particles", i, "and", j
 \end{lstlisting}
 
-Since the potential looks the same from all directions, we can make use of the
-fact that calculating the interaction between particle $i$ and $j$ is the same
-as calculating it between $j$ and $i$.
-Because of this, we can avoid calculating the particle interaction twice ($I(j,
-i)$ and $I(i, j)$).  We also want to skip the interaction if particle $i$ is
-the same as $j$.
+Since the particles are interchangable, this will count each interaction twice.
+We also want to skip the interaction if particle $i$ is the same as $j$.
 All this can be solved by a simple \code{if}-statement.
 
 \begin{lstlisting}
@@ -269,8 +258,8 @@ if i > j:
 
 \begin{enumerate}
   \setcounter{enumi}{3}
-  \item Before implementing the solution, consider why the above loop and
-    if-statement really only checks the other $(N-1)$ particles. {\em Hint: Use
+  \item Before implementing the solution, check that the above loop and
+    if-statement works as expected, and checks all unique interactions only once. {\em Hint: Use
     a print statement.}
 
   \item Modify your code to loop over all particle interactions. Print the
@@ -278,24 +267,27 @@ if i > j:
 
 \end{enumerate}
 
-% TODO move too earlier
-To let the particles interact, we will make a simple approximations; the
-particles are small disks with a radius of $r_{min}$ and they should make
-perfect elastic scatterings when particles $i$ moves into particle $j$.  The
-first allows for the particles to have physical extent so that they indeed
-collide, and the latter part makes sure of momentum transfer.  Now in our case
-we assume that the particles are very small, so what is needed is a simple
-exchange of velocities for the particles which is done by simply setting
+% TODO move to earlier
+To let the particles interact, we will use a simple model. The
+particles are considered as being small disks with a diameter of $r_{min}$ and they have
+perfect elastic scattering when particle $i$ comes into contact with particle $j$.
+(Think a game of billiards)
+
+% Deleted stuff about assuming the particles being very small, since it seemed confusing.
+
+When two particles collide elastically they will exchange velocities which is done by simply setting
 
 \begin{align}
   \vec{v}_i = \vec{v}_j & & \text{and} & & \vec{v}_j = \vec{v}_i
 \end{align}
 
-In short, the particles exchange velocities upon collision.
+%TODO The x/y-components of the velocity should change relative to the vector from particle i's center to particle j's.
+% I'm assuming that this comes later, but there should be a note about that we assume that all collisions are head-on.
+% I'm just too tired to figure it out atm, so must do later.
 
 \begin{enumerate}
   \setcounter{enumi}{5}
-  \item Implement in your code that the particles exchange velocities upon
+  \item Implement in your code this exchange of velocities for particles upon
     collision. Use the following if-statement as inspiration.
     {Hint:} Save the velocity of particle $i$ in a temporary variable.
 
@@ -306,16 +298,15 @@ if d < r_min:
 
 \end{enumerate}
 
-As a final part of todays exercise, we should extract useful information from
-the simulation.
+As a final part of todays exercise, we can extract some useful information from the simulation.
 Since the system we are investigating is not the most physical correct one and
-particle positions do tend to be a bit boring by them selves, we shall instead
+particle positions do tend to be a bit boring by themselves, we shall instead
 sample a property, which shows that the system is indeed random.
 
 \begin{enumerate}
   \setcounter{enumi}{6}
   \item For each 5 steps in your simulation, calculate the number of particles
-    that are present in the interval $x \in [0, 1]$ and $y \in [-1, 1]$.
+    that are present in the interval $x \in [0, 1]$.
     Append that number to a list named \code{partdist}.  To get proper results,
     you need to change \code{n\_steps} to 20000 and \code{n\_particles} to 40.
 
@@ -324,9 +315,9 @@ sample a property, which shows that the system is indeed random.
 
 \end{enumerate}
 
-What we want is a histogram of the times $N$ particles occurred in the above
-interval. So along the $x$-axis gives you the number of particles we have
-encountered in the interval, and on the $y$-axis how many times that number
+We want a histogram of how often $N$ particles occurred in the above
+interval. So along the $x$-axis should give you the number of particles we have
+encountered in the interval, and along the $y$-axis how oftern that number
 has occurred.\\
 
 To plot the information from the list we can use the pylab histogram as follows

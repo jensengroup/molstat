@@ -5,24 +5,23 @@ import video
 
 # initialize some variables
 n_particles = 100
-n_steps = 1
+#n_steps = 1
 n_steps = 1000
 dt = 0.001
 
 # create the x- and y-coordinates
-pos_x = [ random.random() for i in range( n_particles )]
-pos_y = [ (random.random()-0.5)*2 for i in range( n_particles )]
+pos_x = [random.random() for i in range(n_particles)]
+pos_y = [(random.random()-0.5)*2 for i in range(n_particles)]
 
 # create the velocities
-vel_x = [ (random.random()-0.5)*2 for i in range( n_particles )]
-vel_y = [ (random.random()-0.5)*2 for i in range( n_particles )]
+vel_x = [(random.random()-0.5)*2 for i in range(n_particles)]
+vel_y = [(random.random()-0.5)*2 for i in range(n_particles)]
 
 # Plot the x- and y- coordinates
 pylab.plot(pos_x, pos_y, 'ro')
 #pylab.quiver(pos_x, pos_y, vel_x, vel_y)
 pylab.axis((-1, 1, -1, 1))
 pylab.savefig("coordinates_start.png")
-pylab.savefig("coordinates_start.eps")
 
 # Make n_steps steps
 for n in range(n_steps):
@@ -53,11 +52,10 @@ for n in range(n_steps):
 pylab.clf() # clear figure
 pylab.plot(pos_x, pos_y, 'ro')
 pylab.axis((-1, 1, -1, 1))
-pylab.savefig("coordinates_end.eps")
 pylab.savefig("coordinates_end.png")
 
 
 # Save video
 pylab.clf()
-video.save(1.0, 'non_interacting_particles')
+video.save('non_interacting_particles')
 
