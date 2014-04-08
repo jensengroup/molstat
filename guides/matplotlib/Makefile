@@ -1,5 +1,5 @@
 
-pr=pylab_manual
+pr=matplotlib
 
 pdf=${pr}.pdf
 ps=${pr}.ps

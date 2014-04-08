@@ -1,6 +1,6 @@
 
 
-
+scatter
 
 quiver
 
@@ -8,4 +8,5 @@ axis
 
 labels
 
+2d plot
 
