@@ -1,6 +1,6 @@
-# Import pylab and a function to create random numbers
+# Import pyplot and a function to create random numbers
 import random
-import pylab
+import matplotlib.pyplot as plt
 import video
 
 # initialize some variables
@@ -18,10 +18,10 @@ vel_x = [(random.random()-0.5)*2 for i in range(n_particles)]
 vel_y = [(random.random()-0.5)*2 for i in range(n_particles)]
 
 # Plot the x- and y- coordinates
-pylab.plot(pos_x, pos_y, 'ro')
+plt.plot(pos_x, pos_y, 'ro')
 #pylab.quiver(pos_x, pos_y, vel_x, vel_y)
-pylab.axis((-1, 1, -1, 1))
-pylab.savefig("coordinates_start.png")
+plt.axis((-1, 1, -1, 1))
+plt.savefig("coordinates_start.png")
 
 # Make n_steps steps
 for n in range(n_steps):
@@ -45,17 +45,17 @@ for n in range(n_steps):
 
     # save a 'frame' for the video every 10 step
     if n % 10 == 0:
-        video.add_frame(pos_x, y_pos)
+        video.add_frame(pos_x, pos_y)
 
 
 # Plot the x- and y- coordinates
-pylab.clf() # clear figure
-pylab.plot(pos_x, pos_y, 'ro')
-pylab.axis((-1, 1, -1, 1))
-pylab.savefig("coordinates_end.png")
+plt.clf() # clear figure
+plt.plot(pos_x, pos_y, 'ro')
+plt.axis((-1, 1, -1, 1))
+plt.savefig("coordinates_end.png")
 
 
 # Save video
-pylab.clf()
+plt.clf()
 video.save('non_interacting_particles')
 
