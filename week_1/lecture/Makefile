@@ -1,5 +1,5 @@
 
-pr=main
+pr=lecture_1
 bg=background_front
 
 pdf=${pr}.pdf
@@ -26,7 +26,7 @@ bibtex:
 	bibtex ${aux}
 
 clean:
-	rm -f *.dvi *.ps *.log *.aux *~ *-pics.pdf *.toc *.nav *.out *.snm
+	rm -f *.dvi *.ps *.log *.aux *~ *-pics.pdf *.toc *.nav *.out *.snm *.vrb
 
 pdflatextwice:
 	pdflatex ${tex}
