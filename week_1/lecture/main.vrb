@@ -1,0 +1,10 @@
+\par     \frametitle{First exercise}
+
+    \begin{columns}[t]
+
+        \column{0.5\linewidth}
+
+        \column{0.4\linewidth}
+
+    \end{columns}
+
