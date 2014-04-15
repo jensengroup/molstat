@@ -98,6 +98,8 @@ The $y$-components are, of course, similar.
 
 \subsection{The Velo-Verlet solver}
 
+% TODO is Leach used?
+
 The Velocity Verlet (Velo-Verlet) solver is one of many ways to go about
 integrating the motion of particles. The method is described in detail in
 chapter 7.3.1 in Leach (Equations 7.14 and 7.15). The Velo-Verlet algorithm
@@ -106,7 +108,7 @@ Velo-Verlet equations for integrating the positions and velocities are (in the
 $x$-direction for one particle):
 
 \begin{eqnarray}
-x(t + dt) &=& x(t) + dt\ v_x(t) + 0.5\ dt^2\ a_x(t)label{eq:velo_pos} \\\
+x(t + dt) &=& x(t) + dt\ v_x(t) + 0.5\ dt^2\ a_x(t) \label{eq:velo_pos} \\\
 v_x(t + dt) &=& v_x(t) + 0.5\ dt \left[a_x(t) + a_x(t+dt)\right] \label{eq:velo_vel}
 \end{eqnarray}
 
@@ -137,6 +139,7 @@ Before you begin, inspect your code from last week. It should more or less
 contain the following functionality:
 
 % TODO ADD FROM SOLUTION WEEK 2!
+% TODO The math module haven't really been introduced. Change all occurences to numpy?
 
 \begin{lstlisting}[language=python]
 import random
@@ -211,7 +214,7 @@ def lennard_jones(x_positions, y_positions, n_particles):
 \end{enumerate}
 
 When you think you have written the Lennard-Jones energy function properly,
-it's time to test whether you function works or not.
+it's time to test whether your function works correctly or not.
 Define two lists:
 
 \begin{lstlisting}[language=python]
@@ -225,7 +228,7 @@ Y_test = [0.0, 1.4]
     \setcounter{enumi}{2}
 
     \item Now call the Lennard-Jones energy function with the two lists as
-        arguments and print the result. If your energy code works, the
+        arguments and print the result. If your energy function works, the
         resulting energy should be -0.4607.
 
 \end{enumerate}
@@ -255,11 +258,11 @@ def lennard_jones(x_positions, y_positions, n_particles):
             if (i > j):
                 energy = energy + ...
 
-                x_force[i] = ...
-                y_force[i] = ...
+                x_force[i] = x_force[i] + ...
+                y_force[i] = y_force[i] + ...
 
-                x_force[j] = ...
-                y_force[j] = ...
+                x_force[j] = x_force[j] + ...
+                y_force[j] = y_force[j] + ...
 
     return x_force, y_force, energy
 
@@ -285,7 +288,7 @@ gradient might be unphysically large. \\
 
 Because of this we want to re-write the \code{initialize\_particles}-function
 from last week to initialize particles in a grid, instead of random positions.
-\textit{Note:} Do note, that initialize\_particles function also initializes
+\textit{Note:} The initialize\_particles function also initializes
 the forces.
 
 \begin{lstlisting}
