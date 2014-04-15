@@ -39,11 +39,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 \end{lstlisting}
 
-There are several ways to show the results of MPL, open a windows show the results or saving the plot as an image or other formats.
+After creating a plot, there are several ways to show the results. You can either open a window to show the plot or save the plot as an image or another format.
 
 \begin{lstlisting}
-plt.show()                  # Show the result in a new window
-plt.savefig('my_plot.png')  # Save the result in a file
+plt.show()                  # Show the plot in a new window
+plt.savefig('my_plot.png')  # Save the plot in a file
 \end{lstlisting}
 
 % Full list:
@@ -54,15 +54,15 @@ The \code{savefig()} function can save to
 \code{.eps},
 \code{.svg},
 as well as
-\code{.pdf} formats. The last formats are very useful for {\LaTeX} work.\\
+\code{.pdf} formats, which are very useful for use in {\LaTeX}.\\
 
-When working with multiple plots in the same script, remember to clear the PLT data, or you will see a mess of data in the plot. This is done using the \code{clf()} function from PLT.
+When working with multiple plots in the same script, remember to clear the plot data after each figure is shown or saved, or you will see a mess of data in your plots. This is done using the \code{clf()} function from PLT.
 
 \begin{lstlisting}
 plt.clf()
 \end{lstlisting}
 
-If you want to make you graphs to look good, with different colors, fonts and spacings, then I would recommend you to look at 
+If you want to make you graphs look good with different colors, fonts and spacings, then I would recommend you to look at 
 \href{http://github.com/charnley/matplotlib-header}{github.com/charnley/matplotlib-header}
 and
 \href{http://matplotlib.org/users/customizing.html}{matplotlib.org/users/customizing.html}.\\
@@ -119,8 +119,8 @@ It is also possible to include latex code in the strings.
 \newpage
 \subsection{Multiple lines}
 
-Usually you will need to plot multiple datasets in the same figure.
-This is practically just adding more \code{plot()} functions.
+Usually you will need to plot multiple datasets in the same figure which is done
+by adding more \code{plot()} functions.
 For customization you can add labels and choose color and line-type for the specific data sets.
 See appendix A for a full list of colors and line styles.
 If you do not choose a color, a color will be chosen by default.\\
@@ -179,7 +179,7 @@ Note that the location of the legend box can be set by changing the string locat
     m & magenta \\
     y & yellow \\
     k & black \\
-    w & white
+    w & white \\
     \end{tabular}
 
 \columnbreak

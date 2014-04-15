@@ -31,7 +31,7 @@ Python to simulate physical systems.\\
 The curriculum can be found here 
 \href{http://pymbook.readthedocs.org/en/latest/}{pymbook.readthedocs.org/en/latest},
 which will contain all the concepts.
-Additional information can be gained by using the very powerfull tool called "Google".
+Additional information can be gained by using the very powerful tool called "Google".
 For the first week, read the following chapters;
 
 \begin{itemize}
@@ -46,16 +46,16 @@ For the first week, read the following chapters;
 \section{Python}
 
 To execute a program written in Python, we save a file with the extension
-'.py' and run it via the terminal using the following syntax;
+'.py' and run it via the terminal using the following syntax:
 
 \begin{lstlisting}
 python example_program.py
 \end{lstlisting}
 
 Now, let's start by using Python as a calculator.
-Remember to print the result of a code using the \code{print} statement.
-We encourage you to have some sort of file system, saving all the exercises in
-different files so you can find it again when needed.
+Remember to print the result of your calculation using the \code{print} statement.
+We encourage you to have some sort of logical file system, saving all the exercises in
+different files and folders so you can find it again when needed.
 
 \begin{enumerate}
   \item Execute the following statements. Does it behave like your regular
@@ -71,8 +71,8 @@ different files so you can find it again when needed.
 Since manually entering numbers really does us no good, we might as well use a
 calculator. Instead, we want to utilize what programming languages can provide,
 namely storage of values in what is known as {\bf variables}. Variables can store
-anything that you can think of, e.g. numbers, strings, lists of numbers and so
-forth. Variables are assigned values by specifying a name and a value, e.g.
+anything that you can think of, i.e. numbers, strings, lists of numbers and so
+forth. Variables are assigned values by specifying a variable name and a value, e.g.
 
 \begin{lstlisting}
 my_first_variable = 5.0
@@ -84,9 +84,9 @@ Some restrictions apply for variable names (must start with a letter, can't have
 in-build functions etc.), but otherwise we are not restricted in the naming. We encourage you to give
 them useful names, such as \code{no\_particles} for representing number of
 particles. That way you can more easily remember what values are stored in the variable
-and it makes the code more readable for others to read.\\
+and it makes the code more readable for others.\\
 
-Since a variable can contain anything a very useful function is \code{type(arg)},
+Since a variable can contain anything, a very useful function is \code{type(arg)},
 where \code{arg} is a variable. This function will return the type of value stored
 in the variable.
 
@@ -147,7 +147,7 @@ For a list of floats, this results in the items of the list being sorted by valu
 Another way of populating a list with numbers is to do it directly when
 we create the list.
 This is done almost the same way as when we created the empty list, except we
-provide the initial content right away. Eg.
+provide the initial content right away. E.g.
 
 \begin{lstlisting}
 another_list = [1.0, 2.0, 3.0, 4.0, -2.0, -4.5, -1.0]
@@ -232,11 +232,10 @@ print q_list[0]
 print q_list[-1]
 print q_list[len(q_list)]
 print q_list[len(q_list)-1]
-print q_list[-1]
 \end{lstlisting}
 
   \item What is the index of the first item in a list? What is the index of
-    the last list?
+    the last item?
 
 \end{enumerate}
 
@@ -251,8 +250,8 @@ then \code{y\_list} is created as,
 \begin{lstlisting}
 y_list = []
 for x in x_list:
-  y = x**2
-  y_list.append(y)
+    y = x**2
+    y_list.append(y)
 \end{lstlisting}
 
 First we initialize a new list,
@@ -308,7 +307,7 @@ print math.exp(180.0)
     for the $x$-list.
     Print the result.
   \item Use the pylab-manual (found on the website) to save plots of 
-    task 14 and 15.
+    task 14 and 16.
 \end{enumerate}
 
 
@@ -324,7 +323,7 @@ The code below is your starting point for today's exercise.
 \begin{lstlisting}
 # Import pylab and a function to create random numbers
 import random
-import pylab
+import matplotlib.pyplot as plt
 
 # initialize some variables
 n_particles = 100
@@ -336,9 +335,9 @@ pos_x = [random.random() for i in range(n_particles)]
 pos_y = [random.random() for i in range(n_particles)]
 
 # plot the x- and y-coordinates in a figure.
-pylab.plot(x_positions, y_positions, 'ro')
-pylab.axis((-1, 1, -1, 1))
-pylab.savefig('coordinates_start.png')
+plt.plot(pos_x, pos_y, 'ro')
+plt.axis((-1, 1, -1, 1))
+plt.savefig('coordinates_start.png')
 
 \end{lstlisting}
 
@@ -346,7 +345,7 @@ As you can see, a lot of variables have been declared such as
 \code{n\_particles} which
 is the number of particles that we want to generate and simulate.
 \code{n\_steps} is
-the number of steps we want to take in a simulation
+the number of steps we want to take in the simulation
 and \code{dt} controls how large a time-step we will be taking.
 Lastly we have defined the
 $x$- coordinates and
@@ -428,7 +427,7 @@ velocity times a time step.
   \item
     Modify your script to loop over each particle and update the $x$- and
     $y$-coordinates with the respective particle velocities.
-    Plot the particle positions, after you have changed them,
+    Plot the particle positions after you have changed them
     to a file called stepcoords.png. Does the particles appear to have have moved?
 
   \item Modify your code to repeat the displacement of the particles \code{n\_step} times.
@@ -470,7 +469,7 @@ Now we would like to visualize the simulation we have made, because
 it is a bit hard to see if the simulation has been implemented correctly by
 just looking at a few images.
 What we would like to do is to save a video of what we have done.
-To make things easy (and as any good cooking show), we have prepared
+To make things easy (as any good cooking show), we have prepared
 a method for you. \\
 
 On the course website, there is a 'video.py' file.
@@ -496,12 +495,12 @@ video.save('week1_video')
 
 \end{lstlisting}
 
-where the import statements should be position in the head of the file.
+where the import statement should be positioned in the head of the file.
 A video will be created called \code{week1\_video.mp4}
 
 \begin{enumerate}
   \setcounter{enumi}{9}
-  \item Run simulation from task 9, for \code{n\_steps} = 1000 and save a video.
+  \item Run the simulation from task 9 for \code{n\_steps} = 1000 and save a video.
     Is the video of the simulation as you expect?
 
 \end{enumerate}

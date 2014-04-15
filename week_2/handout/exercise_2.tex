@@ -48,23 +48,23 @@ Read the following chapters for this week
 Last week, the computer program you wrote was executed line by line in a top to
 bottom approach, i.e. the programs way of execution is easily followed by just
 reading the source file as you would read a book. It turns out, however, that
-when the programs become large enough, it is no longer a clever way to organize
-your program since you'll eventually loose track of what is going on. What one
-usually does is to break up the program into logical parts, such as “Initialize
+when the programs become large enough, this is no longer a clever way to organize
+your program since you'll eventually lose track of what is going on. What one
+usually does is break up the program into logical parts, such as “initialize
 particles”, “perturb the particles” and “calculate properties”. Today's
-exercise is an exercise in restructuring the code
+exercise is an exercise in restructuring your code
 from last week into logical parts which we can easily distinguish. Before we
-get to the exercise, however, we shall have a look at functions, which are
+get to the exercise, we shall have a look at functions, which are
 essential in this process.\\
 
 As in mathematics, functions in any programming language can be seen as a
 means to get a predefined output based on some input. Also, just as in
 mathematics, functions can have several variables, but in programming languages
-such as python, you can essentially parse anything into these
+such as Python, you can essentially parse anything into these
 functions, i.e. lists, floats, text and even your own data types. We'll start with some simple functions that arise in mathematics and
 continually extend upon them until you are ready to start with the exercise.\\
 
-They function $f(x)=x^2$ is a good example of how you can turn mathematics into code in python without much hassle.
+The function $f(x)=x^2$ is a good example of how you can turn mathematics into code in Python without much hassle.
 
 \begin{lstlisting}
 def f(x):
@@ -74,7 +74,7 @@ def f(x):
 
 
 \begin{enumerate}
-  \item Insert the above code into your text file, save and execute. What
+  \item Insert the above code into your script, save and execute. What
       happens? Can you explain why? {\em Hint:} Nothing happens right now. Why?
 \end{enumerate}
 
@@ -101,15 +101,15 @@ print f(2.0)
 \end{enumerate}
 
 The reality is that our custom functions actually works like the built in
-functions in python (remember the \code{len(arg)} function from last week for instance)
-,so once you know how to make one, you can essentially create as many you like.\\
+functions in python (remember the \code{len(arg)} function from last week for instance), 
+so once you know how to make one, you can essentially create as many you like.\\
 
-To test functions we would need a list of $x$-values as input.
+To test functions we will need a list of $x$-values as input.
 We could use the \code{range()} function from last week, but that would limit us to
 integers. Instead we use a very useful tool call NumPy which is imported as all other tools;
 
 \begin{lstlisting}
-import numpy
+import numpy as np
 \end{lstlisting}
 
 We can then use the \code{arange(start, end, step)} function.
@@ -120,23 +120,23 @@ This will produce a list just like the \code{range()} function, but this time th
 can be floats instead of only integers.
 
 \begin{lstlisting}
-x_list = numpy.arange(0, 10, 0.1)
+x_list = np.arange(0, 10, 0.1)
 \end{lstlisting}
 
 \begin{enumerate}
   \setcounter{enumi}{3}
-  \item Define the following function using \code{numpy.exp()}.
+  \item Define the following function using \code{np.exp()}.
     \begin{align}
         h(x) = \frac{1}{x} + e^{5x}
     \end{align}
 
   \item Define a list of $x$-values, ranging from -1 to 1 with a step size of 0.1, using the \code{arange()} function.
 
-  \item Plot the result using pylab.
+  \item Plot the result using Matplotlib.
 
 \end{enumerate}
 
-Next let us plot something more complex. Use \code{numpy.sin()} and \code{numpy.cos()}.
+Next let us plot something more complex. Use \code{np.sin()} and \code{np.cos()}.
 
 \begin{enumerate}
   \setcounter{enumi}{6}
@@ -146,9 +146,9 @@ Next let us plot something more complex. Use \code{numpy.sin()} and \code{numpy.
     \end{align}
 
   \item Define a list of $t$-values from $-2\pi$ to $2\pi$.
-      {\em Hint:} Use \code{numpy.pi} to get the values of $\pi$.
+      {\em Hint:} Use \code{np.pi} to get the value of $\pi$.
 
-  \item For each value of $t$, plot $p(t)$ vs. $q(t)$, with $p(t)$ as the $y$-value and $q(t)$ as the $x$-value.
+  \item For each value of $t$, plot $p(t)$ vs. $q(t)$, with $p(t)$ as the $x$-value and $q(t)$ as the $y$-value.
 
 \end{enumerate}
 
@@ -171,7 +171,7 @@ inspiration for how the code should be structured after this exercise is done.
 
 \begin{lstlisting}
 import random
-import pylab
+import matplotlib.pyplot as plt
 import video # 2d Video
 
 def distance(xi, yi, xj, yj):
@@ -218,13 +218,13 @@ video.save('exercise_2')
 \end{lstlisting}
 
 \newpage
-Important Note.
+Important note.
 Notice how the bottom part of the script is the code that actually calls the
 appropriate functions to make the simulation.  This makes reading the overall
 structure of the program easier because you can now see how the program is
 executed and then inspect the appropriate functions.  Also, it is not important
 in what order your functions are defined. What matters is the order in which you
-call them. This is.different than i.e. variables, which have to be defined and have a value assigned before you use them.
+call them. This is different than e.g. variables, which have to be defined and have a value assigned before you use them.
 
 \begin{enumerate}
   \setcounter{enumi}{0}
@@ -232,8 +232,8 @@ call them. This is.different than i.e. variables, which have to be defined and h
     same structure and functions.
 \end{enumerate}
 
-Remember that this is only done because it is easier to read and in
-the end, it is up to yourself to decide how you want to structure your
+Remember that this is only done because it is easier to read, and in
+the end it is up to yourself to decide how you want to structure your
 programs.
 
 \begin{enumerate}
@@ -241,17 +241,15 @@ programs.
   \item Finish the function \code{distance()} and make it return
     the distance \code{d} between particle $i$ and $j$.
 
-  \item Extend your program to create a new variable $r_{min}$ and set its
+\item Extend your program to create a new variable \code{r\_min} and set its
     value to 0.03.
-    This is the distance that the two particles $i$ and $j$ have to be within
-    in order to make a reflection.
-
-% TODO Reflection = elastic impact
+    This is the distance that the two particles $i$ and $j$ have to be within each other
+    in order to interact.
 
 \end{enumerate}
 
 We need to get the interaction between all the possible particle pairs.
-By looping over each particle twice, we can get all the possible interactions.
+This can be done by looping over each particle twice.
 
 \begin{lstlisting}
 for i in range(n_particles):
@@ -280,23 +278,19 @@ if i > j:
 
 \end{enumerate}
 
-% TODO move to earlier
 To let the particles interact, we will use a simple model. The
-particles are considered as being small disks with a diameter of $r_{min}$ and they have
+particles are considered as being small disks with a diameter of \code{r\_min} that experience
 perfect elastic scattering when particle $i$ comes into contact with particle $j$.
 (Think a game of billiards)
 
-% Deleted stuff about assuming the particles being very small, since it seemed confusing.
-
-When two particles collide elastically they will exchange velocities which is done by simply setting
+When two particles collide elastically they will exchange velocities. For simplicity this is done by simply setting
 
 \begin{align}
   \vec{v}_i = \vec{v}_j & & \text{and} & & \vec{v}_j = \vec{v}_i
 \end{align}
 
-%TODO The x/y-components of the velocity should change relative to the vector from particle i's center to particle j's.
-% I'm assuming that this comes later, but there should be a note about that we assume that all collisions are head-on.
-% I'm just too tired to figure it out atm, so must do later.
+If you're interested you can try to implement a more complex velocity-exchange that takes into account the collision angles,
+however this isn't required.
 
 \begin{enumerate}
   \setcounter{enumi}{5}
@@ -329,23 +323,23 @@ sample a property, which shows that the system is indeed random.
 \end{enumerate}
 
 We want a histogram of how often $N$ particles occurred in the above
-interval. So along the $x$-axis should give you the number of particles we have
-encountered in the interval, and along the $y$-axis how oftern that number
+interval. So the $x$-axis should give you the number of particles we have
+encountered in the interval, and the $y$-axis how often that number
 has occurred.\\
 
-To plot the information from the list we can use the pylab histogram as follows
+To plot the information from the list we can use the matplotlib histogram as follows
 
 \begin{lstlisting}
-pylab.hist(partdist, bins=range(0, n_particles), align='left')
-pylab.savefig('dist_histogram.png')
+plt.hist(partdist, bins=range(0, n_particles), align='left')
+plt.savefig('dist_histogram.png')
 \end{lstlisting}
 
 which is inserted after the main loop over \code{n\_steps}.
 
 \begin{enumerate}
   \setcounter{enumi}{7}
-  \item Plot the histogram and comment on the results, i.e. how is the
-    distribution of particles in interval?
+  \item Plot the histogram, complete with title and labeled axis, and comment on the results, i.e. how is the
+    distribution of particles in the interval?
 
   \item Make another list named \code{partdisteq}. Here you should store the
     number of particles in the same interval as above, but only {\bf after}
@@ -359,8 +353,7 @@ which is inserted after the main loop over \code{n\_steps}.
   \subfloat[After equilibrium steps]{\includegraphics[width=0.5\textwidth]{partdisteq.eps}}
   \label{fig:partdist}
   \caption{
-     Count of the number of particles placed to the right in a container in the
-     before and after equilibrium steps.
+     Count of the number of particles placed to the right in the container, a) before and b) after 10000 equilibrium steps.
   }
 \end{figure}
 
