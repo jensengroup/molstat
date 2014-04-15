@@ -1,8 +1,8 @@
 #!/usr/bin/python
 
 import random
-import numpy
-import pylab
+import numpy as np
+import matplotlib.pyplot as plt
 
 import video
 
@@ -10,7 +10,7 @@ def distance(xi, yi, xj, yj):
     """ Calculate the distance between particle i and particle j """
     dx = xj-xi
     dy = yj-yi
-    d = numpy.sqrt(dx**2 + dy**2)
+    d = np.sqrt(dx**2 + dy**2)
     return d
 
 
@@ -39,7 +39,7 @@ def simulate_step(x_positions, y_positions, x_velocities, y_velocities, dt):
         if abs(x_positions[i] + x_velocities[i] * dt) > 1.0:
             x_velocities[i] = -x_velocities[i]
 
-        if abs(x_positions[i] + y_velocities[i] * dt) > 1.0:
+        if abs(y_positions[i] + y_velocities[i] * dt) > 1.0:
             y_velocities[i] = -y_velocities[i]
 
 
@@ -69,22 +69,23 @@ def simulate_step(x_positions, y_positions, x_velocities, y_velocities, dt):
 
 def plot_particles(X, Y, filename):
     """ Save an image of the positions at certain time """
-    pylab.plot(X, Y, 'bo')
-    pylab.xlabel('x')
-    pylab.ylabel('y')
-    pylab.axis((-1,1,-1,1))
-    pylab.savefig(filename)
+    plt.plot(X, Y, 'bo')
+    plt.xlabel('x')
+    plt.ylabel('y')
+    plt.axis((-1,1,-1,1))
+    plt.savefig(filename)
+    plt.clf()
 
 
 # Constants
 n_particles = 40
-n_step = 2000 # for movie
-# n_step = 20000 # for histogram
+#n_step = 2000 # for movie
+n_step = 20000 # for histogram
 dt = 0.001
 
 # Histogram
-particle_dist = []
-particle_dist_eq = []
+partdist = []
+partdisteq = []
 
 X, Y, Vx, Vy = initialize_particles(n_particles)
 
@@ -103,49 +104,48 @@ for n in range(n_step):
     if n % 10 == 0:
         video.add_frame(X, Y)
 
-    # Count the particles
+    # Count the particles in the right part of the box
     if n % 5 == 0:
         no_part = 0
 
         for i in range(n_particles):
-            # No need to check for x_positions < 1 or y_positions since we are ALWAYS
+            # No need to check for x_positions > 1 or y_positions since we are ALWAYS
             # within the box.
             if( X[i] > 0.0 ):
                 no_part += 1
 
 
         if( n < n_step / 2.0 ):
-            particle_dist.append( no_part )
+            partdist.append( no_part )
         if( n > n_step / 2.0 ):
-            particle_dist_eq.append( no_part )
-            particle_dist.append( no_part )
+            partdisteq.append( no_part )
+            partdist.append( no_part )
 
 
 
 plot_particles(X, Y, 'coordinates_end.png')
 
 
-# plot the partdist list
-# pylab.clf()
-# pylab.title('Particle Count for X > 0.0 and N < 10000')
-# pylab.xlabel('Number of particles where X > 0.0')
-# pylab.ylabel('Count')
-# pylab.hist(particle_dist, bins=range(0, n_particles), align='left')
-# pylab.xlim( (0, n_particles) )
-# pylab.savefig('partdist.png')
-# pylab.savefig('partdist.eps')
+#plot the partdist list
+plt.title('Particle Count for X > 0.0 and N < 10000')
+plt.xlabel('Number of particles where X > 0.0')
+plt.ylabel('Count')
+plt.hist(partdist, bins=range(0, n_particles), align='left')
+plt.xlim( (0, n_particles) )
+plt.savefig('partdist.png')
+#plt.savefig('partdist.eps')
 
 
-# plot the partdisteq list
-# pylab.clf()
-# pylab.title('Particle Count for X > 0.0 and N > 10000')
-# pylab.xlabel('Number of particles where X > 0.0')
-# pylab.ylabel('Count')
-# pylab.hist(particle_dist_eq, bins=range(0, n_particles), rwidth=1, align='left')
-# pylab.xlim( (0, n_particles) )
-# pylab.savefig('partdisteq.png')
-# pylab.savefig('partdisteq.eps')
+#plot the partdisteq list
+plt.clf()
+plt.title('Particle Count for X > 0.0 and N > 10000')
+plt.xlabel('Number of particles where X > 0.0')
+plt.ylabel('Count')
+plt.hist(partdisteq, bins=range(0, n_particles), rwidth=1, align='left')
+plt.xlim( (0, n_particles) )
+plt.savefig('partdisteq.png')
+#plt.savefig('partdisteq.eps')
 
 
-video.save(1.0, 'hard_sphere')
+#video.save('hard_sphere')
 

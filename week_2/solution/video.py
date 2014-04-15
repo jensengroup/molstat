@@ -22,7 +22,7 @@ x_frames = []
 y_frames = []
 
 
-def save(box_width, filename, fps=25):
+def save(filename, box_width = 1, fps=25):
     """ Takes 2D coordinates x_frames and y_frames, saves it into filename.mp4 with
     len(x_frames) steps.
     """
@@ -89,5 +89,5 @@ if __name__ == "__main__":
     for _ in xrange(600):
         add_frame(np.array([np.random.random() for i in range(n_particles)]) * 10.0, np.array([2 * (np.random.random() - 0.5) for i in range(n_particles)]) * 10.0)
 
-    save(10.0, 'random_particles')
+    save('random_particles', 10.0)
 
