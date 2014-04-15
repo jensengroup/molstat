@@ -15,17 +15,12 @@
  - XY plot
  - 3D XY with overlay
 
+
  - Fit datapoints to a function (exponential, linaer, etc) and get the error/correlation
- - Gaussian of data?
+ - Gaussian for data
 
 
-## Kasper M. data
-
-
-
-
-## Ragnhild data
-
+ - correlation coefficient for data sets
 
 
 

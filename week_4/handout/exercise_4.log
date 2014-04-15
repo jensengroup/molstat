@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2013.2.2)  7 FEB 2014 12:57
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2013.2.2)  8 APR 2014 13:07
 entering extended mode
  %&-line parsing enabled.
 **exercise_4.tex
@@ -476,88 +476,195 @@ Package ifvtex Info: VTeX not detected.
 \Gm@dimlist=\toks25
 
 (/usr/share/texmf-texlive/tex/xelatex/xetexconfig/geometry.cfg))
+(/usr/share/texmf-texlive/tex/latex/ltxmisc/url.sty
+\Urlmuskip=\muskip11
+Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
+)
+(/usr/share/texmf-texlive/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2009/10/09 v6.79a Hypertext links for LaTeX
+
+(/usr/share/texmf-texlive/tex/generic/ifxetex/ifxetex.sty
+Package: ifxetex 2009/01/23 v0.5 Provides ifxetex conditional
+)
+(/usr/share/texmf-texlive/tex/latex/oberdiek/hycolor.sty
+Package: hycolor 2009/10/02 v1.5 Code for color options of hyperref/bookmark (H
+O)
+
+(/usr/share/texmf-texlive/tex/latex/oberdiek/xcolor-patch.sty
+Package: xcolor-patch 2009/10/02 xcolor patch
+))
+\@linkdim=\dimen124
+\Hy@linkcounter=\count113
+\Hy@pagecounter=\count114
+
+(/usr/share/texmf-texlive/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2009/10/09 v6.79a Hyperref: PDFDocEncoding definition (HO)
+Now handling font encoding PD1 ...
+... no UTF-8 mapping file for font encoding PD1
+)
+(/usr/share/texmf-texlive/tex/generic/oberdiek/etexcmds.sty
+Package: etexcmds 2007/12/12 v1.2 Prefix for e-TeX command names (HO)
+
+(/usr/share/texmf-texlive/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2007/09/09 v1.2 Providing info/warning/message (HO)
+)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)
+(/usr/share/texmf-texlive/tex/latex/latexconfig/hyperref.cfg
+File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
+)
+(/usr/share/texmf-texlive/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2009/08/13 v3.4 Keyval support for LaTeX options (HO)
+
+(/usr/share/texmf-texlive/tex/generic/oberdiek/kvsetkeys.sty
+Package: kvsetkeys 2009/07/30 v1.5 Key value parser with default handler suppor
+t (HO)
+))
+Package hyperref Info: Option `colorlinks' set `true' on input line 2864.
+Package hyperref Info: Hyper figures OFF on input line 2975.
+Package hyperref Info: Link nesting OFF on input line 2980.
+Package hyperref Info: Hyper index ON on input line 2983.
+Package hyperref Info: Plain pages OFF on input line 2990.
+Package hyperref Info: Backreferencing OFF on input line 2995.
+
+Implicit mode ON; LaTeX internals redefined
+Package hyperref Info: Bookmarks ON on input line 3191.
+LaTeX Info: Redefining \url on input line 3428.
+(/usr/share/texmf-texlive/tex/generic/oberdiek/bitset.sty
+Package: bitset 2007/09/28 v1.0 Data type bit set (HO)
+
+(/usr/share/texmf-texlive/tex/generic/oberdiek/intcalc.sty
+Package: intcalc 2007/09/27 v1.1 Expandable integer calculations (HO)
+)
+(/usr/share/texmf-texlive/tex/generic/oberdiek/bigintcalc.sty
+Package: bigintcalc 2007/11/11 v1.1 Expandable big integer calculations (HO)
+
+(/usr/share/texmf-texlive/tex/generic/oberdiek/pdftexcmds.sty
+Package: pdftexcmds 2009/09/23 v0.6 LuaTeX support for pdfTeX utility functions
+ (HO)
+
+(/usr/share/texmf-texlive/tex/generic/oberdiek/ifluatex.sty
+Package: ifluatex 2009/04/17 v1.2 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
+(/usr/share/texmf-texlive/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2009/08/05 v1.0 Some LaTeX kernel commands for general use (HO
+)
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+)))
+\Fld@menulength=\count115
+\Field@Width=\dimen125
+\Fld@charsize=\dimen126
+\Field@toks=\toks26
+Package hyperref Info: Hyper figures OFF on input line 4377.
+Package hyperref Info: Link nesting OFF on input line 4382.
+Package hyperref Info: Hyper index ON on input line 4385.
+Package hyperref Info: backreferencing OFF on input line 4392.
+Package hyperref Info: Link coloring ON on input line 4395.
+Package hyperref Info: Link coloring with OCG OFF on input line 4402.
+Package hyperref Info: PDF/A mode OFF on input line 4407.
+
+(/usr/share/texmf-texlive/tex/generic/oberdiek/atbegshi.sty
+Package: atbegshi 2008/07/31 v1.9 At begin shipout hook (HO)
+)
+\Hy@abspage=\count116
+\c@Item=\count117
+\c@Hfootnote=\count118
+)
+*hyperref using default driver hpdftex*
+(/usr/share/texmf-texlive/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2009/10/09 v6.79a Hyperref driver for pdfTeX
+\Fld@listcount=\count119
+)
 (/usr/share/texmf-texlive/tex/latex/caption/caption.sty
 Package: caption 2009/10/09 v3.1k Customizing captions (AR)
 
 (/usr/share/texmf-texlive/tex/latex/caption/caption3.sty
 Package: caption3 2009/10/09 v3.1k caption3 kernel (AR)
-\captionmargin=\dimen124
-\captionmargin@=\dimen125
-\captionwidth=\dimen126
-\caption@indent=\dimen127
-\caption@parindent=\dimen128
-\caption@hangindent=\dimen129
+\captionmargin=\dimen127
+\captionmargin@=\dimen128
+\captionwidth=\dimen129
+\caption@indent=\dimen130
+\caption@parindent=\dimen131
+\caption@hangindent=\dimen132
 )
-\c@ContinuedFloat=\count113
+\c@ContinuedFloat=\count120
+Package caption Info: hyperref package is loaded.
 Package caption Info: listings package is loaded.
 )
 (/usr/share/texmf-texlive/tex/latex/subfig/subfig.sty
 Package: subfig 2005/06/28 ver: 1.3 subfig package
-\c@KVtest=\count114
+\c@KVtest=\count121
 \sf@farskip=\skip51
-\sf@captopadj=\dimen130
+\sf@captopadj=\dimen133
 \sf@capskip=\skip52
 \sf@nearskip=\skip53
-\c@subfigure=\count115
-\c@subfigure@save=\count116
-\c@lofdepth=\count117
-\c@subtable=\count118
-\c@subtable@save=\count119
-\c@lotdepth=\count120
+\c@subfigure=\count122
+\c@subfigure@save=\count123
+\c@lofdepth=\count124
+\c@subtable=\count125
+\c@subtable@save=\count126
+\c@lotdepth=\count127
 \sf@top=\skip54
 \sf@bottom=\skip55
 )
 (/usr/share/texmf-texlive/tex/latex/booktabs/booktabs.sty
 Package: booktabs 2005/04/14 v1.61803 publication quality tables
-\heavyrulewidth=\dimen131
-\lightrulewidth=\dimen132
-\cmidrulewidth=\dimen133
-\belowrulesep=\dimen134
-\belowbottomsep=\dimen135
-\aboverulesep=\dimen136
-\abovetopsep=\dimen137
-\cmidrulesep=\dimen138
-\cmidrulekern=\dimen139
-\defaultaddspace=\dimen140
-\@cmidla=\count121
-\@cmidlb=\count122
-\@aboverulesep=\dimen141
-\@belowrulesep=\dimen142
-\@thisruleclass=\count123
-\@lastruleclass=\count124
-\@thisrulewidth=\dimen143
+\heavyrulewidth=\dimen134
+\lightrulewidth=\dimen135
+\cmidrulewidth=\dimen136
+\belowrulesep=\dimen137
+\belowbottomsep=\dimen138
+\aboverulesep=\dimen139
+\abovetopsep=\dimen140
+\cmidrulesep=\dimen141
+\cmidrulekern=\dimen142
+\defaultaddspace=\dimen143
+\@cmidla=\count128
+\@cmidlb=\count129
+\@aboverulesep=\dimen144
+\@belowrulesep=\dimen145
+\@thisruleclass=\count130
+\@lastruleclass=\count131
+\@thisrulewidth=\dimen146
 )
 (/usr/share/texmf-texlive/tex/latex/pstricks/pstricks.sty
 Package: pstricks 2008/11/26 v0.40 LaTeX wrapper for `PSTricks' (RN,HV)
 
 (/usr/share/texmf-texlive/tex/generic/pstricks/pstricks.tex
 `PSTricks' v1.29  <2009/05/19> (tvz)
-\pst@dima=\dimen144
-\pst@dimb=\dimen145
-\pst@dimc=\dimen146
-\pst@dimd=\dimen147
-\pst@dimg=\dimen148
-\pst@dimh=\dimen149
+\pst@dima=\dimen147
+\pst@dimb=\dimen148
+\pst@dimc=\dimen149
+\pst@dimd=\dimen150
+\pst@dimg=\dimen151
+\pst@dimh=\dimen152
 \pst@hbox=\box30
 \pst@boxg=\box31
-\pst@cnta=\count125
-\pst@cntb=\count126
-\pst@cntc=\count127
-\pst@cntd=\count128
-\pst@cntg=\count129
-\pst@cnth=\count130
-\pst@toks=\toks26
+\pst@cnta=\count132
+\pst@cntb=\count133
+\pst@cntc=\count134
+\pst@cntd=\count135
+\pst@cntg=\count136
+\pst@cnth=\count137
+\pst@toks=\toks27
 (/usr/share/texmf-texlive/tex/generic/pstricks/pstricks.con)
-\psunit=\dimen150
-\psxunit=\dimen151
-\psyunit=\dimen152
-\pslinewidth=\dimen153
-\pst@customdefs=\toks27
-\pslinearc=\dimen154
-\everypsbox=\toks28
-\psframesep=\dimen155
-\pslabelsep=\dimen156
-\pst@shift=\dimen157
+\psunit=\dimen153
+\psxunit=\dimen154
+\psyunit=\dimen155
+\pslinewidth=\dimen156
+\pst@customdefs=\toks28
+\pslinearc=\dimen157
+\everypsbox=\toks29
+\psframesep=\dimen158
+\pslabelsep=\dimen159
+\pst@shift=\dimen160
 \theoverlaybox=\box32
 )
 File: pstricks.tex 2009/05/19 v1.29 `PSTricks' (tvz,hv)
@@ -566,9 +673,9 @@ File: pstricks.tex 2009/05/19 v1.29 `PSTricks' (tvz,hv)
 Package: pst-node 2006/01/01 package wrapper for pst-node.tex
 
 (/usr/share/texmf-texlive/tex/generic/pstricks/pst-node.tex  v1.01, 2008/11/26
-\psrow=\count131
-\pscol=\count132
-\psmatrixcnt=\count133
+\psrow=\count138
+\pscol=\count139
+\psmatrixcnt=\count140
 \psrowsep=\skip56
 \pscolsep=\skip57
 )
@@ -584,33 +691,33 @@ File: pst-xkey.tex 2005/11/25 v1.6 PSTricks specialization of xkeyval (HA)
 Package: xkeyval 2008/08/13 v2.6a package option processing (HA)
 
 (/usr/share/texmf-texlive/tex/generic/xkeyval/xkeyval.tex
-\XKV@toks=\toks29
-\XKV@tempa@toks=\toks30
-\XKV@depth=\count134
+\XKV@toks=\toks30
+\XKV@tempa@toks=\toks31
+\XKV@depth=\count141
 File: xkeyval.tex 2008/08/13 v2.6a key=value parser (HA)
 )))
  v1.11, 2009/09/17(tvz,dg,hv)
 \pstree@rootbox=\box33
 \pstree@box=\box34
-\psnodecnt=\count135
-\pstreelevel=\count136
-\pstreecnt=\count137
-\pstree@cnt=\count138
-\pstree@stop=\count139
+\psnodecnt=\count142
+\pstreelevel=\count143
+\pstreecnt=\count144
+\pstree@cnt=\count145
+\pstree@stop=\count146
 )
 File: pst-tree.tex 2009/09/17 1.11 `pst-tree' (tvz,hv)
 )
 (/usr/share/texmf-texlive/tex/latex/pst-pdf/pst-pdf.sty
 Package: pst-pdf 2008/10/09 v1.1v PS graphics for pdfLaTeX (RN,HjG)
-\c@pspicture=\count140
+\c@pspicture=\count147
 Package pst-pdf Info: MODE: 1 (pdfTeX mode) on input line 214.
-\ppf@output=\toks31
+\ppf@output=\toks32
 
 (/usr/share/texmf/tex/latex/preview/preview.sty
 Package: preview 2010/02/14 11.86 (AUCTeX/preview-latex)
-\pr@snippet=\count141
+\pr@snippet=\count148
 \pr@box=\box35
-\pr@output=\toks32
+\pr@output=\toks33
 )
 (/usr/share/texmf-texlive/tex/latex/graphics/dvips.def
 File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
@@ -624,9 +731,9 @@ Package: pst-plot 2004/07/15 package wrapper for pst-plot.tex
 (/usr/share/texmf-texlive/tex/generic/pstricks/pst-plot.tex
 (/usr/share/texmf-texlive/tex/generic/multido/multido.tex
  v1.41, 2004/05/18 <tvz>
-\multido@count=\count142
-\multidocount=\count143
-\multido@stuff=\toks33
+\multido@count=\count149
+\multidocount=\count150
+\multido@stuff=\toks34
 )  v1.04, 2009/06/08)
 File: pst-plot.tex 2009/06/08 1.04 `pst-plot' (tvz)
 )
@@ -639,64 +746,64 @@ Package: pst-3dplot 2009/07/28 package wrapper for pst-3dplot.tex (hv)
 `PST-3d' v1.00, 2005/09/03 (tvz))
 (/usr/share/texmf-texlive/tex/generic/pstricks-add/pst-fp.tex
 `pst-fp' v0.02, 2009/04/02 (hv)
-\pstFP@xs=\count144
-\pstFP@xia=\count145
-\pstFP@xib=\count146
-\pstFP@xfa=\count147
-\pstFP@xfb=\count148
-\pstFP@rega=\count149
-\pstFP@regb=\count150
-\pstFP@regs=\count151
-\pstFP@times=\count152
+\pstFP@xs=\count151
+\pstFP@xia=\count152
+\pstFP@xib=\count153
+\pstFP@xfa=\count154
+\pstFP@xfb=\count155
+\pstFP@rega=\count156
+\pstFP@regb=\count157
+\pstFP@regs=\count158
+\pstFP@times=\count159
 )
 (/usr/share/texmf-texlive/tex/generic/pst-math/pst-math.tex
 `pst-math' v0.23 , (CJ,hv)) `pstricks-add' v3.35, 2009/10/12 (dr,hv)
-\pst@dimm=\dimen158
-\pst@dimn=\dimen159
-\pst@dimo=\dimen160
-\pst@dimp=\dimen161
-\pst@cntm=\count153
-\pst@cntn=\count154
-\pst@cnto=\count155
-\pst@cntp=\count156
-\@zero=\count157
-\pstRadUnit=\dimen162
-\pstRadUnitInv=\dimen163
-\pshooklength=\dimen164
-\pshookwidth=\dimen165
-\@digitcounter=\count158
-\psk@subticksize=\dimen166
-\pst@xticksizeA=\dimen167
-\pst@xticksizeB=\dimen168
-\pst@xticksizeC=\dimen169
-\pst@yticksizeA=\dimen170
-\pst@yticksizeB=\dimen171
-\pst@yticksizeC=\dimen172
-\psk@llx=\dimen173
-\psk@lly=\dimen174
-\psk@urx=\dimen175
-\psk@ury=\dimen176
-\pst@xunit=\dimen177
-\pst@yunit=\dimen178
-\linecnt=\count159
-\chart@ColorIndex=\dimen179
-\chart@ColorStep=\dimen180
-\pst@chartHeight=\dimen181
-\pst@chartStackDepth=\dimen182
-\pst@chartStackWidth=\dimen183
-\chart@Toggle=\count160
+\pst@dimm=\dimen161
+\pst@dimn=\dimen162
+\pst@dimo=\dimen163
+\pst@dimp=\dimen164
+\pst@cntm=\count160
+\pst@cntn=\count161
+\pst@cnto=\count162
+\pst@cntp=\count163
+\@zero=\count164
+\pstRadUnit=\dimen165
+\pstRadUnitInv=\dimen166
+\pshooklength=\dimen167
+\pshookwidth=\dimen168
+\@digitcounter=\count165
+\psk@subticksize=\dimen169
+\pst@xticksizeA=\dimen170
+\pst@xticksizeB=\dimen171
+\pst@xticksizeC=\dimen172
+\pst@yticksizeA=\dimen173
+\pst@yticksizeB=\dimen174
+\pst@yticksizeC=\dimen175
+\psk@llx=\dimen176
+\psk@lly=\dimen177
+\psk@urx=\dimen178
+\psk@ury=\dimen179
+\pst@xunit=\dimen180
+\pst@yunit=\dimen181
+\linecnt=\count166
+\chart@ColorIndex=\dimen182
+\chart@ColorStep=\dimen183
+\pst@chartHeight=\dimen184
+\pst@chartStackDepth=\dimen185
+\pst@chartStackWidth=\dimen186
+\chart@Toggle=\count167
 )
 (/usr/share/texmf-texlive/tex/generic/multido/multido.tex
  v1.41, 2004/05/18 <tvz>) `PST-3dplot' v1.86, 2009/10/06 (HV,DL)
-\pst@dimf=\dimen184
-\pst@cntx=\count161
-\pst@cnty=\count162
-\pst@cntz=\count163
-\pst@dimx=\dimen185
-\pst@dimy=\dimen186
-\pst@dimz=\dimen187
-\pst@dx=\dimen188
-\pst@dy=\dimen189
+\pst@dimf=\dimen187
+\pst@cntx=\count168
+\pst@cnty=\count169
+\pst@cntz=\count170
+\pst@dimx=\dimen188
+\pst@dimy=\dimen189
+\pst@dimz=\dimen190
+\pst@dx=\dimen191
+\pst@dy=\dimen192
 )
 File: pst-3dplot.tex 2009/10/06 v1.86 `PST-3dplot' (hv)
 )
@@ -717,25 +824,27 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 15.
 LaTeX Font Info:    ... okay on input line 15.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 15.
 LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
 LaTeX Font Info:    Try loading font information for OT1+lmr on input line 15.
 
 (/usr/share/texmf/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-\c@lstlisting=\count164
+\c@lstlisting=\count171
 
 (/usr/share/texmf-texlive/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count165
-\scratchdimen=\dimen190
+\scratchcounter=\count172
+\scratchdimen=\dimen193
 \scratchbox=\box36
-\nofMPsegments=\count166
-\nofMParguments=\count167
-\everyMPshowfont=\toks34
-\MPscratchCnt=\count168
-\MPscratchDim=\dimen191
-\MPnumerator=\count169
-\everyMPtoPDFconversion=\toks35
+\nofMPsegments=\count173
+\nofMParguments=\count174
+\everyMPshowfont=\toks35
+\MPscratchCnt=\count175
+\MPscratchDim=\dimen194
+\MPnumerator=\count176
+\everyMPtoPDFconversion=\toks36
 )
 *geometry auto-detecting driver*
 *geometry detected driver: pdftex*
@@ -778,155 +887,176 @@ driver: pdftex
 
 (1in=72.27pt, 1cm=28.45pt)
 -----------------------
+Package hyperref Info: Link coloring ON on input line 15.
+(/usr/share/texmf-texlive/tex/latex/hyperref/nameref.sty
+Package: nameref 2007/05/29 v2.31 Cross-referencing by name of section
+
+(/usr/share/texmf-texlive/tex/latex/oberdiek/refcount.sty
+Package: refcount 2008/08/11 v3.1 Data extraction from references (HO)
+)
+\c@section@level=\count177
+)
+LaTeX Info: Redefining \ref on input line 15.
+LaTeX Info: Redefining \pageref on input line 15.
+ (./exercise_4.out)
+(./exercise_4.out)
+\@outlinefile=\write3
+\openout3 = `exercise_4.out'.
+
+\AtBeginShipoutBox=\box37
 Package caption Info: Begin \AtBeginDocument code.
 Package caption3 Info: subfig package 1.2 or 1.3 is loaded.
 LaTeX Info: Redefining \subref on input line 15.
 Package caption Info: End \AtBeginDocument code.
+
 Preview: Fontsize 10pt
 Preview: PDFoutput 1
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 22.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 23.
 (/usr/share/texmf/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 22.
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 23.
 
 
 (/usr/share/texmf/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 22.
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 23.
 
 
 (/usr/share/texmf/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 22.
+(Font)              <12> on input line 23.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 22.
+(Font)              <8> on input line 23.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 22.
-LaTeX Font Info:    Try loading font information for U+msa on input line 22.
+(Font)              <6> on input line 23.
+LaTeX Font Info:    Try loading font information for U+msa on input line 23.
 
 (/usr/share/texmf-texlive/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2009/06/22 v3.00 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 22.
+LaTeX Font Info:    Try loading font information for U+msb on input line 23.
 
 (/usr/share/texmf-texlive/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 51.
+(Font)              <10> on input line 54.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 51.
+(Font)              <7> on input line 54.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 51.
+(Font)              <5> on input line 54.
  [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-Underfull \hbox (badness 10000) in paragraph at lines 136--138
+Underfull \hbox (badness 10000) in paragraph at lines 139--141
 
  []
 
-LaTeX Font Info:    Try loading font information for OT1+lmtt on input line 169
+LaTeX Font Info:    Try loading font information for OT1+lmtt on input line 172
 .
 (/usr/share/texmf/tex/latex/lm/ot1lmtt.fd
 File: ot1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [2]
-Underfull \hbox (badness 10000) in paragraph at lines 204--205
+Underfull \hbox (badness 10000) in paragraph at lines 207--208
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 204--205
+Underfull \hbox (badness 10000) in paragraph at lines 207--208
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 228--231
+Underfull \hbox (badness 10000) in paragraph at lines 231--234
 
  []
 
 [3]
 LaTeX Font Info:    Font shape `OT1/lmtt/bx/n' in size <9> not available
-(Font)              Font shape `OT1/lmtt/b/n' tried instead on input line 277.
+(Font)              Font shape `OT1/lmtt/b/n' tried instead on input line 280.
 
-Underfull \hbox (badness 10000) in paragraph at lines 333--338
+Underfull \hbox (badness 10000) in paragraph at lines 336--341
 
  []
 
 [4] [5]
-Underfull \hbox (badness 10000) in paragraph at lines 397--399
+Underfull \hbox (badness 10000) in paragraph at lines 400--402
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 420--425
+Underfull \hbox (badness 10000) in paragraph at lines 423--428
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 444--450
+Underfull \hbox (badness 10000) in paragraph at lines 447--453
 
  []
 
 
-Overfull \hbox (6.54375pt too wide) in paragraph at lines 471--475
+Overfull \hbox (6.54375pt too wide) in paragraph at lines 474--478
 []\OT1/lmtt/m/n/9 lennard[]jones \OT1/lmr/m/n/10 takes as ar-gu-ments the po-si
 -tion ma-trix \OT1/lmtt/m/n/9 R \OT1/lmr/m/n/10 and \OT1/lmtt/m/n/9 box[]width\
 OT1/lmr/m/n/10 . Just like last week, the \OT1/lmtt/m/n/9 lennard[]jones
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 471--475
+Underfull \hbox (badness 10000) in paragraph at lines 474--478
 
  []
 
-[6] [7] <energy.png, id=41, 578.16pt x 433.62pt>
+[6] [7] <energy.png, id=218, 578.16pt x 433.62pt>
 File: energy.png Graphic file (type png)
  <use energy.png>
-<temperature.png, id=43, 578.16pt x 433.62pt>
+<temperature.png, id=221, 578.16pt x 433.62pt>
 File: temperature.png Graphic file (type png)
  <use temperature.png>
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<pressure.png, id=44, 578.16pt x 433.62pt>
+<pressure.png, id=223, 578.16pt x 433.62pt>
 File: pressure.png Graphic file (type png)
  <use pressure.png>
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[8 <./energy.png>] [9 <./temperature.png> <./pressure.png>] (./exercise_4.aux) 
-) 
+[8 <./energy.png>] [9 <./temperature.png> <./pressure.png>] (./exercise_4.aux)
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
 Here is how much of TeX's memory you used:
- 10069 strings out of 493848
- 139891 string characters out of 1152824
- 377869 words of memory out of 3000000
- 13129 multiletter control sequences out of 15000+50000
+ 13315 strings out of 493848
+ 189008 string characters out of 1152824
+ 493537 words of memory out of 3000000
+ 16145 multiletter control sequences out of 15000+50000
  64811 words of font info for 75 fonts, out of 3000000 for 9000
  714 hyphenation exceptions out of 8191
- 43i,16n,73p,329b,1292s stack positions out of 5000i,500n,10000p,200000b,50000s
-{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvi
-ps/lm/lm-rmtt.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/shar
-e/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/l
-m-mathex.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx10.pfb></usr/share/tex
-mf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmb
-x7.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx9.pfb></usr/share/texmf/font
-s/type1/public/lm/lmex10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi10.pfb
-></usr/share/texmf/fonts/type1/public/lm/lmmi5.pfb></usr/share/texmf/fonts/type
-1/public/lm/lmmi7.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/s
-hare/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public
-/lm/lmr17.pfb></usr/share/texmf/fonts/type1/public/lm/lmr5.pfb></usr/share/texm
-f/fonts/type1/public/lm/lmr7.pfb></usr/share/texmf/fonts/type1/public/lm/lmr9.p
-fb></usr/share/texmf/fonts/type1/public/lm/lmri10.pfb></usr/share/texmf/fonts/t
-ype1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy7.pfb></u
-sr/share/texmf/fonts/type1/public/lm/lmtk10.pfb></usr/share/texmf/fonts/type1/p
-ublic/lm/lmtt9.pfb>
-Output written on exercise_4.pdf (9 pages, 533319 bytes).
+ 43i,16n,73p,329b,1335s stack positions out of 5000i,500n,10000p,200000b,50000s
+{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dv
+ips/lm/lm-rmtt.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/sha
+re/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/
+lm-mathex.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx10.pfb></usr/share/te
+xmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lm
+bx7.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx9.pfb></usr/share/texmf/fon
+ts/type1/public/lm/lmex10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi10.pf
+b></usr/share/texmf/fonts/type1/public/lm/lmmi5.pfb></usr/share/texmf/fonts/typ
+e1/public/lm/lmmi7.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/
+share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/publi
+c/lm/lmr17.pfb></usr/share/texmf/fonts/type1/public/lm/lmr5.pfb></usr/share/tex
+mf/fonts/type1/public/lm/lmr7.pfb></usr/share/texmf/fonts/type1/public/lm/lmr9.
+pfb></usr/share/texmf/fonts/type1/public/lm/lmri10.pfb></usr/share/texmf/fonts/
+type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy7.pfb></
+usr/share/texmf/fonts/type1/public/lm/lmtk10.pfb></usr/share/texmf/fonts/type1/
+public/lm/lmtt9.pfb>
+Output written on exercise_4.pdf (9 pages, 557497 bytes).
 PDF statistics:
- 120 PDF objects out of 1000 (max. 8388607)
- 0 named destinations out of 1000 (max. 500000)
- 16 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 351 PDF objects out of 1000 (max. 8388607)
+ 161 named destinations out of 1000 (max. 500000)
+ 88 words of extra memory for PDF output out of 10000 (max. 10000000)
 
