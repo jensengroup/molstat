@@ -306,7 +306,7 @@ print math.exp(180.0)
     Calculate sine values, $f(x) = \sin{x}$ using the math module,
     for the $x$-list.
     Print the result.
-  \item Use the pylab-manual (found on the website) to save plots of 
+  \item Use the matplotlib-manual (found on the website) to save plots of 
     task 14 and 16.
 \end{enumerate}
 
@@ -321,7 +321,7 @@ and propagate the particle positions in time.\\
 The code below is your starting point for today's exercise.
 
 \begin{lstlisting}
-# Import pylab and a function to create random numbers
+# Import pyplot and a function to create random numbers
 import random
 import matplotlib.pyplot as plt
 
@@ -373,7 +373,7 @@ Now we want to change the code so that it looks like \ref{fig:secondbox}.
   \subfloat[]{\includegraphics[width=0.47\textwidth]{images/coordinates_start.eps} \label{fig:firstbox}}
   \subfloat[]{\includegraphics[width=0.47\textwidth]{images/coordinates_start_full.eps} \label{fig:secondbox}}
   \caption{
-    Pylab plot of particles in 2 dimensions confined in a box,
+    Pyplot plot of particles in 2 dimensions confined in a box,
     spanning $x, y \in [0,1]$ for (a) and $y \in [-1,1]$ for (b).
   }
 \end{figure}
@@ -396,7 +396,7 @@ If you want to visualize the velocity vectors for each particle you can
 use the following function.\\
 
 \begin{lstlisting}
-pylab.quiver(pos_x, pos_y, vel_x, vel_y)
+plt.quiver(pos_x, pos_y, vel_x, vel_y)
 \end{lstlisting}
 
 We are now ready to loop over each particle in our system, but before we do
