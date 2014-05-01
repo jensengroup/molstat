@@ -1,5 +1,4 @@
 # Example 1
-
 # Datatypes, variables, operators
 
 # String
@@ -16,6 +15,7 @@ print height
 
 # List
 s_list = [2, 4 ,8, 16]
+print s_list
 print s_list[0]
 print s_list[1]
 print s_list[-1]

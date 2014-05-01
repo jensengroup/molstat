@@ -79,8 +79,8 @@ def plot_particles(X, Y, filename):
 
 # Constants
 n_particles = 40
-#n_step = 2000 # for movie
-n_step = 20000 # for histogram
+n_step = 5000 # for movie
+#n_step = 20000 # for histogram
 dt = 0.001
 
 # Histogram
@@ -147,5 +147,5 @@ plt.savefig('partdisteq.png')
 #plt.savefig('partdisteq.eps')
 
 
-#video.save('hard_sphere')
+video.save('hard_sphere')
 

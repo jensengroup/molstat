@@ -112,7 +112,7 @@ integers. Instead we use a very useful tool call NumPy which is imported as all 
 import numpy as np
 \end{lstlisting}
 
-We can then use the \code{arange(start, end, step)} function.
+We can then use the \code{np.arange(start, end, step)} function.
 This will produce a list just like the \code{range()} function, but this time the
 \code{start},
 \code{end}, and
@@ -130,7 +130,7 @@ x_list = np.arange(0, 10, 0.1)
         h(x) = \frac{1}{x} + e^{5x}
     \end{align}
 
-  \item Define a list of $x$-values, ranging from -1 to 1 with a step size of 0.1, using the \code{arange()} function.
+  \item Define a list of $x$-values, ranging from -1 to 1 with a step size of 0.1, using the \code{np.arange()} function.
 
   \item Plot the result using Matplotlib.
 
@@ -139,16 +139,20 @@ x_list = np.arange(0, 10, 0.1)
 Next let us plot something more complex. Use \code{np.sin()} and \code{np.cos()}.
 
 \begin{enumerate}
-  \setcounter{enumi}{6}
-  \item Define the following two functions
+    \setcounter{enumi}{6}
+    \item Define the following two functions
     \begin{align}
         q(t) = 13\sin(t)^3 && \text{and} && p(t) = 13\cos(t) - 5 \cos(2t) - 2 \cos(3t) - \cos(4t)
     \end{align}
 
-  \item Define a list of $t$-values from $-2\pi$ to $2\pi$.
+    \item Define a list of $t$-values from $-2\pi$ to $2\pi$.
       {\em Hint:} Use \code{np.pi} to get the value of $\pi$.
 
-  \item For each value of $t$, plot $p(t)$ vs. $q(t)$, with $p(t)$ as the $x$-value and $q(t)$ as the $y$-value.
+    \item With the $t$ values, save two new lists with the corresponding $p(t)$ and $q(t)$ values.
+
+    \item Make a plot using $p(t)$ values as $x$-values and $q(t)$ values as $y$-values.
+        {\em Hint:} Using a red line (\code{'r-'}) would be most appropriate color to choose.
+
 
 \end{enumerate}
 
@@ -270,8 +274,8 @@ if i > j:
 \begin{enumerate}
   \setcounter{enumi}{3}
   \item Before implementing the solution, check that the above loop and
-    if-statement works as expected, and checks all unique interactions only once. {\em Hint: Use
-    a print statement.}
+      if-statement works as expected, and checks all unique interactions only once. 
+      {\em Hint:} Use a print statement.
 
   \item Modify your code to loop over all particle interactions. Print the
     distance between the two particles interacting.
@@ -281,16 +285,16 @@ if i > j:
 To let the particles interact, we will use a simple model. The
 particles are considered as being small disks with a diameter of \code{r\_min} that experience
 perfect elastic scattering when particle $i$ comes into contact with particle $j$.
-(Think a game of billiards)
+(Think of a game of billiards.)
 
-When two particles collide elastically they will exchange velocities. For simplicity this is done by simply setting
+When two particles collide elastically they will exchange velocities.
+For simplicity this is done by simply setting
 
 \begin{align}
   \vec{v}_i = \vec{v}_j & & \text{and} & & \vec{v}_j = \vec{v}_i
 \end{align}
 
-If you're interested you can try to implement a more complex velocity-exchange that takes into account the collision angles,
-however this isn't required.
+This is of course an approximation of what should happen, which would depend on the collision angles.
 
 \begin{enumerate}
   \setcounter{enumi}{5}
