@@ -96,11 +96,10 @@ The $y$-components are, of course, similar.
 
 \subsection{The Velo-Verlet solver}
 
-% TODO is Leach used?
+%TODO Reference to Jan's slides
 
 The Velocity Verlet (Velo-Verlet) solver is one of many ways to go about
-integrating the motion of particles. The method is described in detail in
-chapter 7.3.1 in Leach (Equations 7.14 and 7.15). The Velo-Verlet algorithm
+integrating the motion of particles. The Velo-Verlet algorithm
 updates the forces, velocities and positions at the same time step. The
 Velo-Verlet equations for integrating the positions and velocities are (in the
 $x$-direction for one particle):
@@ -110,7 +109,7 @@ x(t + dt) &=& x(t) + dt\ v_x(t) + 0.5\ dt^2\ a_x(t) \label{eq:velo_pos} \\\
 v_x(t + dt) &=& v_x(t) + 0.5\ dt \left[a_x(t) + a_x(t+dt)\right] \label{eq:velo_vel}
 \end{eqnarray}
 
-In the program you will be implementing today, we set the mass of the particles
+In the program you will be implementing today, we will set the mass of the particles
 to 1, so the value of the acceleration is equal to the value of the
 force.
 
@@ -137,19 +136,18 @@ Before you begin, inspect your code from last week. It should more or less
 contain the following functionality:
 
 % TODO ADD FROM SOLUTION WEEK 2!
-% TODO The math module haven't really been introduced. Change all occurences to numpy?
 
 \begin{lstlisting}[language=python]
 import random
-import pylab
-import numpy
+import matplotlib.pyplot as plt
+import numpy as np
 import video # 2D video creator
 
 def distance(xi,yi,xj,yj):
     """ Calculate the distance between particle i and particle j """
     dx = xj-xi
     dy = yj-yi
-    return numpy.sqrt(dx**2 + dy**2)
+    return np.sqrt(dx**2 + dy**2)
 
 
 def initialize_particles(n_particles, box_width):
@@ -157,9 +155,9 @@ def initialize_particles(n_particles, box_width):
     return x_positions, y_positions, x_velocities, y_velocities
 
 
-def simulate_step(x_positions, y_positions, x_velocities, y_velocities, dt):
-    """ Simulate particles movement for their positions and velocities in a
-    single time-step with time dt """
+def take_step(x_positions, y_positions, x_velocities, y_velocities, dt):
+    """ Simulate particle movement from their positions and velocities in a
+    single time-step dt """
     return x_positions, y_positions, x_velocities, y_velocities
 
 
@@ -179,7 +177,7 @@ for n in range(n_steps):
     if n % 10 == 0:
         video.add_frame(X, Y)
 
-video.save(1.0, 'week3')
+video.save('week3')
 
 \end{lstlisting}
 
@@ -191,15 +189,15 @@ Firstly, you will need to write the relevant code/functions to calculate the
 Lennard-Jones potential energy for a given system.
 
 \begin{enumerate}
-
-    \item Save the solution from last week (found on the course site) in a new file, which you will be using today.
+    % Make them use solution, or try to continue from their own code?
+    \item Save the solution from last week in a new file which you will be using today.
         {\em Note:} Remember to call it something new, e.g. \code{exercise\_3.py}.
 
 
-    \item Write a function called "lennard\_jones" that takes the lists of $x$- and $y$-coordinates as arguments and returns the Lennard-Jones energy. Use the code below as inspiration.
+    \item Write a function called \code{lennard\_jones} that takes the lists of $x$- and $y$-coordinates as arguments and returns the Lennard-Jones energy. Use the code below as inspiration.
 \begin{lstlisting}[language=python]
 def lennard_jones(x_positions, y_positions, n_particles):
-    """ Calculate the energy of the LJ potential """
+    """ Calculates the energy of the LJ potential """
     energy = 0.0
     for i in range(n_particles):
         for j in range(n_particles):
@@ -248,8 +246,8 @@ like the velocities.
 def lennard_jones(x_positions, y_positions, n_particles):
     energy = 0.0
 
-    x_force = [0.0 for i in range(len(X))]
-    y_force = [0.0 for i in range(len(Y))]
+    x_force = [0.0 for i in range(n_particles)]
+    y_force = [0.0 for i in range(n_particles)]
 
     for i in range(n_particles):
         for j in range(n_particles):
@@ -266,16 +264,16 @@ def lennard_jones(x_positions, y_positions, n_particles):
 
 \end{lstlisting}
 
-    \item Use the X\_test and Y\_test lists from the previous question and
+    \item Use the \code{X\_test} and \code{Y\_test} lists from the previous question and
         calculate the forces and energies.
-        If you code returns x\_force[0] = 0.0 and y\_force[0] = 1.6720, your
+        If your code returns \code{x\_force[0]} = 0.0 and \code{y\_force[0]} = 1.6720, your
         code might be working as it should.
 
 \end{enumerate}
 
 \newpage
 
-Next is to implement the Velocity Verlet solver (Velo-Verlet).
+Next is to implement the Velo-Verlet solver.
 The Velo-Verlet solver needs the current forces, velocities and
 particle positions as input. Your code already initializes the
 velocities and positions, but doesn't calculate the initial forces. \\
