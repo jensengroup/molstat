@@ -168,6 +168,6 @@ pylab.plot(energy_list)
 pylab.savefig('energy_time.png')
 
 # Save video
-# video.save(box_width, "week3video")
+video.save(box_width, "week3video")
 
 
