@@ -252,9 +252,8 @@ The Velo-Verlet solver needs the current forces, velocities and particle positio
 Your code already initializes the velocities and positions, but doesn't calculate the initial forces.\\
 
 Last week we used random $x$- and $y$-coordinates, within a (-1, 1) box.
-However, when we are working with a potential it is not a good idea to use totally random coordinates, as the initial gradient might be unphysically high.
-And because we are working with a potential with $\sigma = 1$, we need to expand the box, and set \code{box\_width = 10.0} instead of 1.
-E.g. if two particles end up starting with $r_{ij} < 1$ (see figure \ref{fig:potential_energy}) the system would 'explode'.\\
+However, when we are working with a potential it is not a good idea to use completely random coordinates, as the initial gradient might be unphysically large.
+And because we are working with a potential with $\sigma = 1$, we will need to expand the box by setting \code{box\_width = 10.0} instead of 1 since if two particles end up starting with $r_{ij} < 1$ (see figure \ref{fig:potential_energy}), the system would 'explode'.\\
 
 Because of this we want to re-write the \code{initialize\_particles}-function from last week to initialize the particles in a nice grid, instead of random positions.
 We have completed the following code for your convenience.
@@ -263,22 +262,23 @@ We have completed the following code for your convenience.
 def initialize_particles(n_particles, box_width):
     """ Initialize particles in a grid
     """
-
+    
+    # Get the smallest grid that all particles will fit in.
     sqrt_npart = int(np.ceil(np.sqrt(n_particles)))
 
     X = []
     Y = []
 
+    # Arrange sqrt_npart**2 particles in a grid
     for j in range(sqrt_npart):
         X += [i for i in range(sqrt_npart)]
         Y += [j for i in range(sqrt_npart)]
 
-    while len(X) > n_particles:
-        X.pop()
+    # Remove excess particles created
+    X = X[:n_particles]
+    Y = Y[:n_particles]
 
-    while len(Y) > n_particles:
-        Y.pop()
-
+    # Rescale particle positions to fit in the box.
     for i in range(n_particles):
         X[i[ = (X[i] - 0.5 * sqrt_npart) * 1.0/sqrt_npart * box_width * 1.8
         Y[i] = (Y[i]) * 1.0/sqrt_npart * box_width * 0.8
@@ -296,7 +296,7 @@ def initialize_particles(n_particles, box_width):
 
 \begin{enumerate}[resume]
     \item Include the above \code{initialize\_particles} function in your code, set \code{box\_width} to 10.0 and initialize the positions, velocities and forces.
-    {\em Note:} You don't need to understand the initializing code.
+    {\em Note:} You don't need to understand everything in detail in the initializing code.
 \end{enumerate}
 
 Now it's time to implement the Velo-Verlet solver.
@@ -330,7 +330,7 @@ for i in range(n_particles):
 
     \item Correct the particles if they collide with the wall (just like week 1 and 2).
 
-    \item After the initialization of the constant, insert the loop over \code{range(n\_steps)}, but this time we should use the \code{velo\_verlet} function, instead of \code{simulate\_step}.
+    \item After the initialization of the particles, insert the loop over \code{range(n\_steps)}, this time with the \code{velo\_verlet} function, instead of \code{simulate\_step}.
         This should look something like;
 
 \begin{lstlisting}
@@ -339,8 +339,7 @@ for n in range(n_steps):
 \end{lstlisting}
 
     \item Your code should now run a simulation of a Lennard-Jones 2D gas.
-        Save a video of the particle movement and convince yourself that your code is working properly,
-        using the following constants.
+        Save a video of the particle movements using the following constants, and convince yourself that your code is working properly,
 
 \begin{lstlisting}
 box_width = 10.0
