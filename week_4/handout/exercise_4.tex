@@ -27,7 +27,7 @@ The goals of this exercise:
 \begin{enumerate}
     \item Extend your MD-program to three dimension using the supplied module.
 
-    \item Implement a 3D Velo-Verlet solver in Numpy.
+    \item Implement a 3D Velo-Verlet solver.
 
     \item Extend your program with functions to calculate the following properties:
     \begin{enumerate}
@@ -41,6 +41,8 @@ The goals of this exercise:
 
 \end{enumerate}
 
+
+% Is there a numpy handout?
 You should read the Numpy handout available on the course website.
 
 
@@ -50,30 +52,37 @@ The potential we are using this week is almost the same Lennard-Jones potential
 as we saw last week.  You may recall from your simulation last week, that the
 calculation of the particle pair-interactions took a long time to compute, even
 with only 10-20 particles.
-To speed up the calculation time we can make the approximation, that only
+To speed up the calculation time we can make the approximation that only
 particles closer than a certain minimum distance $r_{\mathrm{cut}}$ are
 interacting.
 This is a justified approximation, since particles that are
-further apart have comparatively weaker interactions.
+far apart have weak interactions.
 Here we set $r_{\mathrm{cut}} = 2.5$.
 Using this approximation, we can define the the potential energy between two
-interacting particles $i$ and $j$ is given by:
+interacting particles $i$ and $j$ by:
 
 %\begin{eqnarray}
 %    U_{ij} &=& 4 \epsilon \left[ \left(\frac{\sigma}{r_{ij}} \right)^{12} - \left(\frac{\sigma}{r_{ij}} \right)^6 \right] -E_{\mathrm{cut}} \ \ \mathrm{if}\ \ r_{ij} < r_{\mathrm{cut}}\\
 %    U_{ij} &=& 0 \ \ \mathrm{if}\ \ r_{ij} \ge  r_{\mathrm{cut}}
 %\end{eqnarray}
 
+%\begin{eqnarray}
+%    U_{ij} &= 
+%    \begin{cases}
+%        \ \ 4 \epsilon \left[ \left(\frac{\sigma}{r_{ij}} \right)^{12} - \left(\frac{\sigma}{r_{ij}} \right)^6 \right] -E_{\mathrm{cut}} & \mathrm{if}\ \ r_{ij} < r_{\mathrm{cut}}\\
+%        \ \ 0 & \mathrm{if}\ \ r_{ij} \ge  r_{\mathrm{cut}}
+%    \end{cases}
+%\end{eqnarray}
 \begin{eqnarray}
     U_{ij} &= 
     \begin{cases}
-        \ \ 4 \epsilon \left[ \left(\frac{\sigma}{r_{ij}} \right)^{12} - \left(\frac{\sigma}{r_{ij}} \right)^6 \right] -E_{\mathrm{cut}} & \mathrm{if}\ \ r_{ij} < r_{\mathrm{cut}}\\
+        \ \ 4 \left[ \left(\frac{1}{r_{ij}} \right)^{12} - \left(\frac{1}{r_{ij}} \right)^6 \right] -E_{\mathrm{cut}} & \mathrm{if}\ \ r_{ij} < r_{\mathrm{cut}}\\
         \ \ 0 & \mathrm{if}\ \ r_{ij} \ge  r_{\mathrm{cut}}
     \end{cases}
 \end{eqnarray}
 
 The derivatives of the potential energy are used to calculate the forces
-between particles, i.e.:
+between particles:
 
 \begin{equation}
     \mathbf{F} = -\nabla U =
@@ -118,15 +127,16 @@ are:
     \end{cases}\label{eq:force_j}
 \end{eqnarray}
 
-The $y$- and $z$-components are, of course, similar.
+The $y$- and $z$-components are of course similar.
 
 \subsection{Velo-Verlet integration and periodic boundary conditions}
 
 Last week your setup confined the particles in the simulation inside a box with
 hard walls. Today's exercise uses periodic boundary conditions in the
-minimum-image convention (see chapter 6.7 in Leach), but you don't have to
-implement this code, since it's already implemented in the FORTRAN library you
-will be using. The Velo-Verlet integrator your have to implement is thus very
+minimum-image convention.
+% Jan's notes?
+You don't have to implement this code, since it's already implemented in the FORTRAN library you
+will be using. The Velo-Verlet integrator you have to implement is thus very
 simple (and identical to last week).
 The Velo-Verlet equations for integrating the positions and velocities are (in
 the $x$-direction for one particle):
@@ -136,8 +146,8 @@ x(t + dt) &=& x(t) + dt\ v_x(t) + 0.5\ dt^2\ a_x(t)\label{eq:position_x}\\
 v_x(t + dt) &=& v_x(t) + 0.5\ dt \left[a_x(t) + a_x(t+dt)\right]\label{eq:speed_x}
 \end{eqnarray}
 
-In the program you will be implementing today, we set the mass of the particles
-to 1, so the value of the acceleration is equal to the value of the force.\\
+In the program you will be implementing today, we will again set the mass of the particles
+to 1, such that the value of the acceleration is equal to the value of the force.\\
 
 Let's recap: The Velo-Verlet algorithm uses the forces, velocities and
 positions from the current position to calculate the forces, velocities and
@@ -173,7 +183,8 @@ out as (something like):
 e_kin = np.sum(V * V) * 0.5
 \end{lstlisting}
 
-Why this is true? I.e. what does V * V do and what does np.sum() do?
+% V = Vx + Vy + Vz. Something they've seen in lectures?
+Why is this true? What does V * V do and what does np.sum() do?
 
 \subsection{Conservation of energy}
 
@@ -183,13 +194,14 @@ If your simulation is successful the total energy will be conserved. That is:
     E_{\mathrm{total}} = E_{\mathrm{pot}} + E_{\mathrm{kin}} \approx \mathrm{constant}
 \end{equation}
 
-Conservation of energy can sometimes fail during and MD simulation. Often this
+Conservation of energy can sometimes fail during a MD simulation. Often this
 is due to the timestep $dt$ being too large, which causes the numerical
 Velo-Verlet integration to fail.
 
 \subsection{Instantaneous temperature}
 
-The first thermodynamic property we will derive from our simulation is the instantaneous temperatur, that is the temperature as a function of time, $T(t)$.
+The first thermodynamic property we will derive from our simulation is the instantaneous temperature,
+that is the temperature as a function of time, $T(t)$.
 You will sometimes see the temperature defined in terms of the average kinetic energy \textit{per} degree of freedom in a system:
 
 \begin{eqnarray}
@@ -241,7 +253,7 @@ neglecting:
     \Delta P_\mathrm{tail} & = & \frac{16}{3}\pi \rho \left[ \frac{2}{3}\left( \frac{\sigma}{r_{\mathrm{cut}}} \right)^9 - \left(\frac{\sigma}{r_{\mathrm{cut}}} \right)^3 \right]
 \end{eqnarray}
 
-Here we simply set $\sigma = 1$ (see last week's exercise). Remember
+Here we simply set $\sigma = 1$. Remember
 $r_{\mathrm{cut}} = 2.5$.
 
 \newpage
@@ -264,69 +276,61 @@ $r_{\mathrm{cut}} = 2.5$.
 % shape
 % +=, -=, *=, /=
 
+% Start with numpy exercises to make sure students understand how it works, rather than the MD part?
 
 When working with Python "in the real world" you will most often use Numerical
 Python (NumPy) and vectorization.
 This is because it is faster and easier.
-Firstly we would want to import the module \code{numpy}.
+Firstly we'll import the module \code{numpy}.
 
-\begin{enumerate}
-
-    \item Create a new Python file in which you can carry out the following
-        Numpy exercises. In the first line of the new file, import the Numpy
-        library:
 
 \begin{lstlisting}[language=python]
 import numpy as np
 \end{lstlisting}
 
-        What does \code{as np} mean? And why would you write that?
-
-\end{enumerate}
-
 Numpy is a fast library of functions and data types.
 It is mostly used for substituting the normal Python List for a new data type
-called \code{ndarray}, which is a mathmatical vector-like data type.
+called \code{ndarray}.
 
-For example generating an empty list of zeros with the two different methods.
+As an example, generating an empty list of zeros with the two different methods:
 
 \begin{lstlisting}
 list = [0.0 for i in range(5)] # Normal list
-vector = np.zeros(5)           # Numpy vector
+array = np.zeros(5)           # Numpy array
 \end{lstlisting}
 
-Now for the advantages.
-A huge advantage is vectorization commands.
-You can change a variable by using commands like
-"\code{+=}",
-"\code{-=}",
-"\code{*=}",
-"\code{/=}". So the code
+% Haven't touched upon += etc. so far, so skip? Or introduce?
+A huge advantage of using Numpy arrays is vectorization commands.
+%You can change a variable by using commands like
+%"\code{+=}",
+%"\code{-=}",
+%"\code{*=}",
+%"\code{/=}". So the code
+%
+%\begin{lstlisting}
+%a = 45
+%a = a + 5
+%\end{lstlisting}
+%
+%is equivalent too
+%
+%\begin{lstlisting}
+%a = 45
+%a += 5
+%\end{lstlisting}
+%
+%\begin{enumerate}
+%    \setcounter{enumi}{1}
+%    \item Execute and evaluate the above command. What does it do?
+%\end{enumerate}
 
-\begin{lstlisting}
-a = 45
-a = a + 5
-\end{lstlisting}
-
-is equivalent too
-
-\begin{lstlisting}
-a = 45
-a += 5
-\end{lstlisting}
-
-\begin{enumerate}
-    \setcounter{enumi}{1}
-    \item Execute and evaluate the above command. What does it do?
-\end{enumerate}
-
-This smart can also be used on Numpy arrays (just like vectors).
-Note: This will fail for Python Lists.
-
+You can perform mathematical operations on every element in a Numpy arrays, just like you would on a single element. E.g. 
 \begin{lstlisting}
 V = np.zeros(5)
 V += 5
 \end{lstlisting}
+
+This however doesn't work with normal Python Lists.
 
 \begin{enumerate}
     \setcounter{enumi}{2}
