@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2014.2.20)  4 MAY 2014 13:55
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2014.2.20)  4 MAY 2014 16:30
 entering extended mode
  %&-line parsing enabled.
 **exercise_4.tex
@@ -991,54 +991,57 @@ Underfull \hbox (badness 10000) in paragraph at lines 341--346
  []
 
 [4]
-Underfull \hbox (badness 10000) in paragraph at lines 406--408
+Underfull \hbox (badness 10000) in paragraph at lines 412--414
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 429--434
+Underfull \hbox (badness 10000) in paragraph at lines 435--440
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 453--459
+Underfull \hbox (badness 10000) in paragraph at lines 459--465
 
  []
 
 
-Overfull \hbox (6.54375pt too wide) in paragraph at lines 480--484
+Overfull \hbox (6.54375pt too wide) in paragraph at lines 488--492
 []\OT1/lmtt/m/n/9 lennard[]jones \OT1/lmr/m/n/10 takes as ar-gu-ments the po-si
 -tion ma-trix \OT1/lmtt/m/n/9 R \OT1/lmr/m/n/10 and \OT1/lmtt/m/n/9 box[]width\
 OT1/lmr/m/n/10 . Just like last week, the \OT1/lmtt/m/n/9 lennard[]jones
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 480--484
+Underfull \hbox (badness 10000) in paragraph at lines 488--492
 
  []
 
-[5] [6] <energy.png, id=185, 578.16pt x 433.62pt>
+[5] [6] <energy.png, id=191, 578.16pt x 433.62pt>
 File: energy.png Graphic file (type png)
  <use energy.png>
-<temperature.png, id=188, 578.16pt x 433.62pt>
+<temperature.png, id=194, 578.16pt x 433.62pt>
 File: temperature.png Graphic file (type png)
  <use temperature.png>
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[7 <./energy.png>] <pressure.png, id=217, 578.16pt x 433.62pt>
+<pressure.png, id=196, 578.16pt x 433.62pt>
 File: pressure.png Graphic file (type png)
+ <use pressure.png>
 
-<use pressure.png> [8 <./temperature.png> <./pressure.png>] (./exercise_4.aux) 
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[7 <./energy.png>] [8 <./temperature.png> <./pressure.png>] (./exercise_4.aux) 
 ) 
 Here is how much of TeX's memory you used:
- 13441 strings out of 493848
- 191159 string characters out of 1152823
- 497539 words of memory out of 3000000
- 16290 multiletter control sequences out of 15000+50000
+ 13440 strings out of 493848
+ 191147 string characters out of 1152823
+ 496539 words of memory out of 3000000
+ 16289 multiletter control sequences out of 15000+50000
  64811 words of font info for 75 fonts, out of 3000000 for 9000
  714 hyphenation exceptions out of 8191
- 43i,16n,73p,329b,2034s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 43i,16n,73p,329b,1390s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvi
 ps/lm/lm-rmtt.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/shar
 e/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/l
@@ -1055,7 +1058,7 @@ fb></usr/share/texmf/fonts/type1/public/lm/lmri10.pfb></usr/share/texmf/fonts/t
 ype1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy7.pfb></u
 sr/share/texmf/fonts/type1/public/lm/lmtk10.pfb></usr/share/texmf/fonts/type1/p
 ublic/lm/lmtt9.pfb>
-Output written on exercise_4.pdf (8 pages, 552279 bytes).
+Output written on exercise_4.pdf (8 pages, 551936 bytes).
 PDF statistics:
  320 PDF objects out of 1000 (max. 8388607)
  138 named destinations out of 1000 (max. 500000)

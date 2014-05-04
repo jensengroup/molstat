@@ -58,7 +58,7 @@ interacting.
 This is a justified approximation, since particles that are
 far apart have weak interactions.
 Here we set $r_{\mathrm{cut}} = 2.5$.
-Using this approximation, we can define the the potential energy between two
+Using this approximation, we can define the potential energy between two
 interacting particles $i$ and $j$ by:
 
 %\begin{eqnarray}
@@ -261,7 +261,7 @@ $r_{\mathrm{cut}} = 2.5$.
 \section{Numpy Exercises}
 
 % TODO generelt
-% copy.copy(V) <-- earliere week?
+% copy.copy(V) <-- earlier this week?
 
 % TODO methods
 % np.save
@@ -354,7 +354,13 @@ for i in range(10):
 L = np.array(L)
 \end{lstlisting}
 
-% Whole part seems out of place and a bit trivial
+\begin{enumerate}
+    \setcounter{enumi}{2}
+    \item Familiarize yourself with the Numpy methods \code{arange}, \code{sum}, \code{mean} and \code{pi}.
+\end{enumerate}
+
+%% Whole part seems out of place and a bit trivial since arange already have been introduced
+
 %A very useful command to use is the \code{np.arange()}, which is similar to the range().
 %
 %\begin{enumerate}
@@ -427,9 +433,9 @@ import video3d
 \end{lstlisting}
 
 Last week you wrote your own code to initialize the particle positions,
-velocities, box\_width etc. The initialize\_particles() function you
-imported is a bit more advanced.
-The new initialize\_particles() function takes as arguments the number of
+velocities, box width etc. The \code{initialize\_particles()} function you
+will import is a bit more advanced.
+The new \code{initialize\_particles()} function takes as arguments the number of
 particles, the given temperature and a desired particle density.\\
 
 The temperature option is used to scale the particle velocities appropriately
@@ -442,11 +448,11 @@ density in order to calculate the pressure correctly, see section 1.6)
     \item Initialize your system with the following code:
 
 \begin{lstlisting}
-R, V, F, box_width = initialize_particles(n_particles, temperature, rho)
+R, V, F, box_width = md.initialize_particles(n_particles, temperature, rho)
 \end{lstlisting}
 
         Suggested values are temperature = 2.0 and rho = 0.1.
-        Don't worry you will get a chance to play around with these values later
+        You will get a chance to play around with these values later.
 
 \end{enumerate}
 
@@ -454,27 +460,29 @@ You will notice that initialize\_particles() returns four values.
 \code{R} is the coordinate matrix. It is an Nx3 matrix, which holds for each of N particles
 the X, Y and Z coordinates.
 Likewise \code{V} and \code{F} holds the initial velocities and forces, respectively.
-\code{box\_width} is the width of the scaled box, which today you cannot specify this yourself,
-because it is based on the density of the particles.\\
+\code{box\_width} is the width of the scaled box, which today you cannot specify yourself,
+since it is based on the density of the particles.\\
 
-Now it's time to test the initialize\_particles function.
+%% Seems a bit redundant
 
-
-\begin{enumerate}
-    \setcounter{enumi}{1}
-
-    \item What comes out of \code{initialize\_particles(n\_particles,
-        temperature, rho)} if you set \code{n\_particles = 10}, \code{temperature = 2.0} and
-        \code{rho = 0.1}? What do \code{R}, \code{V} and \code{F} contain? Can
-        you explain why?
-
-\end{enumerate}
+%Now it's time to test the \code{initialize\_particles()} function.
+%
+%
+%\begin{enumerate}
+%    \setcounter{enumi}{1}
+%
+%    \item What comes out of \code{initialize\_particles(n\_particles,
+%        temperature, rho)} if you set \code{n\_particles = 10}, \code{temperature = 2.0} and
+%        \code{rho = 0.1}? What do \code{R}, \code{V} and \code{F} contain? Can
+%        you explain why?
+%
+%\end{enumerate}
 
 The second new function you got from the md module is \code{lennard\_jones()} - which
 can be used like this:
 
 \begin{lstlisting}[language=python]
-e_pot, F, w_vir = lennard_jones(R, box_width)
+e_pot, F, w_vir = md.lennard_jones(R, box_width)
 \end{lstlisting}
 
 \code{lennard\_jones} takes as arguments the position matrix \code{R} and \code{box\_width}.
@@ -497,7 +505,7 @@ R_test = np.array([[0.7, 2.3, 0.7], [0.7,  0.7, 2.3], [0.7, 0.7, 0.7]])
     and \code{box\_width = 3.10}. That is:
 
 \begin{lstlisting}
-print lennard_jones(R_tests, 3.10)
+print lennard_jones(R_test, 3.10)
 \end{lstlisting}
 
     The potential energy is -0.635, the virial -3.732. The forces matrix (rounded
