@@ -324,16 +324,17 @@ A huge advantage of using Numpy arrays is vectorization commands.
 %    \item Execute and evaluate the above command. What does it do?
 %\end{enumerate}
 
-You can perform mathematical operations on every element in a Numpy arrays, just like you would on a single element. E.g. 
+You can perform mathematical operations on every element at once in a Numpy array, just like you would on a single element. E.g. 
 \begin{lstlisting}
 V = np.zeros(5)
-V += 5
+%V += 5
+V = V + 5
 \end{lstlisting}
 
 This however doesn't work with normal Python Lists.
 
 \begin{enumerate}
-    \setcounter{enumi}{2}
+    \setcounter{enumi}{1}
     \item Execute and evaluate the above command. What is the result of V?
 \end{enumerate}
 
@@ -353,66 +354,67 @@ for i in range(10):
 L = np.array(L)
 \end{lstlisting}
 
-A very useful command to use is the \code{np.arange()}, which is similar to the range().
-
-\begin{enumerate}
-    \setcounter{enumi}{3}
-    \item Execute the code
-
-\begin{lstlisting}
-num_vector = np.arange(0, 5)
-print num_vector
-num_vector = np.arange(0, 5, 0.1)
-print num_vector
-\end{lstlisting}
-
-    and explain what the method \code{np.arange()} does.
-
-
-    \item What does \code{np.sum()} do and what is the result of the follow code?
-
-\begin{lstlisting}
-np.sum(num_vector)
-\end{lstlisting}
-
-    Answer: 122.5
-
-    \item What does \code{np.mean()} do and what is the result of the follow code?
-
-\begin{lstlisting}
-np.mean(num_vector)
-\end{lstlisting}
-
-    Answer: 2.45
-
-    \item What is the value of \code{np.pi}.
-
-    \item What does \code{np.random.uniform(0.0, 1.0)} do?
-
-    \item (Optional) How to get a random float from a normal distribution,
-        using Numpy? Create a list of 1000 random numbers and plot the
-        distribution using Pylab.
-
-        {\em Hint:} Use Google.
-
-\end{enumerate}
+% Whole part seems out of place and a bit trivial
+%A very useful command to use is the \code{np.arange()}, which is similar to the range().
+%
+%\begin{enumerate}
+%    \setcounter{enumi}{3}
+%    \item Execute the code
+%
+%\begin{lstlisting}
+%num_vector = np.arange(0, 5)
+%print num_vector
+%num_vector = np.arange(0, 5, 0.1)
+%print num_vector
+%\end{lstlisting}
+%
+%    and explain what the method \code{np.arange()} does.
+%
+%
+%    \item What does \code{np.sum()} do and what is the result of the follow code?
+%
+%\begin{lstlisting}
+%np.sum(num_vector)
+%\end{lstlisting}
+%
+%    Answer: 122.5
+%
+%    \item What does \code{np.mean()} do and what is the result of the follow code?
+%
+%\begin{lstlisting}
+%np.mean(num_vector)
+%\end{lstlisting}
+%
+%    Answer: 2.45
+%
+%    \item What is the value of \code{np.pi}.
+%
+%    \item What does \code{np.random.uniform(0.0, 1.0)} do?
+%
+%    \item (Optional) How to get a random float from a normal distribution,
+%        using Numpy? Create a list of 1000 random numbers and plot the
+%        distribution using Pylab.
+%
+%        {\em Hint:} Use Google.
+%
+%\end{enumerate}
 
 \newpage
 
 \section{Molecular Dynamics simulation}
 
-Before you start this week exercise, please make you you have downloaded the
+Before you start this weeks exercise, please make you you have downloaded the
 material from the course website.\\
 
 % TODO REWRITE THE FOLLOWING TO MATCH MATERIAL
-% Before you start, download the two files from kunet, "md\_header.py" and
-% "forces.so". Put both files in the same folder as the Python program you are
-% working on today.  "md\_header.py" contains functions initialize the particles,
-% calculates the Lennard-Jones forces and energy as well as a function to
-% visualize a 3D video of your simulation.  "forces.so" implements the
-% calculation of the Lennard-Jones forces in a very efficient FORTRAN routine You
-% don't have to worry about the technical details of this, just know that the
-% FORTRAN routine is about 300 times faster than the same code running in Python.
+Before you start, download the two files from absalon, \code{md\_header.py} and
+\code{forces.so}. Put both files in the same folder as the Python program you are
+working on today. \code{md\_header.py} contains functions to initialize the particles,
+calculate the Lennard-Jones forces and energy as well as a function to
+visualize a 3D video of your simulation. \code{forces.so} implements the
+calculation of the Lennard-Jones forces in a very efficient FORTRAN routine. You
+don't have to worry about the technical details of this, just know that the
+FORTRAN routine is about 300 times faster than the same code running in Python.
 
 Make a new Python program, and name it \code{exercise\_4.py}.
 In the first two lines import Numpy and the three functions from the downloaded

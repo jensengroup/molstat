@@ -1,6 +1,6 @@
-import math
+import numpy as np 
 import random
-import pylab
+import matplotlib.pyplot as plt 
 import copy
 
 import video
@@ -10,7 +10,7 @@ def distance(xi, yi, xj, yj):
     """ Calculate the distance between particle i and particle j """
     dx = xj-xi
     dy = yj-yi
-    return math.sqrt(dx**2 + dy**2)
+    return np.sqrt(dx**2 + dy**2)
 
 
 def lennard_jones(x_positions, y_positions):
@@ -53,7 +53,7 @@ def lennard_jones(x_positions, y_positions):
 def initialize_particles(n_particles, box_width):
     """ Initialize particles in a grid position """
 
-    sqrt_npart = int(math.ceil(math.sqrt(n_particles)))
+    sqrt_npart = int(np.ceil(np.sqrt(n_particles)))
 
     X = []
     Y = []
@@ -62,14 +62,14 @@ def initialize_particles(n_particles, box_width):
         X += [i for i in range(sqrt_npart)]
         Y += [j for i in range(sqrt_npart)]
 
-    # Might initialized too many particles, pop some
-    while len(X) > n_particles:
-        X.pop()
-        Y.pop()
+    # Remove excess particles.
+    X = X[:n_particles]
+    Y = Y[:n_particles]
 
+    # Rescale particle positions to fit box.
     for i in range(n_particles):
-        X[i] = (X[i] - 0.5*sqrt_npart)*1.0/sqrt_npart*box_width*1.8
-        Y[i] = (Y[i])*1.0/sqrt_npart*box_width*0.8
+        X[i] = (X[i] - 0.5*(sqrt_npart-1))*1.0/sqrt_npart*box_width*1.8
+        Y[i] = (Y[i]- 0.5*(sqrt_npart-1))*1.0/sqrt_npart*box_width*1.8
 
     # Initialize particle velocities
     Vx = [2*(random.random() - 0.5) for i in range(n_particles)]
@@ -121,19 +121,19 @@ def velo_verlet(x_positions, y_positions,
 
 
 def plot_box(X, Y, Vx, Vy, box_width, filename):
-    pylab.plot(X, Y, 'ro')
-    pylab.quiver(X, Y, Vx, Vy)
-    pylab.axis((-box_width, box_width, -box_width, box_width))
-    pylab.savefig(filename)
-    pylab.clf()
+    plt.plot(X, Y, 'ro')
+    plt.quiver(X, Y, Vx, Vy)
+    plt.axis((-box_width, box_width, -box_width, box_width))
+    plt.savefig(filename)
+    plt.clf()
 
 
 ## Simulation Initialization
 box_width = 10.0
 n_particles = 7*7
-n_particles = 42
+n_particles = 49
 n_steps = 5000
-dt = 0.001
+dt = 0.01
 
 # Empty energy lists
 energy_list = []
@@ -159,15 +159,18 @@ for n in range(n_steps):
 
     if n % 10 == 0:
         video.add_frame(X, Y)
+    
+    if n % 100 == 0:
+        print "step",n,"of",n_steps
 
 
 ## Plot Results
 
 # Energy plot
-pylab.plot(energy_list)
-pylab.savefig('energy_time.png')
+plt.plot(energy_list)
+plt.savefig('energy_time.png')
 
 # Save video
-video.save(box_width, "week3video")
+video.save("week3video", box_width)
 
 
