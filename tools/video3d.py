@@ -24,7 +24,7 @@ y_frames = []
 z_frames = []
 
 
-def save(box_width, filename, fps=25):
+def save(filename, box_width, fps=25):
     """ Save a video with added frames
     """
 
