@@ -101,11 +101,11 @@ def velo_verlet(x_positions, y_positions,
 
         if abs(x_positions[i]) > box_width:
             x_positions[i] -= dt*x_velocities[i]
-            x_velocities[i] = -1*x_velocities[i]
+            x_velocities[i] = -x_velocities[i]
 
         if abs(y_positions[i]) > box_width:
             y_positions[i] -= dt*y_velocities[i]
-            y_velocities[i] = -1*y_velocities[i]
+            y_velocities[i] = -y_velocities[i]
 
     # Step 2:
     # Update forces
