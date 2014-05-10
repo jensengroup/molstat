@@ -157,8 +157,8 @@ for n in range(n_steps):
     if n % 1 == 0:
         energy_list.append(energy)
 
-    if n % 10 == 0:
-        video.add_frame(X, Y)
+    #if n % 10 == 0:
+    #    video.add_frame(X, Y)
     
     if n % 100 == 0:
         print "step",n,"of",n_steps
@@ -171,6 +171,6 @@ plt.plot(energy_list)
 plt.savefig('energy_time.png')
 
 # Save video
-video.save("week3video", box_width)
+#video.save("week3video", box_width)
 
 

@@ -228,7 +228,7 @@ temperature = np.mean(V * V)
 \end{lstlisting}
 
 Why this is true? What does np.size() calculate? What does np.mean() calculate?
-Why do both implementations the yield the same result?
+Why do both implementations yield the same result?
 
 \subsection{Instantaneous Pressure}
 
@@ -327,7 +327,6 @@ A huge advantage of using Numpy arrays is vectorization commands.
 You can perform mathematical operations on every element at once in a Numpy array, just like you would on a single element. E.g. 
 \begin{lstlisting}
 V = np.zeros(5)
-%V += 5
 V = V + 5
 \end{lstlisting}
 
@@ -492,7 +491,7 @@ Just like last week, the \code{lennard\_jones} function returns the potential en
 
 
 \begin{enumerate}
-    \setcounter{enumi}{2}
+    \setcounter{enumi}{1}
 
     \item
     Now it's time to test the \code{lennard\_jones} function. Instead of giving R as input
@@ -525,7 +524,7 @@ Now it is time to implement the Velo-Verlet solver from last week, but using
 the new module and Numpy.
 
 \begin{enumerate}
-    \setcounter{enumi}{3}
+    \setcounter{enumi}{2}
 
     \item Somewhere in your program file put the solver code in:
 
@@ -552,69 +551,49 @@ for n in range(n_steps):
         stabilize around -20 if your solver works properly.
 
     \item Now would be a good time to implement the video function.
-        The new 3D video is used like the other by adding frames like;
+        The new 3D video is used like the other by adding frames and saving like:
 
 \begin{lstlisting}
 # Add Frame
 video3d.add_frame(R)
 
 # Save movie
-video3d.save(box_width, 'my_video')
+video3d.save('my_video',box_width)
 
 \end{lstlisting}
 
-        And add frame every 10'th step in the Velo-Verlet step.
+        Use this to add a frame every 10'th step.
 
     \item Run 500 steps and save a video.
 
 \end{enumerate}
 
 
-You have now successfully implemented an MD simulation of a Lennard-Jones gas.
+You have now successfully implemented a MD simulation of a Lennard-Jones gas.
 The goal now is to use the equations from section 1 to calculate interesting
 physical properties of your system.
 
 \begin{enumerate}
-    \setcounter{enumi}{7}
+    \setcounter{enumi}{6}
 
     \item Use the equations from section 1.3 to calculate the kinetic energy.
         Print the kinetic energy, potential energy and total energy each 10
-        step.
+        steps.
 
-    \item Make three empty lists called Ekin\_list, Epot\_list and Etot\_list.
-        Append
-
-\begin{lstlisting}[language=python]
-Ekin_list = []
-Epot_list = []
-Etot_list = []
-
-for n in range(n_steps):
-
-    """ Your Velo-Verlet solver code
-        is here ...
-    """
-
-if (n % 10):
-    # Calculate e_kin and e_tot
-    # here!
-
-    Ekin_list.append(e_kin)
-    Epot_list.append(e_pot)
-    Etot_list.append(e_tot)
-\end{lstlisting}
+    \item Make three empty lists called Ekin\_list, Epot\_list and Etot\_list and append
+        the current values to these lists every 10 steps instead of printing them.
 
     \item Run your simulation for 10,000 steps. Do not save a video, since this
-        will take several minutes to compile. Use Pylab to make a plot of the
-        energies vs. time.:
+        will take several minutes to compile. Use Matplotlib to make a plot of the
+        energies vs. time:
 
 \begin{lstlisting}
-pylab.clf()
-pylab.plot(Ekin_list, 'r-', label='Kinetic Energy')
-pylab.plot(Epot_list, 'b-', label='Potential Energy')
-pylab.plot(Etot_list, 'g-', label='Total Energy')
-pylab.legend() # Plot labels in figure
-pylab.savefig("my_energy.png")
+plt.clf()
+plt.plot(Ekin_list, 'r-', label='Kinetic Energy')
+plt.plot(Epot_list, 'b-', label='Potential Energy')
+plt.plot(Etot_list, 'g-', label='Total Energy')
+plt.legend() # Plot labels in figure
+plt.savefig("my_energy.png")
 \end{lstlisting}
 
     How does the energies evolve if you run your simulation with 40 particles at T =
@@ -637,9 +616,9 @@ pylab.savefig("my_energy.png")
     \item Use the equations from section 1.5 to calculate the instantaneous
     temperatures during the simulation. 
 
-    \item Like in the previous question, make an empty list called T\_list and
-    append the current temperature every 10 steps. Use Pylab to make a plot of
-    this list. See Figure \ref{fig:temperature} for example.
+    \item Like for the energies, make an empty list called T\_list and
+    append the instantaneous temperature every 10 steps. Use Matplotlib to make a plot of
+    this list. See Figure \ref{fig:temperature} for an example.
 
     \begin{figure}[h!]
         \begin{center}
@@ -649,6 +628,7 @@ pylab.savefig("my_energy.png")
         \end{center}
     \end{figure}
 
+    % Have no idea what the answer to this question is lol
     Does the temperature you calculate correspond to the temperature you
     specified when you initialized your particles? Run your simulation at T =
     0.05. What could easily go wrong now?
@@ -659,7 +639,7 @@ pylab.savefig("my_energy.png")
 
     Use the equations from section 1.6 to calculate the instantaneous pressure during the simulation. 
 
-    \item Use Pylab to plot the pressure during the simulation, as done in the
+    \item Use Matplotlib to plot the pressure during the simulation, as done in the
         previous exercises. How does the temperature and particle density
         affect the pressure? See Figure \ref{fig:pressure} for example.
 
