@@ -2,12 +2,9 @@
 
 import numpy as np
 import copy
-
-import pylab
-
+import matplotlib.pyplot as plt
+import md_header as md
 import video3d
-from md_header import initialize_particles, lennard_jones
-
 
 def calc_kinetic(V):
     """ Calculate kinetic energy
@@ -24,8 +21,8 @@ def calc_temperature(V):
 save_video = False
 
 # Simulation constants
-n_steps     = 10000
-temperature = 0.5
+n_steps     = 20000
+temperature = 2.0
 n_atoms     = 40
 rho         = 0.1
 dt          = 0.001
@@ -33,11 +30,13 @@ dt          = 0.001
 # Save frequency
 save_freq = 10
 
+
 # Initialize simulation
-R, V, F, box_size = initialize_particles(n_atoms, temperature, rho)
+R, V, F, box_size = md.initialize_particles(n_atoms, temperature, rho)
 
 # Calculate the tail correction
 p_tail = 16.0/3.0 * np.pi * rho * (2.0/3.0 * (2.5**-9) - (2.5**-3))
+
 
 # Storage arrays
 ek_list = [] # Kinetic energy
@@ -55,7 +54,7 @@ for n in range(n_steps+1):
 
     # Step 2: Calculate new forces
     F0 = copy.copy(F)
-    potential_energy, F, vir = lennard_jones(R, box_size)
+    potential_energy, F, vir = md.lennard_jones(R, box_size)
 
     # Step 3: Calculate new velocities
     V += 0.5*(F + F0)*dt
@@ -63,10 +62,10 @@ for n in range(n_steps+1):
     if n % save_freq == 0:
 
         # Calculate properties
-        kinetic_energy  = calc_kinetic(V)
-        total_energy    = kinetic_energy + potential_energy
-        temperature     = calc_temperature(V)
-        pressure        = rho * temperature + 1.0/(3.0 * box_size**3) * vir * p_tail
+        kinetic_energy = calc_kinetic(V)
+        total_energy = kinetic_energy + potential_energy
+        temperature = calc_temperature(V)
+        pressure = rho*temperature + 1.0/(3.0*box_size**3)*vir + p_tail
 
         ek_list.append(kinetic_energy)
         ep_list.append(potential_energy)
@@ -74,43 +73,43 @@ for n in range(n_steps+1):
         pr_list.append(pressure)
         te_list.append(temperature)
 
-        print "%1 %2".format(n, total_energy)
+        print "{0:6d} {1:8.2f} {2:8.2f}".format(n, total_energy, potential_energy)
 
         # Add frame to video
-        # NOTE remove this line for large n_steps
-        # video3d.add_frame(R)
+        if save_video:
+            video3d.add_frame(R)
 
 
 # Create plots
-pylab.title("Energy versus time")
-pylab.xlabel("Simulation step")
-pylab.ylabel("Energy")
-pylab.grid(True)
-pylab.plot(ek_list, 'r-', label= "kinetic")
-pylab.plot(ep_list, 'b-', label= "potential")
-pylab.plot(et_list, 'g-', label = "total")
-pylab.legend()
-pylab.savefig("energy.png")
+plt.title("Energy versus time")
+plt.xlabel("Simulation step")
+plt.ylabel("Energy")
+plt.grid(True)
+plt.plot(ek_list, 'r-', label="kinetic")
+plt.plot(ep_list, 'b-', label="potential")
+plt.plot(et_list, 'g-', label="total")
+plt.legend()
+plt.savefig("energy.png")
 
-pylab.clf()
+plt.clf()
 
-pylab.title("Pressure versus time")
-pylab.xlabel("Simulation step")
-pylab.ylabel("Pressure")
-pylab.grid(True)
-pylab.plot(pr_list, 'b-')
-pylab.savefig("pressure.png")
+plt.title("Pressure versus time")
+plt.xlabel("Simulation step")
+plt.ylabel("Pressure")
+plt.grid(True)
+plt.plot(pr_list, 'b-')
+plt.savefig("pressure.png")
 
-pylab.clf()
+plt.clf()
 
-pylab.title("Temperature versus time")
-pylab.xlabel("Simulation step")
-pylab.ylabel("Temperature")
-pylab.grid(True)
-pylab.plot(te_list, 'b-')
-pylab.savefig("temperature.png")
+plt.title("Temperature versus time")
+plt.xlabel("Simulation step")
+plt.ylabel("Temperature")
+plt.grid(True)
+plt.plot(te_list, 'b-')
+plt.savefig("temperature.png")
 
-pylab.clf()
+plt.clf()
 
 print box_size
 

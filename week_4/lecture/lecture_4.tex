@@ -1,0 +1,118 @@
+\documentclass{beamer}
+
+\input{../../lecture_preamble}
+
+\title[]{Molecular Statistics, Week 4}
+\institute[University of Copenhagen]{Department of Chemistry \\ University of Copenhagen}
+\author[Jimmy Charnley Kromann]{Jimmy Charnley Kromann}
+\date{2014}
+
+\begin{document}
+
+\frame[plain]{\titlepage}
+
+
+\begin{frame}[fragile]
+
+    \frametitle{Week 4, Overview}
+
+    \begin{itemize}
+
+        \item FORTRAN
+
+        \item if boolean
+
+        \item Numpy Tricks
+
+        \item Diffusion, random walk Monte Carlo
+
+    \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+    \frametitle{FORTRAN}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+    \frametitle{if boolean}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+    \frametitle{Numpy Tricks}
+
+    np.array
+
+    np.zero((3,3))
+
+    np.arange(5)
+
+    "views"
+
+    array mathematics
+    - np.sqrt(a)
+    - +=
+    - A*A
+
+    array methods
+    - mean
+    - sum
+    - prod
+    - min / max
+    - argmin / argmax
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+    \frametitle{Diffusion}
+
+    \begin{align}
+        R_{x,i}(t+dt) = R_{x,i}(t) + random()
+    \end{align}
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+
+    \frametitle{Update positions}
+
+    The Numpy way
+
+    \bigskip
+
+\begin{lstlisting}
+for i in range(n_particles):
+    X[i] = X[i] + dt*Vx[i] + 0.5*dt*dt*Fx[i]
+\end{lstlisting}
+
+becomes
+
+\begin{lstlisting}
+X += dt*Vx + 0.5*dt*dt*Fx
+\end{lstlisting}
+
+\end{frame}
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% END FRAMES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
+
