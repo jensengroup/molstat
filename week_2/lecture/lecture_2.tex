@@ -1,0 +1,227 @@
+\documentclass{beamer}
+
+\input{../../lecture_preamble}
+
+\title[]{Molecular Statistics, Week 2}
+\institute[University of Copenhagen]{Department of Chemistry \\ University of Copenhagen}
+\author[Jimmy Charnley Kromann]{Jimmy Charnley Kromann}
+\date{2014}
+
+\begin{document}
+
+\frame[plain]{\titlepage}
+
+
+\begin{frame}[fragile]
+
+    \frametitle{Week 2, Overview}
+
+    \begin{itemize}
+        \item Week 1 problems
+        \item Functions
+        \item Debugging
+        \item Double loop
+    \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+    \frametitle{Week 1 problems}
+
+    What was the hardest part of week 1?\\
+
+    \bigskip
+
+\begin{lstlisting}
+pos_x = [random.random() for i in range(n_particles)]
+
+for i in range(n_particles):
+    print pos_x[i]
+
+\end{lstlisting}
+
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+
+    \frametitle{Functions}
+
+    \begin{align*}
+        y(x) = x^2
+    \end{align*}
+
+    \bigskip
+    \bigskip
+
+\begin{lstlisting}
+def square(x):
+    y = x**2
+    return y
+
+\end{lstlisting}
+
+\begin{lstlisting}
+print square(5.0)
+
+\end{lstlisting}
+
+
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+    \frametitle{Create a Gaussian function}
+
+    \begin{columns}[t]
+
+        \column{0.4\linewidth}
+
+        \begin{align*}
+            g(x) = a \exp \left (-\frac{(x-b)^2}{(2c^2)} \right ) + d
+        \end{align*}
+
+        \smallskip
+
+        with the following constants
+
+        \begin{align*}
+            a = 1.0\\
+            b = 0.0\\
+            c = 1.0\\
+            d = 0.0
+        \end{align*}
+
+        \column{0.4\linewidth}
+
+            \includegraphics[width=1.0\linewidth]{gaussian.png}
+
+    \end{columns}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+    \frametitle{Gaussian Function}
+
+\begin{lstlisting}
+def gaussian(x):
+
+    a = 1.0
+    b = 0.0
+    c = 1.0
+    d = 0.0
+
+    g = a*np.exp( -(x-b)**2 / (2*c**2) ) + d
+
+    return g
+
+\end{lstlisting}
+
+\begin{lstlisting}
+print gaussian(0.0)
+\end{lstlisting}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+    \frametitle{Gaussian Function}
+
+    Multiple parameters
+
+    \bigskip
+
+\begin{lstlisting}
+def gaussian(x, a):
+
+    b = 0.0
+    c = 1.0
+    d = 0.0
+
+    g = a*np.exp( -(x-b)**2 / (2*c**2) ) + d
+
+    return g
+\end{lstlisting}
+
+\begin{lstlisting}
+print gaussian(0.0, 1.0)
+\end{lstlisting}
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+
+    \frametitle{Debugging}
+
+
+    \begin{columns}[t]
+
+        \column{0.4\linewidth}
+
+    Typical errors:
+
+    % TODO Check Martins list
+
+    \begin{itemize}
+        \item Indentation error
+        \item Out of bounds
+        \item Object not callable
+        \item Invalid syntax
+    \end{itemize}
+
+        \column{0.5\linewidth}
+
+        
+            \includegraphics[width=0.8\linewidth]{flip.jpg}
+
+    \end{columns}
+
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+
+    \frametitle{Exercise Week 2}
+
+\begin{lstlisting}
+
+import random
+
+...
+
+def initialize_particles(n_particles):
+    """ Initialze particles , positions and velocities
+    """
+    return pos_x , pos_y , vel_x , vel_y
+
+...
+
+n_particles = 40
+n_steps = 10000
+
+\end{lstlisting}
+
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% END FRAMES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
+
