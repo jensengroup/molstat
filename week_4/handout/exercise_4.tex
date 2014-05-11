@@ -25,11 +25,12 @@
 
 The goals of this exercise:
 \begin{enumerate}
-    \item Extend your MD-program to three dimension using the supplied module.
+    \item Write a molecular-dynamics program in three dimension using the supplied module.
 
-    \item Implement a 3D Velo-Verlet solver.
+    \item Implement a 3D Velo-Verlet solver, using vectorization.
 
-    \item Extend your program with functions to calculate the following properties:
+    \item Extend the program with functions to calculate the following properties:
+
     \begin{enumerate}
         \item Kinetic energy
         \item Total energy
@@ -37,42 +38,20 @@ The goals of this exercise:
         \item Pressure
     \end{enumerate}
 
-    \item Visualize your results in a video.
+    \item Visualize your results in a 3D video.
 
 \end{enumerate}
 
-
-% Is there a numpy handout?
 You should read the Numpy handout available on the course website.
-
 
 \subsection{Lennard-Jones potential and periodic boundary conditions}
 
-The potential we are using this week is almost the same Lennard-Jones potential
-as we saw last week.  You may recall from your simulation last week, that the
-calculation of the particle pair-interactions took a long time to compute, even
-with only 10-20 particles.
-To speed up the calculation time we can make the approximation that only
-particles closer than a certain minimum distance $r_{\mathrm{cut}}$ are
-interacting.
-This is a justified approximation, since particles that are
-far apart have weak interactions.
+The potential we are using this week is almost the same Lennard-Jones potential as we saw last week.
+You may recall from your simulation last week, that the calculation of the particle pair-interactions took a long time to compute, even with only 10-20 particles.
+To speed up the calculation time we can make the approximation that only particles closer than a certain minimum distance $r_{\mathrm{cut}}$ are interacting.
+This is a justified approximation, since particles that are far apart have weak interactions.
 Here we set $r_{\mathrm{cut}} = 2.5$.
-Using this approximation, we can define the potential energy between two
-interacting particles $i$ and $j$ by:
-
-%\begin{eqnarray}
-%    U_{ij} &=& 4 \epsilon \left[ \left(\frac{\sigma}{r_{ij}} \right)^{12} - \left(\frac{\sigma}{r_{ij}} \right)^6 \right] -E_{\mathrm{cut}} \ \ \mathrm{if}\ \ r_{ij} < r_{\mathrm{cut}}\\
-%    U_{ij} &=& 0 \ \ \mathrm{if}\ \ r_{ij} \ge  r_{\mathrm{cut}}
-%\end{eqnarray}
-
-%\begin{eqnarray}
-%    U_{ij} &= 
-%    \begin{cases}
-%        \ \ 4 \epsilon \left[ \left(\frac{\sigma}{r_{ij}} \right)^{12} - \left(\frac{\sigma}{r_{ij}} \right)^6 \right] -E_{\mathrm{cut}} & \mathrm{if}\ \ r_{ij} < r_{\mathrm{cut}}\\
-%        \ \ 0 & \mathrm{if}\ \ r_{ij} \ge  r_{\mathrm{cut}}
-%    \end{cases}
-%\end{eqnarray}
+Using this approximation, we can define the potential energy between two interacting particles $i$ and $j$ by:
 \begin{eqnarray}
     U_{ij} &= 
     \begin{cases}
@@ -83,7 +62,6 @@ interacting particles $i$ and $j$ by:
 
 The derivatives of the potential energy are used to calculate the forces
 between particles:
-
 \begin{equation}
     \mathbf{F} = -\nabla U =
     -\left(
@@ -102,14 +80,6 @@ between particles:
 
 The $x$-components of the force between two interacting particles $i$ and $j$
 are:
-
-%\begin{eqnarray}
-%-\frac{\partial}{\partial x_i} U_{ij}&=& -48\ \frac{x_j - x_i}{r^2_{ij}}\left[ \left(\frac{1}{r_{ij}} \right)^{12} - 0.5 \left(\frac{1}{r_{ij}} \right)^6 \right]\ \ \mathrm{if}\ \ r_{ij} < r_{\mathrm{cut}}\\
-%-\frac{\partial}{\partial x_i} U_{ij} &=& 0\ \ \mathrm{if}\ \ r_{ij} \ge  r_{\mathrm{cut}}\\
-%-\frac{\partial}{\partial x_j} U_{ij} &=& 48\ \frac{x_j - x_i}{r^2_{ij}}\left[ \left(\frac{1}{r_{ij}} \right)^{12} - 0.5 \left(\frac{1}{r_{ij}} \right)^6 \right]\ \ \mathrm{if}\ \ r_{ij} < r_{\mathrm{cut}}\\
-%-\frac{\partial}{\partial x_j} U_{ij} &=& 0\ \ \mathrm{if}\ \ r_{ij} \ge  r_{\mathrm{cut}}
-%\end{eqnarray}
-
 \begin{eqnarray}
     -\frac{\partial}{\partial x_i} U_{ij}&=& 
     \begin{cases}
@@ -127,31 +97,26 @@ are:
     \end{cases}\label{eq:force_j}
 \end{eqnarray}
 
-The $y$- and $z$-components are of course similar.
+The $y$- and $z$-components are defined the same way.
 
 \subsection{Velo-Verlet integration and periodic boundary conditions}
 
-Last week your setup confined the particles in the simulation inside a box with
-hard walls. Today's exercise uses periodic boundary conditions in the
-minimum-image convention.
-% Jan's notes?
-You don't have to implement this code, since it's already implemented in the FORTRAN library you
-will be using. The Velo-Verlet integrator you have to implement is thus very
-simple (and identical to last week).
-The Velo-Verlet equations for integrating the positions and velocities are (in
-the $x$-direction for one particle):
+Last week your setup confined the particles in the simulation inside a box with hard walls.
+Today's exercise uses periodic boundary conditions in the minimum-image convention.
+%
+You don't have to implement this code, since it's already implemented in the FORTRAN library you will be using.
+The Velo-Verlet integrator you have to implement is thus very simple (and identical to last week).
+The Velo-Verlet equations for integrating the positions and velocities are (in the $x$-direction for one particle):
 
 \begin{eqnarray}
-x(t + dt) &=& x(t) + dt\ v_x(t) + 0.5\ dt^2\ a_x(t)\label{eq:position_x}\\
-v_x(t + dt) &=& v_x(t) + 0.5\ dt \left[a_x(t) + a_x(t+dt)\right]\label{eq:speed_x}
+    R_x(t + dt) &=& R_x(t) + dt\ V_x(t) + 0.5\ dt^2\ A_x(t) \label{eq:position_x}\\
+    V_x(t + dt) &=& V_x(t) + 0.5\ dt \left[A_x(t) + A_x(t+dt)\right] \label{eq:speed_x}
 \end{eqnarray}
 
-In the program you will be implementing today, we will again set the mass of the particles
-to 1, such that the value of the acceleration is equal to the value of the force.\\
+In the program you will be implementing today, we will again set the mass of the particles to 1, such that the value of the acceleration is equal to the value of the force.\\
 
-Let's recap: The Velo-Verlet algorithm uses the forces, velocities and
-positions from the current position to calculate the forces, velocities and
-positions after the next time-step. In short it is a three-step procedure:
+Let's recap: The Velo-Verlet algorithm uses the forces, velocities and positions from the current position to calculate the forces, velocities and positions after the next time-step.
+In short it is a three-step procedure:
 
 \begin{enumerate}
     \item Calculate new positions using Eq. \ref{eq:position_x}
@@ -159,8 +124,7 @@ positions after the next time-step. In short it is a three-step procedure:
     \item Calculate new velocities using Eq. \ref{eq:speed_x}
 \end{enumerate}
 
-The resulting forces, velocities and particle positions are then saved as input
-for the next Velo-Verlet integration step.
+The resulting forces, velocities and particle positions are then saved as input for the next Velo-Verlet integration step.
 
 \subsection{Kinetic energy}
 
@@ -176,15 +140,15 @@ In our simulation $m_i$ is set to 1, so the above reduces to:
     E_{\mathrm{kin}} = \frac{1}{2} \sum_i |\vec{v_i}| \cdot |\vec{v_i}|
 \end{equation}
 
-\textbf{Hint:} If you do this in Numpy, the above summation is simply carried
-out as (something like):
+% \textbf{Hint:} If you do this in Numpy, the above summation is simply carried
+% out as:
+% 
+% \begin{lstlisting}[language=python]
+% e_kin = np.sum(V * V) * 0.5
+% \end{lstlisting}
+% 
+% Why is this true? What does V * V do and what does np.sum() do?
 
-\begin{lstlisting}[language=python]
-e_kin = np.sum(V * V) * 0.5
-\end{lstlisting}
-
-% V = Vx + Vy + Vz. Something they've seen in lectures?
-Why is this true? What does V * V do and what does np.sum() do?
 
 \subsection{Conservation of energy}
 
@@ -194,21 +158,22 @@ If your simulation is successful the total energy will be conserved. That is:
     E_{\mathrm{total}} = E_{\mathrm{pot}} + E_{\mathrm{kin}} \approx \mathrm{constant}
 \end{equation}
 
-Conservation of energy can sometimes fail during a MD simulation. Often this
-is due to the timestep $dt$ being too large, which causes the numerical
-Velo-Verlet integration to fail.
+Conservation of energy can sometimes fail during a MD simulation.
+Often this is due to the timestep $dt$ being too large, which causes the numerical Velo-Verlet integration to fail.
+
 
 \subsection{Instantaneous temperature}
 
 The first thermodynamic property we will derive from our simulation is the instantaneous temperature,
 that is the temperature as a function of time, $T(t)$.
-You will sometimes see the temperature defined in terms of the average kinetic energy \textit{per} degree of freedom in a system:
+You will sometimes see the temperature defined in terms of the average kinetic energy per degree of freedom in a system:
 
 \begin{eqnarray}
     \langle E_{\alpha} \rangle = \frac{1}{2} k_\mathrm{B} \ T
 \end{eqnarray}
 
-where $\alpha$ denotes the degrees of freedom in the system. The above states that each degree of freedom gives a contribution to the temperature which is proportional to the kinetic energy of the individual particles.\\
+where $\alpha$ denotes the degrees of freedom in the system.
+The above states that each degree of freedom gives a contribution to the temperature which is proportional to the kinetic energy of the individual particles.
 Instead of this formulation it is more practical for our purpose to write the temperature in its instantaneous form:
 
 \begin{eqnarray}
@@ -216,47 +181,43 @@ Instead of this formulation it is more practical for our purpose to write the te
          &=& \sum_i \frac{m_i|\vec{v_i}| \cdot |\vec{v_i}|}{k_\mathrm{B} \ N_\alpha}
 \end{eqnarray}
 
-where $N_\alpha$ is the number of degrees of freedoms, i.e.~$N_\alpha = N_{\mathrm{dimensions}} \cdot N_{\mathrm{particles}}$. Notice, that we use fundamental units and simple masses, so $k_\mathrm{B} = 1$ and $m_i = 1$.\\\\
+where $N_\alpha$ is the number of degrees of freedoms, i.e. $N_\alpha = N_{\mathrm{dimensions}} \cdot N_{\mathrm{particles}}$. Note; that we use fundamental units and simple masses, so $k_\mathrm{B} = 1$ and $m_i = 1$.\\
 
-\textbf{Hint:} If you do this in Numpy, this can be written easily as:
-\begin{lstlisting}[language=python]
-temperature = 2.0 * e_kin / np.size(V)
+% \textbf{Hint:} If you do this in Numpy, this can be written easily as:
+% \begin{lstlisting}[language=python]
+% temperature = 2.0 * e_kin / np.size(V)
+% # or
+% temperature = np.mean(V * V)
+% \end{lstlisting}
+% 
+% Why this is true? What does np.size() calculate? What does np.mean() calculate?
+% Why do both implementations yield the same result?
 
-# or
-
-temperature = np.mean(V * V)
-\end{lstlisting}
-
-Why this is true? What does np.size() calculate? What does np.mean() calculate?
-Why do both implementations yield the same result?
 
 \subsection{Instantaneous Pressure}
 
-The instantaneous pressure in a Van der Waal gas simulation can be calculated
-as:
+The instantaneous pressure in a Van der Waal gas simulation can be calculated as:
 
 \begin{eqnarray}
     P(t) & = & \rho \ T(t) + \frac{1}{3V_\mathrm{box}}  \sum_{i>j} \vec{F_{ij}} \cdot \vec{r_{ij}}\\
          & = & \rho \ T(t) + \frac{1}{3V_\mathrm{box}} W_{vir} \label{eq:intmp}
 \end{eqnarray}
 
-where $V_\mathrm{box}$ is the volume of the box, $\rho$ is the particle-density
-of the box  and $W_{vir} = \sum_{i>j} \vec{F_{ij}} \cdot \vec{r_{ij}}$ is the
-Clausius virial function (or \textit{virial} for short) of the system.\\
+where $V_\mathrm{box}$ is the volume of the box,
+$\rho$ is the particle-density of the box, and
+$W_{vir} = \sum_{i>j} \vec{F_{ij}} \cdot \vec{r_{ij}}$ is the Clausius virial function (or \textit{virial} for short) of the system.\\
 
-Since we were not using a standard Lennard-Jones potential (we use a small
-cut-off distance), we have to add a small correction (the \textit{tail
-correction}) to Eq. \ref{eq:intmp} in order to account for the interaction we are
-neglecting:
+Since we were not using a standard Lennard-Jones potential (we use a small cut-off distance),
+we have to add a small correction (the \textit{tail correction}) to Eq. \ref{eq:intmp} in order to account for the interaction we are neglecting:
 
 \begin{eqnarray}
     \Delta P_\mathrm{tail} & = & \frac{16}{3}\pi \rho \left[ \frac{2}{3}\left( \frac{\sigma}{r_{\mathrm{cut}}} \right)^9 - \left(\frac{\sigma}{r_{\mathrm{cut}}} \right)^3 \right]
 \end{eqnarray}
 
-Here we simply set $\sigma = 1$. Remember
-$r_{\mathrm{cut}} = 2.5$.
+Here we simply set $\sigma = 1$. Remember $r_{\mathrm{cut}} = 2.5$.
 
 \newpage
+
 
 \section{Numpy Exercises}
 
@@ -278,73 +239,63 @@ $r_{\mathrm{cut}} = 2.5$.
 
 % Start with numpy exercises to make sure students understand how it works, rather than the MD part?
 
-When working with Python "in the real world" you will most often use Numerical
-Python (NumPy) and vectorization.
-This is because it is faster and easier.
-Firstly we'll import the module \code{numpy}.
 
-
-\begin{lstlisting}[language=python]
-import numpy as np
-\end{lstlisting}
-
+When working with Python "in the real world" you will most often use Numerical Python (NumPy) and vectorization.
+This is because it is faster and easier to work with.
 Numpy is a fast library of functions and data types.
-It is mostly used for substituting the normal Python List for a new data type
-called \code{ndarray}.
+It is mostly used for substituting the normal Python List for a new data type called \code{ndarray}.\\
 
 As an example, generating an empty list of zeros with the two different methods:
 
 \begin{lstlisting}
+import numpy as np
 list = [0.0 for i in range(5)] # Normal list
-array = np.zeros(5)           # Numpy array
+array = np.zeros(5)            # Numpy array (ndarray)
 \end{lstlisting}
 
-% Haven't touched upon += etc. so far, so skip? Or introduce?
 A huge advantage of using Numpy arrays is vectorization commands.
-%You can change a variable by using commands like
-%"\code{+=}",
-%"\code{-=}",
-%"\code{*=}",
-%"\code{/=}". So the code
-%
-%\begin{lstlisting}
-%a = 45
-%a = a + 5
-%\end{lstlisting}
-%
-%is equivalent too
-%
-%\begin{lstlisting}
-%a = 45
-%a += 5
-%\end{lstlisting}
-%
-%\begin{enumerate}
-%    \setcounter{enumi}{1}
-%    \item Execute and evaluate the above command. What does it do?
-%\end{enumerate}
+You can change a variable by using commands like
+"\code{+=}",
+"\code{-=}",
+"\code{*=}",
+"\code{/=}". So the code
 
-You can perform mathematical operations on every element at once in a Numpy array, just like you would on a single element. E.g. 
+\begin{lstlisting}
+a = 45
+a = a + 5
+\end{lstlisting}
+
+is equivalent too
+
+\begin{lstlisting}
+a = 45
+a += 5
+\end{lstlisting}
+
+You can perform mathematical operations on every element at once in a Numpy array,
+just like before.
 \begin{lstlisting}
 V = np.zeros(5)
-V = V + 5
+V += 5
 \end{lstlisting}
 
-This however doesn't work with normal Python Lists.
-
-\begin{enumerate}
-    \setcounter{enumi}{1}
-    \item Execute and evaluate the above command. What is the result of V?
+\begin{enumerate}[resume]
+    \item Execute and evaluate the above command.
+        What is the result of V?
+    \item This does not work with  with normal Python Lists. Why?
 \end{enumerate}
 
-{\bf Note:}
 When you create a Numpy array, you always specify a size.
-This also represents how much computer memory is allocated by Numpy.
-For this reason it is not possible to use the \code{append} method, as with
-the normal Python list.\\
+This represents how much computer memory is allocated by Numpy.
+For this reason it is not possible to use the \code{append} method, as with the Python list datatype.\\
 
-If you are not sure how big your array is going to be, you can create a list, append elements,
-and then after all elements are appended, convert it too a Numpy array as following.
+You can create any kind of dimensional array with Numpy, fx. here is a 5x3 array of zeros;
+
+\begin{lstlisting}
+V = np.zeros((3,5))
+\end{lstlisting}
+
+If you are not sure how big your array is going to be, you can create a list, append elements, and then after all elements are appended, convert it too a Numpy array as following.
 
 \begin{lstlisting}
 L = []
@@ -353,77 +304,63 @@ for i in range(10):
 L = np.array(L)
 \end{lstlisting}
 
-\begin{enumerate}
-    \setcounter{enumi}{2}
-    \item Familiarize yourself with the Numpy methods \code{arange}, \code{sum}, \code{mean} and \code{pi}.
+A very useful command to use is the \code{np.arange()}, which is similar to the range().
+
+\begin{enumerate}[resume]
+   \item Execute the code
+
+\begin{lstlisting}
+num_vector = np.arange(0, 5)
+print num_vector
+num_vector = np.arange(0, 5, 0.1)
+print num_vector
+\end{lstlisting}
+
+   and explain what the method \code{np.arange()} does.
+
+   \item What does \code{np.sum()} do and what is the result of the follow code?
+
+\begin{lstlisting}
+np.sum(num_vector)
+\end{lstlisting}
+
+   Answer: 122.5
+
+   \item What does \code{np.mean()} do and what is the result of the follow code?
+
+\begin{lstlisting}
+np.mean(num_vector)
+\end{lstlisting}
+
+   Answer: 2.45
+
+   \item What does \code{np.random.uniform(0.0, 1.0)} do?
+
+   \item (Optional) How to get a random float from a normal distribution, using Numpy? \newline
+       {\em Hint:} Use Google.
+
 \end{enumerate}
 
-%% Whole part seems out of place and a bit trivial since arange already have been introduced
-
-%A very useful command to use is the \code{np.arange()}, which is similar to the range().
-%
-%\begin{enumerate}
-%    \setcounter{enumi}{3}
-%    \item Execute the code
-%
-%\begin{lstlisting}
-%num_vector = np.arange(0, 5)
-%print num_vector
-%num_vector = np.arange(0, 5, 0.1)
-%print num_vector
-%\end{lstlisting}
-%
-%    and explain what the method \code{np.arange()} does.
-%
-%
-%    \item What does \code{np.sum()} do and what is the result of the follow code?
-%
-%\begin{lstlisting}
-%np.sum(num_vector)
-%\end{lstlisting}
-%
-%    Answer: 122.5
-%
-%    \item What does \code{np.mean()} do and what is the result of the follow code?
-%
-%\begin{lstlisting}
-%np.mean(num_vector)
-%\end{lstlisting}
-%
-%    Answer: 2.45
-%
-%    \item What is the value of \code{np.pi}.
-%
-%    \item What does \code{np.random.uniform(0.0, 1.0)} do?
-%
-%    \item (Optional) How to get a random float from a normal distribution,
-%        using Numpy? Create a list of 1000 random numbers and plot the
-%        distribution using Pylab.
-%
-%        {\em Hint:} Use Google.
-%
-%\end{enumerate}
 
 \newpage
 
 \section{Molecular Dynamics simulation}
 
-Before you start this weeks exercise, please make you you have downloaded the
-material from the course website.\\
+Before you start, download the two files from absalon, \code{md\_header.py}, \code{forces.so} and \code{video3d.py}.
+Put both files in the same folder as the Python program you are working on today.
 
-% TODO REWRITE THE FOLLOWING TO MATCH MATERIAL
-Before you start, download the two files from absalon, \code{md\_header.py} and
-\code{forces.so}. Put both files in the same folder as the Python program you are
-working on today. \code{md\_header.py} contains functions to initialize the particles,
-calculate the Lennard-Jones forces and energy as well as a function to
-visualize a 3D video of your simulation. \code{forces.so} implements the
-calculation of the Lennard-Jones forces in a very efficient FORTRAN routine. You
-don't have to worry about the technical details of this, just know that the
-FORTRAN routine is about 300 times faster than the same code running in Python.
+\begin{itemize}
+
+    \item \code{md\_header.py} contains functions to initialize the particles, calculate the Lennard-Jones forces and energy as well as a function to visualize a 3D video of your simulation.
+    \item \code{forces.so} implements the calculation of the Lennard-Jones forces in a very efficient FORTRAN routine.
+        You don't have to worry about the technical details of this, just know that the FORTRAN routine is about 300 times faster than the same code running in Python.
+
+    \item \code{video3d.py} uses matplotlib to visualize the simulation in 3 dimensions.
+
+\end{itemize}
 
 Make a new Python program, and name it \code{exercise\_4.py}.
-In the first two lines import Numpy and the three functions from the downloaded
-module.
+In the first two lines import Numpy and the three functions from the downloaded module.
 
 \begin{lstlisting}
 import numpy as np
@@ -431,16 +368,13 @@ import md_header as md
 import video3d
 \end{lstlisting}
 
-Last week you wrote your own code to initialize the particle positions,
-velocities, box width etc. The \code{initialize\_particles()} function you
-will import is a bit more advanced.
-The new \code{initialize\_particles()} function takes as arguments the number of
-particles, the given temperature and a desired particle density.\\
+Last week you wrote your own code to initialize the particle positions, velocities, box width etc.
+The \code{md.initialize\_particles()} function you will import is a bit more advanced.
+%
+The new \code{md.initialize\_particles()} function takes as arguments the number of particles, the given temperature and a desired particle density.\\
 
-The temperature option is used to scale the particle velocities appropriately
-(see section 1.5) and the rho keyword is used to scale the width of the box
-according to the number of particles (we need to be able to specify a particle
-density in order to calculate the pressure correctly, see section 1.6)
+The temperature option is used to scale the particle velocities appropriately (see section 1.5) and the rho keyword is used to scale the width of the box according to the number of particles.
+We need to be able to specify a particle density in order to calculate the pressure correctly, see section 1.6.
 
 \begin{enumerate}
 
@@ -456,46 +390,27 @@ R, V, F, box_width = md.initialize_particles(n_particles, temperature, rho)
 \end{enumerate}
 
 You will notice that initialize\_particles() returns four values.
-\code{R} is the coordinate matrix. It is an Nx3 matrix, which holds for each of N particles
-the X, Y and Z coordinates.
+\code{R} is the coordinate matrix.
+It is an Nx3 matrix, which holds for each of $N$ particles the $x$, $y$ and $z$ coordinates.
 Likewise \code{V} and \code{F} holds the initial velocities and forces, respectively.
 \code{box\_width} is the width of the scaled box, which today you cannot specify yourself,
 since it is based on the density of the particles.\\
 
-%% Seems a bit redundant
+The second new function you got from the \code{md} module is \code{lennard\_jones()} - which can be used like this:
 
-%Now it's time to test the \code{initialize\_particles()} function.
-%
-%
-%\begin{enumerate}
-%    \setcounter{enumi}{1}
-%
-%    \item What comes out of \code{initialize\_particles(n\_particles,
-%        temperature, rho)} if you set \code{n\_particles = 10}, \code{temperature = 2.0} and
-%        \code{rho = 0.1}? What do \code{R}, \code{V} and \code{F} contain? Can
-%        you explain why?
-%
-%\end{enumerate}
-
-The second new function you got from the md module is \code{lennard\_jones()} - which
-can be used like this:
-
-\begin{lstlisting}[language=python]
+\begin{lstlisting}
 e_pot, F, w_vir = md.lennard_jones(R, box_width)
 \end{lstlisting}
 
 \code{lennard\_jones} takes as arguments the position matrix \code{R} and \code{box\_width}.
-Just like last week, the \code{lennard\_jones} function returns the potential energy
-\code{e\_pot}, a force matrix \code{F}, but now also the virial of the system,
-\code{w\_vir} (see section 1.6).\\
+Just like last week, the \code{lennard\_jones} function returns the potential energy \code{e\_pot},
+a force matrix \code{F}, but now also the virial of the system, \code{w\_vir} (see section 1.6).\\
 
 
-\begin{enumerate}
-    \setcounter{enumi}{1}
+\begin{enumerate}[resume]
 
-    \item
-    Now it's time to test the \code{lennard\_jones} function. Instead of giving R as input
-    to lennard\_jones, call the function with the following \code{R\_test} matrix:
+    \item Now it's time to test the \code{lennard\_jones} function.
+        Instead of giving R as input to lennard\_jones, call the function with the following \code{R\_test} matrix:
 
 \begin{lstlisting}
 R_test = np.array([[0.7, 2.3, 0.7], [0.7,  0.7, 2.3], [0.7, 0.7, 0.7]])
@@ -507,8 +422,8 @@ R_test = np.array([[0.7, 2.3, 0.7], [0.7,  0.7, 2.3], [0.7, 0.7, 0.7]])
 print lennard_jones(R_test, 3.10)
 \end{lstlisting}
 
-    The potential energy is -0.635, the virial -3.732. The forces matrix (rounded
-    values):
+    The potential energy is -0.635, the virial -3.732,
+    and the forces matrix (rounded values):
 
 \begin{lstlisting}
 array([[-1.16   1.24  -0.09]
@@ -516,17 +431,17 @@ array([[-1.16   1.24  -0.09]
         [ 0.0    0.0    0.  ]])
 \end{lstlisting}
 
+    \item
     The $z$-components of the force are correctly 0 (why?).
 
 \end{enumerate}
 
-Now it is time to implement the Velo-Verlet solver from last week, but using
-the new module and Numpy.
+Now it is time to implement the Velo-Verlet solver from last week, but using the new module and Numpy.
 
-\begin{enumerate}
-    \setcounter{enumi}{2}
+\begin{enumerate}[resume]
 
-    \item Somewhere in your program file put the solver code in:
+    \item After the initialization of the system put the solver code in.
+        Look the following code for inspiration.
 
 \begin{lstlisting}
 for n in range(n_steps):
@@ -541,14 +456,12 @@ for n in range(n_steps):
     V = V + ...
 \end{lstlisting}
 
-    {\bf Hint:} Look at the last exercise if you need inspiration on where to
-    put the solver code.
+    {\bf Hint:} Look at the last week exercise if you need inspiration on where to put the solver code.
 
-    \item Initialize your system with 40 particles, \code{rho = 1.1} and
-        \code{temperature = 2.0.}
+    \item Initialize your system with 40 particles, \code{rho = 0.1} and \code{temperature = 2.0.}
         Run your simulation for 1000 steps with $dt = 0.001$.
-        Every 10 steps print the potential energy. The potential energy should
-        stabilize around -20 if your solver works properly.
+        Every 10 steps print the potential energy.
+        The potential energy should stabilize around -20 if your solver works properly.
 
     \item Now would be a good time to implement the video function.
         The new 3D video is used like the other by adding frames and saving like:
@@ -558,47 +471,42 @@ for n in range(n_steps):
 video3d.add_frame(R)
 
 # Save movie
-video3d.save('my_video',box_width)
+video3d.save('my_video', box_width)
 
 \end{lstlisting}
 
         Use this to add a frame every 10'th step.
 
-    \item Run 500 steps and save a video.
+    \item Run 2000 steps and save a video.
 
 \end{enumerate}
 
-
 You have now successfully implemented a MD simulation of a Lennard-Jones gas.
-The goal now is to use the equations from section 1 to calculate interesting
-physical properties of your system.
+The goal now is to use the equations from section 1 to calculate interesting physical properties of your system.
 
-\begin{enumerate}
-    \setcounter{enumi}{6}
+\begin{enumerate}[resume]
 
     \item Use the equations from section 1.3 to calculate the kinetic energy.
-        Print the kinetic energy, potential energy and total energy each 10
-        steps.
+        Print the kinetic energy, potential energy and total energy each 10 steps.
 
-    \item Make three empty lists called Ekin\_list, Epot\_list and Etot\_list and append
-        the current values to these lists every 10 steps instead of printing them.
+    \item Make three empty lists called \code{ekin\_list}, \code{epot\_list} and \code{etot\_list} and append the current values to these lists every 10 steps instead of printing them.
 
-    \item Run your simulation for 10,000 steps. Do not save a video, since this
-        will take several minutes to compile. Use Matplotlib to make a plot of the
-        energies vs. time:
+    \item Run your simulation for 10,000 steps.
+        Do not save a video, since this will take several minutes to compile.
+        Use Matplotlib to make a plot of the energies vs. time:
 
 \begin{lstlisting}
 plt.clf()
-plt.plot(Ekin_list, 'r-', label='Kinetic Energy')
-plt.plot(Epot_list, 'b-', label='Potential Energy')
-plt.plot(Etot_list, 'g-', label='Total Energy')
+plt.plot(ekin_list, 'r-', label='Kinetic Energy')
+plt.plot(epot_list, 'b-', label='Potential Energy')
+plt.plot(etot_list, 'g-', label='Total Energy')
 plt.legend() # Plot labels in figure
 plt.savefig("my_energy.png")
 \end{lstlisting}
 
-    How does the energies evolve if you run your simulation with 40 particles at T =
-    2.0? Now run your simulation at a lower temperature (maybe T = 0.5). How does
-    the energy change ?
+    How does the energies evolve if you run your simulation with 40 particles at T = 2.0?
+    Now run your simulation at a lower temperature (maybe T = 0.5).
+    How does the energy change?
 
     \begin{figure}[h!]
         \begin{center}
@@ -616,9 +524,8 @@ plt.savefig("my_energy.png")
     \item Use the equations from section 1.5 to calculate the instantaneous
     temperatures during the simulation. 
 
-    \item Like for the energies, make an empty list called T\_list and
-    append the instantaneous temperature every 10 steps. Use Matplotlib to make a plot of
-    this list. See Figure \ref{fig:temperature} for an example.
+    \item Like for the energies, make an empty list called T\_list and append the instantaneous temperature every 10 steps.
+        Use Matplotlib to make a plot of this list. See Figure \ref{fig:temperature} for an example.
 
     \begin{figure}[h!]
         \begin{center}
@@ -628,28 +535,27 @@ plt.savefig("my_energy.png")
         \end{center}
     \end{figure}
 
-    % Have no idea what the answer to this question is lol
-    Does the temperature you calculate correspond to the temperature you
-    specified when you initialized your particles? Run your simulation at T =
-    0.05. What could easily go wrong now?
+    Does the temperature you calculate correspond to the temperature you specified when you initialized your particles?
+    Run your simulation at T = 0.05.
 
-    \item Answer this question before you proceed: Why is the gas a Van der
-        Waals gas and not an ideal gas? I.e. why isn't the pressure simply $p =
-        \frac{N T}{V}$.
+    \item Answer this question before you proceed: Why is the gas a Van der Waals gas and not an ideal gas?
+        I.e. why isn't the pressure simply $p = \frac{N T}{V}$.
+        % Answer: Ideal gas is non-interaction particles, but there is so much space around then r_ij ~= inf
 
-    Use the equations from section 1.6 to calculate the instantaneous pressure during the simulation. 
+    \item
+        Use the equations from section 1.6 to calculate the instantaneous pressure during the simulation. 
 
-    \item Use Matplotlib to plot the pressure during the simulation, as done in the
-        previous exercises. How does the temperature and particle density
-        affect the pressure? See Figure \ref{fig:pressure} for example.
+    \item Use Matplotlib to plot the pressure during the simulation, as done in the previous exercises.
+        How does the temperature and particle density affect the pressure?
+        See Figure \ref{fig:pressure} for example.
 
-    \begin{figure}[h!]
-        \begin{center}
-            \includegraphics[width=0.75\textwidth]{pressure.png}
-            \caption{Evolution of pressure during an MD simulation with T = 0.5, 40 particles, rho = 0.1.}
-            \label{fig:pressure}
-        \end{center}
-    \end{figure}
+        \begin{figure}[h!]
+            \begin{center}
+                \includegraphics[width=0.75\textwidth]{pressure.png}
+                \caption{Evolution of pressure during an MD simulation with T = 0.5, 40 particles, rho = 0.1.}
+                \label{fig:pressure}
+            \end{center}
+        \end{figure}
 
 \end{enumerate}
 
