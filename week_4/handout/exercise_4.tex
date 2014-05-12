@@ -27,7 +27,7 @@ The goals of this exercise:
 \begin{enumerate}
     \item Write a molecular-dynamics program in three dimension using the supplied module.
 
-    \item Implement a 3D Velo-Verlet solver, using vectorization.
+    \item Implement a 3D Velo-Verlet solver, using Numpy Arrays.
 
     \item Extend the program with functions to calculate the following properties:
 
@@ -97,7 +97,7 @@ are:
     \end{cases}\label{eq:force_j}
 \end{eqnarray}
 
-The $y$- and $z$-components are defined the same way.
+The $y$- and $z$-components are defined in the same way.
 
 \subsection{Velo-Verlet integration and periodic boundary conditions}
 
@@ -177,7 +177,7 @@ The above states that each degree of freedom gives a contribution to the tempera
 Instead of this formulation it is more practical for our purpose to write the temperature in its instantaneous form:
 
 \begin{eqnarray}
-    T(t) &=& 2 \frac{\langle E_{\alpha}(t) \rangle}{k_\mathrm{B} \ N_\alpha }\\
+    T(t) &=& 2 \frac{E_{kin}(t)}{k_\mathrm{B} \ N_\alpha }\\
          &=& \sum_i \frac{m_i|\vec{v_i}| \cdot |\vec{v_i}|}{k_\mathrm{B} \ N_\alpha}
 \end{eqnarray}
 
@@ -221,9 +221,6 @@ Here we simply set $\sigma = 1$. Remember $r_{\mathrm{cut}} = 2.5$.
 
 \section{Numpy Exercises}
 
-% TODO generelt
-% copy.copy(V) <-- earlier this week?
-
 % TODO methods
 % np.save
 % np.load
@@ -237,7 +234,6 @@ Here we simply set $\sigma = 1$. Remember $r_{\mathrm{cut}} = 2.5$.
 % shape
 % +=, -=, *=, /=
 
-% Start with numpy exercises to make sure students understand how it works, rather than the MD part?
 
 
 When working with Python "in the real world" you will most often use Numerical Python (NumPy) and vectorization.
@@ -254,7 +250,7 @@ array = np.zeros(5)            # Numpy array (ndarray)
 \end{lstlisting}
 
 A huge advantage of using Numpy arrays is vectorization commands.
-You can change a variable by using commands like
+In general you can change a float or integer variable by using commands like
 "\code{+=}",
 "\code{-=}",
 "\code{*=}",
@@ -272,7 +268,7 @@ a = 45
 a += 5
 \end{lstlisting}
 
-You can perform mathematical operations on every element at once in a Numpy array,
+With Numpy arrays, you can perform mathematical operations on every element at once,
 just like before.
 \begin{lstlisting}
 V = np.zeros(5)
@@ -282,20 +278,25 @@ V += 5
 \begin{enumerate}[resume]
     \item Execute and evaluate the above command.
         What is the result of V?
-    \item This does not work with  with normal Python Lists. Why?
+    \item This does not work with normal Python Lists. Why? 
 \end{enumerate}
 
 When you create a Numpy array, you always specify a size.
 This represents how much computer memory is allocated by Numpy.
 For this reason it is not possible to use the \code{append} method, as with the Python list datatype.\\
 
-You can create any kind of dimensional array with Numpy, fx. here is a 5x3 array of zeros;
+You can create any kind of dimensional array with Numpy, i.e. here is a 5x3 array of zeros;
 
 \begin{lstlisting}
 V = np.zeros((3,5))
 \end{lstlisting}
 
-If you are not sure how big your array is going to be, you can create a list, append elements, and then after all elements are appended, convert it too a Numpy array as following.
+\begin{enumerate}[resume]
+    \item What is the result of V?
+\end{enumerate}
+
+If you are not sure how big your array is going to be, you can create a list, append elements,
+and then after all elements are appended, convert it to a Numpy array as following.
 
 \begin{lstlisting}
 L = []
@@ -304,7 +305,7 @@ for i in range(10):
 L = np.array(L)
 \end{lstlisting}
 
-A very useful command to use is the \code{np.arange()}, which is similar to the range().
+A very useful command to use is \code{np.arange()}, which is similar to the \code{range()} command.
 
 \begin{enumerate}[resume]
    \item Execute the code
@@ -318,21 +319,18 @@ print num_vector
 
    and explain what the method \code{np.arange()} does.
 
-   \item What does \code{np.sum()} do and what is the result of the follow code?
+   \item What does \code{np.sum()} do? Using \code{num\_vector} from before, what is the result of the following code?
 
 \begin{lstlisting}
 np.sum(num_vector)
 \end{lstlisting}
 
-   Answer: 122.5
 
    \item What does \code{np.mean()} do and what is the result of the follow code?
 
 \begin{lstlisting}
 np.mean(num_vector)
 \end{lstlisting}
-
-   Answer: 2.45
 
    \item What does \code{np.random.uniform(0.0, 1.0)} do?
 
