@@ -18,10 +18,10 @@ def calc_temperature(V):
     return np.mean(V*V)
 
 
-save_video = False
+save_video =True 
 
 # Simulation constants
-n_steps     = 20000
+n_steps     = 2000
 temperature = 2.0
 n_atoms     = 40
 rho         = 0.1
@@ -116,6 +116,6 @@ print box_size
 # Remember not to save a video
 # for large n_steps
 if save_video:
-    video3d.save(box_size, 'solution_4')
+    video3d.save('solution_4',box_size)
 
 
