@@ -344,7 +344,7 @@ np.mean(num_vector)
 
 \section{Molecular Dynamics simulation}
 
-Before you start, download the two files from absalon, \code{md\_header.py}, \code{forces.so} and \code{video3d.py}.
+Before you start, download the three files from absalon, \code{md\_header.py}, \code{forces.so} and \code{video3d.py}.
 Put both files in the same folder as the Python program you are working on today.
 
 \begin{itemize}
@@ -369,9 +369,9 @@ import video3d
 Last week you wrote your own code to initialize the particle positions, velocities, box width etc.
 The \code{md.initialize\_particles()} function you will import is a bit more advanced.
 %
-The new \code{md.initialize\_particles()} function takes as arguments the number of particles, the given temperature and a desired particle density.\\
+The function takes as arguments the number of particles, the given temperature and a desired particle density.\\
 
-The temperature option is used to scale the particle velocities appropriately (see section 1.5) and the rho keyword is used to scale the width of the box according to the number of particles.
+The temperature option is used to scale the particle velocities appropriately (see section 1.5) and the \code{rho} keyword is used to scale the width of the box according to the number of particles.
 We need to be able to specify a particle density in order to calculate the pressure correctly, see section 1.6.
 
 \begin{enumerate}
@@ -387,20 +387,20 @@ R, V, F, box_width = md.initialize_particles(n_particles, temperature, rho)
 
 \end{enumerate}
 
-You will notice that initialize\_particles() returns four values.
-\code{R} is the coordinate matrix.
-It is an Nx3 matrix, which holds for each of $N$ particles the $x$, $y$ and $z$ coordinates.
+You will notice that \code{initialize\_particles()} returns four values.
+\code{R} is the position array.
+It is an $Nx3$ array, which holds the $x$, $y$ and $z$ coordinates for all $N$ particles.
 Likewise \code{V} and \code{F} holds the initial velocities and forces, respectively.
 \code{box\_width} is the width of the scaled box, which today you cannot specify yourself,
 since it is based on the density of the particles.\\
 
-The second new function you got from the \code{md} module is \code{lennard\_jones()} - which can be used like this:
+The second new function you got from the \code{md} module is \code{lennard\_jones()} which can be used like this:
 
 \begin{lstlisting}
 e_pot, F, w_vir = md.lennard_jones(R, box_width)
 \end{lstlisting}
 
-\code{lennard\_jones} takes as arguments the position matrix \code{R} and \code{box\_width}.
+\code{lennard\_jones} takes as arguments the position array \code{R} and \code{box\_width}.
 Just like last week, the \code{lennard\_jones} function returns the potential energy \code{e\_pot},
 a force matrix \code{F}, but now also the virial of the system, \code{w\_vir} (see section 1.6).\\
 
@@ -408,7 +408,7 @@ a force matrix \code{F}, but now also the virial of the system, \code{w\_vir} (s
 \begin{enumerate}[resume]
 
     \item Now it's time to test the \code{lennard\_jones} function.
-        Instead of giving R as input to lennard\_jones, call the function with the following \code{R\_test} matrix:
+        Instead of giving R as input to lennard\_jones, call the function with the following \code{R\_test} array:
 
 \begin{lstlisting}
 R_test = np.array([[0.7, 2.3, 0.7], [0.7,  0.7, 2.3], [0.7, 0.7, 0.7]])
@@ -420,13 +420,13 @@ R_test = np.array([[0.7, 2.3, 0.7], [0.7,  0.7, 2.3], [0.7, 0.7, 0.7]])
 print lennard_jones(R_test, 3.10)
 \end{lstlisting}
 
-    The potential energy is -0.635, the virial -3.732,
-    and the forces matrix (rounded values):
+    The potential energy should be -0.635, the virial -3.732,
+    and the forces array (rounded values):
 
 \begin{lstlisting}
 array([[-1.16   1.24  -0.09]
         [-1.16  -0.09   1.24]
-        [ 0.0    0.0    0.  ]])
+        [ 0.0    0.0    0.0  ]])
 \end{lstlisting}
 
     \item
@@ -444,17 +444,17 @@ Now it is time to implement the Velo-Verlet solver from last week, but using the
 \begin{lstlisting}
 for n in range(n_steps):
     # Step 1: Calculate new positions
-    R = R + ...
+    R += ...
 
     # Step 2: Calculate new forces
     F_old = copy.copy(F)
     e_pot, F, w_vir = lennard_jones(R, box_width)
 
     #Step 3: Calculate new Velocities:
-    V = V + ...
+    V += ...
 \end{lstlisting}
 
-    {\bf Hint:} Look at the last week exercise if you need inspiration on where to put the solver code.
+    {\bf Hint:} Look at last weeks exercise if you need inspiration on where to put the solver code.
 
     \item Initialize your system with 40 particles, \code{rho = 0.1} and \code{temperature = 2.0.}
         Run your simulation for 1000 steps with $dt = 0.001$.
@@ -511,7 +511,7 @@ plt.savefig("my_energy.png")
             \includegraphics[width=0.75\textwidth]{energy.png}
             \caption{
                 Evolution of energies during an MD simulation with
-                temperature = 0.5, 40 particles, rho = 0.1, for 10,000 steps
+                $T = 0.5$, 40 particles, \code{rho} = 0.1, for 10,000 steps
                 and saving every 10'th step.
             }
             \label{fig:energies}
@@ -528,13 +528,13 @@ plt.savefig("my_energy.png")
     \begin{figure}[h!]
         \begin{center}
             \includegraphics[width=0.75\textwidth]{temperature.png}
-            \caption{Evolution of temperature during an MD simulation with T = 0.5, 40 particles, rho = 0.1.}
+            \caption{Evolution of temperature during an MD simulation with $T = 0.5$, 40 particles, \code{rho} = 0.1.}
             \label{fig:temperature}
         \end{center}
     \end{figure}
 
     Does the temperature you calculate correspond to the temperature you specified when you initialized your particles?
-    Run your simulation at T = 0.05.
+    Run your simulation at $T = 0.05$.
 
     \item Answer this question before you proceed: Why is the gas a Van der Waals gas and not an ideal gas?
         I.e. why isn't the pressure simply $p = \frac{N T}{V}$.
@@ -550,7 +550,7 @@ plt.savefig("my_energy.png")
         \begin{figure}[h!]
             \begin{center}
                 \includegraphics[width=0.75\textwidth]{pressure.png}
-                \caption{Evolution of pressure during an MD simulation with T = 0.5, 40 particles, rho = 0.1.}
+                \caption{Evolution of pressure during an MD simulation with $T = 0.5$, 40 particles, \code{rho} = 0.1.}
                 \label{fig:pressure}
             \end{center}
         \end{figure}
