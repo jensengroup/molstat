@@ -23,8 +23,8 @@
 
 \section{Introduction}
 
-Writing simulations is one thing, but sometimes it is also necessary to data-mine, manipulate and visualize data.
-Python is great for this, and so the goals of this exercise is:
+Often it will be necessary to data-mine, manipulate and visualize data obtained manually from experiments or from other software.
+Python is great for this and the goals of this exercise is:
 
 %What does save numpy data indicate? cPickle? Or just the numpy.save function?
 \begin{enumerate}
@@ -50,9 +50,9 @@ Python is great for this, and so the goals of this exercise is:
 \newpage
 \section{Exercises}
 
-Which will be done with small individual exercises.
+Todays exercises will each be based on different sets of data which requires different representation. 
 
-\subsection{Dissociation Energy of Water Dimer}
+\subsection{Dissociation energy of water dimer}
 
 distance of the hydrogen bond is defined as the distance between the oxygen and the hydrogen
 
@@ -68,14 +68,86 @@ distance of the hydrogen bond is defined as the distance between the oxygen and 
 
 
 
-
 \subsection{Proton transfer / reaction path}
 
 
 
-\subsection{Lars Fitting}
+\subsection{Random precision errors in assigned chemical shifts}
+
+When assigning measured chemical shifts of a protein to their respective amino-acids you will have to match the chemical shift measured by one experiment with another.
+Due to experimental error these values are not exactly the same, even though they should be in theory.
+Because of this it can be difficult to be sure that the two matched chemical shifts actually origin from the same amino-acid.
+To avoid making assignment errors it is thus informative to know how well the measured chemical shifts 'should' match.
+
+The file \code{chemical\_shift\_errors.txt} obtained from the course website contains all differences (or errors) in assigned chemical shifts of all amide protons for a single protein in a single column format.
 
 
+\begin{enumerate}[resume]
+
+    \item Load the file containing the data and store it a variable.
+
+    \item Plot a histogram of the data using Matplotlib.
+
+\end{enumerate}
+
+When plotting a histogram you can select the number of bins to present the data with by giving the argument \code{bins=10}. (10 is the default value in Matplotlib).
+If you try changing the number of bins you can severely affect how the data 'looks', especially if your number of datapoints are relatively low.
+% put this in since all this shouldn't take long for the students to do.
+The Freedman-Diaconis Rule can be used to select the number of bins automatically.
+The following code takes as argument the data and returns the optimal number of bins according to the Freedman-Diaconis Rule.
+
+\begin{lstlisting}
+def bins(data):
+    data.sort()
+    n=len(data)
+    width = 2*(data[3*n/4]-data[n/4])*n**(-1./3)
+    return int((data[-1]-data[0])/width)
+\end{lstlisting}
+
+\begin{enumerate}[resume]
+
+    \item Plot the histogram again using the Freedman-Diaconis Rule to select number of bins.
+
+\end{enumerate}
+
+If these errors are completely random, they should approximately follow a normal distribution (also known as a Gaussian distribution).
+We can use the module \code{scipy.stats} to fit a distribution to a dataset. Import this in your program as follows:
+
+\begin{lstlisting}
+import scipy.stats as ss
+\end{lstlisting}
+
+We will begin by fitting a normal distribution to our data.
+The command \code{ss.norm.fit(data)} returns the mean and standard deviation that best describes the data.
+To draw this curve we will need a set of $x$ and $y$-values that cover our data range.
+
+\begin{enumerate}[resume]
+
+    \item Use \code{np.arange()} together with the \code{max()} and \code{min()} functions to generate $x$-values that range from the lowest data point to the highest in steps of \code{1e\-3}. Store these in a variable called \code{x}.
+
+\end{enumerate}
+
+The function \code{ss.norm.pdf(x, param\_1, param\_2)} returns the probability densities for a normal distribution for all values of \code{x}.
+\code{param\_1} and \code{param\_2} are the mean and standard deviation you obtained from the fit.
+
+Fitting more complicated distributions will return more than two parameters.
+To avoid having to adjust the number of arguments for each distribution you look at, the following works for every distribution in the \code{scipy.stats} package:
+
+\begin{lstlisting}
+parameters = norm.fit(data)
+y = norm.pdf(x, *parameters)
+\end{lstlisting}
+
+
+\begin{enumerate}[resume]
+
+    \item Fit a normal distribution to your data.
+
+    \item Try to plot the fitted distribution together with the histogram. \emph{Hint!} Use \code{normed=1} as argument to your histogram.
+
+    \item Try fitting other popular distributions such as the Cauchy/Lorenz distribution \code{ss.cauchy} or the Student's t-distribution \code{ss.t}.
+
+\end{enumerate}
 
 \subsection{some kind of 3d plot}
 
