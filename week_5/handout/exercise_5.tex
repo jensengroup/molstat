@@ -152,11 +152,40 @@ y = norm.pdf(x, *parameters)
 \subsection{some kind of 3d plot}
 
 
+\subsection{Protein structure determination}
+
+Not all protein structures can easily be determined experimentally.
+These kinds of proteins will often have their structure determined by simulation where a force-field is used to describe how the atoms interact with each other.
+If a good force-field is used, the correct (also called native) structure should correspond to the lowest energy of the force-field.
+When developing new force-fields you want to see how well the energy correlate with the deviation from the native structure.
+
+The file \code{rmsd\_energy\_unfolded.txt} obtained from the course website, contains the energies, in units of $kcal/(mol\cdot RT)$ at $300K$, of several proposed structures as well as the atomic root mean square deviation (rmsd) in Å from the native structure.
+You will never get an rmsd of zero for structures proposed by simulation, since the force-field will never fully describe all interactions correctly, however rmsds under 3-5 Å is usually considered accurate.
+
+\emph{Note:} The first column contain the rmsds and the second one the energies.
 
 
+\begin{enumerate}[start=1]
+
+    \item Load the datafile in Python and put the rmsds in one list, and the energies in another.
+
+    \item Plot the rmsds vs. energies using small black dots. Does the force-field used seem to be good in this case?
+
+\end{enumerate}
+
+Since the local energi minimum is not exactly at 0 Å it can be hard to know if you have achieved the correct structure and the non-zero rmsd stems from the force-field, or if an incorrect structure is found.
+To test this a second simulation is usually run starting from the native structure to what the structure relaxes to with the given force-field.
 
 
+\begin{enumerate}[resume]
 
+    \item Download and load the file \code{rmsd\_energy\_native.txt}.
+
+    \item Plot this together with the data from before, using a red colour. \emph{Note!} Change the border colour of the dots to red as well.
+
+    \item Based on this second simulation, would you say that the force-field performs well?
+
+\end{enumerate}
 
 % ***************************************************
 % END DOCUMENT
