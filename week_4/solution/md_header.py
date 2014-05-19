@@ -68,7 +68,6 @@ def initialize_particles(n_atoms, temperature, rho):
 
 
 def lennard_jones(U, box):
-
     return fortran_lj(U, numpy.array([box,box,box]))
 
 
