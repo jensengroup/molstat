@@ -49,62 +49,167 @@ If you sit with some data and you do not know how to plot the specific plot, the
 \subsection{Changing the look of matplotlib}
 
 
+TODO something about rc and the matplotlib-header.git
 
 
+
+\section{Exercises}
+
+Todays exercises will each be based on different sets of data which requires different plot representation.
+You will be given different data files to load/read in Python.
+There many ways to complete these exercises. So many ways!
+How you do it, is up to you.
+This means you will properly use Google a lot, as there will be little hints on how to do it.
 
 
 \newpage
-\section{Exercises}
+\subsection{Energy of a stretching covalent bond}
 
-Todays exercises will each be based on different sets of data which requires different representation. 
+This data represents what will happen to the overall energy if you move a hydrogen, in a water-dimer, away from it's global minimum.
+This is calculated with 4 different methods and save in a corresponding data files.
+The data structure is structured like this
 
-<<<<<<< HEAD
+\begin{lstlisting}
+    -0.30   0.000000000   1.094813771   -0.789196930   -152.5782121321
+\end{lstlisting}
 
-\subsection{Dissociation Energy of Water Dimer}
-=======
-\subsection{Dissociation energy of water dimer}
->>>>>>> 4a61bd765af31248fdd71bcf44930015acb8b394
+where the first column is the displacement of the hydrogen in \AA ngstrom, next three are the dipolemoment (which we are not using) and the last is the total energy in Hartree.\\
 
-distance of the hydrogen bond is defined as the distance between the oxygen and the hydrogen
+Your job is to see if the four energy models, B3LYP, CCSD(t), CCSD(t)-F12 and MP2 describes a similar energy surface or not.\\
+
+{\bf Exercise Hint:}
+If you have no idea where to start use the following code as inspiration:
+
+\begin{lstlisting}
+f = open('method.dat', 'r')
+for line in f:
+    print line
+
+\end{lstlisting}
+
+Also look up what the code \code{continue} does in a for-loop and what the method \code{.split()} does on a string.
 
 \begin{enumerate}
 
-    \item Convert the distance from A.U. to \AA ngstroem.
+    \item Load all the energies into a Numpy array/list and corresponding array/list for displacement,
+          for each method.
+          Plot the result in the same plot.
 
-    \item Convert the energy to kJoule/mol. Plot the result
+    \item Remember to add labels for axis and methods.
 
-    \item Convert the energy to kcal/mol. Plot the result.
+    \item Convert the energy to kcal/mol.
+          Plot the result.
+
+    \item Usually when computing quantum chemical energies, we are not interested in absolute values.
+          Plot the relative change in energy away from the displacement = 0.
 
 \end{enumerate}
-
 
 
 \newpage
 \subsection{Binding free energies}
 
+This data represents a theortical thermodynamic study of host-ligand binding energies.
+The data is from Gilson {\em et al.}\footnote{Hari S. Muddana and Michael K. Gilson, dx.doi.org/10.1021/ct3002738 | J. Chem. Theory Comput. 2012, 8, 2023-2033}
+The system in question is the Cucurbit7uril (CB7) host molecule with different organic ligands inside it.
+Calculations has been done to try to find the experimental binding energy ($\Delta G^\circ$) based on a semi-empirical method called PM6-DH+.
+The result of these calculations are stored in \code{calculated\_new.csv} and has the following structure.
+
+\begin{lstlisting}
+1 -139.8 130.3 -0.0318791946309
+\end{lstlisting}
+
+where the columns are ID, change in enthalpy ($\Delta U$) [kcal/mol], change in solvent energy ($\Delta W$) [kcal/mol] and lastly change in entropy ($\Delta S^\circ$) [kcal/mol/Kelvin].
+The binding energy is then calculated with the following formula
+
+\begin{align}
+    \Delta G^\circ = \Delta U - T \Delta S^\circ + \Delta W + \delta
+\end{align}
+
+where $\delta$ is an empirical parameter and is set to $-5.83$ kcal/mol and $T$ is the temperature of 298.0 Kelvin.\\
+
+Similar the \code{experimental.csv} contains the experimental binding energies with the following structure
+
+\begin{lstlisting}
+1, -5.3
+\end{lstlisting}
+
+where the columns are ID and binding energy in kcal/mol.\\
+
+The assignment is then;
+
 \begin{enumerate}
-    \item Scatterplot
 
-    \item Correlation factor
+    \item Load the data into corresponding arrays and calculate the theoretical binding energies using the above equation.
 
-    \item RMSD
+    \item Plot the experimental vs calculated energies as a scatter plot.
 
-    \item Print table
+    \item Add a fixed $x = y$ line to the plot.
+        Fix the limits of the x and y axis to match each other.
+        This is to better visualize the how correct the calculated $\Delta G^\circ$ are.
+
+    \item Add two fixed dotted lines representing +/- 2 kcal/mol experimental uncertainty. 
+
+    \item Calculate the Pearson Correlation factor $r$ and corresponding $p$ value.
+        Does the calculated energies correlate with the experimental values?
+        {\bf Hint:} Search for the \code{scipy} module for a nice Pearson function.
+
+    \item Calculate the Root-mean-square deviation (RMSD) between the experimental and calculated binding energies.
+    \begin{align}
+        \mathrm{RMSD} = \sqrt{\frac{\sum_i^N (x_{\mathrm{exp}}-x_{\mathrm{cal}})^2 }{n}}
+    \end{align}
+
+    \item As you might have noticed, there are two outliers with over 4.5 kcal deviation from the experimental value.
+        Use \code{plt} to highlight which of the ligands these are, in the plot.
+        {\bf Hint:} Use the method \code{plt.tekst()} as described in the matplotlib guide / internet.
+
+\end{enumerate}
+
+\newpage
+This next part is useful if you use Latex.
+If you are using Latex to write your science, you would want to print out data directly as a Latex table.
+This is the very useful method called \code{.format()} comes in.
+For example
+
+\begin{lstlisting}
+print "{0:d9}".format{5}
+\end{lstlisting}
+
+will switch out the \{\} with the integer 5.
+The 9 in the string represents how much space in integer should take.
+Similar can be done with floats, wher
+
+\begin{lstlisting}
+print "{0:f5.2}".format{130.2562}
+\end{lstlisting}
+
+will fill in the float, but with two digits.
+You can, of course, add multiple digits and floats like this;
+
+\begin{lstlisting}
+print "{0:d5} {1:5.2f} {2:5.2f}".format{5, 28.7854, 30.543}
+\end{lstlisting}
+
+
+\begin{enumerate}[resume]
+
+    \item Print the ligand id, experimental and calculated energy out as a Latex table
 
 \end{enumerate}
 
 
+\newpage
 \subsection{Random precision errors in assigned chemical shifts}
 
 When assigning measured chemical shifts of a protein to their respective amino-acids you will have to match the chemical shift measured by one experiment with another.
 Due to experimental error these values are not exactly the same, even though they should be in theory.
 Because of this it can be difficult to be sure that the two matched chemical shifts actually origin from the same amino-acid.
-To avoid making assignment errors it is thus informative to know how well the measured chemical shifts 'should' match.
+To avoid making assignment errors it is thus informative to know how well the measured chemical shifts 'should' match.\\
 
 The file \code{chemical\_shift\_errors.txt} obtained from the course website contains all differences (or errors) in assigned chemical shifts of all amide protons for a single protein in a single column format.
 
 
-\begin{enumerate}[resume]
+\begin{enumerate}
 
     \item Load the file containing the data and store it a variable.
 
@@ -133,7 +238,8 @@ def bins(data):
 \end{enumerate}
 
 If these errors are completely random, they should approximately follow a normal distribution (also known as a Gaussian distribution).
-We can use the module \code{scipy.stats} to fit a distribution to a dataset. Import this in your program as follows:
+We can use the module \code{scipy.stats} to fit a distribution to a dataset.
+Import this in your program as follows:
 
 \begin{lstlisting}
 import scipy.stats as ss
@@ -162,7 +268,6 @@ y = norm.pdf(x, *parameters)
 
 
 \begin{enumerate}[resume]
->>>>>>> 4a61bd765af31248fdd71bcf44930015acb8b394
 
     \item Fit a normal distribution to your data.
 
@@ -172,25 +277,8 @@ y = norm.pdf(x, *parameters)
 
 \end{enumerate}
 
-\begin{lstlisting}
-\table{}
-
-\end{lstlisting}
-
-
 
 \newpage
-\subsection{Proton transfer / reaction path}
-
-
-\newpage
-\subsection{Lars Fitting}
-
-
-\newpage
-\subsection{some kind of 3d plot}
-
-
 \subsection{Protein structure determination}
 
 Not all protein structures can easily be determined experimentally.
@@ -212,7 +300,7 @@ You will never get an rmsd of zero for structures proposed by simulation, since 
 
 \end{enumerate}
 
-Since the local energi minimum is not exactly at 0 Å it can be hard to know if you have achieved the correct structure and the non-zero rmsd stems from the force-field, or if an incorrect structure is found.
+Since the local energy minimum is not exactly at 0 Å it can be hard to know if you have achieved the correct structure and the non-zero rmsd stems from the force-field, or if an incorrect structure is found.
 To test this a second simulation is usually run starting from the native structure to what the structure relaxes to with the given force-field.
 
 
@@ -225,6 +313,77 @@ To test this a second simulation is usually run starting from the native structu
     \item Based on this second simulation, would you say that the force-field performs well?
 
 \end{enumerate}
+
+
+\newpage
+\subsection{3D Gaussian}
+
+Sometimes a XY plot is not enough to describe the data. Sometimes an extra plan is needed.
+Instead of having it in 3 dimensions (which is also possible with matplotlib), we will use the \code{plt.imshow()} function that shows the extra plane with colors.
+%
+To illustrate this method we will be using a two-dimensional Gaussian function, which is defined as;
+
+\begin{align}
+  f(x,y) = A \exp \left ( - \left ( \frac{(x - x_o)^2}{2\sigma_x^2} + \frac{(y - y_o)^2}{2\sigma_y^2} \right ) \right )
+\end{align}
+
+where we set $x_o = y_o = 0.0$, $A = 1.0$ and $\sigma_x = 1.0$ and $\sigma_y = 2.0$.\\
+
+
+\begin{enumerate}
+
+    \item Defined the Gaussian function, and the arrays for the $x$ and $y$ values.
+
+    \item Create an array \code{Z} with the correct dimensions and use the defined Gaussian function to fill out the values.
+
+\end{enumerate}
+
+Now we want to illustrate the result using the \code{plt.imshow()} function, which is used like this;
+
+\begin{lstlisting}
+extent = [X[0], X[-1], Y[0], Y[-1]]      # extent defines the edges of the plot
+
+im = plt.imshow(Z,
+                interpolation='nearest', # Does not anti aliasing squares
+                extent=extent,           # Use the defined axis/edges
+                origin='lower',          # Corrects the origin
+                cmap='gray')             # cmap defines what colormap to be used
+\end{lstlisting}
+
+The \code{origin='lower'} parameter is needed to make sure the data starts the correct position.
+Set \code{Z[-1][-1] = 1.0} and remove the parameter to see what it does.
+
+\begin{enumerate}[resume]
+
+    \item Plot the Gaussian array using the above code.
+
+    \item Find a suitable colormap
+
+\end{enumerate}
+
+You can add a colorbar by using the colorbar function.
+
+\begin{lstlisting}
+cbar = plt.colorbar(im)
+cbar.set_label('Tekst Here', rotation=270)
+\end{lstlisting}
+
+Notice the rotation parameter. It is there to make it easier to read the label.
+
+\begin{enumerate}[resume]
+
+    \item Add a colorbar to the plot, with and without the rotation parameter
+
+\end{enumerate}
+
+Sometimes it is necessary to only use a part of the data only.
+
+\begin{enumerate}[resume]
+
+    \item Plot the data for $x$ = 1.0 for the full range of $y$.
+
+\end{enumerate}
+
 
 % ***************************************************
 % END DOCUMENT
