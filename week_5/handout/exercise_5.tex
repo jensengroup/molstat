@@ -69,8 +69,13 @@ Try to use Google to answer questions you might have, as not all details you nee
 \subsection{Energy of a covalent bond during stretching}
 
 This data represents what will happen to the overall energy if you move a hydrogen, in a water-dimer, away from it's global minimum.
+<<<<<<< HEAD
 This is calculated with 4 different methods and stored in  corresponding data files.
 The data is structured like this:
+=======
+This is calculated with 4 different methods and save in a corresponding data files.
+The data files \code{.dat} is structured like this
+>>>>>>> 9505519c58118a4150ba9db5c0ca8c48d91b1f1f
 
 \begin{lstlisting}
     -0.30   0.000000000   1.094813771   -0.789196930   -152.5782121321
@@ -104,7 +109,7 @@ Also look up what the command \code{continue} does in a for-loop and what the me
           Plot the result.
 
     \item Usually when computing quantum chemical energies, we are not interested in absolute values.
-          Plot the relative change in energy away from the displacement = 0.
+          Plot the relative change in energy away from the displacement = 0.0.
 
 \end{enumerate}
 
@@ -286,10 +291,10 @@ y = norm.pdf(x, *parameters)
 Not all protein structures can easily be determined experimentally.
 These kinds of proteins will often have their structure determined by simulation where a force-field is used to describe how the atoms interact with each other.
 If a good force-field is used, the correct (also called native) structure should correspond to the lowest energy of the force-field.
-When developing new force-fields you want to see how well the energy correlate with the deviation from the native structure.
+When developing new force-fields you want to see how well the energy correlate with the deviation from the native structure.\\
 
 The file \code{rmsd\_energy\_unfolded.txt} obtained from the course website, contains the energies, in units of $kcal/(mol\cdot RT)$ at $300K$, of several proposed structures as well as the atomic root mean square deviation (rmsd) in Å from the native structure.
-You will never get an rmsd of zero for structures proposed by simulation, since the force-field will never fully describe all interactions correctly, however rmsds under 3-5 Å is usually considered accurate.
+You will never get an rmsd of zero for structures proposed by simulation, since the force-field will never fully describe all interactions correctly, however rmsds under 3-5 Å is usually considered accurate.\\
 
 \emph{Note:} The first column contain the rmsds and the second one the energies.
 
