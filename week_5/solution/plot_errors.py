@@ -9,6 +9,7 @@ data = np.loadtxt(filename,dtype=np.float)
 
 
 fit_list = ["norm", "cauchy", "genlogistic", "hypsecant", "johnsonsu", "laplace", "logistic", "nct", "t", "dgamma", "dweibull"]
+
 for dist in fit_list:
     plt.hist(data, normed=1, alpha = 0.2, bins=100)
     data_range =  np.linspace(1.0*min(data),1.0*max(data),1000)
