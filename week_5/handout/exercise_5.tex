@@ -123,7 +123,7 @@ The result of these calculations are stored in \code{calculated\_new.csv} and ha
 \end{lstlisting}
 
 The columns are respectively ID, change in enthalpy ($\Delta U$) [kcal/mol], change in solvent energy ($\Delta W$) [kcal/mol] and lastly change in entropy ($\Delta S^\circ$) [(kcal/mol)/Kelvin].
-The binding energy is then calculated with the following formula
+The binding energy is then calculated with the following formula:
 
 \begin{align}
     \Delta G^\circ = \Delta U - T \Delta S^\circ + \Delta W + \delta
@@ -137,7 +137,7 @@ Similarly the \code{experimental.csv} contains the experimental binding energies
 1, -5.3
 \end{lstlisting}
 
-where the columns are ID and binding energy in kcal/mol respectively.\\
+where the columns are ID and binding energy in kcal/mol respectively.
 
 \begin{enumerate}
 
@@ -171,27 +171,7 @@ where the columns are ID and binding energy in kcal/mol respectively.\\
 
 If you are using Latex, you will want to print out data directly as a Latex table.
 This can be done with the method \code{.format()}.
-For example
-
-\begin{lstlisting}
-print "{0:d9}".format{5}
-\end{lstlisting}
-
-will return the integer 5.
-The 9 in the string represents how much space in integer should take.
-Similar can be done with floats, where
-
-\begin{lstlisting}
-print "{0:f5.2}".format{130.2562}
-\end{lstlisting}
-
-will fill in the float, but with two digits.
-You can, of course, add multiple digits and floats like this;
-
-\begin{lstlisting}
-print "{0:d5} {1:5.2f} {2:5.2f}".format{5, 28.7854, 30.543}
-\end{lstlisting}
-
+Some examples can be found at \href{http://ebeab.com/2012/10/10/python-string-format/}{http://ebeab.com/2012/10/10/python-string-format/}
 
 \begin{enumerate}[resume]
 
