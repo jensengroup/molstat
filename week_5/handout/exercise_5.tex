@@ -35,8 +35,6 @@ Python is great for this and the goals of this exercise is:
 
     \item Use string manipulation for tables
 
-    % TODO \item Save Numpy data
-
 \end{enumerate}
 
 
@@ -49,7 +47,7 @@ If you sit with some data and you do not know how to plot the specific plot, the
 \subsection{Changing the look of matplotlib}
 
 You can change pretty much anything in a matplotlib plot using the \code{rc} function.
-I've made a small header file to override most of the default stuff in matplotlib to make it look more professional and it can be found here
+A small header file to override most of the default stuff in matplotlib to make it look more professional can be found here
 \href{https://github.com/charnley/matplotlib-header}{github.com/charnley/matplotlib-header}.
 Here is a before / after example.
 
@@ -65,23 +63,20 @@ Here is a before / after example.
 
 Todays exercises will each be based on different sets of data which requires different plot representation.
 You will be given different data files to load/read in Python.
-There many ways to complete these exercises. So many ways!
-How you do it, is up to you.
-This means you will properly use Google a lot, as there will be little hints on how to do it.
-
+Try to use Google to answer questions you might have, as not all details you need are included in the exercises.
 
 \newpage
-\subsection{Energy of a stretching covalent bond}
+\subsection{Energy of a covalent bond during stretching}
 
 This data represents what will happen to the overall energy if you move a hydrogen, in a water-dimer, away from it's global minimum.
-This is calculated with 4 different methods and save in a corresponding data files.
-The data structure is structured like this
+This is calculated with 4 different methods and stored in  corresponding data files.
+The data is structured like this:
 
 \begin{lstlisting}
     -0.30   0.000000000   1.094813771   -0.789196930   -152.5782121321
 \end{lstlisting}
 
-where the first column is the displacement of the hydrogen in \AA ngstrom, next three are the dipolemoment (which we are not using) and the last is the total energy in Hartree.\\
+The first column is the displacement of the hydrogen in \AA ngstrom. The next three are the dipole-moment (which we are not using) and the last is the total energy in Hartree.\\
 
 Your job is to see if the four energy models, B3LYP, CCSD(t), CCSD(t)-F12 and MP2 describes a similar energy surface or not.\\
 
@@ -95,13 +90,13 @@ for line in f:
 
 \end{lstlisting}
 
-Also look up what the code \code{continue} does in a for-loop and what the method \code{.split()} does on a string.
+Also look up what the command \code{continue} does in a for-loop and what the method \code{.split()} does with a string.
 
 \begin{enumerate}
 
     \item Load all the energies into a Numpy array/list and corresponding array/list for displacement,
           for each method.
-          Plot the result in the same plot.
+          Plot the data in the same plot.
 
     \item Remember to add labels for axis and methods.
 
@@ -117,44 +112,41 @@ Also look up what the code \code{continue} does in a for-loop and what the metho
 \newpage
 \subsection{Binding free energies}
 
-This data represents a theortical thermodynamic study of host-ligand binding energies.
+This data represents a theoretical thermodynamic study of host-ligand binding energies.
 The data is from Gilson {\em et al.}\footnote{Hari S. Muddana and Michael K. Gilson, dx.doi.org/10.1021/ct3002738 | J. Chem. Theory Comput. 2012, 8, 2023-2033}
 The system in question is the Cucurbit7uril (CB7) host molecule with different organic ligands inside it.
-Calculations has been done to try to find the experimental binding energy ($\Delta G^\circ$) based on a semi-empirical method called PM6-DH+.
-The result of these calculations are stored in \code{calculated\_new.csv} and has the following structure.
+Calculations of the binding energy ($\Delta G^\circ$) have been done based on a semi-empirical method called PM6-DH+.
+The result of these calculations are stored in \code{calculated\_new.csv} and has the following structure:
 
 \begin{lstlisting}
 1 -139.8 130.3 -0.0318791946309
 \end{lstlisting}
 
-where the columns are ID, change in enthalpy ($\Delta U$) [kcal/mol], change in solvent energy ($\Delta W$) [kcal/mol] and lastly change in entropy ($\Delta S^\circ$) [kcal/mol/Kelvin].
+The columns are respectively ID, change in enthalpy ($\Delta U$) [kcal/mol], change in solvent energy ($\Delta W$) [kcal/mol] and lastly change in entropy ($\Delta S^\circ$) [(kcal/mol)/Kelvin].
 The binding energy is then calculated with the following formula
 
 \begin{align}
     \Delta G^\circ = \Delta U - T \Delta S^\circ + \Delta W + \delta
 \end{align}
 
-where $\delta$ is an empirical parameter and is set to $-5.83$ kcal/mol and $T$ is the temperature of 298.0 Kelvin.\\
+where $\delta$ is an empirical parameter set to $-5.83$ kcal/mol and $T$ is the temperature of 298.0 Kelvin.\\
 
-Similar the \code{experimental.csv} contains the experimental binding energies with the following structure
+Similarly the \code{experimental.csv} contains the experimental binding energies with the following data structure:
 
 \begin{lstlisting}
 1, -5.3
 \end{lstlisting}
 
-where the columns are ID and binding energy in kcal/mol.\\
-
-The assignment is then;
+where the columns are ID and binding energy in kcal/mol respectively.\\
 
 \begin{enumerate}
 
     \item Load the data into corresponding arrays and calculate the theoretical binding energies using the above equation.
 
-    \item Plot the experimental vs calculated energies as a scatter plot.
+    \item Plot the experimental vs calculated energies.
 
     \item Add a fixed $x = y$ line to the plot.
-        Fix the limits of the x and y axis to match each other.
-        This is to better visualize the how correct the calculated $\Delta G^\circ$ are.
+        Fix the limits of the x and y axis to match each other, to better visualize how correct the calculated $\Delta G^\circ$ are.
 
     \item Add two fixed dotted lines representing +/- 2 kcal/mol experimental uncertainty. 
 
@@ -174,18 +166,20 @@ The assignment is then;
 \end{enumerate}
 
 \newpage
-This next part is useful if you use Latex.
-If you are using Latex to write your science, you would want to print out data directly as a Latex table.
-This is the very useful method called \code{.format()} comes in.
+
+%Det her er helt uforståeligt. Kan ikke overskue det.
+
+If you are using Latex, you will want to print out data directly as a Latex table.
+This can be done with the method \code{.format()}.
 For example
 
 \begin{lstlisting}
 print "{0:d9}".format{5}
 \end{lstlisting}
 
-will switch out the \{\} with the integer 5.
+will return the integer 5.
 The 9 in the string represents how much space in integer should take.
-Similar can be done with floats, wher
+Similar can be done with floats, where
 
 \begin{lstlisting}
 print "{0:f5.2}".format{130.2562}
@@ -326,39 +320,38 @@ To test this a second simulation is usually run starting from the native structu
 \newpage
 \subsection{3D Gaussian}
 
-Sometimes a XY plot is not enough to describe the data. Sometimes an extra plan is needed.
-Instead of having it in 3 dimensions (which is also possible with matplotlib), we will use the \code{plt.imshow()} function that shows the extra plane with colors.
-%
-To illustrate this method we will be using a two-dimensional Gaussian function, which is defined as;
+Instead of plotting data in 3 dimensions (which is also possible with matplotlib), we can use the \code{plt.imshow()} function that shows the extra plane with colors.
+
+To illustrate this method we will be using a two-dimensional independent Gaussian function, which is defined as;
 
 \begin{align}
   f(x,y) = A \exp \left ( - \left ( \frac{(x - x_o)^2}{2\sigma_x^2} + \frac{(y - y_o)^2}{2\sigma_y^2} \right ) \right )
 \end{align}
 
-where we set $x_o = y_o = 0.0$, $A = 1.0$ and $\sigma_x = 1.0$ and $\sigma_y = 2.0$.\\
+where we set $x_o = y_o = 0.0$, $A = 1.0$, $\sigma_x = 1.0$ and $\sigma_y = 2.0$.\\
 
 
 \begin{enumerate}
 
-    \item Defined the Gaussian function, and the arrays for the $x$ and $y$ values.
+    \item Define the Gaussian function, and the arrays for the $x$ and $y$ values.
 
-    \item Create an array \code{Z} with the correct dimensions and use the defined Gaussian function to fill out the values.
+    \item Create an array \code{Z} with the Gaussian function values.
 
 \end{enumerate}
 
-Now we want to illustrate the result using the \code{plt.imshow()} function, which is used like this;
+Now we want to illustrate the function using the \code{plt.imshow()} function, which is used like this:
 
 \begin{lstlisting}
 extent = [X[0], X[-1], Y[0], Y[-1]]      # extent defines the edges of the plot
 
 im = plt.imshow(Z,
-                interpolation='nearest', # Does not anti aliasing squares
+                interpolation='nearest', # Disable smoothing of the data.
                 extent=extent,           # Use the defined axis/edges
                 origin='lower',          # Corrects the origin
                 cmap='gray')             # cmap defines what colormap to be used
 \end{lstlisting}
 
-The \code{origin='lower'} parameter is needed to make sure the data starts the correct position.
+The \code{origin='lower'} parameter is needed to make sure the data starts at the correct position.
 Set \code{Z[-1][-1] = 1.0} and remove the parameter to see what it does.
 
 \begin{enumerate}[resume]
@@ -373,7 +366,7 @@ You can add a colorbar by using the colorbar function.
 
 \begin{lstlisting}
 cbar = plt.colorbar(im)
-cbar.set_label('Tekst Here', rotation=270)
+cbar.set_label('Text here', rotation=270)
 \end{lstlisting}
 
 Notice the rotation parameter. It is there to make it easier to read the label.
@@ -388,7 +381,7 @@ Sometimes it is necessary to only use a part of the data only.
 
 \begin{enumerate}[resume]
 
-    \item Plot the data for $x$ = 1.0 for the full range of $y$.
+    \item Plot the data at $x$ = 1.0 for the full range of $y$.
 
 \end{enumerate}
 
