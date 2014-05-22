@@ -7,8 +7,8 @@
 % HEADER INFORMATION
 
 \title{Diffusion Coefficient of the Lennard-Jones Fluid}
-\author{Molecular Statistic}
-\date{2013}
+\author{Molecular Statistics}
+\date{2014}
 
 % ***************************************************
 
@@ -37,41 +37,32 @@ diffusion coefficient $D$ of the Lennard-Jones Fluid.\\
 
 \subsection{Diffusion}
 
-Diffusion is a transport property that refers to the phenomenon
-of a flow of material from one region to another,
-which arises from migration of matter down a concentration gradient.
-Since we are dealing with a homogeneous liquid, there is no
-meaning in defining a concentration gradient.
-What we are dealing with
-in this simulation is {\em self-diffusion}.\\
+Diffusion is the net movement of a substance (e.g., an atom, ion or molecule) from a region of high concentration to a region of low concentration. This is also referred to as the movement of a substance down a concentration gradient. \footnote{\href{http://en.wikipedia.org/wiki/Diffusion}{http://en.wikipedia.org/wiki/Diffusion}}
+Since we are dealing with a homogeneous liquid, the concentration gradient is zero.
+What we are dealing with in this simulation is {\em self-diffusion}.\\
 
-As described by Leach\footnote{Leach section 7.6.3 p. 380}
-if we can calculate the two properties
-mean-square displacement (MSD)
-and the velocity auto-correlation function (VACF)
+If we can calculate the two properties mean-square displacement (MSD) or the velocity auto-correlation function (VACF)
 we can calculate the self-diffusion coefficient $D$.\\
 
-Quick refresh;
-two equations relate the diffusion coefficient with microscopic properties.
-The relation between the MSD and VACF and $D$ is as follows;
+The relation between $D$ and the MSD/VACF is as follows:
 
 \begin{eqnarray}
     D &=& \lim_{t\rightarrow \infty} \frac{\mathrm{MSD}(t)}{6t}\\
     D &=& \frac{1}{3} \int_0^\infty \mathrm{VACF}(t) \ \ dt
 \end{eqnarray}
 
-MSD is defined as;
+MSD is defined as:
 
 \begin{eqnarray}
     \mathrm{MSD}(t) = \expval{|\vec{r}(t_0 + t) - \vec{r}(t_0)|^2}
     = \frac{1}{N} \sum_{i=1}^N | \vec{r}_i(t_0 + t) - \vec{r}_i(t_0)  |^2
 \end{eqnarray}
 
-where $\expval{x}$ indicates the expected, or average, value
+where $\expval{x}$ indicates the expected (or average) value,
 $N$ is the number of particles and
-$\vec{r}_i(t_0 + t)$ is the position vector of particle $i$ at time $t$ away from a time origin.\\
+$\vec{r}_i(t_0 + t)$ is the position vector of particle $i$ after time $t$ has passed.\\
 
-VACF is defined as;
+VACF is defined as:
 
 \begin{eqnarray}
     \mathrm{VACF}(t) = \expval{\vec{V}(t_0 + t)\cdot\vec{V}(t_0)}
@@ -79,55 +70,43 @@ VACF is defined as;
 \end{eqnarray}
 
 where
-$\vec{V}_i(t_0 + t)$ is the velocity vector for particle $i$ at time $t$
-away from time origin
+$\vec{V}_i(t_0 + t)$ is the velocity vector for particle $i$ after time $t$ has passed 
 and $N$ is the number of particles.
 
 \newpage
 
 \subsection{Usage of Correlation Function}
 
-From the book p. 381:
+Due to large variations in your simulation, the diffusion constant will be heavily dependent on your choice of $t_0$.
+Because of this we will average the MSD and VACF over several choices of $t_0$. That is redefining the MSD as
 
-\begin{quotation}
-    \em
-    It is also good usual practice to average over time origins when
-    possible.
-\end{quotation}
+\begin{eqnarray}
+    \mathrm{MSD}(t) = \frac{1}{NM} \sum_{j=1}^M \sum_{i=1}^N | \vec{r}_i(t_j + t) - \vec{r}_i(t_j)  |^2
+\end{eqnarray}
 
+and the VACF as 
 
-A short introduction seems appropriate because this is confusing.\\
+\begin{eqnarray}
+    \mathrm{VACF}(t) = \frac{1}{NM} \sum_{j=1}^M \sum_{i=1}^N \vec{V}_i(t_j + t) \cdot \vec{V}_i(t_j)
+\end{eqnarray}
 
-When you plot the MSD vs. time it does not look like a smooth linear
-function but has curves etc, and is therefor hard to do linear regression
-on. That is why we need some kind of averaging on the results.\\
+with $M$ being the number of $t_0$ values we average over. \\
 
-When we run the actual simulation, we run it for at least 
-$n$ steps before we do any sampling, because the system needs
-to be equilibrated first.
-So when you do your first samples and 
-want to calculate the MSD between step $i$ and $0$,
-this is only relative compared to the time origin,
-which is {\em after} equilibration. 
-It is therefor common to use multiple time origins that are separated
-by several time steps, but in our case we calculate the MSD
-for each sample as a time origin.\\
+When we run the actual simulation, we run it for at least $n$ steps before we do any sampling, since the system needs to be at equilibrium.
+So all choices for the time origin $t_0$ must be after the initial burn-in to reach equilibrium.
 
-We then calculate a new list \code{MSD\_list} where the index represents
-how many time steps from a time origin the MSD is calculated.
+In our case we will use each sample as a time origin.
+
+You should calculate the average MSD for each choice of $t$ and store it in a list \code{msd\_list} where the index should represent
+how many time steps from the time origin the MSD is calculated.
 For example the list element
 
 \begin{lstlisting}
 MSD_list[5]
 \end{lstlisting}
 
-contains the an average MSD calculated 5 samples away from each 
-time origin. This means choosing $t_{max}$ time steps and calculating 
-\code{calculate\_msd(R$_5$, R$_0$})
-where \code{R$_0$} is the current time and
-\code{R$_5$} is the time 5 steps from \code{R$_0$}.
-The average is
-calculated from these MSD-values and \code{MSD\_list[5]} is set to contain this average.\\
+contains the average MSD calculated 5 samples away from each time origin.
+For this choice of $t$ you should average over all $n-5$ choices of $t_0$, with $n$ being your number of samples. This might be easier to understand by the below visualization:
 
 \begin{figure}[htb!]
 	\centering
@@ -179,6 +158,7 @@ calculated from these MSD-values and \code{MSD\_list[5]} is set to contain this 
 % MSD_list[5]
 %
 
+%Bør de ikke lave det selv?
 To help you, we have written the Python code to do this:
 
 \begin{lstlisting}
@@ -196,140 +176,33 @@ for t in range(t_max):
 \end{lstlisting}
 
 Note: Remember to have a  \code{time\_list} with
-corresponding dimension as \code{vacf\_list} and \code{msd\_list}
-and time for each sample.
-Hint use
-\code{np.arange(t\_max)}.
+the same dimensions as \code{vacf\_list} and \code{msd\_list}, where the time for each sample is stored.
+\emph{Hint!} use
+\code{np.arange(t\_max)} and don't forget the time step $dt$.
 % time_list = mp.arange(t_max) * sampling_freq * dt
 
-\subsection{Solving for Diffusion Coeffecient}
+\subsection{Calculating the Diffusion Coeffecient}
 
 \subsubsection{Limit of MSD}
 
 When we want to obtain the diffusion coefficient from MSD($t$) we
-want to find the limit of;
+want to find the limit of
 
 \begin{align}
-    \lim_{t\rightarrow \infty} \frac{MSD(t)}{t}
+    \lim_{t\rightarrow \infty} \frac{\mathrm{MSD}(t)}{t}
 \end{align}
 
-by linear regression. If you plot msd\_list as a function of the time $t$, the slope of that line is $6D$. 
+by linear regression. If you plot \code{msd\_list} as a function of the time $t$, the slope of that line is $6D$. 
 Luckily there is a Numpy/Scipy package for linear regression.
-So \code{import scipy} and use it in the following method,
-for two lists \code{X} and \code{Y}.\\
+So \code{import scipy} and use it as follows: 
 
 \begin{lstlisting}
 import scipy
 slope, intercept, r_value, p_value, std_err = scipy.stats.linregress(X, Y)
 \end{lstlisting}
 
-The returned value \code{slope} is then the limit.
+where \code{X} and \code{Y} are two lists. The returned value \code{slope} is then the limit.
 
-
-\subsubsection{Integrating VACF}
-
-When we want to find the diffusion coefficient from VACF we want
-to solve the integral;
-
-\begin{align}
-    \int_0^\infty \mathrm{VACF} \ \ dt
-\end{align}
-
-by numerical integration using the trapezoidal rule.
-We have all the VACF in a list for each time $i$, then the integral $I_i$
-for this time step is defined as;
-
-\begin{align}
-    I_i = \frac{1}{2}(\mathrm{VACF}_{i+1} 
-    + \mathrm{VACF}_i) \cdot (t_{i+1} - t_i)
-\end{align}
-
-where VACF$_{i+1}$ is the VACF at the next time index,
-and corresponding time $t_{i+1}$\\
-
-The total integral is then the sum of all the individual integrals $I_i$;
-
-\begin{align}
-    \int_0^\infty \mathrm{VACF} \ \ dt = \sum_i I_i = \sum_i \frac{1}{2}(\mathrm{VACF}_{i+1} 
-    + \mathrm{VACF}_i) \cdot (t_{i+1} - t_i)
-\end{align}
-
-
-
-\begin{figure}[htb]
-	\centering
-  \subfloat[]{
-    \includegraphics[width=0.35\textwidth]{vacf_time.eps}
-    \label{fig:msd_time}
-  }
-%  \qquad % Spacing
-%  \qquad % Spacing
-  \subfloat[]{
-    \includegraphics[width=0.35\textwidth]{vacf_time_correlated.eps}
-    \label{fig:msd_time_correlated}
-  }
-  \caption{
-    (a) Uncorrelated VACF vs time.
-    (b) VACF after the correlation function has been done.
-  }
-\end{figure}
-
-
-
-
-\newpage
-\section{Assignment}
-
-The assignment is to create a python simulation that calculates 
-the diffusion coefficient from MSD and VACF, and simulate
-the coefficient over different variables.
-
-\subsection{Simulation Setup}
-
-First part is to setup the simulation to calculate $D$.
-To make it easy to start we have split the setup into
-small manageable steps. An example for starting variables is
-
-\begin{lstlisting}
-n_particles = 108
-temperature = 0.5
-rho = 0.7
-equlib_steps = 10000
-n_steps = 10000
-sample_freq = 24
-dt = 0.001
-\end{lstlisting}
-
-\begin{enumerate}
-
-    \item Define a sample frequency and save
-    a list of position matrices \code{R} during the
-    Velo-Verlet simulation, by finishing the \code{simulation}
-    function.
-
-    \item Create a function that calculates the MSD
-    between two coordinate matrices \code{R}.
-
-    \item Calculate MSD for each sampled \code{R} and
-    plot MSD vs. simulation time.
-    If you use the constants above it should look similar
-    too figure \ref{fig:msd_time}.
-
-    \item Implement the correlation function method
-    for MSD and plot MSD vs. time.
-    If you use the constants above it should look similar
-    too figure \ref{fig:msd_time_correlated}.
-
-    \item Use the correlated MSD list and
-    the method for calculating the limit of MSD
-    to calculate the diffusion coefficient.
-
-    \item Follow the same procedure for calculating
-    the diffusion coefficient with the VACF method.
-
-\end{enumerate}
-
-\textbf{Hint:} If you run your program with the settings suggested above, you will get $D \approx 0.05$.
 
 \begin{figure}[htb]
 	\centering
@@ -348,19 +221,115 @@ dt = 0.001
     (b) MSD after the correlation function has been done.
   }
 \end{figure}
+\subsubsection{Integrating VACF}
+
+When we want to find the diffusion coefficient from VACF we need
+to solve the integral
+
+\begin{align}
+    \int_0^\infty \mathrm{VACF}(t) \ \ dt
+\end{align}
+
+by numerical integration using the trapezoidal rule.
+We have all the VACF in a list with index $i$ describing each time step, then the integral $I_i$
+can be estimated as
+
+\begin{align}
+    I_i = \frac{1}{2}(\mathrm{VACF}_{i+1} 
+    + \mathrm{VACF}_i) \cdot (t_{i+1} - t_i)
+\end{align}
+
+The total integral is then the sum of all the individual integrals $I_i$:
+
+\begin{align}
+    \int_0^\infty \mathrm{VACF} \ \ dt = \sum_i I_i = \sum_i \frac{1}{2}(\mathrm{VACF}_{i+1} 
+    + \mathrm{VACF}_i) \cdot (t_{i+1} - t_i)
+\end{align}
+
+
+
+\begin{figure}[htb]
+	\centering
+  \subfloat[]{
+    \includegraphics[width=0.35\textwidth]{vacf_time.eps}
+    \label{fig:vacf_time}
+  }
+%  \qquad % Spacing
+%  \qquad % Spacing
+  \subfloat[]{
+    \includegraphics[width=0.35\textwidth]{vacf_time_correlated.eps}
+    \label{fig:vacf_time_correlated}
+  }
+  \caption{
+    (a) VACF vs. time using a single time origin.
+    (b) Averaged VACF vs. time.
+  }
+\end{figure}
+
+
+
+\newpage
+\section{Assignment}
+
+The assignment is to create a python simulation that calculates 
+the diffusion coefficient from MSD and VACF, and calculate 
+the coefficient using different simulation variables.
+
+\subsection{Simulation Setup}
+
+First part is to setup the simulation to calculate $D$.
+To make it easy to get started we have split the setup into
+small manageable steps. An example for starting variables is
+
+\begin{lstlisting}
+n_particles = 108
+temperature = 0.5
+rho = 0.7
+equlib_steps = 10000
+n_steps = 10000
+sample_freq = 24
+dt = 0.001
+\end{lstlisting}
+
+\begin{enumerate}
+
+    \item Define a sample frequency and save
+    a list of position matrices \code{R} during the
+    Velo-Verlet simulation after equilibrium has been reached.
+
+    \item Create a function that calculates the MSD
+    between two coordinate matrices \code{R}.
+
+    \item Calculate MSD for each sampled \code{R} and
+    plot MSD vs. simulation time.
+    If you use the constants above it should look similar
+    to figure \ref{fig:msd_time}.
+
+    \item Implement averaging over time origins for the MSD and plot MSD vs. time.
+    If you use the constants above it should look similar
+    to figure \ref{fig:msd_time_correlated}.
+
+    \item Use the averaged MSD list and
+    the method for calculating the limit of MSD
+    to calculate the diffusion coefficient.
+
+    \item Follow the same procedure for calculating
+    the diffusion coefficient with the VACF method.
+
+\end{enumerate}
+
+\textbf{Hint:} If you run your program with the settings suggested above, you will get $D \approx 0.05$.
+
 
 \clearpage
 \newpage
 \subsection{Simulations}
 
-Now that you have a working simulation it is time to do
-some science.
-You need to do the following six simulations and conclude
-on the results (with plots).
+Now that you have a working base you will need to do the following six simulations and conclude on the results (with plots).
 
 \begin{itemize}
     \item {\bf Simulation 1}\newline
-    Check the convergence of the diffusion coefficient
+    Check convergence of the diffusion coefficient
     with simulation step number.
 
     \item {\bf Simulation 2}\newline
@@ -368,16 +337,16 @@ on the results (with plots).
     with system size (particle numbers)
 
     \item {\bf Simulation 3}\newline
-    Check MSD/VACF over time for given temperature at different densities.
+    Check MSD/VACF over time for a given temperature at different densities.
 
     \item {\bf Simulation 4}\newline
     Check MSD/VACF over time for a given density $\rho$ at different temperatures.
 
     \item {\bf Simulation 5}\newline
-    Check the diffusion coefficient for a given temperature for different densities.
+    Calculate the diffusion coefficient for a given temperature at different densities.
 
     \item {\bf Simulation 6}\newline
-    Check the diffusion coefficient for a given density $\rho$ for different temperatures.
+    Calculate the diffusion coefficient for a given density $\rho$ for different temperatures.
 
 \end{itemize}
 
