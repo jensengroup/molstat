@@ -18,7 +18,7 @@ def get_energy():
     return FF.Energy()
 
 
-def generate_chain(n):
+def generate_alkane(n):
     """ Generate a n-length carbon chain.
     """
 
