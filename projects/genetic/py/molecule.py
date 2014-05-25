@@ -103,7 +103,7 @@ def save_molecule(filename):
 
 if __name__ == '__main__':
 
-    generate_chain(6)
+    generate_alkane(6)
 
     print get_energy()
 
