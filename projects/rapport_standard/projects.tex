@@ -1,0 +1,114 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+% Packages
+\usepackage{amsmath,amssymb}
+\usepackage{bm}% boldmath
+\usepackage{listings} % Code block (source code) \begin{lstlisting} 
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{lmodern}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage[textwidth=16cm,textheight=23cm]{geometry}
+
+% Commands
+\newcommand{\code}[1]{\texttt{#1}} % \code{inline code}
+\newcommand{\expval}[1]{\langle #1 \rangle} %
+\renewcommand{\theequation}{\arabic{section}.\arabic{equation}} % Book format equation
+\renewcommand{\thefigure}{\arabic{section}.\arabic{figure}} % Book format figure
+
+% Set page attribution
+\setlength{\parindent}{0pt}
+
+
+% PSTRICKS
+\usepackage{pstricks,pst-node,pst-tree} % includes graph additions
+\usepackage{pst-pdf}	% Compiles the pictures
+\usepackage{pst-node}
+\usepackage{pst-plot}
+\usepackage{pst-3dplot}
+%\usepackage{pstricks-add,babel}
+
+
+% ***************************************************
+% HEADER INFORMATION
+
+\title{Rapport Standard}
+\author{Molecular Statistic}
+\date{2014}
+
+% ***************************************************
+
+\begin{document}
+
+
+% ***************************************************
+% BEGIN DOCUMENT
+% ***************************************************
+
+
+\maketitle
+
+\section*{Project Rapport}
+
+The exam project is individual reports, should be written in Danish or English and be between ca. 10 and no more than 20 pages long.\\
+
+The code should be emailed to the helper.\\
+
+Just like reports you have written before, the project report should include the following sections
+
+\begin{itemize}
+
+    \item {\bf Title}
+
+    \item {\bf Author Name}
+
+    \item {\bf Keywords (4-5 words)}
+
+    \item {\bf Abstract (Max. 200 characters)}
+
+    \item {\bf Introduction and theory.}
+    A theoretical introduction to the subject along with motivation for the work.
+    This includes a description of the theory and algorithms, as well as figures that could help with the understanding of the subject.
+
+    \item {\bf Implementation.}
+    Comment on what the code does and how you implemented the code.
+    Use code examples.
+
+    \item {\bf Results and discussion.}
+    Presentation of your results (use figures, pictures and tables).
+    Discussion of the results.
+    Do the results behave as expect, are there outliers and 
+    do you trust your results? Discuss 
+
+    \item {\bf Conclusion.}
+    Summary of the most important findings.
+    Perspective of your results.
+
+    \begin{itemize}
+        \item Did you achieve the goal described in the introduction?
+        \item What would be the next step?
+        \item Could one improve on your calculations?
+    \end{itemize}
+
+    \item {\bf References.}
+    It is okay to refer to the book chapters.
+
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+% ***************************************************
+% END DOCUMENT
+% ***************************************************
+
+\end{document}
+
