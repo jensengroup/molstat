@@ -109,7 +109,7 @@ if __name__ == '__main__':
 
     # save_molecule('carbon_man1.xyz')
 
-    set_dehedral_angles([180.0, -180.0, 180.0])
+    set_dihedral([180.0, -180.0, 180.0])
 
     print get_energy()
 
