@@ -1,4 +1,5 @@
 import molecule as mol
+import numpy as np
 
 n_carbon = 4
 n_dihedral = 1

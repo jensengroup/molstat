@@ -7,8 +7,8 @@
 % HEADER INFORMATION
 
 \title{Genetic Algorithm}
-\author{Molecular Statistic}
-\date{2013}
+\author{Molecular Statistics}
+\date{2014}
 
 % ***************************************************
 
@@ -24,7 +24,7 @@
 
 \section{Introduction}
 
-The genetic algorithm is a general minimization algorithm, which in this project, is to be used to minimize the energy of alkane molecules, in the flavor of the general Monte-Carlo approach.
+The genetic algorithm is a general minimization algorithm which in this project is used to minimize the energy of alkane molecules, in the flavor of the general Monte-Carlo approach.
 The energy is calculated using the force field MMFF94 as implemented in the software package OpenBabel.
 
 \subsection{Force field and dihedral angle}
@@ -83,71 +83,60 @@ The energy for the molecule in a certain configuration is calculated as
 \end{figure}
 
 To simplify things, we will only be focusing on the dihedral part of the energy expression.
-%
-In geometry, a dihedral (or torsion) angle is the angle between two planes, and in our alkane case it is the angle between two CH$_2$ groups, as illustrated in Figure \ref{fig:dihedral}.
-%
-We want to change the dihedral angles in such a way that the lowest configuration energy is found, based on the dihedral configuration $\Omega$.
-%
-Where the configuration $\Omega$ is defined as a set of the systems dihedral angles $\omega_i$ between each of the successive CH$_2$ groups, $\Omega_\beta = \{ \omega_1, \omega_2, ... , \omega_N \}$.\\
+Geometrically, a dihedral (or torsion) angle is the angle between two planes. In our alkane case it is the angle between two CH$_2$ groups (or rather the plane created by carbon atoms ABC and the plane created by atoms BCD), as illustrated in Figure \ref{fig:dihedral}.
 
-In the beginning each $\omega_i$ is assigned an initial random value, taken from a uniform distribution, between 0 and 360 degrees.
-%
-The task is then to use the genetic algorithm and modify these $\omega_i$ angles so the total molecular energy will be minimized in respect to the geometrical configuration.
+We want to optimize the dihedral angles in such a way that the lowest configuration energy is found based on the dihedral configuration $\Omega$.
+The configuration $\Omega$ is defined as a set of the systems dihedral angles $\omega_i$ between each of the successive CH$_2$ groups, $\Omega = \{ \omega_1, \omega_2, ... , \omega_N \}$.\\
+
+In the beginning each $\omega_i$ is assigned an initial random value, taken from an uniform distribution, between 0 and 360 degrees.
+The task in hand is then to use the genetic algorithm and modify these $\omega_i$ angles such that the total molecular energy will be minimized in respect to the geometrical configuration.
 
 \subsection{Genetic Algorithm}
 
 The genetic algorithm is an optimization algorithm that is based on genetic inheritance.
-Hence the name. 
-The genetic algorithm is an efficient algorithm to search through conformational space and locate minima. 
+The algorithm is efficient in searching through conformational space and locate minima.
 Here we employ the genetic algorithm to try and locate the lowest energy conformation for an alkane.\\
 
 As described before we define the geometry of an alkane chain through its dihedral angles $\omega_i$ between each of the successive CH$_2$ groups, and so by modifying these angles we change the structure and thereby the energy.\\
 
-We start out by defining a state vector $\Omega_\beta$ as $\Omega_\beta = \{ \omega_1, \omega_2, ... , \omega_N \}$ where we have $N$ dihedral genetic angels.
-Each $\omega_i$ is assigned an initial random value taken from a uniform distribution from 0 to 360 degrees.
-
+We start out by defining a state vector $\Omega$ as $\Omega = \{ \omega_1, \omega_2, ... , \omega_N \}$ where we have $N$ dihedral angles.
+Each $\omega_i$ is assigned an initial random value from an uniform distribution from 0 to 360 degrees.
+%
 % This can easily be done using numpy, for $N$ dihedral angles
 % 
 % \begin{lstlisting}
 % Omega_beta = np.random.uniform(0.0, 360.0, N)
 % \end{lstlisting}
-
+%
 We then create a set of $K$ state vectors.
-For each of these state vectors, we define a corresponding energy of the molecule $E_\beta(\Omega_\beta)$.
+For each of these state vectors, we define a corresponding energy of the molecule $E(\Omega_K)$.
 The energy is obtained via the force field.
 From now on, these $K$ state vectors are referred to as \emph{parents}.\\
 
-The parents are then changed as a result from the following algorithm steps;
+The parents are then modified as a result from the following algorithm steps:
 
 \begin{enumerate}
 
     \item {\bf Mating.}\newline
-        Two parents $\Omega_\beta$ and $\Omega_\alpha$ of length $N$ can combined to give birth to two children with the "genome" of the parents represented by the its state vector.
-        The state vector $\Omega_\beta$ is then being split from the first $M$ elements into the first child, and ($M-N$) into the next child.
-        Same procedure for parent $\Omega_\alpha$.
+        Two parents $\Omega_\alpha$ and $\Omega_\beta$ of length $N$ can combine to give birth to two children, each receiving a part of the 'genome' of the parent.
+        The first child will inherit the first $M$ elements from parent $\Omega_\alpha$ and the remaining $M-N$ elements from parent $\Omega_\beta$, and vice versa for the second child.
         The cut index $M$ is to be determined randomly.
 
     \item {\bf Mutation.}\newline
-        After the children has been born, sometimes, a random mutation is inserted in their 'genome'.
-        This means randomly select one of the $N$ angles $\omega_i$ and assign it a new random value, to a probability of a mutation rate, \code{mutatation\_rate}.
+        After the children has been born, sometimes a random mutation is inserted in their genome.
+        This means randomly select one of the $N$ angles $\omega_i$ and assigning it a new random value, with a probability \code{mutation\_rate}.
 
     \item {\bf Evolution.} \newline
         Survival of the fittest.
-        The energy of the formed child is evaluated like the parents, minimize the geometry of its state vector.
-        If the energy if the child is lower than one of the parents, then the child is kept and the parent with the larger energy is removed, where the child takes its parents place.
-        If the energy of the child is larger than a parent, there is still a probability $P$ that it survives the evolution step.      
-        This is where the Monte Carlo enters the algorithm
-        The probability $P$ is defined as proportional to the Boltzmann factor, i.e.
+        If the energy of a child is lower than one of the parents, then the child is kept and the parent with the larger energy is removed (the child takes its parents place).
+        If the energy of the child is larger than a parent, there is still a probability $P$ that it survives the evolution step.           The probability $P$ is given by the Monte Carlo Metropolis Hastings acceptance criterion, i.e.
         \begin{align}
         P = e^{-\Delta E /(k_\mathrm{B}T)}
         \end{align}
 
         where $\Delta E$ is the energy difference between the child and the parent, and $T$ is the temperature of the system.
-        In the following we set $k_\mathrm{B} = 1$, 
-        so all temperatures are in units of  $k_\mathrm{B}$.\\
-
+        In the following we set $k_\mathrm{B} = 1$ so all temperatures are in units of  $k_\mathrm{B}$.\\
         When {\em one} child has replaced a parent, we consider this to be the end of the generation.\footnote{A big hint here would to look up the \code{break} command for loops}
-        This means that no more mating of parents should be carried out and we start over. 
 
 \end{enumerate}
 
@@ -155,7 +144,7 @@ The parents are then changed as a result from the following algorithm steps;
 \newpage
 \section{Assignment}
 
-The main task of this assignment is to implement the genetic algorithm, and minimize the energy of three alcane chains,
+The main task of this assignment is to implement the genetic algorithm and minimize the energy of three alkane chains,
 C$_{10}$H$_{22}$,
 C$_{20}$H$_{42}$ and
 C$_{40}$H$_{82}$.
@@ -163,7 +152,7 @@ C$_{40}$H$_{82}$.
 \subsection{Setup}
 
 To successfully do this assignment you need to install some software dependencies on your computer.
-This is done as easy as writing the follow command in the terminal.
+This is done by writing the follow command in the terminal (remember that the molbox password is \emph{science}).
 
 \begin{lstlisting}
 sudo apt-get install openbabel python-openbabel
@@ -172,19 +161,19 @@ sudo apt-get install openbabel python-openbabel
 \subsection{Examples}
 
 You will be using the module \code{molecule.py} which in turn uses the openbabel package.
-The module is imported the usual way and is found on the course website.
+The module is imported the usual way and can be found on the course website.
 
 \begin{lstlisting}
 import molecule as mol
 \end{lstlisting}
 
-Please also download the \code{butane\_example.py} from the course website and look at the source code.\\
+Please also download \code{butane\_example.py} from the course website and inspect the code.\\
 
 There are three functions you will be using from the module.
 
 \begin{lstlisting}
-mol.generate_alkane(N)   # Generates an alkane chain of N length
-mol.set_dihedral(angles) # Sets the dihedral angles of the molecule. Requires list as parameter
+mol.generate_alkane(N)   # Generates an alkane chain of N length.
+mol.set_dihedral(angles) # Sets the dihedral angles of the molecule. Requires angles as a list.
 mol.get_energy()         # Calculates the current energy of the molecule. Returns energy.
 \end{lstlisting}
 
@@ -202,55 +191,49 @@ You can use the program Avogadro or JMol to open and see the structure.
 
 \subsection{Simulation Setup}
 
-Before you finish the actual simulation you need to create the functions that simulates the system.
-To make it easy to start we have split the setup into small manageable steps.
+To make it easy to get started we have split the setup into small manageable steps.
 
 \begin{enumerate}
     \item Use the code from \code{butane\_example.py} and familiarize yourself with it.
 
-    \item Create a list of angles from 0.0 to 180.0 degrees and calculate the energy of Butane for each angle.
+    \item Create a list of angles from 0.0 to 180.0 degrees and calculate the energy of butane for each angle (you only have to generate the alkane once)
     Plot the result.
 
     \item Implement the following optimization algorithm, called \textbf{Greedy optimization}:
         \begin{enumerate}
-            \item Create a random list of dihedral angles
-            \item Create a integer \code{no\_generations} which represents how long the algorithm will go on.
-            \item Create a for-loop and loop over the no of generations. 
+            \item Create a random dihedral state.
+            \item Create an integer \code{no\_generations} which represents how long the algorithm will go on.
+            \item Create a for-loop and loop over the no. of generations. 
             For each loop generate a random dihedral state and calculate the energy.
-            \item If the energy is lower than the previous, save the new energy and the new state, otherwise discard new state the away and continue the search.
+            \item If the energy is lower than the previous generation, save the new energy and the new state, otherwise discard the new state and continue the search.
         \end{enumerate}
 
     \item Use the Greedy algorithm to optimize alkane structures.
 
-    \item Create a function that takes \code{dihedral\_list} as a parameter and returns the energy.
+    \item Create a function that takes \code{angles} as a parameter and returns the energy.
 
     \item Create a function that takes the parameters
     \code{parent\_alpha},
     \code{parent\_beta} and
     \code{mutation\_rate}.
     Have this function mate the two parents and create two children based on the genetic algorithm step 1 and 2.
-    Use numpy's \code{ranint} generate a random cut index $M$.
+    Use numpy's \code{randint} generate a random cut index $M$.
 
 \begin{lstlisting}
-m = np.random.ranint(0, N)
+M = np.random.randint(0, N)
 \end{lstlisting}
 
-    \item Create two lists, one for the containing the state vectors
-    and one containing the energy related to the state vector.
+    \item Create two lists, one containing the state vectors
+    and one containing the energy of the corresponding state vector.
     Fill them up with \code{no\_parents} of random dihedral states,
     and calculate the energy for each.
 
-    \item Finish the algorithm by creating a for-loop and loop over
-    number of generations defined,
-    mating each parent pair, selecting what parent and what child
-    survives based on the Genetic algorithm.
+    \item Finish the algorithm by creating a for-loop and loop over the number of generations defined. For each parent pair select which parents and children survives based of the genetic algorithm.
 
 \end{enumerate}
 
 
 \subsection{Simulations}
-
-Now that you have a working simulation, it is time to do the actual simulations:
 
 \begin{itemize}
     \item {\bf Simulation 1}\newline
@@ -258,11 +241,11 @@ Now that you have a working simulation, it is time to do the actual simulations:
       C$_{10}$H$_{22}$,
       C$_{20}$H$_{42}$ and
       C$_{40}$H$_{82}$
-      and plot the mean energy for
+      and plot the mean and minimum energy for
       each generation.
 
     \item {\bf Simulation 2}\newline
-      Check for correlation between temperature $T$ and the energy found after $G$ generation for each molecule.
+      Check for correlation between temperature $T$ and the energy found after $G$ generations for each molecule.
       Check for temperatures between 0.5 and 10.0.
 
     \item {\bf Simulation 3}\newline
