@@ -62,7 +62,7 @@ lattice = [[ 1. -1.  1. -1.  1.],
            [ 1.  1. -1. -1.  1.]]
 \end{lstlisting}
 
-An easier way is to use the np.random.randint() function to generate a grid.
+An easier way is to use the \code{np.random.randint()} function to generate a grid.
 
 \subsection{Energy of the 2D Ising lattice} \label{section:energy}
 
@@ -84,10 +84,10 @@ The spin immediately above, below, to the right and to the left of that position
 The interaction energy $e$ between these spins can be calculated in Python as:
 
 \begin{lstlisting}[language=python]
-e  = -1.0 * lattice[x][y] * lattice[x][yplus]
-e += -1.0 * lattice[x][y] * lattice[x][ymin]
-e += -1.0 * lattice[x][y] * lattice[xplus][y]
-e += -1.0 * lattice[x][y] * lattice[xmin][y]
+e  = -J * lattice[x][y] * lattice[x][yplus]
+e += -J * lattice[x][y] * lattice[x][ymin]
+e += -J * lattice[x][y] * lattice[xplus][y]
+e += -J * lattice[x][y] * lattice[xmin][y]
 \end{lstlisting}
 
 To simulate a real lattice, and not just a $N$x$N$ system, we will be using
@@ -101,7 +101,7 @@ We set $J = 1$ in the following, so all energies reported are in units of $J$.
 
 \subsection{The Metropolis-Hastings algorithm}
 
-The Metropolis-Hastings (MH) algorithm is a Monte Carlo algorithm that can be used to describes a probability distribution of the possible states of a system.
+The Metropolis-Hastings (MH) algorithm is a Monte Carlo algorithm that can be used to describe a probability distribution of the possible states of a system.
 In this project, you will use the MH algorithm to determine the Boltzmann distribution of the 2D Ising model.\\
 
 A system is in a state $K_n$.
