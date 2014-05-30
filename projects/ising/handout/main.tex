@@ -240,7 +240,7 @@ for n in range(n_steps):
     # Flip a spin
     e_new = calc_energy(lattice):
     dE = e_new - e_old
-    if dE < 0:
+    if dE <= 0:
         # Accept the change
     elif math.exp(-dE / T) >= random.random():
         # Accept the change
