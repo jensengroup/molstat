@@ -211,7 +211,7 @@ def calc_energy(lattice):
 
 See section \ref{section:energy} for hints on calculating the energy.
 Test your code.
-An $L$x$L$ lattice with all spins aligned should have the energy $2L^2$.
+An $L$x$L$ lattice with all spins aligned should have the energy $-2L^2$.
 Make sure you do not count the same interaction twice.\\
 
 \subsection{Random Monte Carlo move (spin flip)}
@@ -240,7 +240,7 @@ for n in range(n_steps):
     # Flip a spin
     e_new = calc_energy(lattice):
     dE = e_new - e_old
-    if dE < 0:
+    if dE <= 0:
         # Accept the change
     elif math.exp(-dE / T) >= random.random():
         # Accept the change

@@ -8,7 +8,9 @@ non_native_filename = sys.argv[2]
 native_lines = open(native_filename,"r").readlines()
 non_native_lines = open(non_native_filename,"r").readlines()
 
+#The rmsd's are in the first column
 native_rmsd = [line.split()[0] for line in native_lines]
+#the data in the second
 native_data = [line.split()[1] for line in native_lines]
 
 non_native_rmsd = [line.split()[0] for line in non_native_lines]
