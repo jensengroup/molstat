@@ -8,7 +8,7 @@
 
 \title{Exercise 1}
 \author{Molecular Statistics, Week 1}
-\date{2014}
+\date{}
 
 % ***************************************************
 
@@ -21,36 +21,45 @@
 
 \maketitle
 
-\section{Introduction}
+\section*{Introduction}
 
-This is the first exercise in the course Molecular Statistics. The exercises
-throughout the course are split into two parts. The first part is a general
-introduction to new concepts and programming techniques. The second part is to use
-Python to simulate physical systems.\\
+Hello Scientist. You need to learn how to program. It is important.\\
 
-The curriculum can be found here 
+The exercises are split into two parts, a general introduction to new concepts and programming tricks and the main part which is to simulate systems.
+It is very important that you go trough each exercise, type each example code in exactly and make it run.
+That means, do not copy-paste.
+The point of the exercises is to train your hands, brain and your mind in how to write, read and debug code.\\
+
+
+There is no Python curriculum, but two online books, namely
+\href{http://learnpythonthehardway.org/book/}{learnpythonthehardway.org/book} and
 \href{http://pymbook.readthedocs.org/en/latest/}{pymbook.readthedocs.org/en/latest},
-which will contain all the concepts.
-Additional information can be gained by using the very powerful tool called "Google".
-For the first week, read the following chapters;
+contains all the concepts with examples.
+However, this being a programming course we require you to use Google for most information searching and debugging.
 
-\begin{itemize}
-    \item \href{http://pymbook.readthedocs.org/en/latest/thebeginning.html}{Introduction}
-    \item \href{http://pymbook.readthedocs.org/en/latest/variablesanddatatypes.html}{variables and datatypes}
-    \item \href{http://pymbook.readthedocs.org/en/latest/operatorsexpressions.html}{operators and Expressions}
-    \item \href{http://pymbook.readthedocs.org/en/latest/ifelse.html}{If Else}
-    \item \href{http://pymbook.readthedocs.org/en/latest/looping.html}{Looping}
-\end{itemize}
+\newpage
+\section{Python Introduction}
 
+First thing first, we want to create our very first program.
+To run programs with python we save a file with the extension \code{.py} and run it via the terminal window.
+Try to write the following python code and save it as \code{example\_program.py}
 
-\section{Python}
+\begin{lstlisting}
+# you use comments to remmeber what you wrote later
+print "I want to print this statement" # you can also comment after a line
+\end{lstlisting}
 
-To execute a program written in Python, we save a file with the extension
-'.py' and run it via the terminal using the following syntax:
+run it as
 
 \begin{lstlisting}
 python example_program.py
 \end{lstlisting}
+
+Is the output as expected? 
+
+\subsection{Python as a calculator}
+
+% TODO Remove this section.
 
 Now, let's start by using Python as a calculator.
 Remember to print the result of your calculation using the \code{print} statement.
@@ -58,13 +67,12 @@ We encourage you to have some sort of logical file system, saving all the exerci
 different files and folders so you can find it again when needed.
 
 \begin{enumerate}
-  \item Execute the following statements. Does it behave like your regular
+    \item Execute the following statements. Does it behave like your regular
     calculator? If anything unusual happens try and explain why.
     {\em Hint}; what is the difference between {\bf integer} and {\bf float}?
 
     \begin{centering}
-      \code{5+9, 5-9, 5*9, 5/9, 5+2*9, 5.0+2.0*9.0, 5.0/9 5**2,
-        5\%2}
+      \code{5+9, 5-9, 5*9, 5/9, 5+2*9, 5.0+2.0*9.0, 5.0/9 5**2, 5\%2}
     \end{centering}
 \end{enumerate}
 
@@ -314,9 +322,7 @@ print math.exp(180.0)
 \newpage
 \section{Non-Interacting particles}
 
-The goal of today's simulation is to initialize particles with random
-coordinates and random velocities confined in a 2 dimensional box,
-and propagate the particle positions in time.\\
+The goal of today's simulation is to initialize particles with random coordinates and random velocities confined in a 2 dimensional box, and propagate the particle positions in time.\\
 
 The code below is your starting point for today's exercise.
 
@@ -325,56 +331,46 @@ The code below is your starting point for today's exercise.
 import random
 import matplotlib.pyplot as plt
 
-# initialize some variables
+# initialize simultation variables
 n_particles = 100
 n_steps = 1
 dt = 0.01
 
 # create the x- and y-coordinates
-pos_x = [random.random() for i in range(n_particles)]
-pos_y = [random.random() for i in range(n_particles)]
+positions_x = [random.random() for i in range(n_particles)]
+positions_y = [random.random() for i in range(n_particles)]
 
 # plot the x- and y-coordinates in a figure.
-plt.plot(pos_x, pos_y, 'ro')
+plt.plot(positions_x, positions_y, 'ro')
 plt.axis((-1, 1, -1, 1))
 plt.savefig('coordinates_start.png')
 
 \end{lstlisting}
 
-As you can see, a lot of variables have been declared such as
-\code{n\_particles} which
-is the number of particles that we want to generate and simulate.
-\code{n\_steps} is
-the number of steps we want to take in the simulation
-and \code{dt} controls how large a time-step we will be taking.
-Lastly we have defined the
-$x$- coordinates and
-$y$-coordinates for
-\code{n\_particles} random particles using list-comprehensions.
+As you can see, a lot of variables have been declared such as \code{n\_particles} which is the number of particles that we want to generate and simulate.
+\code{n\_steps} is the number of steps we want to take in the simulation and \code{dt} controls how large a time-step we will be taking.
+Lastly we have defined the $x$- coordinates and $y$-coordinates for \code{n\_particles} random particles using list-comprehensions.
 
 \begin{enumerate}
   \item Inspect and understand all lines in the above code.
     Line by line, explain what the code does.
-    You should print the \code{random.random()} function
-    to understand what the output is.
+    You should print the \code{random.random()} function to understand what the output is.
 \end{enumerate}
 
 See figure \ref{fig:firstbox} to see what we are trying to simulate.
 Now we want to change the code so that it looks like \ref{fig:secondbox}.
 
 \begin{enumerate}
-  \item Correct the $y$-coordinates of the particle positions by making them
-    initialize in the range $y \in [-1,1]$ instead of the standard $y \in [0,1]$.
+  \item Correct the $y$-coordinates of the particle positions by making them initialize in the range $y \in [-1,1]$ instead of the standard $y \in [0,1]$.
 \end{enumerate}
 
 
 \begin{figure}[htb]
   \centering
-  \subfloat[]{\includegraphics[width=0.47\textwidth]{images/coordinates_start.eps} \label{fig:firstbox}}
-  \subfloat[]{\includegraphics[width=0.47\textwidth]{images/coordinates_start_full.eps} \label{fig:secondbox}}
+  \subfloat[]{\includegraphics[width=0.45\textwidth]{images/coordinates_start.eps} \label{fig:firstbox}}
+  \subfloat[]{\includegraphics[width=0.45\textwidth]{images/coordinates_start_full.eps} \label{fig:secondbox}}
   \caption{
-    Pyplot plot of particles in 2 dimensions confined in a box,
-    spanning $x, y \in [0,1]$ for (a) and $y \in [-1,1]$ for (b).
+    Pyplot plot of particles in 2 dimensions confined in a box, spanning $x, y \in [0,1]$ for (a) and $y \in [-1,1]$ for (b).
   }
 \end{figure}
 
