@@ -88,7 +88,7 @@ def find_local_min():
     # ConjugateGradients(1000)
     # SteepestDescent(1000)
 
-    forcefield.SteepestDescent(1000)
+    forcefield.SteepestDescent(2000)
     forcefield.GetCoordinates(mol.OBMol)
 
 

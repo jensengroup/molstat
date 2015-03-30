@@ -1,13 +1,9 @@
 
 # Molecular Statistic
 
-
-
 # Setup
 
 See INSTALL.MD
-
-
 
 # Lecture Plan
 
@@ -16,7 +12,6 @@ See INSTALL.MD
 Science
 
 - intro
-- entropy
 
 Programming
 
@@ -50,6 +45,7 @@ molecular dynamics and LJ-potential
 Programming
 
 - functions
+- read/write files
 
 Exercise
 

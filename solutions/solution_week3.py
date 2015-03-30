@@ -3,7 +3,7 @@ import random
 import matplotlib.pyplot as plt 
 import copy
 
-import video
+import md_video as video
 
 
 def distance(xi, yi, xj, yj):
