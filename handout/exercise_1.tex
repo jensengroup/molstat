@@ -318,50 +318,53 @@ print math.exp(180.0)
     task 14 and 16.
 \end{enumerate}
 
+%
+%
+%
 
 \newpage
 \section{Non-Interacting particles}
 
-The goal of today's simulation is to initialize particles with random coordinates and random velocities confined in a 2 dimensional box, and propagate the particle positions in time.\\
-
+The goal of today's simulation is to initialize particles with random coordinates and random velocities confined in a 2 dimensional box, and propagate the particle positions in time.
+%
 The code below is your starting point for today's exercise.
 
 \begin{lstlisting}
-# Import pyplot and a function to create random numbers
-import random
+# import modules
+import numpy as np
 import matplotlib.pyplot as plt
 
 # initialize simultation variables
-n_particles = 100
+n_particles = 50
+box_width = 10.0
 n_steps = 1
-dt = 0.01
+dt = 0.001
 
 # create the x- and y-coordinates
-positions_x = [random.random() for i in range(n_particles)]
-positions_y = [random.random() for i in range(n_particles)]
+positions_x = [np.random.random() for i in range(n_particles)]
+positions_y = [np.random.random() for i in range(n_particles)]
 
 # plot the x- and y-coordinates in a figure.
 plt.plot(positions_x, positions_y, 'ro')
-plt.axis((-1, 1, -1, 1))
+plt.axis((-box_width, box_width, -box_width, box_width))
 plt.savefig('coordinates_start.png')
-
 \end{lstlisting}
 
-As you can see, a lot of variables have been declared such as \code{n\_particles} which is the number of particles that we want to generate and simulate.
+As you can see, variables have been already been declared such as \code{n\_particles}, which is the number of particles that we want to generate and simulate.
 \code{n\_steps} is the number of steps we want to take in the simulation and \code{dt} controls how large a time-step we will be taking.
 Lastly we have defined the $x$- coordinates and $y$-coordinates for \code{n\_particles} random particles using list-comprehensions.
 
 \begin{enumerate}
   \item Inspect and understand all lines in the above code.
-    Line by line, explain what the code does.
-    You should print the \code{random.random()} function to understand what the output is.
+        Line by line, explain what the code does. Use \code{\#} to comment your own code.
+        You should print the \code{np.random.random()} function to understand what the output is.
 \end{enumerate}
 
 See figure \ref{fig:firstbox} to see what we are trying to simulate.
 Now we want to change the code so that it looks like \ref{fig:secondbox}.
 
 \begin{enumerate}
-  \item Correct the $y$-coordinates of the particle positions by making them initialize in the range $y \in [-1,1]$ instead of the standard $y \in [0,1]$.
+  \item Correct the $y$-coordinates of the particle positions by making them initialize in the range $y \in [-10,10]$ instead of the standard $y \in [0,10]$.
 \end{enumerate}
 
 
@@ -377,98 +380,63 @@ Now we want to change the code so that it looks like \ref{fig:secondbox}.
 
 \newpage
 
-When you have corrected the particle positions, it is time to give the
-particles random velocities to allow the particles to move around.
+When you have corrected the particle positions, it is time to give the particles random velocities to allow the particles to move around.
 
 \begin{enumerate}
   \setcounter{enumi}{2}
   \item Create
-    two new lists, \code{vel\_x} and \code{vel\_y}, which we shall use to
+    two new lists, \code{velocities\_x} and \code{velocities\_y}, which we shall use to
     store the velocities for the particles.
-    The velocities should be a random number between -1 and 1.
+    The velocities should be a random number between -10 and 10.
 \end{enumerate}
 
-If you want to visualize the velocity vectors for each particle you can
-use the following function.\\
+If you want to visualize the velocity vectors for each particle you can use the following function.\\
 
 \begin{lstlisting}
-plt.quiver(pos_x, pos_y, vel_x, vel_y)
+plt.quiver(positions_x, positions_y, velocities_x, velocities_y)
 \end{lstlisting}
 
-We are now ready to loop over each particle in our system, but before we do
-this, you should make it really clear to yourself how we can obtain the
-coordinates and velocities for the $i$'th particle.
+We are now ready to loop over each particle in our system, but before we do this, you should make it really clear to yourself how we can obtain the coordinates and velocities for the $i$'th particle.
 
 \begin{enumerate}
   \setcounter{enumi}{3}
-  \item How do we access the value of the $i$'th element in the \code{pos\_x} list?
+  \item How do we access the value of the $i$'th element in the \code{positions\_x} list?
       {\em Hint;} check out task (12) from part 1 again.
 
 \end{enumerate}
 
-In this weeks simulation there are no forces that acts on the particles,
-and only their initial velocities influence their positions.
-Hence the location of the $i$'th particle at time $n+1$ can be
-calculated from the current time $n$'s coordinates and the velocity of the
+In this weeks simulation there are no forces that acts on the particles, and only their initial velocities influence their positions.
+Hence the location of the $i$'th particle at time $n+1$ can be calculated from the current time $n$'s coordinates and the velocity of the
 particle.
 \begin{align}
   x_i^{(n+1)} = x^n_i + v_{i}^n \cdot dt
 \end{align}
 
-That is, the $i$'th particle will be at its previous position plus its
-velocity times a time step.
+That is, the $i$'th particle will be at its previous position plus its velocity $v_i$ times a time step $dt$.
 
 \begin{enumerate}
   \setcounter{enumi}{4}
   \item
-    Modify your script to loop over each particle and update the $x$- and
-    $y$-coordinates with the respective particle velocities.
-    Plot the particle positions after you have changed them
-    to a file called stepcoords.png. Does the particles appear to have have moved?
+    Modify your script to loop over each particle and update the $x$- and $y$-coordinates with the respective particle velocities.
+    Plot the particle positions after you have changed them to a file called stepcoords.png.
+    Does the particles appear to have have moved?
 
   \item Modify your code to repeat the displacement of the particles \code{n\_step} times.
       Remember to update the positions for each step.
 
   \item Where are the particles after 10 steps? 100 steps? 1000 steps? 10000 steps?
-    Make a plot of the region (-1, 1, -1, 1) as well as (-10, 10, -10, 10) to
-    help answer the question.
 
 \end{enumerate}
 
-What you simulate is how particles in vacuum behave if they can not feel
-each other and have kinetic energy. What remains is to keep the particles
-inside a box, i.e. they should make an elastic reflection on the walls and
-change direction. \\
+What you simulate is how particles in vacuum behave if they can not feel each other and have kinetic energy.\\
 
-To change the direction on the $i$'th particle, we must change
-the sign of the velocity for that particle. For simplicity, we shall add a box
-which corresponds to the region we are plotting, that is $x \in [-1,1]$ 
-and $y \in [-1,1]$.
-We start out with the $x$-coordinates and then, when we
-have confirmed that it is working, we move on to the $y$-coordinates.
+\newpage
 
-\begin{enumerate}
-  \setcounter{enumi}{7}
-  \item Modify your code to check if the updated position of particle $i$ would violate $x \in [-1,1]$.
-      If the particle is outside this boundary, change the sign of the $x$-velocity of that
-      particular particle before the displacement is made.
-      {\em Hint}; you will need if-statements to solve this problem. Also, it
-      is a good idea to draw your plan for what happens with a pen and paper.
-
-  \item Repeat for the $y$-direction.
-
-\end{enumerate}
-
-%\newpage
-
-Now we would like to visualize the simulation we have made, because
-it is a bit hard to see if the simulation has been implemented correctly by
-just looking at a few images.
+Now we would like to visualize the simulation we have made, because it is a bit hard to see if the simulation has been implemented correctly by just looking at a few images.
 What we would like to do is to save a video of what we have done.
-To make things easy (as any good cooking show), we have prepared
-a method for you. \\
+To make things easy (as any good cooking show), we have prepared a method for you.\\
 
-On the course website, there is a 'video.py' file.
+On the course website, there is a 'md\_video.py' file.
 Save this file, and put it in the same folder as the simulation file.
 The function is implemented as following;
 
@@ -483,7 +451,7 @@ for n in range(n_steps):
 
     # Save a frame every 10 steps
     if n % 10 == 0:
-        video.add_frame(pos_x, pos_y)
+        video.add_frame(positions_x, positions_y)
 
 ...
 
@@ -495,12 +463,30 @@ where the import statement should be positioned in the head of the file.
 A video will be created called \code{week1\_video.mp4}
 
 \begin{enumerate}
-  \setcounter{enumi}{9}
-  \item Run the simulation from task 9 for \code{n\_steps} = 1000 and save a video.
+  \setcounter{enumi}{7}
+  \item Run the simulation from task 9 for \code{n\_steps} = 5000 and save a video.
     Is the video of the simulation as you expect?
 
 \end{enumerate}
 
+What remains is to keep the particles inside a box, i.e. they should make an elastic reflection on the walls and change direction. \\
+
+To change the direction on the $i$'th particle, we must change the sign of the velocity for that particle.
+For simplicity, we shall add a box which corresponds to the region we are plotting, that is $x \in [-10,10]$ and $y \in [-10,10]$.
+We start out with the $x$-coordinates and then, when we have confirmed that it is working, we move on to the $y$-coordinates.
+
+\begin{enumerate}
+  \setcounter{enumi}{8}
+  \item Modify your code to check if the updated position of particle $i$ would violate $x \in [-10,10]$.
+      If the particle is outside this boundary, change the sign of the $x$-velocity of that
+      particular particle before the displacement is made.
+      {\em Hint}; you will need if-statements to solve this problem. Also, it is a good idea to draw your plan for what happens with a pen and paper.
+
+  \item Repeat for the $y$-direction.
+
+\end{enumerate}
+
+Is the simulation running as it should be?
 
 % ***************************************************
 % END DOCUMENT
