@@ -8,7 +8,7 @@
 
 \title{Exercise 2}
 \author{Molecular Statistics, Week 2}
-\date{2014}
+\date{}
 
 % ***************************************************
 
@@ -23,46 +23,42 @@
 
 \section{Introduction}
 
-This is the second exercise in the course Molecular Statistics.
+Hello Scientist. Let's learn how to program with functions. Pretty cool stuff.\\
+
+Last week, the computer program you wrote was executed line by line in a top to bottom approach, i.e. the programs way of execution is easily followed by just reading the source file as you would read a book.
 %
-The exercises
-in this course are split in two parts. The first part of each exercise is a
-general introduction to new concepts and programming techniques in the python
-programming language, which covers and extends what is written in the
-curriculum.
-Just like last week.\\
-
-The curriculum can be found here 
-\href{http://pymbook.readthedocs.org/en/latest/}{pymbook.readthedocs.org/en/latest},
-
-Read the following chapters for this week
-
-\begin{itemize}
-    \item \href{http://pymbook.readthedocs.org/en/latest/functions.html}{functions} 
-          \newline to and including "Keyword arguments". Ignore the rest.
-\end{itemize}
+It turns out, however, that when the programs become large enough, this is no longer a clever way to organize your program since you'll eventually lose track of what is going on.
+What one usually does is break up the program into logical parts, such as “initialize particles”, “perturb the particles” and “calculate properties”.
+Today's exercise is an exercise in restructuring your code from last week into logical parts which we can easily distinguish.
+Before we get to the exercise, we shall have a look at functions, which are essential in this process.\\
 
 
+\newpage
 \section{Functions}
 
-Last week, the computer program you wrote was executed line by line in a top to
-bottom approach, i.e. the programs way of execution is easily followed by just
-reading the source file as you would read a book. It turns out, however, that
-when the programs become large enough, this is no longer a clever way to organize
-your program since you'll eventually lose track of what is going on. What one
-usually does is break up the program into logical parts, such as “initialize
-particles”, “perturb the particles” and “calculate properties”. Today's
-exercise is an exercise in restructuring your code
-from last week into logical parts which we can easily distinguish. Before we
-get to the exercise, we shall have a look at functions, which are
-essential in this process.\\
+% TODO Examples
+% - Defining a function
+%   - no args, 1 arg, multiple args
+%   - no returns, 1 return, multiple returns
+% - Calling functions
+%   - we can just give the function numbers directly
+%   - or we can use variables from out script
+% - Local and global variables (change and use)
 
-As in mathematics, functions in any programming language can be seen as a
-means to get a predefined output based on some input. Also, just as in
-mathematics, functions can have several variables, but in programming languages
-such as Python, you can essentially parse anything into these
-functions, i.e. lists, floats, text and even your own data types. We'll start with some simple functions that arise in mathematics and
-continually extend upon them until you are ready to start with the exercise.\\
+% Optional
+% - Default argument value
+% - Docstrings
+% - Higher-order function
+
+
+% TODO Examples file
+% - read/write files
+% - 
+
+As in mathematics, functions in any programming language can be seen as a means to get a predefined output based on some input.
+Also, just as in mathematics, functions can have several variables, but in programming languages
+such as Python, you can essentially parse anything into these functions, i.e. lists, floats, text and even your own data types.
+We'll start with some simple functions that arise in mathematics and continually extend upon them until you are ready to start with the exercise.\\
 
 The function $f(x)=x^2$ is a good example of how you can turn mathematics into code in Python without much hassle.
 
@@ -72,18 +68,12 @@ def f(x):
     return y
 \end{lstlisting}
 
+In programming languages you provide the {\em definition} of a function, and just like on your calculator you need to {\em call} those functions before they are actually executed.
+Notice the 4 space indentation, just like for loops.
 
 \begin{enumerate}
   \item Insert the above code into your script, save and execute. What
       happens? Can you explain why? {\em Hint:} Nothing happens right now. Why?
-\end{enumerate}
-
-In programming languages you provide the {\em definition} of a function, and
-just like on your calculator you need to {\em call} those functions before they
-are actually executed.
-
-\begin{enumerate}
-  \setcounter{enumi}{1}
   \item Below the code you wrote above, insert the following lines of code and
     explain what happens when you run the script
 
@@ -94,19 +84,44 @@ print f(1.0)
 print f(2.0)
 \end{lstlisting}
 
-  \item Instead of printing directly as you did in (2), assign the values of
-    the functions to variables and print them afterwards, i.e. \code{a =
-    f(6.0)}.
-
 \end{enumerate}
 
-The reality is that our custom functions actually works like the built in
-functions in python (remember the \code{len(arg)} function from last week for instance), 
-so once you know how to make one, you can essentially create as many you like.\\
+Functions can be defined with no or multiple arguments together with no or multiple return values.
+
+\begin{lstlisting}
+# no arguments, no return
+def print_two():
+    print "two"
+    
+print_two()
+
+# two arguments, one return
+def multiply(a, b)
+    return a*b
+
+print multiply(2, 2)
+
+# no arguments, two returns
+def man():
+    height = 1.90
+    age = 35
+    return age, height
+
+man_age, man_height = man()
+print man_age
+print man_height
+
+\end{lstlisting}
+
+\begin{enumerate}
+    \setcounter{enumi}{2}
+    \item Type in the above functions in the script and study/understand the definitions and output.
+\end{enumerate}
+
+The reality is that our custom functions actually works like the built in functions in python (remember the \code{len(arg)} function from last week for instance), so once you know how to make one, you can essentially create as many you like.\\
 
 To test functions we will need a list of $x$-values as input.
-We could use the \code{range()} function from last week, but that would limit us to
-integers. Instead we use a very useful tool call NumPy which is imported as all other tools;
+We could use the \code{range()} function from last week, but that would limit us to integers. Instead we use a very useful tool call NumPy which is imported as all other tools;
 
 \begin{lstlisting}
 import numpy as np
@@ -156,6 +171,10 @@ Next let us plot something more complex. Use \code{np.sin()} and \code{np.cos()}
 
 \end{enumerate}
 
+
+
+
+
 \newpage
 \section{Interacting particles - The Hard Sphere Model}
 
@@ -178,28 +197,25 @@ import random
 import matplotlib.pyplot as plt
 import video # 2d Video
 
-def distance(xi, yi, xj, yj):
-    """ Calculate the distance between particle i and particle j
+def distance(x_i, y_i, x_j, y_j):
+    """
+    Return the distance between i and j
     """
     return d
 
 
 def initialize_particles(n_particles):
-    """ Initialze particles, positions and velocities
     """
-    return pos_x, pos_y, vel_x, vel_y
-
-
-def simulate_step(pos_x, pos_y, vel_x, vel_y, dt):
-    """ Here we simulate a step dt for all particles.
+    Initialze particles, positions and velocities
     """
-    return pos_x, pos_y, vel_x, vel_y
+    return positions_x, positions_y, velocities_x, velocities_y
 
 
-def plot_particles(X, Y, filename):
-    """Insert code to save a picture
-    of the particle positions
+def simulate_step(positions_x, positions_y, velocities_x, velocities_y, dt):
     """
+    Here we simulate a step dt for all particles.
+    """
+    return positions_x, positions_y, velocities_x, velocities_y
 
 
 # Run the simulation
@@ -216,8 +232,7 @@ for n in range(n_steps):
     if n % 10 == 0:
         video.add_frame(X, Y)
 
-plot_particles(X, Y, 'coordinates_end.png')
-video.save('exercise_2')
+video.save('week2_video')
 
 \end{lstlisting}
 

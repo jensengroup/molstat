@@ -1,8 +1,5 @@
-
-
 import numpy as np
 import matplotlib.pyplot as plt
-
 
 def gaussian(x, y):
     """ Gaussian function in 2 dimensions """
@@ -27,27 +24,31 @@ Ny = len(Y)
 
 Z = np.zeros((Nx, Ny))
 
-
+# iterate over X and Y and fill out Z
 for i in range(Nx):
+
     for j in range(Ny):
+
         Z[i][j] = gaussian(X[i], Y[j])
 
 
+# set a mark to 1.0 to see if the image is orientated properly
 Z[-1][-1] = 1.0
 
 
-# plot
+# Create the axis
 extent = [X[0], X[-1], Y[0], Y[-1]]
 
+# Plot the Z matrix
 im = plt.imshow(Z,
                 interpolation='nearest', # Does not anti aliasing squares
                 extent=extent,           # Use the defined axis
                 aspect='auto',
                 origin='lower',          # Corrects the origin
-                cmap='gray')
+                cmap='gray')             # Colormap
 
 
-# Colorbar
+# create colorbar
 cbar = plt.colorbar(im)
 cbar.set_label('Probability [$p(x,y)$]', rotation=270)
 
@@ -59,9 +60,11 @@ plt.savefig('figure_mesh.png')
 plt.clf()
 
 
+# Make a scan
 
 for i in range(Nx):
 
+    # computational numeric uncertainty
     if abs(X[i] + 1.0) < 0.00001:
 
         index = i
@@ -75,8 +78,5 @@ for i in range(Ny):
 
 plt.plot(Y, scan_list)
 plt.savefig('scanned.png')
-
-
-
 
 

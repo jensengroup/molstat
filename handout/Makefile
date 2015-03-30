@@ -1,5 +1,5 @@
 
-pr=exercise_4
+pr=${ARGS}
 
 pdf=${pr}.pdf
 ps=${pr}.ps
@@ -9,8 +9,11 @@ tex=${pr}.tex
 aux=${pr}.aux
 out_pdf=output.pdf
 
+# make ARGS="asdf" run
+
 all: pstricks pdflatex
 	pdflatex ${tex}
+
 
 pdflatex:
 	pdflatex ${tex}
@@ -24,7 +27,7 @@ bibtex:
 	bibtex ${aux}
 
 clean:
-	rm -f *.dvi *.ps *.log *.aux *~ *-pics.pdf *.toc
+	rm -f *.dvi *.ps *.log *.aux *~ *-pics.pdf *.toc *.out
 
 pdflatextwice:
 	pdflatex ${tex}

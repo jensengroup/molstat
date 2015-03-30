@@ -3,15 +3,17 @@
 import random
 import numpy as np
 import matplotlib.pyplot as plt
-import video
+import video_test as video
+
+np.random.seed(109)
 
 # Functions
 
-def distance(xi, yi, xj, yj):
+def distance(x_i, y_i, x_j, y_j):
     """ Calculate the distance between particle i and particle j
     """
-    dx = xj-xi
-    dy = yj-yi
+    dx = x_j - x_i
+    dy = y_j - y_i
     d = np.sqrt(dx**2 + dy**2)
     return d
 
@@ -19,56 +21,67 @@ def distance(xi, yi, xj, yj):
 def initialize_particles(n_particles):
     """ initialize particles, positions and velocities for n_particles
     """
-    pos_x = [random.random() for i in range(n_particles)]
-    pos_y = [2 * (random.random() - 0.5) for i in range(n_particles)]
-    vel_x = [2 * (random.random() - 0.5) for i in range(n_particles)]
-    vel_y = [2 * (random.random() - 0.5) for i in range(n_particles)]
-    return pos_x, pos_y, vel_x, vel_y
+    box_width = 10.0
+
+    positions_x = np.random.uniform(0.0, 9.0, n_particles)
+    positions_y = np.random.uniform(-9.0, 9.0, n_particles)
+    velocities_x = np.random.uniform(-9.0, 9.0, n_particles)
+    velocities_y = np.random.uniform(-9.0, 9.0, n_particles)
+
+    return positions_x, positions_y, velocities_x, velocities_y
 
 
-def simulate_step(pos_x, pos_y, vel_x, vel_y, dt):
+def simulate_step(positions_x, positions_y, velocities_x, velocities_y, dt):
     """ Simulate particles movement for their positions and velocities in a
     a single time-step with time dt
     """
 
-    N = len(pos_x)
+    N = len(positions_x)
 
     # Minimum distance before particles collide
-    r_min = 0.03
+    r_min = 1.1225
+    box_width = 10.0
 
     # Loop over all particles and update positions
     for i in range(N):
 
         # make reflections if the particles are hitting the walls
-        if abs(pos_x[i] + vel_x[i]*dt) > 1.0:
-            vel_x[i] = -vel_x[i]
+        if abs(positions_x[i] + velocities_x[i]*dt) > box_width:
+            velocities_x[i] = -velocities_x[i]
 
-        if abs(pos_y[i] + vel_y[i]*dt) > 1.0:
-            vel_y[i] = -vel_y[i]
+        if abs(positions_y[i] + velocities_y[i]*dt) > box_width:
+            velocities_y[i] = -velocities_y[i]
 
         # make the move
-        pos_x[i] += vel_x[i]*dt
-        pos_y[i] += vel_y[i]*dt
+        positions_x[i] += velocities_x[i]*dt
+        positions_y[i] += velocities_y[i]*dt
 
         # make reflections if particle distances are small
         for j in range(N):
             if j > i:
 
-                d = distance(pos_x[i], pos_y[i], pos_x[j], pos_y[j])
+                d = distance(positions_x[i],
+                             positions_y[i],
+                             positions_x[j],
+                             positions_y[j])
 
                 if d < r_min:
 
-                    x_temp = vel_x[i]
-                    y_temp = vel_y[i]
+                    # print i, j, "hit", d
+                    # plot_particles(positions_x, positions_y, 'hit')
+                    # video.screenshot('hit_screenshot', positions_x, positions_y)
 
-                    vel_x[i] = vel_x[j]
-                    vel_y[i] = vel_y[j]
+                    x_temp = velocities_x[i]
+                    y_temp = velocities_y[i]
 
-                    vel_x[j] = x_temp
-                    vel_y[j] = y_temp
+                    velocities_x[i] = velocities_x[j]
+                    velocities_y[i] = velocities_y[j]
+
+                    velocities_x[j] = x_temp
+                    velocities_y[j] = y_temp
 
 
-    return pos_x, pos_y, vel_x, vel_y
+    return positions_x, positions_y, velocities_x, velocities_y
 
 
 def plot_particles(X, Y, filename):
@@ -76,14 +89,15 @@ def plot_particles(X, Y, filename):
     plt.plot(X, Y, 'bo')
     plt.xlabel('x')
     plt.ylabel('y')
-    plt.axis((-1, 1, -1, 1))
+    plt.axis((-15, 15, -15, 15))
     plt.savefig(filename)
+    # plt.show()
     plt.clf()
 
 
 # Constants
 
-n_particles = 40
+n_particles = 20
 dt = 0.001
 
 # For movie
@@ -101,7 +115,7 @@ partdisteq = []
 X, Y, Vx, Vy = initialize_particles(n_particles)
 
 # plot start coordinates
-plot_particles(X, Y, 'coordinates_start.png')
+# plot_particles(X, Y, 'coordinates_start.png')
 
 # Loop over all time-steps
 for n in range(n_step):
@@ -115,7 +129,9 @@ for n in range(n_step):
 
     # Save frame for video every 10th step
     if n % 10 == 0:
-        video.add_frame(X, Y)
+        color = (1.0/(np.abs(Vx) + np.abs(Vy)))
+        # color = [str(item/255.) for item in color]
+        video.add_frame(X, Y, color)
 
     # Count the particles in the right part of the box
     if n % 5 == 0:
@@ -134,7 +150,7 @@ for n in range(n_step):
 
 
 # plot particles in the end of the simulation
-plot_particles(X, Y, 'coordinates_end.png')
+# plot_particles(X, Y, 'coordinates_end.png')
 
 # plot the partdist list
 plt.title('Particle Count for X > 0.0 and N < 10000')
@@ -152,6 +168,8 @@ plt.ylabel('Count')
 plt.hist(partdisteq, bins=range(0, n_particles), rwidth=1, align='left')
 plt.xlim( (0, n_particles) )
 plt.savefig('partdisteq.png')
+plt.clf()
 
 video.save('hard_sphere')
+
 
