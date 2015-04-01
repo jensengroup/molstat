@@ -38,7 +38,7 @@ def simulate_step(positions_x, positions_y, velocities_x, velocities_y, dt, N, b
     """
 
     # Minimum distance before particles collide
-    r_min = 1.1225
+    r_min = 1.0
 
     # Loop over all particles and update positions
     for i in xrange(N):

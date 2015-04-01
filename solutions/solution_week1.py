@@ -10,12 +10,12 @@ n_steps = 5000
 dt = 0.001
 
 # create the x- and y-coordinates
-positions_x = [np.random.random()*10 for i in range(n_particles)]
-positions_y = [(np.random.random()-0.5)*2*10 for i in range(n_particles)]
+positions_x = [np.random.random()*box_width for i in range(n_particles)]
+positions_y = [(np.random.random()-0.5)*2*box_width for i in range(n_particles)]
 
 # create the velocities
-velocities_x = [(np.random.random()-0.5)*2*10 for i in range(n_particles)]
-velocities_y = [(np.random.random()-0.5)*2*10 for i in range(n_particles)]
+velocities_x = [(np.random.random()-0.5)*2*box_width for i in range(n_particles)]
+velocities_y = [(np.random.random()-0.5)*2*box_width for i in range(n_particles)]
 
 # Plot the x- and y- coordinates
 plt.plot(positions_x, positions_y, 'ro')

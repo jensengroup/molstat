@@ -9,7 +9,6 @@ def read_list(filename):
     list = []
 
     for line in f:
-
         list.append(int(line))
 
     return list
