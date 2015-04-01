@@ -83,8 +83,8 @@ def save(filename, box_width=10.0, fps=25, grid=False):
 
     fig, ax = create_plot(box_width, grid)
 
-    particles = ax.scatter(x_frames[0], y_frames[0], s=400, c=c_frames[0], linewidth=0.7, marker='$\heartsuit$')
-    # particles = ax.scatter(x_frames[0], y_frames[0], s=400, c='yellow', linewidth=0.8) # marker="*"
+    particles = ax.scatter(x_frames[0], y_frames[0], s=400, c=c_frames[0], linewidth=0.7)
+    # particles = ax.scatter(x_frames[0], y_frames[0], s=400, c='yellow', linewidth=0.8) # marker="*" marker='$\heartsuit$'
     # particles_dot, = ax.plot(x_frames[0], y_frames[0], 'ko', ms=6)
 
 
