@@ -18,21 +18,20 @@ def distance(x_i, y_i, x_j, y_j):
     return d
 
 
-def initialize_particles(n_particles):
+def initialize_particles(n_particles, box_width):
     """
     initialize particles, positions and velocities for n_particles
     """
-    box_width = 10.0
 
-    positions_x = np.random.uniform(0.0, 9.0, n_particles)
-    positions_y = np.random.uniform(-9.0, 9.0, n_particles)
-    velocities_x = np.random.uniform(-9.0, 9.0, n_particles)
-    velocities_y = np.random.uniform(-9.0, 9.0, n_particles)
+    positions_x = np.random.uniform(0.0, box_width, n_particles)
+    positions_y = np.random.uniform(-box_width, box_width, n_particles)
+    velocities_x = np.random.uniform(-box_width, box_width, n_particles)
+    velocities_y = np.random.uniform(-box_width, box_width, n_particles)
 
     return positions_x, positions_y, velocities_x, velocities_y
 
 
-def simulate_step(positions_x, positions_y, velocities_x, velocities_y, dt, N):
+def simulate_step(positions_x, positions_y, velocities_x, velocities_y, dt, N, box_width):
     """
     Simulate particles movement for their positions and velocities in a single
     time-step with time dt
@@ -40,7 +39,6 @@ def simulate_step(positions_x, positions_y, velocities_x, velocities_y, dt, N):
 
     # Minimum distance before particles collide
     r_min = 1.1225
-    box_width = 10.0
 
     # Loop over all particles and update positions
     for i in xrange(N):
@@ -107,6 +105,7 @@ def write_list(filename, list):
 # Constants
 
 n_particles = 40
+box_width = 10.0
 dt = 0.001
 
 # For movie
@@ -121,7 +120,7 @@ partdist = []
 partdisteq = []
 
 # initialize particles
-X, Y, Vx, Vy = initialize_particles(n_particles)
+X, Y, Vx, Vy = initialize_particles(n_particles, box_width)
 
 # plot start coordinates
 # plot_particles(X, Y, 'coordinates_start.png')
@@ -130,7 +129,7 @@ X, Y, Vx, Vy = initialize_particles(n_particles)
 for n in range(n_step):
 
     # Simulate a single step
-    X, Y, Vx, Vy = simulate_step(X, Y, Vx, Vy, dt, n_particles)
+    X, Y, Vx, Vy = simulate_step(X, Y, Vx, Vy, dt, n_particles, box_width)
 
     # Print status every 100th step
     if n % 200 == 0:
