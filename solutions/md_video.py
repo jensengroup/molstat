@@ -19,6 +19,8 @@ x_frames = []
 y_frames = []
 c_frames = []
 
+green = "#4daf4a"
+
 
 def create_plot(box_width, grid):
     """
@@ -60,7 +62,7 @@ def set_particle_radius():
     """
 
 
-def save(filename, box_width=10.0, fps=25, grid=False):
+def save(filename, box_width=10.0, fps=25, grid=False, area=300):
     """
     Takes 2D coordinates x_frames and y_frames, saves it into filename.mp4 with
     len(x_frames) steps.
@@ -78,14 +80,15 @@ def save(filename, box_width=10.0, fps=25, grid=False):
     video_frames = len(x_frames)
 
     if len(c_frames) == 0:
-        c_frames = ['green' for n in xrange(video_frames)]
+        c_frames = [green for n in xrange(video_frames)]
         color_update = False
 
     fig, ax = create_plot(box_width, grid)
 
-    particles = ax.scatter(x_frames[0], y_frames[0], s=400, c=c_frames[0], linewidth=0.7)
-    # particles = ax.scatter(x_frames[0], y_frames[0], s=400, c='yellow', linewidth=0.8) # marker="*" marker='$\heartsuit$'
+    # marker="*"
+    # marker='$\heartsuit$'
     # particles_dot, = ax.plot(x_frames[0], y_frames[0], 'ko', ms=6)
+    particles = ax.scatter(x_frames[0], y_frames[0], s=area, c=c_frames[0], linewidth=0.6)
 
 
     def init():
@@ -126,12 +129,12 @@ def save(filename, box_width=10.0, fps=25, grid=False):
     # Save the animation to disk
     # Change fps for another framerate
     # NOTE: Use mencoder, instead of ffmpeg
-    ani.save(filename+'.mp4', fps=fps, writer='mencoder')
+    # ani.save(filename+'.mp4', fps=fps, writer='mencoder')
+    ani.save(filename+'.mp4', fps=fps)
 
     # Save as gif
     # ani.save(filename+'.gif', writer='imagemagick')
 
-    # ani.save(filename+'.mp4', fps=fps)
 
     # Clear figure
     plt.clf()
@@ -139,17 +142,17 @@ def save(filename, box_width=10.0, fps=25, grid=False):
 
 
 
-def screenshot(filename, x, y, color='green', box_width=10.0, grid=True):
+def screenshot(filename, x, y, color=green, box_width=10.0, grid=True, area=300):
     """
     """
 
-    radius = 10.0
-    area = np.pi * radius**2
-    print area
-
+    # TODO
+    # radius = 10.0
+    # area = np.pi * radius**2
+    # print area
 
     fig, ax = create_plot(box_width, grid)
-    ax.scatter(x, y, s=area, c=color, linewidth=0.7)
+    ax.scatter(x, y, s=area, c=color, linewidth=0.6)
     ax.plot(x, y, 'ko', ms=6)
 
     box = 1.0
