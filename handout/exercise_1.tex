@@ -23,12 +23,14 @@
 
 \section*{Introduction}
 
-Hello Scientist. You need to learn how to program. It is important.\\
+%Hello Scientist. You need to learn how to program. It is important.\\
 
-The exercises are split into two parts, a general introduction to new concepts and programming tricks and the main part which is to simulate systems.
-It is very important that you go trough each exercise, type each example code in exactly and make it run.
+The exercises are split into two parts: A general introduction to new concepts and programming tricks and the main part which is to simulate physical systems.
+It is very important that you go trough each exercise, type each example code in exactly and run it.
 That means, do not copy-paste.
-The point of the exercises is to train your hands, brain and your mind in how to write, read and debug code.\\
+The point of the exercises is to train
+%your hands, brain and your mind 
+in how to write, read and debug code.\\
 
 
 There is no Python curriculum, but two online books, namely
@@ -45,7 +47,7 @@ To run programs with python we save a file with the extension \code{.py} and run
 Try to write the following python code and save it as \code{example\_program.py}
 
 \begin{lstlisting}
-# you use comments to remmeber what you wrote later
+# you can use comments underway to remind yourself later what the code should do.
 print "I want to print this statement" # you can also comment after a line
 \end{lstlisting}
 
@@ -64,7 +66,19 @@ Is the output as expected?
 Now, let's start by using Python as a calculator.
 Remember to print the result of your calculation using the \code{print} statement.
 We encourage you to have some sort of logical file system, saving all the exercises in
-different files and folders so you can find it again when needed.
+different files and folders so you can find it again when needed. \\
+
+Some useful commands for navigating your filesystem: \\
+
+\code{cd <directory>                   \# enter the folder called <directory>} \\
+\code{cd ..                            \# navigate to the parent directory.}\\
+\code{ls                               \# print the contents of the current directory}\\
+\code{mkdir <directory>                \# creates an empty folder called <directory>}\\
+\code{cp <file1> <file2>               \# copy <file1> to <file2>}\\
+\code{cp <file> <directory>            \# copy <file> to <directory>}\\
+\code{cp -r <directory1> <directory2>  \# copy <directory1> to <directory2>.}\\
+\code{mv <file1> <file2>               \# move <file1> to <file2>} \\
+
 
 \begin{enumerate}
     \item Execute the following statements. Does it behave like your regular
@@ -304,8 +318,8 @@ The math module has a lot of useful mathematical functions like \code{sin},
 in the following way;
 
 \begin{lstlisting}
-print math.cos(180.0)
-print math.exp(180.0)
+print math.cos(math.pi)
+print math.exp(math.pi)
 \end{lstlisting}
 
 \begin{enumerate}
@@ -363,6 +377,7 @@ Lastly we have defined the $x$- coordinates and $y$-coordinates for \code{n\_par
 See figure \ref{fig:firstbox} to see what we are trying to simulate.
 Now we want to change the code so that it looks like \ref{fig:secondbox}.
 
+% TODO figurene er [0,1],[-1,1] istedet for 10.
 \begin{enumerate}
   \item Correct the $y$-coordinates of the particle positions by making them initialize in the range $y \in [-10,10]$ instead of the standard $y \in [0,10]$.
 \end{enumerate}
@@ -441,7 +456,7 @@ Save this file, and put it in the same folder as the simulation file.
 The function is implemented as following;
 
 \begin{lstlisting}
-import video
+import md_video as video
 
 ...
 
