@@ -29,10 +29,6 @@ for n in range(n_steps):
     # for every step
     for i in range(n_particles):
 
-        # make a step in time dt
-        positions_x[i] = positions_x[i] + velocities_x[i]*dt
-        positions_y[i] = positions_y[i] + velocities_y[i]*dt
-
         # if the particle is exiting the box in the x-direction, change the
         # velocity
         if abs(positions_x[i] + velocities_x[i]*dt) > box_width:
@@ -43,6 +39,11 @@ for n in range(n_steps):
         if abs(positions_y[i] + velocities_y[i]*dt) > box_width:
             velocities_y[i] = -velocities_y[i]
             positions_y[i] = positions_y[i] + velocities_y[i]*dt
+
+
+        # make a step in time dt
+        positions_x[i] = positions_x[i] + velocities_x[i]*dt
+        positions_y[i] = positions_y[i] + velocities_y[i]*dt
 
 
     # save a 'frame' for the video every 10 step
