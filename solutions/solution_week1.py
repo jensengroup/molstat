@@ -57,10 +57,10 @@ for n in range(n_steps):
 # Plot the x- and y- coordinates
 plt.clf() # clear figure
 plt.plot(positions_x, positions_y, 'ro')
-plt.axis((-1, 1, -1, 1))
+plt.axis((-box_width, box_width, -box_width, box_width))
 plt.savefig("coordinates_end.png")
 plt.clf()
 
 # Save video
-video.save('non_interacting_particles')
+video.save('solution_week1_video')
 
