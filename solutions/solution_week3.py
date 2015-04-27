@@ -7,15 +7,18 @@ import md_video as video
 
 
 def distance(xi, yi, xj, yj):
-    """ Calculate the distance between particle i and particle j """
-    dx = xj-xi
-    dy = yj-yi
+    """
+    Calculate the distance between particle i and particle j
+    """
+    dx = xj - xi
+    dy = yj - yi
     return np.sqrt(dx**2 + dy**2)
 
 
 def lennard_jones(x_positions, y_positions, n_particles):
-    """ Calculate the force and energy based on the positions of the particles,
-    in a Lennard-Jones potential
+    """
+    Calculate the force and energy based on the positions of the particles, in
+    a Lennard-Jones potential
     """
 
     energy = 0.0
@@ -37,8 +40,8 @@ def lennard_jones(x_positions, y_positions, n_particles):
                 energy += 4*(1.0/rij**12 - 1.0/rij**6)
 
                 # Force
-                fx = -48* (x_positions[j]-x_positions[i])/rij**2 * (1/rij**12 - 0.5 *1/rij**6)
-                fy = -48* (y_positions[j]-y_positions[i])/rij**2 * (1/rij**12 - 0.5 *1/rij**6)
+                fx = -48*(x_positions[j] - x_positions[i])/rij**2 * (1/rij**12 - 0.5 *1/rij**6)
+                fy = -48*(y_positions[j] - y_positions[i])/rij**2 * (1/rij**12 - 0.5 *1/rij**6)
 
                 x_forces[i] = x_forces[i] + fx
                 y_forces[i] = y_forces[i] + fy
@@ -51,7 +54,9 @@ def lennard_jones(x_positions, y_positions, n_particles):
 
 
 def initialize_particles(n_particles, box_width):
-    """ Initialize particles in a grid position """
+    """
+    Initialize particles in a grid position
+    """
 
     sqrt_npart = int(np.ceil(np.sqrt(n_particles)))
 
@@ -69,7 +74,6 @@ def initialize_particles(n_particles, box_width):
     # Rescale particle positions to fit box.
     for i in range(n_particles):
         X[i] = (X[i] - 0.5*(sqrt_npart-1))*1.0/sqrt_npart*box_width*1.8
-        #Y[i] = (Y[i] - 0.5*(sqrt_npart-1))*1.0/sqrt_npart*box_width*1.8
         Y[i] = (Y[i]) * 1.0/sqrt_npart*box_width*0.8
 
 
@@ -85,7 +89,8 @@ def initialize_particles(n_particles, box_width):
 
 def velo_verlet(x_positions, y_positions, x_velocities, y_velocities,
                 x_forces, y_forces, box_width, n_particles, dt):
-    """ Simulate particles movement for their positions and velocities in a
+    """
+    Simulate particles movement for their positions and velocities in a
     single time - step with time dt
     """
 
@@ -131,6 +136,7 @@ def plot_box(X, Y, Vx, Vy, box_width, filename):
 box_width = 10.0
 n_particles = 7*7
 n_particles = 42
+# n_particles = 4
 n_steps = 5000
 dt = 0.001
 
@@ -156,7 +162,7 @@ for n in range(n_steps):
     if n % 1 == 0:
         energy_list.append(energy)
 
-    if n % 10 == 0:
+    if n % 20 == 0:
        video.add_frame(X, Y)
 
     if n % 100 == 0:
@@ -170,6 +176,5 @@ for n in range(n_steps):
 # plt.savefig('energy_time.png')
 
 # Save video
-video.save("week3video", box_width)
-
+video.save("solution_week3_video", box_width)
 
