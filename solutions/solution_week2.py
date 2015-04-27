@@ -4,7 +4,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import md_video as video
 
-np.random.seed(109)
 
 # Functions
 
@@ -55,8 +54,7 @@ def simulate_step(positions_x, positions_y, velocities_x, velocities_y, dt, N, b
         positions_y[i] += velocities_y[i]*dt
 
         # make reflections if particle distances are small
-        for j in xrange(i, N):
-            # if j > i:
+        for j in xrange(i, N): # if j > i:
 
             d = distance(positions_x[i],
                         positions_y[i],
@@ -74,18 +72,23 @@ def simulate_step(positions_x, positions_y, velocities_x, velocities_y, dt, N, b
                 velocities_x[j] = x_temp
                 velocities_y[j] = y_temp
 
+                # or
+                # velocities_x[i], velocities_x[j] = velocities_x[j], velocities_x[i]
+                # velocities_y[i], velocities_y[j] = velocities_y[j], velocities_y[i]
+
 
     return positions_x, positions_y, velocities_x, velocities_y
 
 
-def plot_particles(X, Y, filename):
-    """ Save an image of the positions at certain time """
+def plot_particles(X, Y, box_width, filename):
+    """
+    Save an image of the positions at certain time
+    """
     plt.plot(X, Y, 'bo')
     plt.xlabel('x')
     plt.ylabel('y')
-    plt.axis((-15, 15, -15, 15))
+    plt.axis((-box_width, box_width, -box_width, box_width))
     plt.savefig(filename)
-    # plt.show()
     plt.clf()
 
 
@@ -103,17 +106,15 @@ def write_list(filename, list):
 
 
 # Constants
-
 n_particles = 40
 box_width = 10.0
 dt = 0.001
 
 # For movie
-# n_step = 5000
+n_step = 5000
 
 # for histogram
-n_step = 20000
-
+# n_step = 20000
 
 # Histogram
 partdist = []
@@ -123,7 +124,7 @@ partdisteq = []
 X, Y, Vx, Vy = initialize_particles(n_particles, box_width)
 
 # plot start coordinates
-# plot_particles(X, Y, 'coordinates_start.png')
+# plot_particles(X, Y, box_width, 'coordinates_start.png')
 
 # Loop over all time-steps
 for n in range(n_step):
@@ -136,10 +137,10 @@ for n in range(n_step):
         print "Step {0:6d}".format(n)
 
     # Save frame for video every 10th step
-    # if n % 10 == 0:
+    if n % 10 == 0:
         # color = (1.0/(np.abs(Vx) + np.abs(Vy)))
         # color = [str(item/255.) for item in color]
-        # video.add_frame(X, Y)
+        video.add_frame(X, Y)
 
 
     # Count the particles in the right part of the box
@@ -167,6 +168,6 @@ write_list('test_list_eq', partdisteq)
 # plot_particles(X, Y, 'coordinates_end.png')
 
 
-# video.save('hard_sphere')
+video.save('hard_sphere')
 
 

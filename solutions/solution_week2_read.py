@@ -20,7 +20,7 @@ n_particles = 40
 # plot the partdist list
 partdist = read_list('test_list')
 
-plt.title('Particle Count for X > 0.0 and N < 10000')
+plt.title('Particle Count for X > 0.0')
 plt.xlabel('Number of particles where X > 0.0')
 plt.ylabel('Count')
 plt.hist(partdist, bins=range(0, n_particles), align='left')
