@@ -1,6 +1,6 @@
 \documentclass{article}
 
-\input{../../handout_preamble}
+\input{../handout_preamble}
 
 
 % ***************************************************
@@ -23,13 +23,14 @@
 
 \section{Introduction}
 
-Hello Scientist. Let's learn how to program with functions. Pretty cool stuff.\\
+%Hello again Scientist. Let's learn how to program with functions. Pretty cool stuff.\\
 
-Last week, the computer program you wrote was executed line by line in a top to bottom approach, i.e. the programs way of execution is easily followed by just reading the source file as you would read a book.
-%
+Last week, the computer program you wrote was executed line by line in a top to bottom approach, i.e. the programs way of execution is easily followed by just reading the source file as you would read a book.\\
+
 It turns out, however, that when the programs become large enough, this is no longer a clever way to organize your program since you'll eventually lose track of what is going on.
 What one usually does is break up the program into logical parts, such as “initialize particles”, “perturb the particles” and “calculate properties”.
-Today's exercise is an exercise in restructuring your code from last week into logical parts which we can easily distinguish.
+Today's exercise is an exercise in restructuring your code from last week into logical parts which we can easily distinguish.\\
+
 Before we get to the exercise, we shall have a look at functions, which are essential in this process.\\
 
 
@@ -157,7 +158,7 @@ Next let us plot something more complex. Use \code{np.sin()} and \code{np.cos()}
     \setcounter{enumi}{6}
     \item Define the following two functions
     \begin{align}
-        q(t) = 13\sin(t)^3 && \text{and} && p(t) = 13\cos(t) - 5 \cos(2t) - 2 \cos(3t) - \cos(4t)
+         p(t) = 13\cos(t) - 5 \cos(2t) - 2 \cos(3t) - \cos(4t) && \text{and} && q(t) = 13\sin(t)^3 
     \end{align}
 
     \item Define a list of $t$-values from $-2\pi$ to $2\pi$.
@@ -172,6 +173,41 @@ Next let us plot something more complex. Use \code{np.sin()} and \code{np.cos()}
 \end{enumerate}
 
 
+\section{read/write files}
+
+Working with files is pretty doupe.
+
+You open files using the following syntax
+\begin{lstlisting}
+f = open('long_list.txt')
+\end{lstlisting}
+
+you can then add lines to the file using the \code{write}-method.
+Note that add a linebreak by adding \code{\\n} for a newline
+
+\begin{lstlisting}
+for x in list:
+    f.write(str(x))
+    f.write('\n')
+\end{lstlisting}
+
+you can read and append file lines to a list with the following syntax
+\begin{lstlisting}
+f = open('long_list.txt')
+list = []
+for line in f:
+    list.append(int(line))
+\end{lstlisting}
+
+
+\begin{itemize}
+
+    \item Create a list with random numbers from 1 to 1000 and save it to a file.
+
+    \item Using another python script, open the file and plot it using matplotlib.
+
+\end{itemize}
+
 
 
 
@@ -181,10 +217,10 @@ Next let us plot something more complex. Use \code{np.sin()} and \code{np.cos()}
 Goal of today
 
 \begin{itemize}
-  \item Restructure the program from last week using functions.
-  \item Allow the particles to interact by measuring the distance from all the other particles
-    and if two particles are close make a reflection.
-  \item Count particles and estimate when an equilibrium condition has been established.
+    \item Restructure the program from last week using functions.
+    \item Allow the particles to interact by measuring the distance from all
+        the other particles and if two particles are close make a reflection.
+    \item Count particles and estimate when an equilibrium condition has been established.
 \end{itemize}
 
 As a starting point for your code, you should copy over your solution to last
@@ -195,7 +231,7 @@ inspiration for how the code should be structured after this exercise is done.
 \begin{lstlisting}
 import random
 import matplotlib.pyplot as plt
-import video # 2d Video
+import md_video # 2d Video
 
 def distance(x_i, y_i, x_j, y_j):
     """
@@ -247,21 +283,13 @@ call them. This is different than e.g. variables, which have to be defined and h
 
 \begin{enumerate}
   \setcounter{enumi}{0}
-  \item Inspect the above code and restructure your own code from last week to have the
-    same structure and functions.
-\end{enumerate}
+  \item Inspect the above code and insert your own code from last week into the proper functions.
 
-Remember that this is only done because it is easier to read, and in
-the end it is up to yourself to decide how you want to structure your
-programs.
-
-\begin{enumerate}
-  \setcounter{enumi}{1}
   \item Finish the function \code{distance()} and make it return
     the distance \code{d} between particle $i$ and $j$.
 
-\item Extend your program to create a new variable \code{r\_min} and set its
-    value to 0.03.
+    \item Extend your program to create a new variable \code{r\_min} and set its
+    value to 1.0.
     This is the distance that the two particles $i$ and $j$ have to be within each other
     in order to interact.
 
@@ -276,7 +304,7 @@ for i in range(n_particles):
         print "Interacting particles", i, "and", j
 \end{lstlisting}
 
-Since the particles are interchangable, this will count each interaction twice.
+Since the particles are interchangeable, this will count each interaction twice.
 We also want to skip the interaction if particle $i$ is the same as $j$.
 All this can be solved by a simple \code{if}-statement.
 
@@ -292,15 +320,14 @@ if i > j:
       if-statement works as expected, and checks all unique interactions only once. 
       {\em Hint:} Use a print statement.
 
-  \item Modify your code to loop over all particle interactions. Print the
-    distance between the two particles interacting.
+  \item Modify your code to loop over all particle interactions.
+      Print the distance between the two particles interacting.
 
 \end{enumerate}
 
-To let the particles interact, we will use a simple model. The
-particles are considered as being small disks with a diameter of \code{r\_min} that experience
-perfect elastic scattering when particle $i$ comes into contact with particle $j$.
-(Think of a game of billiards.)
+To let the particles interact, we will use a simple model.
+The particles are considered as being small disks with a diameter of \code{r\_min} that experience perfect elastic scattering when particle $i$ comes into contact with particle $j$
+(Think of a game of pool).
 
 When two particles collide elastically they will exchange velocities.
 For simplicity this is done by simply setting
@@ -313,9 +340,9 @@ This is of course an approximation of what should happen, which would depend on 
 
 \begin{enumerate}
   \setcounter{enumi}{5}
-  \item Implement in your code this exchange of velocities for particles upon
-    collision. Use the following if-statement as inspiration.
-    {Hint:} Save the velocity of particle $i$ in a temporary variable.
+  \item Implement in your code this exchange of velocities for particles upon collision.
+      Use the following if-statement as inspiration.
+      {Hint:} Save the velocity of particle $i$ in a temporary variable.
 
 \begin{lstlisting}
 if d < r_min:
@@ -325,26 +352,26 @@ if d < r_min:
 \end{enumerate}
 
 As a final part of todays exercise, we can extract some useful information from the simulation.
-Since the system we are investigating is not the most physical correct one and
-particle positions do tend to be a bit boring by themselves, we shall instead
-sample a property, which shows that the system is indeed random.
+Since the system we are investigating is not the most physical correct one and particle positions do tend to be a bit boring by themselves, we shall instead sample a property, which shows that the system is indeed random.
 
 \begin{enumerate}
   \setcounter{enumi}{6}
   \item For each 5 steps in your simulation, calculate the number of particles
     that are present in the interval $x \in [0, 1]$.
-    Append that number to a list named \code{partdist}.  To get proper results,
-    you need to change \code{n\_steps} to 20000 and \code{n\_particles} to 40.
+    Append that number to a list named \code{partdist}.
+    To get proper results, you need to change \code{n\_steps} to 20000 and \code{n\_particles} to 40.
 
-    {\em Note:} Remember to disable saving of the video when running with large
-    steps!
+    {\em Note:} Remember to disable saving of the video when running with large steps!
+
+    \item To avoid having to run the simulation each time we want to save a plot, create a function that saves partdist into a file for later use.
+
+    {\en Hint:} Use the \code{open} and \code{write} functions to do this.
 
 \end{enumerate}
 
-We want a histogram of how often $N$ particles occurred in the above
-interval. So the $x$-axis should give you the number of particles we have
-encountered in the interval, and the $y$-axis how often that number
-has occurred.\\
+
+We want a histogram of how often $N$ particles occurred in the above interval.
+So the $x$-axis should give you the number of particles we have encountered in the interval, and the $y$-axis how often that number has occurred.\\
 
 To plot the information from the list we can use the matplotlib histogram as follows
 
@@ -353,23 +380,23 @@ plt.hist(partdist, bins=range(0, n_particles), align='left')
 plt.savefig('dist_histogram.png')
 \end{lstlisting}
 
-which is inserted after the main loop over \code{n\_steps}.
 
 \begin{enumerate}
   \setcounter{enumi}{7}
-  \item Plot the histogram, complete with title and labeled axis, and comment on the results, i.e. how is the
-    distribution of particles in the interval?
 
-  \item Make another list named \code{partdisteq}. Here you should store the
-    number of particles in the same interval as above, but only {\bf after}
-    10000 calibration steps have passed. Plot it on a new figure and comment
-    on the result.
+  \item Create a new python file that is able to read the file containing the simulation data.
+      {\em Hint:} Use the \code{open} and for-loop.
+
+  \item Plot the histogram, complete with title and labeled axis, and comment on the results, i.e. how is the     distribution of particles in the interval?
+
+  \item Make another list named \code{partdisteq}. Here you should store the number of particles in the same interval as above, but only {\bf after} 10000 calibration steps have passed.
+    Plot it on a new figure and comment on the result.
 
 \end{enumerate}
 
 \begin{figure}[htb]
-  \subfloat[Before equilibrium steps]{\includegraphics[width=0.5\textwidth]{partdist.eps}}
-  \subfloat[After equilibrium steps]{\includegraphics[width=0.5\textwidth]{partdisteq.eps}}
+  \subfloat[Before equilibrium steps]{\includegraphics[width=0.5\textwidth]{images/partdist.eps}}
+  \subfloat[After equilibrium steps]{\includegraphics[width=0.5\textwidth]{images/partdisteq.eps}}
   \label{fig:partdist}
   \caption{
      Count of the number of particles placed to the right in the container, a) before and b) after 10000 equilibrium steps.
