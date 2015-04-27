@@ -1,6 +1,6 @@
 \documentclass{article}
 
-\input{../../handout_preamble}
+\input{../handout_preamble}
 
 
 % ***************************************************
@@ -8,7 +8,7 @@
 
 \title{Exercise 3}
 \author{Molecular Statistics, Week 3}
-\date{2014}
+\date{}
 
 % ***************************************************
 
@@ -24,12 +24,14 @@
 
 \section{Introduction and Theory}
 
+%Hello \code{for n in range(2)} \code{print "again"} Scientist.
+
 In this exercise you are going to implement the Lennard-Jones potential in our 2D simulation.
 Figure \ref{fig:potentials} shows the three different potentials we've encountered so far.
 
 \begin{figure}[h!]
 \begin{center}
-    \includegraphics[width=0.75\textwidth]{potentials.png}
+    \includegraphics[width=0.75\textwidth]{images/potentials.png}
     \caption{The three different potentials we've encountered so far.}
     \label{fig:potentials}
 \end{center}
@@ -292,10 +294,9 @@ Let's try and see how your simulation works.
 
 \begin{enumerate}[resume]
 
-    \item Make a list called \code{energy\_list} and use it to store the energy during the simulation.
-        Append the energy to the list every 5'th step.
-
-    \item Plot \code{energy\_list} and see if the potential energy is roughly conserved over time.
+    \item store the energy during the simulation, in a file. Write the energy every 5th step.
+        
+    \item Plot the energy using another file and see if the potential energy is roughly conserved over time.
         If your time-step is too large or too small, this might not be the case.
         A healthy simulation looks something like Figure \ref{fig:potential_energy}
 
@@ -307,7 +308,7 @@ Let's try and see how your simulation works.
 
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=0.75\textwidth]{potential_energy.png}
+  \includegraphics[width=0.75\textwidth]{images/potential_energy.png}
   \caption{Potential energy during a "healthy" MD simulation in a Lennard-Jones potential.}
   \label{fig:potential_energy}
 \end{figure}
