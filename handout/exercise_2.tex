@@ -25,7 +25,8 @@
 
 %Hello again Scientist. Let's learn how to program with functions. Pretty cool stuff.\\
 
-Last week, the computer program you wrote was executed line by line in a top to bottom approach, i.e. the programs way of execution is easily followed by just reading the source file as you would read a book.\\
+Last week, the computer program you wrote was executed line by line in a top to bottom approach,
+i.e. the program's way of execution is easily followed by just reading the source file as you would read a book.\\
 
 It turns out, however, that when the programs become large enough, this is no longer a clever way to organize your program since you'll eventually lose track of what is going on.
 What one usually does is break up the program into logical parts, such as “initialize particles”, “perturb the particles” and “calculate properties”.
@@ -70,7 +71,7 @@ def f(x):
 \end{lstlisting}
 
 In programming languages you provide the {\em definition} of a function, and just like on your calculator you need to {\em call} those functions before they are actually executed.
-Notice the 4 space indentation, just like for loops.
+Notice the 4 space indentation, just like for-loops.
 
 \begin{enumerate}
   \item Insert the above code into your script, save and execute. What
@@ -121,26 +122,57 @@ print man_height
 
 The reality is that our custom functions actually works like the built in functions in python (remember the \code{len(arg)} function from last week for instance), so once you know how to make one, you can essentially create as many you like.\\
 
+\section{Numpy}
+
 To test functions we will need a list of $x$-values as input.
-We could use the \code{range()} function from last week, but that would limit us to integers. Instead we use a very useful tool call NumPy which is imported as all other tools;
+We could use the \code{range()} function from last week, but that would limit us to integers.
+Instead we use a very useful tool call NumPy which is imported as all other tools;
 
 \begin{lstlisting}
 import numpy as np
 \end{lstlisting}
 
-We can then use the \code{np.arange(start, end, step)} function.
-This will produce a list just like the \code{range()} function, but this time the
+We can then use the \code{np.arange(start, end, step)} function, similar to \code{range()}, but where the
 \code{start},
 \code{end}, and
 \code{step}
 can be floats instead of only integers.
 
 \begin{lstlisting}
-x_list = np.arange(0, 10, 0.1)
+    x_list = np.arange(0, 1.2, 0.1)
+    print x_list
 \end{lstlisting}
 
+\code{np.arange()} creates a data-type called a {\em NumPy array} which is similar, yet different to {\em lists}.
+Unlike lists, NumPy arrays cannot hold more than one data type. So you can have a NumPy with strings or integers, but not strings {\em and} integers.
+In addition you cannot (easily) change the size of the array with methods like {\em append}.
+However what Numpy arrays {\em can} do is let you do mathematical operations on the entire array without having to use for-loops.
+
 \begin{enumerate}
-  \setcounter{enumi}{3}
+    \setcounter{enumi}{3}
+    \item Create the following list \code{a} and NumPy array \code{b}, and print them.
+        \begin{lstlisting}
+        a = range(0,5,1)
+        b = np.arange(0,5,1)
+        print a
+        print b
+        \end{lstlisting}
+
+    \item For \code{a}, try the following operations and understand the output. Do the same for \code{b}. \\
+        {\em Note}: Some of the operations will result in errors. Try to explain why.
+        \begin{lstlisting}
+        print a + 2
+        print a + a
+        print a * 2
+        print a ** 2
+        print np.cos(a)
+        \end{lstlisting}
+\end{enumerate}
+
+
+
+\begin{enumerate}
+  \setcounter{enumi}{5}
   \item Define the following function using \code{np.exp()}.
     \begin{align}
         h(x) = \frac{1}{x} + e^{5x}
@@ -155,7 +187,7 @@ x_list = np.arange(0, 10, 0.1)
 Next let us plot something more complex. Use \code{np.sin()} and \code{np.cos()}.
 
 \begin{enumerate}
-    \setcounter{enumi}{6}
+    \setcounter{enumi}{8}
     \item Define the following two functions
     \begin{align}
          p(t) = 13\cos(t) - 5 \cos(2t) - 2 \cos(3t) - \cos(4t) && \text{and} && q(t) = 13\sin(t)^3 
@@ -167,23 +199,26 @@ Next let us plot something more complex. Use \code{np.sin()} and \code{np.cos()}
     \item With the $t$ values, save two new lists with the corresponding $p(t)$ and $q(t)$ values.
 
     \item Make a plot using $p(t)$ values as $x$-values and $q(t)$ values as $y$-values.
-        {\em Hint:} Using a red line (\code{'r-'}) would be most appropriate color to choose.
+        {\em Hint:} Using a red line (\code{'r-'}) would be the most appropriate color to choose.
 
 
 \end{enumerate}
 
 
-\section{read/write files}
+\section{Read/write files}
 
-Working with files is pretty doupe.
+%Working with files is pretty doupe. % Waiting to the mixtape
 
-You open files using the following syntax
+To write data to a file you can use the following syntax
 \begin{lstlisting}
-f = open('long_list.txt')
+f = open('long_list.txt', 'w')
 \end{lstlisting}
 
-you can then add lines to the file using the \code{write}-method.
-Note that add a linebreak by adding \code{\\n} for a newline
+The \code{'w'} indicates that we are going to write to the file.
+If the filename doesn't exist already, an empty file will be created.
+
+You can then add lines to the file using the \code{write}-method.
+Note that you can add a linebreak by adding \code{'\textbackslash n'} for a newline
 
 \begin{lstlisting}
 for x in list:
@@ -191,24 +226,22 @@ for x in list:
     f.write('\n')
 \end{lstlisting}
 
-you can read and append file lines to a list with the following syntax
+You can read and append file lines to a list with the following syntax
 \begin{lstlisting}
 f = open('long_list.txt')
-list = []
+data_list = []
 for line in f:
-    list.append(int(line))
+    data_list.append(int(line))
 \end{lstlisting}
 
-
-\begin{itemize}
+\begin{enumerate}
+    \setcounter{enumi}{12}
 
     \item Create a list with random numbers from 1 to 1000 and save it to a file.
 
     \item Using another python script, open the file and plot it using matplotlib.
 
-\end{itemize}
-
-
+\end{enumerate}
 
 
 \newpage
@@ -223,19 +256,19 @@ Goal of today
     \item Count particles and estimate when an equilibrium condition has been established.
 \end{itemize}
 
-As a starting point for your code, you should copy over your solution to last
+As a starting point for your code, you should copy over your solution from last
 weeks exercise. If you didn't finish the exercises last week, download the file
 \code{week1\_solution.py} from Absalon. The following code should be seen as
 inspiration for how the code should be structured after this exercise is done.
 
 \begin{lstlisting}
-import random
+import numpy as np
 import matplotlib.pyplot as plt
-import md_video # 2d Video
+import md_video as video# 2d Video
 
 def distance(x_i, y_i, x_j, y_j):
     """
-    Return the distance between i and j
+    Return the distance between particle i and j
     """
     return d
 
@@ -357,7 +390,7 @@ Since the system we are investigating is not the most physical correct one and p
 \begin{enumerate}
   \setcounter{enumi}{6}
   \item For each 5 steps in your simulation, calculate the number of particles
-    that are present in the interval $x \in [0, 1]$.
+    that are present in the interval $x \in [0, 10]$.
     Append that number to a list named \code{partdist}.
     To get proper results, you need to change \code{n\_steps} to 20000 and \code{n\_particles} to 40.
 
@@ -365,7 +398,7 @@ Since the system we are investigating is not the most physical correct one and p
 
     \item To avoid having to run the simulation each time we want to save a plot, create a function that saves partdist into a file for later use.
 
-    {\en Hint:} Use the \code{open} and \code{write} functions to do this.
+    {\em Hint:} Use the \code{open} and \code{write} functions to do this.
 
 \end{enumerate}
 
@@ -385,7 +418,7 @@ plt.savefig('dist_histogram.png')
   \setcounter{enumi}{7}
 
   \item Create a new python file that is able to read the file containing the simulation data.
-      {\em Hint:} Use the \code{open} and for-loop.
+      {\em Hint:} Use the \code{open} function and a for-loop.
 
   \item Plot the histogram, complete with title and labeled axis, and comment on the results, i.e. how is the     distribution of particles in the interval?
 

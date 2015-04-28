@@ -3,15 +3,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 def read_list(filename):
-    """
-    """
     f = open(filename, 'r')
-    list = []
+    data_list = []
 
     for line in f:
-        list.append(int(line))
+        data_list.append(int(line))
 
-    return list
+    return data_list
 
 
 n_particles = 40

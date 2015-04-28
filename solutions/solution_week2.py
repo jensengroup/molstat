@@ -17,7 +17,7 @@ def distance(x_i, y_i, x_j, y_j):
     return d
 
 
-def initialize_particles(n_particles, box_width):
+def initialize_particles(n_particles, box_width, r_min):
     """
     initialize particles, positions and velocities for n_particles
     """
@@ -26,35 +26,57 @@ def initialize_particles(n_particles, box_width):
     positions_y = np.random.uniform(-box_width, box_width, n_particles)
     velocities_x = np.random.uniform(-box_width, box_width, n_particles)
     velocities_y = np.random.uniform(-box_width, box_width, n_particles)
-
+    # Enable this to fix particles overlapping when initialized
+    #positions_x, positions_y = correct_initial_positions(positions_x, positions_y, box_width, n_particles, r_min)
     return positions_x, positions_y, velocities_x, velocities_y
 
+#def correct_initial_positions(positions_x, positions_y, box_width, n_particles, r_min):
+#    # If two particles collide in the initialization, give one of them a new random position
+#    # Repeat this 5 times
+#    for repetition in range(5):
+#        for i in range(n_particles):
+#            for j in range(i+1,n_particles):
+#
+#                # calculate distance
+#                d = distance(positions_x[i],
+#                             positions_y[i],
+#                             positions_x[j],
+#                             positions_y[j])
+#
+#                if d < r_min:
+#                    positions_x[j] = np.random.uniform(0.0, box_width)
+#                    positions_y[j] = np.random.uniform(-box_width, box_width)
+#
+#    return positions_x, positions_y
 
-def simulate_step(positions_x, positions_y, velocities_x, velocities_y, dt, N, box_width):
+
+
+
+def simulate_step(positions_x, positions_y, velocities_x, velocities_y, dt, N, box_width, r_min):
     """
     Simulate particles movement for their positions and velocities in a single
     time-step with time dt
     """
 
-    # Minimum distance before particles collide
-    r_min = 1.0
 
-    # Loop over all particles and update positions
-    for i in xrange(N):
+    # make a step in time dt for all particles
+    positions_x = positions_x + velocities_x*dt
+    positions_y = positions_y + velocities_y*dt
+    # Loop over all particles and make corrections for collisions
+    for i in range(N):
 
         # make reflections if the particles are hitting the walls
-        if abs(positions_x[i] + velocities_x[i]*dt) > box_width:
+        # and move them back inside
+        if abs(positions_x[i]) > box_width:
             velocities_x[i] = -velocities_x[i]
+            positions_x[i] = positions_x[i] + velocities_x[i]*dt
 
-        if abs(positions_y[i] + velocities_y[i]*dt) > box_width:
+        if abs(positions_y[i]) > box_width:
             velocities_y[i] = -velocities_y[i]
-
-        # make the move
-        positions_x[i] += velocities_x[i]*dt
-        positions_y[i] += velocities_y[i]*dt
+            positions_y[i] = positions_y[i] + velocities_y[i]*dt
 
         # make reflections if particle distances are small
-        for j in xrange(i, N): # if j > i:
+        for j in range(i+1, N): # This is the same as a double loop with 'if j > i':
 
             d = distance(positions_x[i],
                         positions_y[i],
@@ -62,15 +84,24 @@ def simulate_step(positions_x, positions_y, velocities_x, velocities_y, dt, N, b
                         positions_y[j])
 
             if d < r_min:
+                # Enable this check to only correct colliding particles velocities
+                # if they are moving closer to each other at next step
+                #d_next = distance(positions_x[i] + velocities_x[i]*dt,
+                #                  positions_y[i] + velocities_y[i]*dt,
+                #                  positions_x[j] + velocities_x[j]*dt,
+                #                  positions_y[j] + velocities_y[j]*dt)
+                #if d < d_next:
+                #    continue
 
-                x_temp = velocities_x[i]
-                y_temp = velocities_y[i]
+
+                vx_temp = velocities_x[i]
+                vy_temp = velocities_y[i]
 
                 velocities_x[i] = velocities_x[j]
                 velocities_y[i] = velocities_y[j]
 
-                velocities_x[j] = x_temp
-                velocities_y[j] = y_temp
+                velocities_x[j] = vx_temp
+                velocities_y[j] = vy_temp
 
                 # or
                 # velocities_x[i], velocities_x[j] = velocities_x[j], velocities_x[i]
@@ -109,6 +140,8 @@ def write_list(filename, list):
 n_particles = 40
 box_width = 10.0
 dt = 0.001
+# Minimum distance before particles collide
+r_min = 1.0
 
 # For movie
 n_step = 5000
@@ -121,7 +154,7 @@ partdist = []
 partdisteq = []
 
 # initialize particles
-X, Y, Vx, Vy = initialize_particles(n_particles, box_width)
+X, Y, Vx, Vy = initialize_particles(n_particles, box_width, r_min)
 
 # plot start coordinates
 # plot_particles(X, Y, box_width, 'coordinates_start.png')
@@ -130,16 +163,14 @@ X, Y, Vx, Vy = initialize_particles(n_particles, box_width)
 for n in range(n_step):
 
     # Simulate a single step
-    X, Y, Vx, Vy = simulate_step(X, Y, Vx, Vy, dt, n_particles, box_width)
+    X, Y, Vx, Vy = simulate_step(X, Y, Vx, Vy, dt, n_particles, box_width, r_min)
 
-    # Print status every 100th step
+    # Print status every 200th step
     if n % 200 == 0:
         print "Step {0:6d}".format(n)
 
     # Save frame for video every 10th step
     if n % 10 == 0:
-        # color = (1.0/(np.abs(Vx) + np.abs(Vy)))
-        # color = [str(item/255.) for item in color]
         video.add_frame(X, Y)
 
 
@@ -148,14 +179,14 @@ for n in range(n_step):
         no_part = 0
 
         for i in range(n_particles):
-            # No need to check for x_positions > 1 or y_positions since we are ALWAYS
+            # No need to check for x_positions > 10 or y_positions since we are ALWAYS
             # within the box.
             if X[i] > 0.0:
                 no_part += 1
 
-        partdist.append(no_part)
+        partdist.append(no_part) # Save number of particles in right half of box
 
-        if n > n_step / 2.0:
+        if n > n_step / 2.0: # Only save number of particles for the last half of the simulation
             partdisteq.append(no_part)
 
 
