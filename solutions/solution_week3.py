@@ -135,8 +135,8 @@ def plot_box(X, Y, Vx, Vy, box_width, filename):
 ## Simulation Initialization
 box_width = 10.0
 n_particles = 42
-n_steps = 50000
-dt = 0.01
+n_steps = 5000
+dt = 0.001
 
 # x_test = [0.0, 0.0]
 # y_test = [0.0, 1.4]
