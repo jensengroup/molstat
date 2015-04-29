@@ -26,6 +26,7 @@ def initialize_particles(n_particles, box_width, r_min):
     positions_y = np.random.uniform(-box_width, box_width, n_particles)
     velocities_x = np.random.uniform(-box_width, box_width, n_particles)
     velocities_y = np.random.uniform(-box_width, box_width, n_particles)
+    # EXTRA
     # Enable this to fix particles overlapping when initialized
     #positions_x, positions_y = correct_initial_positions(positions_x, positions_y, box_width, n_particles, r_min)
     return positions_x, positions_y, velocities_x, velocities_y
@@ -59,11 +60,11 @@ def simulate_step(positions_x, positions_y, velocities_x, velocities_y, dt, N, b
     """
 
 
-    # make a step in time dt for all particles
-    positions_x = positions_x + velocities_x*dt
-    positions_y = positions_y + velocities_y*dt
     # Loop over all particles and make corrections for collisions
     for i in range(N):
+        # make a step in time dt for all particles
+        positions_x[i] = positions_x[i] + velocities_x[i]*dt
+        positions_y[i] = positions_y[i] + velocities_y[i]*dt
 
         # make reflections if the particles are hitting the walls
         # and move them back inside
@@ -84,6 +85,7 @@ def simulate_step(positions_x, positions_y, velocities_x, velocities_y, dt, N, b
                         positions_y[j])
 
             if d < r_min:
+                # EXTRA
                 # Enable this check to only correct colliding particles velocities
                 # if they are moving closer to each other at next step
                 #d_next = distance(positions_x[i] + velocities_x[i]*dt,
@@ -92,6 +94,18 @@ def simulate_step(positions_x, positions_y, velocities_x, velocities_y, dt, N, b
                 #                  positions_y[j] + velocities_y[j]*dt)
                 #if d < d_next:
                 #    continue
+
+                # EXTRA
+                # do this instead for proper angle handling
+                #c = (velocities_x[i] - velocities_x[j]) * (positions_x[i] - positions_x[j]) \
+                #  + (velocities_y[i] - velocities_y[j]) * (positions_y[i] - positions_y[j])
+                #c /= (positions_x[i] - positions_x[j])**2 + (positions_y[i] - positions_y[j])**2
+
+                #velocities_x[i] = velocities_x[i] - c * (positions_x[i] - positions_x[j])
+                #velocities_y[i] = velocities_y[i] - c * (positions_y[i] - positions_y[j])
+
+                #velocities_x[j] = velocities_x[j] - c * (positions_x[j] - positions_x[i])
+                #velocities_y[j] = velocities_y[j] - c * (positions_y[j] - positions_y[i])
 
 
                 vx_temp = velocities_x[i]
