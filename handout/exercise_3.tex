@@ -26,6 +26,7 @@
 
 %Hello \code{for n in range(2)} \code{print "again"} Scientist.
 
+
 In this exercise you are going to implement the Lennard-Jones potential in our 2D simulation.
 Figure \ref{fig:potentials} shows the three different potentials we've encountered so far.
 
@@ -103,7 +104,7 @@ The Velo-Verlet equations for integrating the positions ($r$) and velocities ($v
     v_x(t + dt) &=& v_x(t) + 0.5 \cdot dt \cdot \left [ a_x(t) + a_x(t+dt) \right ] \label{eq:velo_vel}
 \end{eqnarray}
 
-In out simultation, we will set the mass of the particles to $1$, so the acceleration is equal to the force (Newtons 2nd law).
+In our simulation, we will set the mass of the particles to $1$, so the acceleration is equal to the force (Newtons 2nd law).
 Let's recap: The Velo-Verlet algorithm uses the forces,
 velocities and positions from the current time step to calculate the forces,
 velocities and positions for the next time-step.
@@ -156,12 +157,12 @@ So for this it would be natural to extend your code to store the $x$- and $y$-co
 
 \begin{enumerate}[resume]
 
-    \item In the LJ function, initialize two new lists for the forces, \code{force\_x} and \code{force\_x}, containing only zeros, with the length equal to the number of particles.
-    {\em Hint:}
-
-\begin{lstlisting}
-force_x = [0.0 for i in range(n_particles)]
-\end{lstlisting}
+    \item In the LJ function, initialize two new lists for the forces, \code{force\_x} and \code{force\_y}, containing only zeros, with the length equal to the number of particles.
+%    {\em Hint:}
+%
+%\begin{lstlisting}
+%force_x = [0.0 for i in range(n_particles)]
+%\end{lstlisting}
 
     \item In the loop when calculating the energy, insert code to calculate the force for each interaction and update the force lists with the corresponding interaction force, from eq. \ref{eq:force}.
         Use the following code as inspiration:
@@ -188,9 +189,9 @@ Next is to implement the Velo-Verlet solver.
 The Velo-Verlet solver needs the current forces, velocities and particle positions as input.
 Your code already initializes the velocities and positions, but doesn't calculate the initial forces.\\
 
-Last week we used random $x$- and $y$-coordinates, within a (-1, 1) box.
+Last week we used random $x$- and $y$-coordinates, within a (-10, 10) box.
 However, when we are working with a potential it is not a good idea to use completely random coordinates, as the initial gradient might be unphysically large.
-And because we are working with a potential with $\sigma = 1$, we will need to expand the box by setting \code{box\_width = 10.0} instead of 1 since if two particles end up starting with $r_{ij} < 1$ (see figure \ref{fig:potential_energy}), the system would 'explode'.\\
+%And because we are working with a potential with $\sigma = 1$, we will need to expand the box by setting \code{box\_width = 10.0} instead of 1 since if two particles end up starting with $r_{ij} < 1$ (see figure \ref{fig:potential_energy}), the system would 'explode'.\\
 
 Because of this we want to re-write the \code{initialize\_particles}-function from last week to initialize the particles in a nice grid, instead of random positions.
 We have completed the following code for your convenience.
@@ -242,16 +243,17 @@ Now it's time to implement the Velo-Verlet solver.
 
     \item Create a new function and name it \code{velo\_verlet}.
         Have the function take positions, velocities, forces, number of particles and dt as arguments.
-
-    \item The new function should return the positions, velocities, forces and the energy of the system.
+        The new function should return the positions, velocities, forces and the energy of the system.
 
     \item Implement the three steps of the Velo-Verlet integration algorithm.
         Which means, implement the following code in your \code{velo\_verlet}-function.
 
+%    Removed full expression pos_x[i] = pos_x[i] + dt * vel_x[i] + 0.5 * dt * dt * force_x[i]
+%    and vel_x[i] = vel_x[i] + 0.5 * dt * (force_x_old[i] + force_x[i])
 \begin{lstlisting}
 # Step 1: Update the positions
 for i in range(n_particles):
-    pos_x[i] = pos_x[i] + dt * vel_x[i] + 0.5 * dt * dt * force_x[i]
+    pos_x[i] = pos_x[i] + ...
 
 # Remmeber the previous forces
 force_x_old = copy.copy(force_x)
@@ -261,14 +263,15 @@ force_x, force_y, energy = lennard_jones(pos_x, pos_y)
 
 # Step 3: Calculate the new velocities.
 for i in range(n_particles):
-    vel_x[i] = vel_x[i] + 0.5 * dt * (force_x_old[i] + force_x[i])
+    vel_x[i] = vel_x[i] + ...
 
 \end{lstlisting}
 
-    \item Correct the particles if they collide with the wall (just like week 1 and 2).
+    \item Correct the particle positions and velocities if they collide with the wall (just like week 1 and 2).
 
-    \item After the initialization of the particles, insert the loop over \code{range(n\_steps)}, this time with the \code{velo\_verlet} function, instead of \code{simulate\_step}.
-        This should look something like;
+    \item After the initialization of the particles, insert the loop over \code{range(n\_steps)}.
+        This time with the \code{velo\_verlet} function, instead of \code{simulate\_step}.
+        This should look something like:
 
 \begin{lstlisting}
 for n in range(n_steps):
@@ -277,7 +280,7 @@ for n in range(n_steps):
 
     \item Your code should now run a simulation of a Lennard-Jones 2D gas.
         Save a video of the particle movements using the following constants, and convince yourself that your code is working properly
-        {\em Note:} Use \code{video.save('simulation',box\_width)} to save a video with a box width differing from 1.
+%        {\em Note:} Use \code{video.save('simulation',box\_width)} to save a video with a box width differing from 1.
 
 \begin{lstlisting}
 box_width = 10.0
@@ -294,9 +297,9 @@ Let's try and see how your simulation works.
 
 \begin{enumerate}[resume]
 
-    \item store the energy during the simulation, in a file. Write the energy every 5th step.
+    \item store the energy during the simulation in a file. Write the energy every 5th step.
         
-    \item Plot the energy using another file and see if the potential energy is roughly conserved over time.
+    \item Plot the energy using another python script and see if the potential energy is roughly conserved over time.
         If your time-step is too large or too small, this might not be the case.
         A healthy simulation looks something like Figure \ref{fig:potential_energy}
 

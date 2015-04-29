@@ -1,6 +1,6 @@
-import numpy as np 
+import numpy as np
 import random
-import matplotlib.pyplot as plt 
+import matplotlib.pyplot as plt
 import copy
 
 import md_video as video
@@ -104,11 +104,11 @@ def velo_verlet(x_positions, y_positions, x_velocities, y_velocities,
         y_positions[i] = y_positions[i] + dt*y_velocities[i] + 0.5*dt*dt*y_forces[i]
 
         if abs(x_positions[i]) > box_width:
-            x_positions[i] -= dt*x_velocities[i]
+            x_positions[i] -= dt*x_velocities[i] + 0.5*dt*dt*x_forces[i]
             x_velocities[i] = -x_velocities[i]
 
         if abs(y_positions[i]) > box_width:
-            y_positions[i] -= dt*y_velocities[i]
+            y_positions[i] -= dt*y_velocities[i] + 0.5*dt*dt*y_forces[i]
             y_velocities[i] = -y_velocities[i]
 
     # Step 2:
@@ -134,14 +134,9 @@ def plot_box(X, Y, Vx, Vy, box_width, filename):
 
 ## Simulation Initialization
 box_width = 10.0
-n_particles = 7*7
 n_particles = 42
-# n_particles = 4
-n_steps = 5000
-dt = 0.001
-
-# Empty energy lists
-energy_list = []
+n_steps = 50000
+dt = 0.01
 
 # x_test = [0.0, 0.0]
 # y_test = [0.0, 1.4]
@@ -149,6 +144,9 @@ energy_list = []
 
 ## Initialize particles
 X, Y, Vx, Vy, Fx, Fy, energy = initialize_particles(n_particles, box_width)
+
+## Create file for saving energy
+f = open('simulation_energy','w')
 
 ## Take simulation steps
 for n in range(n_steps):
@@ -159,8 +157,9 @@ for n in range(n_steps):
         plot_box(X, Y, Vx, Vy, box_width, 'first_step.png')
         plot_box(X, Y, Fx, Fy, box_width, 'first_step_f.png')
 
-    if n % 1 == 0:
-        energy_list.append(energy)
+    if n % 5 == 0:
+        f.write(str(energy))
+        f.write('\n')
 
     if n % 20 == 0:
        video.add_frame(X, Y)
