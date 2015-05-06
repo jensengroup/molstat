@@ -1,9 +1,25 @@
+
+# python modules
 import numpy as np
-import random
-import matplotlib.pyplot as plt
 import copy
 
+# local modules
 import md_video as video
+
+def kinetic(Vx, Vy):
+    """ Calculate kinetic energy
+    """
+
+    k = 0
+    for vi in Vx:
+        k += vi*vi
+
+    for vi in Vy:
+        k += vi*vi
+
+    k *= 0.5
+
+    return k
 
 
 def distance(xi, yi, xj, yj):
@@ -23,8 +39,9 @@ def lennard_jones(x_positions, y_positions, n_particles):
 
     energy = 0.0
 
-    x_forces = [0.0 for _ in range(n_particles)]
-    y_forces = [0.0 for _ in range(n_particles)]
+    # initialize empty lists
+    x_forces = [0.0 for i in range(n_particles)]
+    y_forces = [0.0 for i in range(n_particles)]
 
     for i in range(n_particles):
         for j in range(n_particles):
@@ -78,8 +95,8 @@ def initialize_particles(n_particles, box_width):
 
 
     # Initialize particle velocities
-    Vx = [2*(random.random() - 0.5) for i in range(n_particles)]
-    Vy = [2*(random.random() - 0.5) for i in range(n_particles)]
+    Vx = [2*(np.random.random() - 0.5) for i in range(n_particles)]
+    Vy = [2*(np.random.random() - 0.5) for i in range(n_particles)]
 
     # Initialize particle forces
     Fx, Fy, energy = lennard_jones(X, Y, n_particles)
@@ -90,8 +107,8 @@ def initialize_particles(n_particles, box_width):
 def velo_verlet(x_positions, y_positions, x_velocities, y_velocities,
                 x_forces, y_forces, box_width, n_particles, dt):
     """
-    Simulate particles movement for their positions and velocities in a
-    single time - step with time dt
+    Simulate particles movement for their positions and velocities in a single
+    time - step with time dt
     """
 
     x_forces_old = copy.copy(x_forces)
@@ -100,6 +117,7 @@ def velo_verlet(x_positions, y_positions, x_velocities, y_velocities,
     # Step 1:
     # Update positions
     for i in range(n_particles):
+
         x_positions[i] = x_positions[i] + dt*x_velocities[i] + 0.5*dt*dt*x_forces[i]
         y_positions[i] = y_positions[i] + dt*y_velocities[i] + 0.5*dt*dt*y_forces[i]
 
@@ -124,41 +142,39 @@ def velo_verlet(x_positions, y_positions, x_velocities, y_velocities,
     return x_positions, y_positions, x_velocities, y_velocities, x_forces, y_forces, energy
 
 
-def plot_box(X, Y, Vx, Vy, box_width, filename):
-    plt.plot(X, Y, 'ro')
-    plt.quiver(X, Y, Vx, Vy)
-    plt.axis((-box_width, box_width, -box_width, box_width))
-    plt.savefig(filename)
-    plt.clf()
-
 
 ## Simulation Initialization
 box_width = 10.0
 n_particles = 42
-n_steps = 5000
+n_steps = 1000
 dt = 0.001
 
 # x_test = [0.0, 0.0]
 # y_test = [0.0, 1.4]
 # print lennard_jones(x_test, y_test)
 
+
 ## Initialize particles
 X, Y, Vx, Vy, Fx, Fy, energy = initialize_particles(n_particles, box_width)
 
+
 ## Create file for saving energy
-f = open('simulation_energy','w')
+f = open('simulation_energy', 'w')
+
 
 ## Take simulation steps
 for n in range(n_steps):
 
     X, Y, Vx, Vy, Fx, Fy, energy = velo_verlet(X, Y, Vx, Vy, Fx, Fy, box_width, n_particles, dt)
 
-    if n == 0:
-        plot_box(X, Y, Vx, Vy, box_width, 'first_step.png')
-        plot_box(X, Y, Fx, Fy, box_width, 'first_step_f.png')
-
     if n % 5 == 0:
-        f.write(str(energy))
+
+        # calculate kinetic energy
+        energy_kinetic = kinetic(Vx, Vy)
+
+        line = str(n) + "," + str(energy) + ',' + str(energy_kinetic)
+
+        f.write(line)
         f.write('\n')
 
     if n % 20 == 0:
@@ -167,12 +183,6 @@ for n in range(n_steps):
     if n % 100 == 0:
         print "step", n, "of", n_steps
 
-
-## Plot Results
-
-# Energy plot
-# plt.plot(energy_list)
-# plt.savefig('energy_time.png')
 
 # Save video
 video.save("solution_week3_video", box_width)
