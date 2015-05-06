@@ -45,15 +45,15 @@ If you sit with some data and you do not know how to plot the specific plot, the
 
 
 \subsection{Changing the look of matplotlib}
-
+%TODO change?
 You can change pretty much anything in a matplotlib plot using the \code{rc} function.
 A small header file to override most of the default stuff in matplotlib to make it look more professional can be found here
 \href{https://github.com/charnley/matplotlib-header}{github.com/charnley/matplotlib-header}.
 Here is a before / after example.
 
 \begin{figure}[htb]
-  \includegraphics[width=0.5\textwidth]{figure_xy_before.png}
-  \includegraphics[width=0.5\textwidth]{figure_xy_after.png}
+  \includegraphics[width=0.5\textwidth]{images/figure_xy_before.png}
+  \includegraphics[width=0.5\textwidth]{images/figure_xy_after.png}
 \end{figure}
 
 
@@ -90,11 +90,11 @@ for line in f:
 
 \end{lstlisting}
 
-Also look up what the command \code{continue} does in a for-loop and what the method \code{.split()} does with a string.
+Also look up what the command \code{continue} does in a for-loop and what the method \code{.split()} does with a string. %why continue?
 
 \begin{enumerate}
-
-    \item Load all the energies into a Numpy array/list and corresponding array/list for displacement,
+    % Haven't had numpy yet
+    \item Load all the energies into a list and a corresponding list for displacement,
           for each method.
           Plot the data in the same plot.
 
@@ -141,7 +141,7 @@ where the columns are ID and binding energy in kcal/mol respectively.
 
 \begin{enumerate}
 
-    \item Load the data into corresponding arrays and calculate the theoretical binding energies using the above equation.
+    \item Load the data into corresponding lists and calculate the theoretical binding energies using the above equation.
 
     \item Plot the experimental vs calculated energies.
 
@@ -161,7 +161,7 @@ where the columns are ID and binding energy in kcal/mol respectively.
 
     \item As you might have noticed, there are two outliers with over 4.5 kcal deviation from the experimental value.
         Use \code{plt} to highlight which of the ligands these are, in the plot.
-        {\bf Hint:} Use the method \code{plt.tekst()} as described in the matplotlib guide / internet.
+        {\bf Hint:} Use the method \code{plt.text()} as described in the matplotlib guide / internet.
 
 \end{enumerate}
 
@@ -200,24 +200,24 @@ The file \code{chemical\_shift\_errors.txt} obtained from the course website con
 \end{enumerate}
 
 When plotting a histogram you can select the number of bins to present the data with by giving the argument \code{bins=10}. (10 is the default value in Matplotlib).
-If you try changing the number of bins you can severely affect how the data 'looks', especially if your number of datapoints are relatively low.
-% put this in since all this shouldn't take long for the students to do.
-The Freedman-Diaconis Rule can be used to select the number of bins automatically.
-The following code takes as argument the data and returns the optimal number of bins according to the Freedman-Diaconis Rule.
+%If you try changing the number of bins you can severely affect how the data 'looks', especially if your number of datapoints are relatively low.
+%% put this in since all this shouldn't take long for the students to do.
+%The Freedman-Diaconis Rule can be used to select the number of bins automatically.
+%The following code takes as argument the data and returns the optimal number of bins according to the Freedman-Diaconis Rule.
+%
+%\begin{lstlisting}
+%def bins(data):
+%    data.sort()
+%    n=len(data)
+%    width = 2*(data[3*n/4]-data[n/4])*n**(-1./3)
+%    return int((data[-1]-data[0])/width)
+%\end{lstlisting}
 
-\begin{lstlisting}
-def bins(data):
-    data.sort()
-    n=len(data)
-    width = 2*(data[3*n/4]-data[n/4])*n**(-1./3)
-    return int((data[-1]-data[0])/width)
-\end{lstlisting}
-
-\begin{enumerate}[resume]
-
-    \item Plot the histogram again using the Freedman-Diaconis Rule to select number of bins.
-
-\end{enumerate}
+%\begin{enumerate}[resume]
+%
+%    \item Plot the histogram again using the Freedman-Diaconis Rule to select number of bins.
+%
+%\end{enumerate}
 
 If these errors are completely random, they should approximately follow a normal distribution (also known as a Gaussian distribution).
 We can use the module \code{scipy.stats} to fit a distribution to a dataset.
@@ -233,19 +233,19 @@ To draw this curve we will need a set of $x$ and $y$-values that cover our data 
 
 \begin{enumerate}[resume]
 
-    \item Use \code{np.arange()} together with the \code{max()} and \code{min()} functions to generate $x$-values that range from the lowest data point to the highest in steps of \code{1e\-3}. Store these in a variable called \code{x}.
+    \item Use \code{np.arange()} together with the \code{max()} and \code{min()} functions to generate $x$-values that range from the lowest data point to the highest in steps of \code{1e{-3}}. Store these in a variable called \code{x}.
 
 \end{enumerate}
 
 The function \code{ss.norm.pdf(x, param\_1, param\_2)} returns the probability densities for a normal distribution for all values of \code{x}.
 \code{param\_1} and \code{param\_2} are the mean and standard deviation you obtained from the fit.
 
-Fitting more complicated distributions will return more than two parameters.
-To avoid having to adjust the number of arguments for each distribution you look at, the following works for every distribution in the \code{scipy.stats} package:
+%Fitting more complicated distributions will return more than two parameters.
+%To avoid having to adjust the number of arguments for each distribution you look at, the following works for every distribution in the \code{scipy.stats} package:
 
 \begin{lstlisting}
-parameters = norm.fit(data)
-y = norm.pdf(x, *parameters)
+param_1, param_2 = ss.norm.fit(data)
+y = ss.norm.pdf(x, param_1, param_2)
 \end{lstlisting}
 
 
@@ -255,7 +255,7 @@ y = norm.pdf(x, *parameters)
 
     \item Try to plot the fitted distribution together with the histogram. \emph{Hint!} Use \code{normed=1} as argument to your histogram.
 
-    \item Try fitting other popular distributions such as the Cauchy/Lorenz distribution \code{ss.cauchy} or the Student's t-distribution \code{ss.t}.
+    %\item Try fitting other popular distributions such as the Cauchy/Lorenz distribution \code{ss.cauchy} or the Student's t-distribution \code{ss.t}.
 
 \end{enumerate}
 
