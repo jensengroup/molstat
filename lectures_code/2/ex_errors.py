@@ -1,4 +1,12 @@
 
+# from test
+
+x = [2, 4, 6, 8, 10]
+y = [1, 3, 5, 7, 9]
+z = x + y
+print z[1]
+
+
 # Example 3, Debugging
 
 # 01
