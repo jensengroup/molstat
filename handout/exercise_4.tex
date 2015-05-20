@@ -183,6 +183,13 @@ Instead of this formulation it is more practical for our purpose to write the te
 
 where $N_\alpha$ is the number of degrees of freedoms, i.e. $N_\alpha = N_{\mathrm{dimensions}} \cdot N_{\mathrm{particles}}$. Note; that we use fundamental units and simple masses, so $k_\mathrm{B} = 1$ and $m_i = 1$.\\
 
+If the simulation is run with constant temperature $T$, the velocities needs to be scaled with a factor $\alpha$ which is calculated from the desired temperature $T$ and the current temperature $T_\mathrm{kin}$.
+\begin{eqnarray}
+    \alpha = \sqrt{T/T_\mathrm{kin}}
+    \label{eq:temp_factor}
+\end{eqnarray}
+
+
 % \textbf{Hint:} If you do this in Numpy, this can be written easily as:
 % \begin{lstlisting}[language=python]
 % temperature = 2.0 * e_kin / np.size(V)
@@ -194,27 +201,27 @@ where $N_\alpha$ is the number of degrees of freedoms, i.e. $N_\alpha = N_{\math
 % Why do both implementations yield the same result?
 
 
-\subsection{Instantaneous Pressure}
-
-The instantaneous pressure in a Van der Waal gas simulation can be calculated as:
-
-\begin{eqnarray}
-    P(t) & = & \rho \ T(t) + \frac{1}{3V_\mathrm{box}}  \sum_{i>j} \vec{F_{ij}} \cdot \vec{r_{ij}}\\
-         & = & \rho \ T(t) + \frac{1}{3V_\mathrm{box}} W_{vir} \label{eq:intmp}
-\end{eqnarray}
-
-where $V_\mathrm{box}$ is the volume of the box,
-$\rho$ is the particle-density of the box, and
-$W_{vir} = \sum_{i>j} \vec{F_{ij}} \cdot \vec{r_{ij}}$ is the Clausius virial function (or \textit{virial} for short) of the system.\\
-
-Since we were not using a standard Lennard-Jones potential (we use a small cut-off distance),
-we have to add a small correction (the \textit{tail correction}) to Eq. \ref{eq:intmp} in order to account for the interaction we are neglecting:
-
-\begin{eqnarray}
-    \Delta P_\mathrm{tail} & = & \frac{16}{3}\pi \rho \left[ \frac{2}{3}\left( \frac{\sigma}{r_{\mathrm{cut}}} \right)^9 - \left(\frac{\sigma}{r_{\mathrm{cut}}} \right)^3 \right]
-\end{eqnarray}
-
-Here we simply set $\sigma = 1$. Remember $r_{\mathrm{cut}} = 2.5$.
+% \subsection{Instantaneous Pressure}
+%
+% The instantaneous pressure in a Van der Waal gas simulation can be calculated as:
+%
+% \begin{eqnarray}
+%     P(t) & = & \rho \ T(t) + \frac{1}{3V_\mathrm{box}}  \sum_{i>j} \vec{F_{ij}} \cdot \vec{r_{ij}}\\
+%          & = & \rho \ T(t) + \frac{1}{3V_\mathrm{box}} W_{vir} \label{eq:intmp}
+% \end{eqnarray}
+%
+% where $V_\mathrm{box}$ is the volume of the box,
+% $\rho$ is the particle-density of the box, and
+% $W_{vir} = \sum_{i>j} \vec{F_{ij}} \cdot \vec{r_{ij}}$ is the Clausius virial function (or \textit{virial} for short) of the system.\\
+%
+% Since we were not using a standard Lennard-Jones potential (we use a small cut-off distance),
+% we have to add a small correction (the \textit{tail correction}) to Eq. \ref{eq:intmp} in order to account for the interaction we are neglecting:
+%
+% \begin{eqnarray}
+%     \Delta P_\mathrm{tail} & = & \frac{16}{3}\pi \rho \left[ \frac{2}{3}\left( \frac{\sigma}{r_{\mathrm{cut}}} \right)^9 - \left(\frac{\sigma}{r_{\mathrm{cut}}} \right)^3 \right]
+% \end{eqnarray}
+%
+% Here we simply set $\sigma = 1$. Remember $r_{\mathrm{cut}} = 2.5$.
 
 \newpage
 
@@ -372,7 +379,7 @@ R, V, F, box_width = md.initialize_particles(n_atoms, temp, rho, eps)
 \code{R} is an $N\times2$ array, which holds the $x$ and $y$ coordinates for all $N$ particles.
 Likewise \code{V} and \code{F} holds the initial velocities and forces respectively.
 \code{box\_width} is the width of the scaled box, which today you cannot specify yourself,
-since it is based on the density of the particles.
+since it is based on the density of the particles.\\
 
 %\begin{enumerate} % Virker lidt ligegyldigt når du lige har skrevet det.
 %    \item Understand the variables R, V and F. What are the dimensions and data types of the variables?
@@ -386,7 +393,7 @@ energy_potential, F = md.lennard_jones(R, box_width, eps)
 \end{lstlisting}
 
 \begin{enumerate}[resume]
-    \item Understand the variables energy\_potential and F.
+    \item Understand the return values from the two functions.
         What are the dimensions and data types of the variables?
 
  
@@ -402,7 +409,7 @@ energy_potential, F = md.lennard_jones(R, box_width, eps)
         but using the cool new Numpy tricks.
         You don't need to check if the particles exit the box since the \code{lennard\_jones} function uses periodic boundary conditions.
         Note, except for the loop over steps, there should not be any loops in the simulation function.
-       {\em Hint:i} See page 2 for the Velo-Verlet algorithm if you forgot it.
+       {\em Hint:} See page 2 for the Velo-Verlet algorithm if you forgot it.
 
 
     \item Create a new python file and import the module you just created. Call the simulation function with the following constants.
@@ -419,6 +426,8 @@ n_steps = 500000
     \item Save the kinetic energy, potential energy and total energy.
         Plot the energies vs steps.
 
+    \item Find out when equilibrium, and make sure the system is in equilibrium before plotting data.
+
     \item Calculate and save the temperature.
         Plot the temperature vs steps.
 
@@ -427,15 +436,88 @@ n_steps = 500000
     \item Create a function \code{scale\_temp} with the parameters velocities and wanted temperature.
         Scale the temperature and return the velocities.
         
-    \item What happens to the total energy?
+    \item What happens to the total energy if you scale the velocities?
 
-    \item Make a video of a gas, liquid and solid simulation.
+    \item Make a video of a gas, liquid and solid simulation, using different constant temperatures.
 
 \end{enumerate}
 
 
+Next, let's look at a what will happen if we add different particles to the simulation.
+The way we do this is by changing the epsilon values, so the interaction/potential is different.\\
 
+In out matrices of particles we now choose particle 0 and 1 is of different type.
+Because these new particles interact with each other and others we now have 3 different epsilon values.
+Instead of setting the epsilon values to 1, we set it for each individual interaction type.
 
+\begin{itemize}
+    \item type a - type a (eps = 0.8)
+    \item type a - type b (eps = 0.1)
+    \item type b - type b (eps = 0.1)
+\end{itemize}
+
+Which is done by the following code
+
+% change values
+\begin{lstlisting}
+eps = np.ones((n_atoms, n_atoms))
+for i in range(n_atoms):
+    for j in range(n_atoms):
+        if i > j:
+            eps[i,j] = 0.1
+
+            if j <= 1:
+                eps[i,j] = 0.1
+
+            if i <= 1 and j <= 1:
+                eps[i,j] = 0.8
+\end{lstlisting}
+
+\begin{enumerate}[resume]
+    \item Set number of particles to 4 and print out the matrix.
+        Is the eps values in line with interaction types?
+\end{enumerate}
+
+To add a different color to the first two particles, use the video module lige this
+% add colors
+\begin{lstlisting}
+# set particle 1 and 2 to other color
+colors = ['#4daf4a' for _ in range(n_atoms)]
+colors[0] = "#377eb8"
+colors[1] = "#377eb8"
+video.add_color(colors)
+\end{lstlisting}
+
+% simulate
+
+\begin{enumerate}[resume]
+    \item Create a video of the two particle types.
+\end{enumerate}
+
+When calculating the distance between the two particles, you have to keep in mind that we are now operating under periodic boundary conditions, and must correct acordingly.
+The distance between particle 0 and 1, in a perodic box, can be calculated as
+
+% calculate distance
+\begin{lstlisting}
+# calculate the distance between 0 and 1
+X  = R[0, 0] - R[0, 1]
+Y  = R[1, 0] - R[1, 1]
+# Periodic boundary condition
+X  -= box_width * np.rint(X/box_width)
+Y  -= box_width * np.rint(Y/box_width)
+# calculate distance
+d = np.sqrt(X**2 + Y**2)
+\end{lstlisting}
+
+\begin{enumerate}[resume]
+    \item Calculate the distance between particle 0 and 1 and plot with time.
+
+    \item Calculate the binding constant $k = t_\mathrm{together} / t_\mathrm{apart}$,
+        if we set the $r_\mathrm{bound} = 1.52$.
+
+    \item A what temperature will the particles rather be apart than together?
+
+\end{enumerate}
 
 
 
