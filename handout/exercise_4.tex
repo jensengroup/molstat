@@ -35,10 +35,10 @@ The goals of this exercise:
         \item Kinetic energy
         \item Total energy
         \item Temperature
-        \item Pressure
+        \item Binding constant
     \end{enumerate}
 
-    \item Visualize your results in a 3D video.
+    \item Visualize your results in a video.
 
 \end{enumerate}
 
@@ -178,10 +178,16 @@ Instead of this formulation it is more practical for our purpose to write the te
 
 \begin{eqnarray}
     T(t) &=& 2 \frac{E_{kin}(t)}{k_\mathrm{B} \ N_\alpha }\\
-         &=& \sum_i \frac{m_i\vec{v_i} \cdot \vec{v_i}}{k_\mathrm{B} \ N_\alpha}
+         &=& \sum_i \frac{m_i|\vec{v_i}| \cdot |\vec{v_i}|}{k_\mathrm{B} \ N_\alpha}
 \end{eqnarray}
 
 where $N_\alpha$ is the number of degrees of freedoms, i.e. $N_\alpha = N_{\mathrm{dimensions}} \cdot N_{\mathrm{particles}}$. Note that we use fundamental units and simple masses, so $k_\mathrm{B} = 1$ and $m_i = 1$.\\
+
+If the simulation is run with constant temperature $T$, the velocities needs to be scaled with a factor $\gamma$ which is calculated from the desired temperature $T$ and the current temperature $T_\mathrm{kin}$.
+\begin{eqnarray}
+    \alpha = \sqrt{T/T_\mathrm{kin}}
+    \label{eq:temp_factor}
+\end{eqnarray}
 
 % \textbf{Hint:} If you do this in Numpy, this can be written easily as:
 % \begin{lstlisting}[language=python]
@@ -323,8 +329,10 @@ L = np.array(L)
    \item Create a $2\times 3$ array with the following code:
 
 \begin{lstlisting}
-num_vector = np.arange(0, (2,3))
+num_vector = np.arange(0, 6).reshape(2,3)
+\end{lstlisting}
 
+   \item What does \code{reshape()} do?
 
    \item What does \code{np.sum()} do? Using \code{num\_vector} from before, what is the result of the following code?
 
@@ -341,7 +349,7 @@ np.mean(num_vector)
 
    \item What does \code{np.random.uniform(0.0, 1.0)} do?
 
-   \item (Optional) How to get a random float from a normal distribution, using Numpy? \newline
+   \item (Optional) How can you sample a random float from a normal distribution, using Numpy? \newline
        {\em Hint:} Use Google.
 
 \end{enumerate}
@@ -352,13 +360,13 @@ np.mean(num_vector)
 
 \section{Molecular Dynamics using modules and anaconda}
 
-Before you begin the exercise make sure to  download \code{md\_header.py} and \code{md\_video.py} from the course website.
-You will also need the Anaconda package, by writing the following into a terminal
+Before you begin the exercise make sure to download \code{md\_header.py} and \code{md\_video.py} from the course website.
+You will also need the Anaconda package, which can be installed by writing the following into a terminal
 \begin{lstlisting}
 wget -q -O - http://dgu.ki.ku.dk/molbox/setup.sh | bash
 \end{lstlisting}
 
-You will want to use the \code{md\_header.py} for the initialization and calculation of the LJ forces, which is done by importing it:
+You will want to use \code{md\_header.py} for the initialization and calculation of the LJ forces, which is done by importing it:
 
 \begin{lstlisting}
 import numpy as np
@@ -379,7 +387,7 @@ R, V, F, box_width = md.initialize_particles(n_atoms, temp, rho, eps)
 \code{R} is an $N\times2$ array, which holds the $x$ and $y$ coordinates for all $N$ particles.
 Likewise \code{V} and \code{F} holds the initial velocities and forces respectively.
 \code{box\_width} is the width of the scaled box, which today you cannot specify yourself,
-since it is based on the density of the particles.
+since it is based on the density of the particles.\\
 
 %\begin{enumerate} % Virker lidt ligegyldigt når du lige har skrevet det.
 %    \item Understand the variables R, V and F. What are the dimensions and data types of the variables?
@@ -393,7 +401,7 @@ energy_potential, F = md.lennard_jones(R, box_width, eps)
 \end{lstlisting}
 
 \begin{enumerate}[resume]
-    \item Understand the variables energy\_potential and F.
+    \item Understand the return values of the two functions.
         What are the dimensions and data types of the variables?
 
  
@@ -409,7 +417,7 @@ energy_potential, F = md.lennard_jones(R, box_width, eps)
         but using the cool new Numpy tricks.
         You don't need to check if the particles exit the box since the \code{lennard\_jones} function uses periodic boundary conditions.
         Note, except for the loop over steps, there should not be any loops in the simulation function.
-       {\em Hint:i} See page 2 for the Velo-Verlet algorithm if you forgot it.
+       {\em Hint:} See page 2 for the Velo-Verlet algorithm if you forgot it.
 
 
     \item Create a new python file and import the module you just created. Call the simulation function with the following constants.
@@ -426,6 +434,8 @@ n_steps = 500000
     \item Save the kinetic energy, potential energy and total energy.
         Plot the energies vs steps.
 
+    \item Find out when the system reaches equilibrium, and make sure the system is in equilibrium before plotting data.
+
     \item Calculate and save the temperature.
         Plot the temperature vs steps.
 
@@ -434,13 +444,82 @@ n_steps = 500000
     \item Create a function \code{scale\_temp} with the parameters velocities and wanted temperature.
         Scale the temperature and return the velocities.
         
-    \item What happens to the total energy?
+    \item What happens to the total energy if you scale the velocities?
 
-    \item Make a video of a gas, liquid and solid simulation.
+    \item Make a video of a gas, liquid and solid simulation, using different constant temperatures.
 
 \end{enumerate}
 
+Next, let's look at a what will happen if we have different types of particles in the simulation.
+The way we will do this is by changing the epsilon values such that the interaction/potential depends on the specific particle interaction.\\
 
+We now choose particle 0 and 1 to be of a different type than the rest of the particles
+Because these new particles interact differently with each other and the other particles, we now have 3 different epsilon values.
+Instead of setting the epsilon values to 1, we set it differently for each individual interaction type.
+
+\begin{itemize}
+    \item type a - type a (eps = 0.8)
+    \item type a - type b (eps = 0.1)
+    \item type b - type b (eps = 0.1)
+\end{itemize}
+
+This is done by the following code
+
+% change values
+\begin{lstlisting}
+eps = np.ones((n_atoms, n_atoms))
+eps = eps/10.0
+eps[0,0] = 0.8
+eps[1,1] = 0.8
+\end{lstlisting}
+
+\begin{enumerate}[resume]
+    \item Set number of particles to 4 and print out the eps matrix.
+        Is the eps values in line with interaction types?
+\end{enumerate}
+
+To display the first two particles with a different color, use the video module like this
+% add colors
+\begin{lstlisting}
+# set particle 1 and 2 to other color
+colors = ['#4daf4a' for x in range(n_atoms)]
+colors[0] = "#377eb8"
+colors[1] = "#377eb8"
+video.add_color(colors)
+\end{lstlisting}
+
+% simulate
+
+\begin{enumerate}[resume]
+    \item Create a video of the simulation with two particle types.
+\end{enumerate}
+
+When calculating the distance between two particles, you have to keep in mind that we are now operating under periodic boundary conditions, and must correct accordingly.
+The distance between particle 0 and 1 in a perodic box can be calculated as
+
+% calculate distance
+\begin{lstlisting}
+# calculate the distance between 0 and 1
+X  = R[0, 0] - R[0, 1]
+Y  = R[1, 0] - R[1, 1]
+# Periodic boundary condition
+X  -= box_width * np.rint(X/box_width)
+Y  -= box_width * np.rint(Y/box_width)
+# calculate distance
+d = np.sqrt(X**2 + Y**2)
+\end{lstlisting}
+
+\begin{enumerate}[resume]
+    \item \code{np.rint()} rounds a float to the nearest integer. Assure yourself of what the code above does.
+
+    \item Calculate the distance between particle 0 and 1 during the simulation and plot it against the  time.
+
+    \item Calculate the binding constant $k = t_\mathrm{together} / t_\mathrm{apart}$,
+        if we set maximum distance for binding to $r_\mathrm{bound} = 1.52$.
+
+    \item At what temperature will the particles rather be apart than together?
+
+\end{enumerate}
 
 
 
