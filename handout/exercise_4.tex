@@ -42,7 +42,7 @@ The goals of this exercise:
 
 \end{enumerate}
 
-You should read the Numpy handout available on the course website.
+%You should read the Numpy handout available on the course website. %% Er den lavet?
 
 \subsection{Lennard-Jones potential and periodic boundary conditions}
 
@@ -104,9 +104,9 @@ The $y$- and $z$-components are defined in the same way.
 Last week your setup confined the particles in the simulation inside a box with hard walls.
 Today's exercise uses periodic boundary conditions in the minimum-image convention.
 %
-You don't have to implement this code, since it's already implemented in the FORTRAN library you will be using.
-The Velo-Verlet integrator you have to implement is thus very simple (and identical to last week).
-The Velo-Verlet equations for integrating the positions and velocities are (in the $x$-direction for one particle):
+You don't have to implement this code, since you will be using a much faster implementation located on the course website.
+The Velo-Verlet algorithm you have to implement is thus very simple (and identical to last week).
+The Velo-Verlet equations for updating the positions and velocities are (in the $x$-direction for one particle):
 
 \begin{eqnarray}
     R_x(t + dt) &=& R_x(t) + dt\ V_x(t) + 0.5\ dt^2\ A_x(t) \label{eq:position_x}\\
@@ -134,7 +134,7 @@ The total kinetic energy of the system can be calculated as:
     E_{\mathrm{kin}} = \sum_i \frac{1}{2} m_i |\vec{v_i}|^2
 \end{equation}
 
-In our simulation $m_i$ is set to 1, so the above reduces to:
+In our simulation the mass $m_i$ is set to 1, so the above reduces to:
 
 \begin{equation}
     E_{\mathrm{kin}} = \frac{1}{2} \sum_i |\vec{v_i}| \cdot |\vec{v_i}|
@@ -164,12 +164,12 @@ Often this is due to the timestep $dt$ being too large, which causes the numeric
 
 \subsection{Instantaneous temperature}
 
-The first thermodynamic property we will derive from our simulation is the instantaneous temperature,
-that is the temperature as a function of time, $T(t)$.
-You will sometimes see the temperature defined in terms of the average kinetic energy per degree of freedom in a system:
+The first thermodynamic property we will derive from our simulation is the instantaneous temperature.
+That is the temperature as a function of time, $T(t)$.
+You will sometimes see the temperature defined in terms of the average kinetic energy of the system:
 
 \begin{eqnarray}
-    \langle E_{\alpha} \rangle = \frac{1}{2} k_\mathrm{B} \ T
+    \langle E_{\alpha} \rangle = \frac{1}{2} k_\mathrm{B} \ T,
 \end{eqnarray}
 
 where $\alpha$ denotes the degrees of freedom in the system.
@@ -178,17 +178,10 @@ Instead of this formulation it is more practical for our purpose to write the te
 
 \begin{eqnarray}
     T(t) &=& 2 \frac{E_{kin}(t)}{k_\mathrm{B} \ N_\alpha }\\
-         &=& \sum_i \frac{m_i|\vec{v_i}| \cdot |\vec{v_i}|}{k_\mathrm{B} \ N_\alpha}
+         &=& \sum_i \frac{m_i\vec{v_i} \cdot \vec{v_i}}{k_\mathrm{B} \ N_\alpha}
 \end{eqnarray}
 
-where $N_\alpha$ is the number of degrees of freedoms, i.e. $N_\alpha = N_{\mathrm{dimensions}} \cdot N_{\mathrm{particles}}$. Note; that we use fundamental units and simple masses, so $k_\mathrm{B} = 1$ and $m_i = 1$.\\
-
-If the simulation is run with constant temperature $T$, the velocities needs to be scaled with a factor $\alpha$ which is calculated from the desired temperature $T$ and the current temperature $T_\mathrm{kin}$.
-\begin{eqnarray}
-    \alpha = \sqrt{T/T_\mathrm{kin}}
-    \label{eq:temp_factor}
-\end{eqnarray}
-
+where $N_\alpha$ is the number of degrees of freedoms, i.e. $N_\alpha = N_{\mathrm{dimensions}} \cdot N_{\mathrm{particles}}$. Note that we use fundamental units and simple masses, so $k_\mathrm{B} = 1$ and $m_i = 1$.\\
 
 % \textbf{Hint:} If you do this in Numpy, this can be written easily as:
 % \begin{lstlisting}[language=python]
@@ -200,28 +193,29 @@ If the simulation is run with constant temperature $T$, the velocities needs to 
 % Why this is true? What does np.size() calculate? What does np.mean() calculate?
 % Why do both implementations yield the same result?
 
+% Går ud fra at dette er skåret fra siden at virial funktionen er fjernet som output af LD
 
-% \subsection{Instantaneous Pressure}
+%\subsection{Instantaneous Pressure}
 %
-% The instantaneous pressure in a Van der Waal gas simulation can be calculated as:
+%The instantaneous pressure in a Van der Waal gas simulation can be calculated as:
 %
-% \begin{eqnarray}
-%     P(t) & = & \rho \ T(t) + \frac{1}{3V_\mathrm{box}}  \sum_{i>j} \vec{F_{ij}} \cdot \vec{r_{ij}}\\
-%          & = & \rho \ T(t) + \frac{1}{3V_\mathrm{box}} W_{vir} \label{eq:intmp}
-% \end{eqnarray}
+%\begin{eqnarray}
+%    P(t) & = & \rho \ T(t) + \frac{1}{3V_\mathrm{box}}  \sum_{i>j} \vec{F_{ij}} \cdot \vec{r_{ij}}\\
+%         & = & \rho \ T(t) + \frac{1}{3V_\mathrm{box}} W_{vir} \label{eq:intmp}
+%\end{eqnarray}
 %
-% where $V_\mathrm{box}$ is the volume of the box,
-% $\rho$ is the particle-density of the box, and
-% $W_{vir} = \sum_{i>j} \vec{F_{ij}} \cdot \vec{r_{ij}}$ is the Clausius virial function (or \textit{virial} for short) of the system.\\
+%where $V_\mathrm{box}$ is the volume of the box,
+%$\rho$ is the particle-density of the box, and
+%$W_{vir} = \sum_{i>j} \vec{F_{ij}} \cdot \vec{r_{ij}}$ is the Clausius virial function (or \textit{virial} for short) of the system.\\
 %
-% Since we were not using a standard Lennard-Jones potential (we use a small cut-off distance),
-% we have to add a small correction (the \textit{tail correction}) to Eq. \ref{eq:intmp} in order to account for the interaction we are neglecting:
+%Since we were not using a standard Lennard-Jones potential (we use a small cut-off distance),
+%we have to add a small correction (the \textit{tail correction}) to Eq. \ref{eq:intmp} in order to account for the interaction we are neglecting:
 %
-% \begin{eqnarray}
-%     \Delta P_\mathrm{tail} & = & \frac{16}{3}\pi \rho \left[ \frac{2}{3}\left( \frac{\sigma}{r_{\mathrm{cut}}} \right)^9 - \left(\frac{\sigma}{r_{\mathrm{cut}}} \right)^3 \right]
-% \end{eqnarray}
+%\begin{eqnarray}
+%    \Delta P_\mathrm{tail} & = & \frac{16}{3}\pi \rho \left[ \frac{2}{3}\left( \frac{\sigma}{r_{\mathrm{cut}}} \right)^9 - \left(\frac{\sigma}{r_{\mathrm{cut}}} \right)^3 \right]
+%\end{eqnarray}
 %
-% Here we simply set $\sigma = 1$. Remember $r_{\mathrm{cut}} = 2.5$.
+%Here we simply set $\sigma = 1$. Remember $r_{\mathrm{cut}} = 2.5$.
 
 \newpage
 
@@ -240,7 +234,6 @@ If the simulation is run with constant temperature $T$, the velocities needs to 
 % mean
 % shape
 % +=, -=, *=, /=
-
 
 
 When working with Python "in the real world" you will most often use Numerical Python (NumPy) and vectorization.
@@ -276,7 +269,7 @@ a += 5
 \end{lstlisting}
 
 With Numpy arrays, you can perform mathematical operations on every element at once,
-just like before.
+just like above.
 \begin{lstlisting}
 V = np.zeros(5)
 V += 5
@@ -288,11 +281,10 @@ V += 5
     \item This does not work with normal Python Lists. Why? 
 \end{enumerate}
 
-When you create a Numpy array, you always specify a size.
-This represents how much computer memory is allocated by Numpy.
+When you create a Numpy array, you always specify a size, such that the required computer memory can be pre-allocated by Numpy.
 For this reason it is not possible to use the \code{append} method, as with the Python list datatype.\\
 
-You can create any kind of dimensional array with Numpy, i.e. here is a 5x3 array of zeros;
+You can create any kind of dimensional array with Numpy, i.e. here is a 5x3 array of zeros:
 
 \begin{lstlisting}
 V = np.zeros((3,5))
@@ -303,7 +295,7 @@ V = np.zeros((3,5))
 \end{enumerate}
 
 If you are not sure how big your array is going to be, you can create a list, append elements,
-and then after all elements are appended, convert it to a Numpy array as following.
+and then after all elements are appended, convert it to a Numpy array as follows:
 
 \begin{lstlisting}
 L = []
@@ -312,19 +304,27 @@ for i in range(10):
 L = np.array(L)
 \end{lstlisting}
 
-A very useful command to use is \code{np.arange()}, which is similar to the \code{range()} command.
+%% Har de været igennem
+%A very useful command to use is \code{np.arange()}, which is similar to the \code{range()} command.
+%
+%\begin{enumerate}[resume]
+%   \item Execute the code
+%
+%\begin{lstlisting}
+%num_vector = np.arange(0, 5)
+%print num_vector
+%num_vector = np.arange(0, 5, 0.1)
+%print num_vector
+%\end{lstlisting}
+%
+%   and explain what the method \code{np.arange()} does.
 
 \begin{enumerate}[resume]
-   \item Execute the code
+   \item Create a $2\times 3$ array with the following code:
 
 \begin{lstlisting}
-num_vector = np.arange(0, 5)
-print num_vector
-num_vector = np.arange(0, 5, 0.1)
-print num_vector
-\end{lstlisting}
+num_vector = np.arange(0, (2,3))
 
-   and explain what the method \code{np.arange()} does.
 
    \item What does \code{np.sum()} do? Using \code{num\_vector} from before, what is the result of the following code?
 
@@ -379,7 +379,7 @@ R, V, F, box_width = md.initialize_particles(n_atoms, temp, rho, eps)
 \code{R} is an $N\times2$ array, which holds the $x$ and $y$ coordinates for all $N$ particles.
 Likewise \code{V} and \code{F} holds the initial velocities and forces respectively.
 \code{box\_width} is the width of the scaled box, which today you cannot specify yourself,
-since it is based on the density of the particles.\\
+since it is based on the density of the particles.
 
 %\begin{enumerate} % Virker lidt ligegyldigt når du lige har skrevet det.
 %    \item Understand the variables R, V and F. What are the dimensions and data types of the variables?
@@ -393,7 +393,7 @@ energy_potential, F = md.lennard_jones(R, box_width, eps)
 \end{lstlisting}
 
 \begin{enumerate}[resume]
-    \item Understand the return values from the two functions.
+    \item Understand the variables energy\_potential and F.
         What are the dimensions and data types of the variables?
 
  
@@ -409,7 +409,7 @@ energy_potential, F = md.lennard_jones(R, box_width, eps)
         but using the cool new Numpy tricks.
         You don't need to check if the particles exit the box since the \code{lennard\_jones} function uses periodic boundary conditions.
         Note, except for the loop over steps, there should not be any loops in the simulation function.
-       {\em Hint:} See page 2 for the Velo-Verlet algorithm if you forgot it.
+       {\em Hint:i} See page 2 for the Velo-Verlet algorithm if you forgot it.
 
 
     \item Create a new python file and import the module you just created. Call the simulation function with the following constants.
@@ -426,8 +426,6 @@ n_steps = 500000
     \item Save the kinetic energy, potential energy and total energy.
         Plot the energies vs steps.
 
-    \item Find out when equilibrium, and make sure the system is in equilibrium before plotting data.
-
     \item Calculate and save the temperature.
         Plot the temperature vs steps.
 
@@ -436,88 +434,15 @@ n_steps = 500000
     \item Create a function \code{scale\_temp} with the parameters velocities and wanted temperature.
         Scale the temperature and return the velocities.
         
-    \item What happens to the total energy if you scale the velocities?
+    \item What happens to the total energy?
 
-    \item Make a video of a gas, liquid and solid simulation, using different constant temperatures.
-
-\end{enumerate}
-
-
-Next, let's look at a what will happen if we add different particles to the simulation.
-The way we do this is by changing the epsilon values, so the interaction/potential is different.\\
-
-In out matrices of particles we now choose particle 0 and 1 is of different type.
-Because these new particles interact with each other and others we now have 3 different epsilon values.
-Instead of setting the epsilon values to 1, we set it for each individual interaction type.
-
-\begin{itemize}
-    \item type a - type a (eps = 0.8)
-    \item type a - type b (eps = 0.1)
-    \item type b - type b (eps = 0.1)
-\end{itemize}
-
-Which is done by the following code
-
-% change values
-\begin{lstlisting}
-eps = np.ones((n_atoms, n_atoms))
-for i in range(n_atoms):
-    for j in range(n_atoms):
-        if i > j:
-            eps[i,j] = 0.1
-
-            if j <= 1:
-                eps[i,j] = 0.1
-
-            if i <= 1 and j <= 1:
-                eps[i,j] = 0.8
-\end{lstlisting}
-
-\begin{enumerate}[resume]
-    \item Set number of particles to 4 and print out the matrix.
-        Is the eps values in line with interaction types?
-\end{enumerate}
-
-To add a different color to the first two particles, use the video module lige this
-% add colors
-\begin{lstlisting}
-# set particle 1 and 2 to other color
-colors = ['#4daf4a' for _ in range(n_atoms)]
-colors[0] = "#377eb8"
-colors[1] = "#377eb8"
-video.add_color(colors)
-\end{lstlisting}
-
-% simulate
-
-\begin{enumerate}[resume]
-    \item Create a video of the two particle types.
-\end{enumerate}
-
-When calculating the distance between the two particles, you have to keep in mind that we are now operating under periodic boundary conditions, and must correct acordingly.
-The distance between particle 0 and 1, in a perodic box, can be calculated as
-
-% calculate distance
-\begin{lstlisting}
-# calculate the distance between 0 and 1
-X  = R[0, 0] - R[0, 1]
-Y  = R[1, 0] - R[1, 1]
-# Periodic boundary condition
-X  -= box_width * np.rint(X/box_width)
-Y  -= box_width * np.rint(Y/box_width)
-# calculate distance
-d = np.sqrt(X**2 + Y**2)
-\end{lstlisting}
-
-\begin{enumerate}[resume]
-    \item Calculate the distance between particle 0 and 1 and plot with time.
-
-    \item Calculate the binding constant $k = t_\mathrm{together} / t_\mathrm{apart}$,
-        if we set the $r_\mathrm{bound} = 1.52$.
-
-    \item A what temperature will the particles rather be apart than together?
+    \item Make a video of a gas, liquid and solid simulation.
 
 \end{enumerate}
+
+
+
+
 
 
 
