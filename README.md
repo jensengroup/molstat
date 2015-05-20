@@ -7,6 +7,9 @@ See INSTALL.MD
 
 # Lecture Plan
 
+## check virtualization with cpu-z (vt-x/vmx for intel, svm amd)
+# http://www.cpuid.com/softwares/cpu-z.html
+
 ## Week 1
 
 Science

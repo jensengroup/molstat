@@ -25,7 +25,7 @@
 
 The goals of this exercise:
 \begin{enumerate}
-    \item Write a molecular-dynamics program in three dimension using the supplied module.
+    \item Write a molecular-dynamics program in two dimension using the supplied module.
 
     \item Implement a 3D Velo-Verlet solver, using Numpy Arrays.
 
@@ -345,13 +345,13 @@ np.mean(num_vector)
 
 \section{Molecular Dynamics using modules and anaconda}
 
-Before you start make you you have downloaded \code{md\_header.py} and \code{md\_video.py}.
-Also make sure that you have downloaded Anaconda, by writing the following into a terminal
+Before you begin the exercise make sure to  download \code{md\_header.py} and \code{md\_video.py} from the course website.
+You will also need the Anaconda package, by writing the following into a terminal
 \begin{lstlisting}
 wget -q -O - http://dgu.ki.ku.dk/molbox/setup.sh | bash
 \end{lstlisting}
 
-Firstly we want to use the \code{md\_header.py} for the initialization and calculation of the LJ force, which is done by importing it;
+You will want to use the \code{md\_header.py} for the initialization and calculation of the LJ forces, which is done by importing it:
 
 \begin{lstlisting}
 import numpy as np
@@ -359,29 +359,27 @@ import md_video as video
 import md_header as md
 \end{lstlisting}
 
-The \code{initialize\_particles} function from the header takes the arguments
-number of atoms, temperature, density (rho) and eps matrix (which is still 1).
-Eps is now a matrix because then we get to play with multiple eps values later.
-The function returns the positions, velocities, forces and the box width, based on the temperature and density.
+The \code{initialize\_particles} function from the header takes as arguments
+the number of atoms, temperature, density (rho) and epsilon matrix (eps).
+Epsilon is now a matrix (of ones) because we will use differing epsilon values later.
+The function returns the positions, velocities, forces and box width, based on the temperature and density.
 
 \begin{lstlisting}
 eps = np.ones((n_atoms, n_atoms)) # eps is still 1
 R, V, F, box_width = md.initialize_particles(n_atoms, temp, rho, eps)
 \end{lstlisting}
 
-You will notice that \code{initialize\_particles()} returns four values.
-\code{R} is the position array.
-It is an $Nx2$ array, which holds the $x$ and $y$ coordinates for all $N$ particles.
-Likewise \code{V} and \code{F} holds the initial velocities and forces, respectively.
+\code{R} is an $N\times2$ array, which holds the $x$ and $y$ coordinates for all $N$ particles.
+Likewise \code{V} and \code{F} holds the initial velocities and forces respectively.
 \code{box\_width} is the width of the scaled box, which today you cannot specify yourself,
-since it is based on the density of the particles.\\
+since it is based on the density of the particles.
 
-\begin{enumerate}
-    \item Understand the variables R, V and F. What are the dimensions and data types of the variables?
-\end{enumerate}
+%\begin{enumerate} % Virker lidt ligegyldigt når du lige har skrevet det.
+%    \item Understand the variables R, V and F. What are the dimensions and data types of the variables?
+%\end{enumerate}
 
-The second function from the md module is the \code{lennard\_jones} which takes the arguments positions, box width and eps (where eps is the matrix defined earlier).
-The function returns the potential energy, the force and the 
+The second function that you will use from the md module is \code{lennard\_jones} which takes as arguments positions, box width and eps (where eps is the matrix defined earlier).
+It returns the potential energy and the force.
 
 \begin{lstlisting}
 energy_potential, F = md.lennard_jones(R, box_width, eps)
@@ -392,7 +390,7 @@ energy_potential, F = md.lennard_jones(R, box_width, eps)
         What are the dimensions and data types of the variables?
 
  
-    \item Create a function called "simulation" with the following parameters;
+    \item Create a function called "simulation" that takes the following parameters as input:
         number of atoms,
         number of steps,
         particle density (rho),
@@ -400,9 +398,11 @@ energy_potential, F = md.lennard_jones(R, box_width, eps)
         time step (dt).
 
 
-    \item In the simulation function implement the Velo-verlet solver from last week, but using the cool new Numpy tricks.
+    \item In the simulation function implement the Velo-Verlet solver from last week,
+        but using the cool new Numpy tricks.
+        You don't need to check if the particles exit the box since the \code{lennard\_jones} function uses periodic boundary conditions.
         Note, except for the loop over steps, there should not be any loops in the simulation function.
-        {\em Hint: See page 2 for the velo verlet algorithm if you forgot it}
+       {\em Hint:i} See page 2 for the Velo-Verlet algorithm if you forgot it.
 
 
     \item Create a new python file and import the module you just created. Call the simulation function with the following constants.
@@ -420,14 +420,14 @@ n_steps = 500000
         Plot the energies vs steps.
 
     \item Calculate and save the temperature.
-        Plot the energy vs steps.
+        Plot the temperature vs steps.
 
     \item Why is the temperature not constant?
 
     \item Create a function \code{scale\_temp} with the parameters velocities and wanted temperature.
         Scale the temperature and return the velocities.
         
-    \item What happens to the energy?
+    \item What happens to the total energy?
 
     \item Make a video of a gas, liquid and solid simulation.
 
