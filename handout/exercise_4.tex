@@ -1,6 +1,6 @@
 \documentclass{article}
 
-\input{../../handout_preamble}
+\input{../handout_preamble}
 
 
 % ***************************************************
@@ -8,7 +8,7 @@
 
 \title{Exercise 4}
 \author{Molecular Statistics, Week 4}
-\date{2014}
+\date{}
 
 % ***************************************************
 
@@ -342,220 +342,102 @@ np.mean(num_vector)
 
 \newpage
 
-\section{Molecular Dynamics simulation}
 
-Before you start, download the three files from absalon, \code{md\_header.py}, \code{forces.so} and \code{video3d.py}.
-Put both files in the same folder as the Python program you are working on today.
+\section{Molecular Dynamics using modules and anaconda}
 
-\begin{itemize}
+Before you start make you you have downloaded \code{md\_header.py} and \code{md\_video.py}.
+Also make sure that you have downloaded Anaconda, by writing the following into a terminal
+\begin{lstlisting}
+wget -q -O - http://dgu.ki.ku.dk/molbox/setup.sh | bash
+\end{lstlisting}
 
-    \item \code{md\_header.py} contains functions to initialize the particles, calculate the Lennard-Jones forces and energy as well as a function to visualize a 3D video of your simulation.
-    \item \code{forces.so} implements the calculation of the Lennard-Jones forces in a very efficient FORTRAN routine.
-        You don't have to worry about the technical details of this, just know that the FORTRAN routine is about 300 times faster than the same code running in Python.
-
-    \item \code{video3d.py} uses matplotlib to visualize the simulation in 3 dimensions.
-
-\end{itemize}
-
-Make a new Python program, and name it \code{exercise\_4.py}.
-In the first two lines import Numpy and the three functions from the downloaded module.
+Firstly we want to use the \code{md\_header.py} for the initialization and calculation of the LJ force, which is done by importing it;
 
 \begin{lstlisting}
 import numpy as np
+import md_video as video
 import md_header as md
-import video3d
 \end{lstlisting}
 
-Last week you wrote your own code to initialize the particle positions, velocities, box width etc.
-The \code{md.initialize\_particles()} function you will import is a bit more advanced.
-%
-The function takes as arguments the number of particles, the given temperature and a desired particle density.\\
-
-The temperature option is used to scale the particle velocities appropriately (see section 1.5) and the \code{rho} keyword is used to scale the width of the box according to the number of particles.
-We need to be able to specify a particle density in order to calculate the pressure correctly, see section 1.6.
-
-\begin{enumerate}
-
-    \item Initialize your system with the following code:
+The \code{initialize\_particles} function from the header takes the arguments
+number of atoms, temperature, density (rho) and eps matrix (which is still 1).
+Eps is now a matrix because then we get to play with multiple eps values later.
+The function returns the positions, velocities, forces and the box width, based on the temperature and density.
 
 \begin{lstlisting}
-R, V, F, box_width = md.initialize_particles(n_particles, temperature, rho)
+eps = np.ones((n_atoms, n_atoms)) # eps is still 1
+R, V, F, box_width = md.initialize_particles(n_atoms, temp, rho, eps)
 \end{lstlisting}
-
-        Suggested values are temperature = 2.0 and rho = 0.1.
-        You will get a chance to play around with these values later.
-
-\end{enumerate}
 
 You will notice that \code{initialize\_particles()} returns four values.
 \code{R} is the position array.
-It is an $Nx3$ array, which holds the $x$, $y$ and $z$ coordinates for all $N$ particles.
+It is an $Nx2$ array, which holds the $x$ and $y$ coordinates for all $N$ particles.
 Likewise \code{V} and \code{F} holds the initial velocities and forces, respectively.
 \code{box\_width} is the width of the scaled box, which today you cannot specify yourself,
 since it is based on the density of the particles.\\
 
-The second new function you got from the \code{md} module is \code{lennard\_jones()} which can be used like this:
+\begin{enumerate}
+    \item Understand the variables R, V and F. What are the dimensions and data types of the variables?
+\end{enumerate}
+
+The second function from the md module is the \code{lennard\_jones} which takes the arguments positions, box width and eps (where eps is the matrix defined earlier).
+The function returns the potential energy, the force and the 
 
 \begin{lstlisting}
-e_pot, F, w_vir = md.lennard_jones(R, box_width)
+energy_potential, F = md.lennard_jones(R, box_width, eps)
 \end{lstlisting}
-
-\code{lennard\_jones} takes as arguments the position array \code{R} and \code{box\_width}.
-Just like last week, the \code{lennard\_jones} function returns the potential energy \code{e\_pot},
-a force matrix \code{F}, but now also the virial of the system, \code{w\_vir} (see section 1.6).\\
-
 
 \begin{enumerate}[resume]
+    \item Understand the variables energy\_potential and F.
+        What are the dimensions and data types of the variables?
 
-    \item Now it's time to test the \code{lennard\_jones} function.
-        Instead of giving R as input to lennard\_jones, call the function with the following \code{R\_test} array:
+ 
+    \item Create a function called "simulation" with the following parameters;
+        number of atoms,
+        number of steps,
+        particle density (rho),
+        temperature and
+        time step (dt).
 
+
+    \item In the simulation function implement the Velo-verlet solver from last week, but using the cool new Numpy tricks.
+        Note, except for the loop over steps, there should not be any loops in the simulation function.
+        {\em Hint: See page 2 for the velo verlet algorithm if you forgot it}
+
+
+    \item Create a new python file and import the module you just created. Call the simulation function with the following constants.
 \begin{lstlisting}
-R_test = np.array([[0.7, 2.3, 0.7], [0.7,  0.7, 2.3], [0.7, 0.7, 0.7]])
+temperature = 2.0
+rho = 0.2
+dt = 0.0005
+n_steps = 500000
 \end{lstlisting}
 
-    and \code{box\_width = 3.10}. That is:
 
-\begin{lstlisting}
-print lennard_jones(R_test, 3.10)
-\end{lstlisting}
+    \item Create a movie using the video module.
 
-    The potential energy should be -0.635, the virial -3.732,
-    and the forces array (rounded values):
+    \item Save the kinetic energy, potential energy and total energy.
+        Plot the energies vs steps.
 
-\begin{lstlisting}
-array([[-1.16   1.24  -0.09]
-        [-1.16  -0.09   1.24]
-        [ 0.0    0.0    0.0  ]])
-\end{lstlisting}
+    \item Calculate and save the temperature.
+        Plot the energy vs steps.
 
-    \item
-    The $z$-components of the force are correctly 0 (why?).
+    \item Why is the temperature not constant?
+
+    \item Create a function \code{scale\_temp} with the parameters velocities and wanted temperature.
+        Scale the temperature and return the velocities.
+        
+    \item What happens to the energy?
+
+    \item Make a video of a gas, liquid and solid simulation.
 
 \end{enumerate}
 
-Now it is time to implement the Velo-Verlet solver from last week, but using the new module and Numpy.
-
-\begin{enumerate}[resume]
-
-    \item After the initialization of the system put the solver code in.
-        Look the following code for inspiration.
-
-\begin{lstlisting}
-for n in range(n_steps):
-    # Step 1: Calculate new positions
-    R += ...
-
-    # Step 2: Calculate new forces
-    F_old = copy.copy(F)
-    e_pot, F, w_vir = lennard_jones(R, box_width)
-
-    #Step 3: Calculate new Velocities:
-    V += ...
-\end{lstlisting}
-
-    {\bf Hint:} Look at last weeks exercise if you need inspiration on where to put the solver code.
-
-    \item Initialize your system with 40 particles, \code{rho = 0.1} and \code{temperature = 2.0.}
-        Run your simulation for 1000 steps with $dt = 0.001$.
-        Every 10 steps print the potential energy.
-        The potential energy should stabilize around -20 if your solver works properly.
-
-    \item Now would be a good time to implement the video function.
-        The new 3D video is used like the other by adding frames and saving like:
-
-\begin{lstlisting}
-# Add Frame
-video3d.add_frame(R)
-
-# Save movie
-video3d.save('my_video', box_width)
-
-\end{lstlisting}
-
-        Use this to add a frame every 10'th step.
-
-    \item Run 2000 steps and save a video.
-
-\end{enumerate}
-
-You have now successfully implemented a MD simulation of a Lennard-Jones gas.
-The goal now is to use the equations from section 1 to calculate interesting physical properties of your system.
-
-\begin{enumerate}[resume]
-
-    \item Use the equations from section 1.3 to calculate the kinetic energy.
-        Print the kinetic energy, potential energy and total energy each 10 steps.
-
-    \item Make three empty lists called \code{ekin\_list}, \code{epot\_list} and \code{etot\_list} and append the current values to these lists every 10 steps instead of printing them.
-
-    \item Run your simulation for 10,000 steps.
-        Do not save a video, since this will take several minutes to compile.
-        Use Matplotlib to make a plot of the energies vs. time:
-
-\begin{lstlisting}
-plt.clf()
-plt.plot(ekin_list, 'r-', label='Kinetic Energy')
-plt.plot(epot_list, 'b-', label='Potential Energy')
-plt.plot(etot_list, 'g-', label='Total Energy')
-plt.legend() # Plot labels in figure
-plt.savefig("my_energy.png")
-\end{lstlisting}
-
-    How does the energies evolve if you run your simulation with 40 particles at T = 2.0?
-    Now run your simulation at a lower temperature (maybe T = 0.5).
-    How does the energy change?
-
-    \begin{figure}[h!]
-        \begin{center}
-            \includegraphics[width=0.75\textwidth]{energy.png}
-            \caption{
-                Evolution of energies during an MD simulation with
-                $T = 0.5$, 40 particles, \code{rho} = 0.1, for 10,000 steps
-                and saving every 10'th step.
-            }
-            \label{fig:energies}
-        \end{center}
-    \end{figure}
 
 
-    \item Use the equations from section 1.5 to calculate the instantaneous
-    temperatures during the simulation. 
 
-    \item Like for the energies, make an empty list called T\_list and append the instantaneous temperature every 10 steps.
-        Use Matplotlib to make a plot of this list. See Figure \ref{fig:temperature} for an example.
 
-    \begin{figure}[h!]
-        \begin{center}
-            \includegraphics[width=0.75\textwidth]{temperature.png}
-            \caption{Evolution of temperature during an MD simulation with $T = 0.5$, 40 particles, \code{rho} = 0.1.}
-            \label{fig:temperature}
-        \end{center}
-    \end{figure}
 
-    Does the temperature you calculate correspond to the temperature you specified when you initialized your particles?
-    Run your simulation at $T = 0.05$.
-
-    \item Answer this question before you proceed: Why is the gas a Van der Waals gas and not an ideal gas?
-        I.e. why isn't the pressure simply $p = \frac{N T}{V}$.
-        % Answer: Ideal gas is non-interaction particles, but there is so much space around then r_ij ~= inf
-
-    \item
-        Use the equations from section 1.6 to calculate the instantaneous pressure during the simulation. 
-
-    \item Use Matplotlib to plot the pressure during the simulation, as done in the previous exercises.
-        How does the temperature and particle density affect the pressure?
-        See Figure \ref{fig:pressure} for example.
-
-        \begin{figure}[h!]
-            \begin{center}
-                \includegraphics[width=0.75\textwidth]{pressure.png}
-                \caption{Evolution of pressure during an MD simulation with $T = 0.5$, 40 particles, \code{rho} = 0.1.}
-                \label{fig:pressure}
-            \end{center}
-        \end{figure}
-
-\end{enumerate}
 
 % ***************************************************
 % END DOCUMENT
