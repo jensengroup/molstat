@@ -79,9 +79,9 @@ E_{\mathrm{total}}=\sum^{\mathrm{neighbours}}_{ij} \epsilon_{ij} = -J \sum^{\mat
 
 where the sum runs over all unique neighboring pairs of magnetic dipoles.\\
 
-The spin interaction for the element in position $i$ will interact with four other elements.
+The spin or the element in position $i$ will interact with four other elements.
 The spin immediately above, below, to the right and to the left of that position as shown in figure \ref{fig:neighbors}.
-The interaction energy $e$ between these spins can be calculated in Python as:
+The interaction energy \code{e} between these spins can be calculated in Python as:
 
 \begin{lstlisting}[language=python]
 e  = -J * lattice[x][y] * lattice[x][yplus]
@@ -113,7 +113,7 @@ P = \min \left[1, \exp \left(-\frac{\Delta E}{k_{\mathrm{B}}T}\right) \right]
 \end{equation} 
 
 If $\Delta E < 0$, the acceptance probability is $P = 1$, which means that new states with a lower energy are \textit{always} accepted.
-Conversely, states with a $\Delta E > 0 $ are only accepted with the probability described above.
+Conversely, states with $\Delta E > 0 $ are only accepted with the probability described above.
 Whether or not a move is accepted is evaluated using random numbers.
 Python code for evaluating this could be:
 \begin{lstlisting}
@@ -122,7 +122,7 @@ for n in range(n_steps):
     dE = ...
     if dE < 0:
         # Accept change
-    elif math.exp(-dE / (kB * T)) >= random.random():
+    elif np.exp(-dE / (kB * T)) >= np.random.random():
         # Accept change
     else:
         # Reject change
@@ -170,7 +170,7 @@ M =\frac{1}{L^2} \sum_i S_i
 
 where $L$ is the width of the lattice.
 At a low temperature $M$ will be close to either 1 or -1, depending on how the spins align.
-Conversely, all spins are random in the high temperature limit, and the overall magnetization is close to 0.
+Conversely, all spins are random in the high temperature limit, and the overall magnetization will be close to 0.
 
 \subsubsection{Magnetic susceptibility}
 
@@ -194,7 +194,7 @@ The system undergoes a phase transition if the temperature is changed across $T_
 The central mathematical entity in your program is the 2D lattice.
 Come up with a way to define a square 2D list (or Numpy array) containing randomly distributed values of -1 or 1.
 
-\subsection{Calculation total energy}
+\subsection{Calculating total energy}
 
 In order to calculate the total energy of a system you have to sum up all unique pairs of interactions. Make a function called \code{calc\_energy()} that takes the lattice as argument:
 
@@ -227,7 +227,7 @@ y = np.random.randint(lattice_size)
 grid[x][y] *= -1.0
 \end{lstlisting}
 
-This, of course, has to be carried out once every step iteration.
+This, of course, has to be carried out once every iteration.
 
 \subsection{Implementing the Metropolis-Hastings algorithm}
 
@@ -242,7 +242,7 @@ for n in range(n_steps):
     dE = e_new - e_old
     if dE <= 0:
         # Accept the change
-    elif math.exp(-dE / T) >= random.random():
+    elif np.exp(-dE / T) >= np.random.random():
         # Accept the change
     else:
         # Reject the change
