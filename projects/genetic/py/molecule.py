@@ -7,18 +7,18 @@ global forcefield
 
 
 def get_energy():
-    """ Returns the MMFF94 energy of the molecule in kcal/mol.
+    """ Returns the GAFF energy of the molecule in kcal/mol.
     """
 
     global mol
 
-    FF = ob.OBForceField.FindForceField("MMFF94")
+    FF = ob.OBForceField.FindForceField("GAFF")
     FF.Setup(mol.OBMol)
 
     return FF.Energy()
 
 
-def generate_alkane(n):
+def generate_chain(n):
     """ Generate a n-length carbon chain.
     """
 
@@ -31,7 +31,7 @@ def generate_alkane(n):
 
 
 def set_dihedral(angles):
-    """ Set the dehedral angles of the carbon chain
+    """ Set the dihedral angles of the carbon chain
     """
 
     global mol
@@ -41,6 +41,7 @@ def set_dihedral(angles):
     # constraints.AddDistanceConstraint(1, 10, 3.4)       # Angstroms
     # constraints.AddAngleConstraint(1, 2, 3, 120.0)      # Degrees
     # constraints.AddTorsionConstraint(1, 2, 3, 4, 180.0) # Degrees
+
 
     # Find all carbons
     smarts = pb.Smarts("C")
@@ -70,11 +71,13 @@ def set_dihedral(angles):
         constraints.AddTorsionConstraint(ai, bi, ci, di, anglep) # Degrees
 
     # Setup the force field with the constraints
-    forcefield = ob.OBForceField.FindForceField("MMFF94")
+    forcefield = ob.OBForceField.FindForceField("GAFF")
     forcefield.Setup(mol.OBMol)
     forcefield.SetConstraints(constraints)
+    forcefield.EnableCutOff(True) # VDW cutoff
+    forcefield.SetElectrostaticCutOff(0) # Remove electrostatics
 
-    # Use forcefield to reoptimize bondlengths
+    # Use forcefield to reoptimize bondlengths+angles
     find_local_min()
 
 
@@ -88,7 +91,7 @@ def find_local_min():
     # ConjugateGradients(1000)
     # SteepestDescent(1000)
 
-    forcefield.SteepestDescent(2000)
+    forcefield.SteepestDescent(50)
     forcefield.GetCoordinates(mol.OBMol)
 
 
@@ -103,7 +106,7 @@ def save_molecule(filename):
 
 if __name__ == '__main__':
 
-    generate_alkane(6)
+    generate_chain(6)
 
     print get_energy()
 

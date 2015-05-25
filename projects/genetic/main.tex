@@ -25,7 +25,7 @@
 \section{Introduction}
 
 The genetic algorithm is a general minimization algorithm which in this project is used to minimize the energy of alkane molecules, in the flavor of the general Monte-Carlo approach.
-The energy is calculated using the force field MMFF94 as implemented in the software package OpenBabel.
+The energy is calculated using the force field GAFF as implemented in the software package OpenBabel.
 
 \subsection{Force field and dihedral angle}
 
@@ -37,7 +37,7 @@ The energy for the molecule in a certain configuration is calculated as
     &= \sum^\mathrm{bonds}_i k_i (r_i - r_{i,e})^2
     + \sum^\mathrm{angles}_i k_i ( \sigma_i - \sigma_{i,e})^2
     + \sum^\mathrm{dihedrals}_i V_i [1 \pm \cos (n_i \omega_i) ] \nonumber \\
-    &+ \sum^\mathrm{atom pairs}_{i>j} \left ( -\frac{A_iA_j}{r^6_{ij}} + \frac{B_iB_j}{r^12_{ij}} + \frac{q_iq_j}{r_{ij}} \right )
+    &+ \sum^\mathrm{atom pairs}_{i>j} \left ( -\frac{A_iA_j}{r^6_{ij}} + \frac{B_iB_j}{r^{12}_{ij}} + \frac{q_iq_j}{r_{ij}} \right )
     \label{eq:amber}
 \end{align}
 
@@ -97,7 +97,7 @@ The genetic algorithm is an optimization algorithm that is based on genetic inhe
 The algorithm is efficient in searching through conformational space and locate minima.
 Here we employ the genetic algorithm to try and locate the lowest energy conformation for an alkane.\\
 
-As described before we define the geometry of an alkane chain through its dihedral angles $\omega_i$ between each of the successive CH$_2$ groups, and so by modifying these angles we change the structure and thereby the energy.\\
+As described before we define the geometry of an alkane chain through its dihedral angles $\omega_i$ between each of the successive CH$_2$ groups By modifying these angles we change the structure and thereby the energy.\\
 
 We start out by defining a state vector $\Omega$ as $\Omega = \{ \omega_1, \omega_2, ... , \omega_N \}$ where we have $N$ dihedral angles.
 Each $\omega_i$ is assigned an initial random value from an uniform distribution from 0 to 360 degrees.
@@ -109,11 +109,11 @@ Each $\omega_i$ is assigned an initial random value from an uniform distribution
 % \end{lstlisting}
 %
 We then create a set of $K$ state vectors.
-For each of these state vectors, we define a corresponding energy of the molecule $E(\Omega_K)$.
+For each of these state vectors, we define the corresponding energy of the molecule as $E(\Omega_K)$.
 The energy is obtained via the force field.
 From now on, these $K$ state vectors are referred to as \emph{parents}.\\
 
-The parents are then modified as a result from the following algorithm steps:
+Changes to the parents are proposed via the following algorithm steps:
 
 \begin{enumerate}
 
@@ -128,15 +128,17 @@ The parents are then modified as a result from the following algorithm steps:
 
     \item {\bf Evolution.} \newline
         Survival of the fittest.
-        If the energy of a child is lower than one of the parents, then the child is kept and the parent with the larger energy is removed (the child takes its parents place).
-        If the energy of the child is larger than a parent, there is still a probability $P$ that it survives the evolution step.           The probability $P$ is given by the Monte Carlo Metropolis Hastings acceptance criterion, i.e.
+        If the energy of a child is lower than one of the parents, then the child replaces the parent.
+        If the energy of the child is larger than the parent, there is still a probability $P$ that it survives the evolution step.
+        The probability $P$ is given by the Monte Carlo Metropolis Hastings acceptance criterion, i.e.
         \begin{align}
         P = e^{-\Delta E /(k_\mathrm{B}T)}
         \end{align}
 
         where $\Delta E$ is the energy difference between the child and the parent, and $T$ is the temperature of the system.
         In the following we set $k_\mathrm{B} = 1$ so all temperatures are in units of  $k_\mathrm{B}$.\\
-        When {\em one} child has replaced a parent, we consider this to be the end of the generation.\footnote{A big hint here would to look up the \code{break} command for loops}
+        When {\em all} parents have mate, we consider this to be the end of the generation.
+        %\em{Hint} Compare the first child with a random parent $\Omega_\alpha$ or $\Omega_\beta$. And then compare the second child to the remaining parent.
 
 \end{enumerate}
 
@@ -196,7 +198,7 @@ To make it easy to get started we have split the setup into small manageable ste
 \begin{enumerate}
     \item Use the code from \code{butane\_example.py} and familiarize yourself with it.
 
-    \item Create a list of angles from 0.0 to 180.0 degrees and calculate the energy of butane for each angle (you only have to generate the alkane once)
+    \item Create a list of angles from 0.0 to 180.0 degrees and calculate the energy of butane for each angle (you only have to generate the alkane once).
     Plot the result.
 
     \item Implement the following optimization algorithm, called \textbf{Greedy optimization}:
@@ -204,7 +206,7 @@ To make it easy to get started we have split the setup into small manageable ste
             \item Create a random dihedral state.
             \item Create an integer \code{no\_generations} which represents how long the algorithm will go on.
             \item Create a for-loop and loop over the no. of generations. 
-            For each loop generate a random dihedral state and calculate the energy.
+            For each loop generate a random angle for one of the dihedrals and calculate the energy.
             \item If the energy is lower than the previous generation, save the new energy and the new state, otherwise discard the new state and continue the search.
         \end{enumerate}
 
@@ -228,7 +230,10 @@ M = np.random.randint(0, N)
     Fill them up with \code{no\_parents} of random dihedral states,
     and calculate the energy for each.
 
-    \item Finish the algorithm by creating a for-loop and loop over the number of generations defined. For each parent pair select which parents and children survives based of the genetic algorithm.
+    \item Finish the algorithm by creating a for-loop and loop over the number of generations defined.
+          Pair all parents randomly for mating and select which parents and children survives based of the genetic algorithm.
+
+
 
 \end{enumerate}
 
@@ -252,15 +257,16 @@ M = np.random.randint(0, N)
       Check for correlation between mutation rate in the interval [0:0.5] and the energy found after $G$ generation for each molecule.
 
     \item {\bf Simulation 4}\newline
-      Compare the Greedy and Genetic algorithm by plotting the min energy vs generation.
+      Compare the Greedy and Genetic algorithm by plotting the min energy vs time.
 
     \item {\bf Simulation 5}\newline
-      Check the population size $K$ of parents.
+      Check the population size $K$ of parents between 4 and 100.
       Plot the number of generations it took to converge as a function of the number of $K$ parents.
 
     \item {\bf Simulation 6}\newline
       Make the Genetic Algorithm better.
       You have to come up with changes to the mating and mutation routine.
+      If your simulation is slow or never converge, then ask yourself what you can do to improve this.
       Change the algorithm to make your own personal minimization algorithm.
       Document the results.
 
