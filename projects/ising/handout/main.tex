@@ -188,6 +188,22 @@ The temperature $T_c = 2.269$ (the \textit{critical temperature}) is the highest
 The system undergoes a phase transition if the temperature is changed across $T_c$, from being an ordered state to a disordered state.
 
 \newpage
+\subsection{PyPy}
+PyPy is an alternative implementation of Python that functions similarly to Numba, which you have previously used via Anaconda.
+Using PyPy instead of regular Python gives you around a factor of 6 increase in speed,
+but it doesn't fully support NumPy or Matplotlib.
+You can get around this by using \code{lists} instead of \code{ndarrays}, the \code{random} module instead of \code{numpy.random} and saving the simulation observables to a file and plotting it later.
+Using PyPy isn't strictly necessary, but can help reduce your simulation time.
+You can install it by executing the following in the terminal:
+
+\begin{lstlisting}
+sudo apt-get install pypy
+\end{lstlisting}
+
+
+Then execute your python code with \code{pypy <program.py>} instead of with Python.
+
+\newpage
 \section{Assignment}
 \subsection{The 2D grid}
 
