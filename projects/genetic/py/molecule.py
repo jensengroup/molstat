@@ -18,8 +18,8 @@ def get_energy():
     return FF.Energy()
 
 
-def generate_chain(n):
-    """ Generate a n-length carbon chain.
+def generate_alkane(n):
+    """ Generate a n-length alkane.
     """
 
     global mol
@@ -106,7 +106,7 @@ def save_molecule(filename):
 
 if __name__ == '__main__':
 
-    generate_chain(6)
+    generate_alkane(6)
 
     print get_energy()
 
