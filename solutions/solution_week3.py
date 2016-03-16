@@ -146,7 +146,7 @@ def velo_verlet(x_positions, y_positions, x_velocities, y_velocities,
 ## Simulation Initialization
 box_width = 10.0
 n_particles = 42
-n_steps = 1000
+n_steps = 10000
 dt = 0.001
 
 # x_test = [0.0, 0.0]

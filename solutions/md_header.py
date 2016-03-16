@@ -1,73 +1,193 @@
-import numpy
-import time
+#!/usr/bin/env python
+
+import numpy as np
 import copy
 
+from numba import double, jit, autojit
 
-from forces import lennardjones as fortran_lj
+# from forces import lennardjones as fortran_lj
 
 
-def initialize_positions(natms, rho):
-    """ Initialize particle positions, based on number of atoms and density rho
+def initialize_positions(n, rho, d):
     """
-    n = natms
-    p = int(numpy.floor(n**(1.0/3.0))) + 1
-    box = (n/rho)**(1.0/3.0)
-    du = box/p
-    X = numpy.multiply.outer(numpy.ones(p), numpy.arange(p))
-    X = numpy.multiply.outer(numpy.ones(p), X)
-    Y = numpy.multiply.outer(numpy.arange(p), numpy.ones(p))
-    Y = numpy.multiply.outer(numpy.ones(p), Y)
-    Z = numpy.multiply.outer(numpy.arange(p), numpy.ones(p))
-    Z = numpy.multiply.outer(Z, numpy.ones(p))
-    U = numpy.reshape(numpy.ravel((X, Y, Z)), (3, p**3))
-    U = U[:, :n] * du + du / 2
-    return U
+    Initialize particle positions, based on number of atoms and density rho
 
+    n number of particles
+    rho particle density (n/box_width**d)
+    d number of dimensions
 
-def initialize_box(n_atoms, rho):
-    """ Initialize the box
+    TODO redo in dimensions!
+
     """
-    n = n_atoms
-    p = int(numpy.floor(n**(1.0/3.0))) + 1
-    box = (n/rho)**(1.0/3.0)
-    du = box/p
-    box = numpy.array([box]*3)
-    return box
+
+    # TODO Clean and make it numpy
+
+    npl = int(np.ceil( n**(1.0/float(d)) ))
+
+    # rho = n / volume = n / box_width**dimension
+    box_width = (n/rho)**(1.0/float(d))
+
+    dr = box_width / npl
+
+    X = []
+    Y = []
+
+    for j in range(npl):
+        X += [i for i in range(npl)]
+        Y += [j for i in range(npl)]
+
+    # Remove excess particles.
+    X = X[:n]
+    Y = Y[:n]
+
+    X = np.array(X)*dr + dr/2.0
+    Y = np.array(Y)*dr + dr/2.0
+
+    # shift 0 and 1 to center of box instead
+    X = np.roll(X, int(np.floor(n/2)+npl/2))
+    Y = np.roll(Y, int(np.floor(n/2)+npl/2))
 
 
-def initialize_velocities(U, T):
-    """ Initialize random velocities
+    # for -box_width, box_width
+    # but this is wrong volume
+    # X = (X - 0.5*(npl-1))*1.0/npl*box_width*1.8
+    # Y = (Y) * 1.0/npl*box_width*0.8
+
+    R = np.array([X, Y])
+
+    return R, box_width
+
+
+def swap_particles(frm, to, R):
     """
+    Swap positions between particle i and j
+    """
+    R[:,[frm, to]] = R[:,[to, frm]]
+
+
+def initialize_velocities(R, T):
+    """
+    Initialize random velocities
+    """
+
     # Calculate random velocities
     # Make the sum of velocities zero
-    ndim, n = numpy.shape(U)
-    V = numpy.random.rand(ndim, n) - 0.5
-    Vm = numpy.sum(V,1)/n
-    V -= numpy.reshape(Vm, (ndim,1))
+    d, n = np.shape(R)
+    V = np.random.rand(d, n) - 0.5
+    Vm = np.sum(V,1)/n
+    V -= np.reshape(Vm, (d,1))
 
-    # scale according to temperature
-    fs = numpy.dot( numpy.ravel(V), numpy.ravel(V) ) / n
+    V = scale_temp(V, T)
 
-    # the dot product of the velocities divided by the number of particles
-    fs = numpy.sqrt(ndim * T/fs)
-    V *= fs
+    # # the dot product of the velocities divided by the number of particles
+    # fs = np.dot( np.ravel(V), np.ravel(V) ) / n
+    #
+    # # scale according to temperature
+    # fs = np.sqrt(n * T/fs)
+    # V *= fs
+
 
     return V
 
 
-def initialize_particles(n_atoms, temperature, rho):
-    """ Initialize particles
+def lennard_jones(R, box_width, eps):
+    """
     """
 
-    U = initialize_positions(n_atoms, rho)
-    box = initialize_box(n_atoms, rho)
-    V = initialize_velocities(U, temperature)
-    epot, F, Vir = fortran_lj(U,box)
-
-    return U, V, F, box[0]
+    energy_potential, forces = force(R, box_width, eps)
 
 
-def lennard_jones(U, box):
-    return fortran_lj(U, numpy.array([box,box,box]))
+    return energy_potential, forces
+
+
+# Constants
+rc = 2.5 # cut-off distance
+rc2 = rc**2
+rc2i = 1.0/rc2
+rc6i = rc2i*rc2i*rc2i
+ecut = rc6i*(rc6i-1.0)
+
+
+@jit(argtypes=[double[:,:], double, double[:,:]])
+def force(R, box_width, eps):
+    """
+    Calculate the force of U given a box, for periodic boundary conditions
+    """
+
+    n_dim, n_part = np.shape(R)
+    F = np.zeros((n_dim, n_part))
+
+    epot = 0.0
+    vir = 0.0
+
+    for i in range(n_part):
+        for j in range(n_part):
+            if i > j:
+
+                X  = R[0, j] - R[0, i]
+                Y  = R[1, j] - R[1, i]
+
+                # Periodic boundary condition
+                X  -= box_width * np.rint(X/box_width)
+                Y  -= box_width * np.rint(Y/box_width)
+
+                # Distance squared
+                r2 = X*X + Y*Y
+
+                if r2 < rc2:
+                    r2i = 1.0 / r2
+                    r6i = r2i*r2i*r2i
+                    epot += eps[i,j]*r6i*(r6i-1.0) - ecut
+                    ftmp = eps[i,j]*48.0 * r6i*(r6i-0.5) * r2i
+
+                    F[0, i] -= ftmp * X
+                    F[1, i] -= ftmp * Y
+                    F[0, j] += ftmp * X
+                    F[1, j] += ftmp * Y
+
+                    vir += ftmp
+
+    epot = epot * 4.0
+
+    return epot, F
+
+
+
+def scale_temp(V, temp):
+    """
+    Scale velocities V to a certain temperature temp
+    """
+
+    # current temperature(t)
+    temp_t = np.mean(V*V)
+
+    # calculate scaling factor
+    scale = np.sqrt(temp/temp_t)
+    V *= scale
+
+    return V
+
+
+def initialize_particles(n_atoms, temperature, rho, eps=[]):
+    """
+    Initialize particles
+    """
+    dimension = 2
+
+    R, box_width = initialize_positions(n_atoms, rho, dimension)
+    V = initialize_velocities(R, temperature)
+
+    # swap particles
+    # swap_particles(0, np.random.randint(n_atoms), R)
+    # swap_particles(1, np.random.randint(n_atoms), R)
+
+    Epot, F = lennard_jones(R, box_width, eps)
+
+    return R, V, F, box_width
+
+
+if __name__ == '__main__':
+
+    print "Header self-test"
 
 

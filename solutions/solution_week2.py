@@ -26,31 +26,33 @@ def initialize_particles(n_particles, box_width, r_min):
     positions_y = np.random.uniform(-box_width, box_width, n_particles)
     velocities_x = np.random.uniform(-box_width, box_width, n_particles)
     velocities_y = np.random.uniform(-box_width, box_width, n_particles)
+
     # EXTRA
     # Enable this to fix particles overlapping when initialized
     #positions_x, positions_y = correct_initial_positions(positions_x, positions_y, box_width, n_particles, r_min)
     return positions_x, positions_y, velocities_x, velocities_y
 
-#def correct_initial_positions(positions_x, positions_y, box_width, n_particles, r_min):
-#    # If two particles collide in the initialization, give one of them a new random position
-#    # Repeat this 5 times
-#    for repetition in range(5):
-#        for i in range(n_particles):
-#            for j in range(i+1,n_particles):
-#
-#                # calculate distance
-#                d = distance(positions_x[i],
-#                             positions_y[i],
-#                             positions_x[j],
-#                             positions_y[j])
-#
-#                if d < r_min:
-#                    positions_x[j] = np.random.uniform(0.0, box_width)
-#                    positions_y[j] = np.random.uniform(-box_width, box_width)
-#
-#    return positions_x, positions_y
 
+def correct_initial_positions(positions_x, positions_y, box_width, n_particles, r_min):
+   """
+   If two particles collide in the initialization, give one of them a new random position
+   Repeat this 5 times
+   """
+   for repetition in range(5):
+       for i in range(n_particles):
+           for j in range(i+1,n_particles):
 
+               # calculate distance
+               d = distance(positions_x[i],
+                            positions_y[i],
+                            positions_x[j],
+                            positions_y[j])
+
+               if d < r_min:
+                   positions_x[j] = np.random.uniform(0.0, box_width)
+                   positions_y[j] = np.random.uniform(-box_width, box_width)
+
+   return positions_x, positions_y
 
 
 def simulate_step(positions_x, positions_y, velocities_x, velocities_y, dt, N, box_width, r_min):
@@ -85,28 +87,6 @@ def simulate_step(positions_x, positions_y, velocities_x, velocities_y, dt, N, b
                         positions_y[j])
 
             if d < r_min:
-                # EXTRA
-                # Enable this check to only correct colliding particles velocities
-                # if they are moving closer to each other at next step
-                #d_next = distance(positions_x[i] + velocities_x[i]*dt,
-                #                  positions_y[i] + velocities_y[i]*dt,
-                #                  positions_x[j] + velocities_x[j]*dt,
-                #                  positions_y[j] + velocities_y[j]*dt)
-                #if d < d_next:
-                #    continue
-
-                # EXTRA
-                # do this instead for proper angle handling
-                #c = (velocities_x[i] - velocities_x[j]) * (positions_x[i] - positions_x[j]) \
-                #  + (velocities_y[i] - velocities_y[j]) * (positions_y[i] - positions_y[j])
-                #c /= (positions_x[i] - positions_x[j])**2 + (positions_y[i] - positions_y[j])**2
-
-                #velocities_x[i] = velocities_x[i] - c * (positions_x[i] - positions_x[j])
-                #velocities_y[i] = velocities_y[i] - c * (positions_y[i] - positions_y[j])
-
-                #velocities_x[j] = velocities_x[j] - c * (positions_x[j] - positions_x[i])
-                #velocities_y[j] = velocities_y[j] - c * (positions_y[j] - positions_y[i])
-
 
                 vx_temp = velocities_x[i]
                 vy_temp = velocities_y[i]
@@ -116,6 +96,28 @@ def simulate_step(positions_x, positions_y, velocities_x, velocities_y, dt, N, b
 
                 velocities_x[j] = vx_temp
                 velocities_y[j] = vy_temp
+
+                # # EXTRA
+                # # Enable this check to only correct colliding particles velocities
+                # # if they are moving closer to each other at next step
+                # d_next = distance(positions_x[i] + velocities_x[i]*dt,
+                #                  positions_y[i] + velocities_y[i]*dt,
+                #                  positions_x[j] + velocities_x[j]*dt,
+                #                  positions_y[j] + velocities_y[j]*dt)
+                # if d < d_next:
+                #    continue
+                #
+                # # EXTRA
+                # # do this instead for proper angle handling
+                # c = (velocities_x[i] - velocities_x[j]) * (positions_x[i] - positions_x[j]) \
+                #  + (velocities_y[i] - velocities_y[j]) * (positions_y[i] - positions_y[j])
+                # c /= (positions_x[i] - positions_x[j])**2 + (positions_y[i] - positions_y[j])**2
+                #
+                # velocities_x[i] = velocities_x[i] - c * (positions_x[i] - positions_x[j])
+                # velocities_y[i] = velocities_y[i] - c * (positions_y[i] - positions_y[j])
+                #
+                # velocities_x[j] = velocities_x[j] - c * (positions_x[j] - positions_x[i])
+                # velocities_y[j] = velocities_y[j] - c * (positions_y[j] - positions_y[i])
 
                 # or
                 # velocities_x[i], velocities_x[j] = velocities_x[j], velocities_x[i]
@@ -213,6 +215,6 @@ write_list('test_list_eq', partdisteq)
 # plot_particles(X, Y, 'coordinates_end.png')
 
 
-video.save('hard_sphere')
+video.save('solution_video3')
 
 
