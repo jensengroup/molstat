@@ -1,0 +1,93 @@
+\documentclass{article}
+
+\input{../../handout_preamble}
+
+\usepackage{multicol} % \begin{columns}
+\usepackage{array}
+
+% ***************************************************
+% HEADER INFORMATION
+
+\title{Unix cheat-sheet}
+\author{Molecular Statistics}
+\date{Last edit: March 2016}
+
+% ***************************************************
+
+\begin{document}
+\newcommand{\ti}[1]{\texttt{\textit{#1}}}
+
+
+% ***************************************************
+% BEGIN DOCUMENT
+% ***************************************************
+% from https://www.rain.org/~mkummel/unix.html
+% and https://rumorscity.com/wp-content/uploads/2014/08/10-Linux-Unix-Command-Cheat-Sheet-021.jpg
+\maketitle
+
+\section{Introduction}
+Using the terminal to navigate through directories and file trees as well as managing files might seem excessive at first, but soon you will find that managing your data will become must faster this way. In order for this to be true, we here provide some of the most commonly used commands. We encourage all to go online at search "unix commands" if you are interested in becoming even more efficient. 
+
+\section{Common Commands}
+\subsection{Help on any Unix command}
+\begin{table}[h]
+\begin{tabular}{ll}
+ 	\texttt{man {command}} &	Type man ls to read the manual for the ls command. \\
+	\texttt{man {command} > {filename}} &	Redirect help to a file to download. \\
+	\texttt{whatis {command}} &	Give short description of command.\\
+\end{tabular}
+\end{table}
+
+\subsection{File Commands}
+\begin{table}[h]
+\begin{tabular}{>{\ttfamily}l l}
+	ls & list directory \\
+	ls -al & list with hidden files \\
+	cd \textit{dir} & change directory to \texttt{\textit{dir}}\\
+	cd & change to home \\
+	cd - & change to previous directory \\
+	pwd & show current directory \\
+	rm \textit{file} & remove \texttt{\textit{file}} \\
+	rm -r \textit{dir} & remove directory \\
+	cp \textit{file1} \textit{file2} & copy \ti{file1} to \ti{file2} (\ti{file2} is overwritten) \\
+	cp -r \ti{dir1} \ti{dir2} & copy \ti{dir1} to \ti{dir2}; create \ti{dir2} if it doesnt exist \\
+	cp \ti{file1} \ti{dir1} & copy \ti{file1} to \ti{dir1} \\
+	mv \ti{file1} \ti{dir1} & move \ti{file1} to \ti{dir1} \\
+	mv \ti{file1} \ti{file2} & rename \ti{file1} to \ti{file2} \\
+	touch \ti{file} & create or update \ti{file} \\
+	cat  > \ti{file} & place output in \ti{file} \\
+	more \ti{file} & output: contents of \ti{file} \\
+	head \ti{file} & first 10 lines of \ti{file} \\
+	tail \ti{file} & last 10 lines of \ti{file} \\
+	tail -f \ti{file} & follow end of \ti{file} as it grows \\
+\end{tabular}
+\end{table}
+
+\subsection{Permissions and searching}
+\begin{tabular}{>{\ttfamily}ll}
+\texttt{chmod} \ti{octal} \ti{file} & change permission of \ti{file} to \ti{octal} \\ 
+4 & read (r) \\ 
+2 & write (w) \\ 
+3 & execute (x) \\ 
+Examples &  \\ 
+\texttt{chmod 777} & rwx for all \\ 
+\texttt{chmod 755} & rwx for owner, rx for group and world \\ 
+\textnormal{For more options see} \texttt{chmod man} &  \\ 
+grep \ti{pattern} \ti{files} & search for \ti{pattern} in \ti{files} \\ 
+comman | grep \ti{pattern} & search for \ti{pattern} in the outpu of \texttt{command} \\ 
+locate \ti{file} & find all instances of \ti{file} \\
+\end{tabular} 
+
+\subsection{Shortcuts}
+\begin{tabular}{ll}
+Ctrl+C & Stop curent command \\ 
+Ctrl+Z & Pause current command. Restart with \texttt{fg} to run in forground and \texttt{bg} in background \\ 
+Ctrl+D & log out - simlar to \texttt{exit} \\ 
+Ctrl+U & Erase line \\ 
+Ctrl+R & Type to bring up recent command \\ 
+\end{tabular} 
+% ***************************************************
+% END DOCUMENT
+% ***************************************************
+
+\end{document}
