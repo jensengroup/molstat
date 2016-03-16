@@ -1,34 +1,36 @@
 
 # Molecular Statistic
 
+A bachelor course in understanding simulations and programming with Python
+
 # Setup
 
 See INSTALL.MD
 
-# Lecture Plan
+# Lecture Plan and Weekly Goals
 
 ## check virtualization with cpu-z (vt-x/vmx for intel, svm amd)
 # http://www.cpuid.com/softwares/cpu-z.html
 
 ## Week 1
 
-Science
+### Science
 
-- intro
+- Introduction to simulation thinking
 
-Programming
+### Programming skills
 
-- print statement
 - Variables and datatypes
-- operators and expressions
-- booleans (if else or)
-- looping
-- import (import numpy)
+- Print (output)
+- Operators and expressions
+- Booleans (if else or)
+- Looping and Double looping
+- Importing modules (e.g. numpy)
 
-Exercise
+### Exercise
 
 - Non-interacting particles
-- box
+- box boundaries
 
 
 ## Week 2
