@@ -1,5 +1,7 @@
 
-pr=${ARGS}
+# make ARGS="asdf" run
+
+pr=exercise_${ARGS}
 
 pdf=${pr}.pdf
 ps=${pr}.ps
@@ -9,11 +11,8 @@ tex=${pr}.tex
 aux=${pr}.aux
 out_pdf=output.pdf
 
-# make ARGS="asdf" run
-
 all: pstricks pdflatex
 	pdflatex ${tex}
-
 
 pdflatex:
 	pdflatex ${tex}

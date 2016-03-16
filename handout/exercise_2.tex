@@ -122,57 +122,57 @@ print man_height
 
 The reality is that our custom functions actually works like the built in functions in python (remember the \code{len(arg)} function from last week for instance), so once you know how to make one, you can essentially create as many you like.\\
 
-\section{Numpy}
+% \section{Numpy}
+%
+% To test functions we will need a list of $x$-values as input.
+% We could use the \code{range()} function from last week, but that would limit us to integers.
+% Instead we use a very useful tool call NumPy which is imported as all other tools;
+%
+% \begin{lstlisting}
+% import numpy as np
+% \end{lstlisting}
+%
+% We can then use the \code{np.arange(start, end, step)} function, similar to \code{range()}, but where the
+% \code{start},
+% \code{end}, and
+% \code{step}
+% can be floats instead of only integers.
+%
+% \begin{lstlisting}
+%     x_list = np.arange(0, 1.2, 0.1)
+%     print x_list
+% \end{lstlisting}
+%
+% \code{np.arange()} creates a data-type called a {\em NumPy array} which is similar, yet different to {\em lists}.
+% Unlike lists, NumPy arrays cannot hold more than one data type. So you can have a NumPy with strings or integers, but not strings {\em and} integers.
+% In addition you cannot (easily) change the size of the array with methods like {\em append}.
+% However what Numpy arrays {\em can} do is let you do mathematical operations on the entire array without having to use for-loops.
+%
+% \begin{enumerate}
+%     \setcounter{enumi}{3}
+%     \item Create the following list \code{a} and NumPy array \code{b}, and print them.
+%         \begin{lstlisting}
+%         a = range(0,5,1)
+%         b = np.arange(0,5,1)
+%         print a
+%         print b
+%         \end{lstlisting}
+%
+%     \item For \code{a}, try the following operations and understand the output. Do the same for \code{b}. \\
+%         {\em Note}: Some of the operations will result in errors. Try to explain why.
+%         \begin{lstlisting}
+%         print a + 2
+%         print a + a
+%         print a * 2
+%         print a ** 2
+%         print np.cos(a)
+%         \end{lstlisting}
+% \end{enumerate}
 
-To test functions we will need a list of $x$-values as input.
-We could use the \code{range()} function from last week, but that would limit us to integers.
-Instead we use a very useful tool call NumPy which is imported as all other tools;
 
-\begin{lstlisting}
-import numpy as np
-\end{lstlisting}
-
-We can then use the \code{np.arange(start, end, step)} function, similar to \code{range()}, but where the
-\code{start},
-\code{end}, and
-\code{step}
-can be floats instead of only integers.
-
-\begin{lstlisting}
-    x_list = np.arange(0, 1.2, 0.1)
-    print x_list
-\end{lstlisting}
-
-\code{np.arange()} creates a data-type called a {\em NumPy array} which is similar, yet different to {\em lists}.
-Unlike lists, NumPy arrays cannot hold more than one data type. So you can have a NumPy with strings or integers, but not strings {\em and} integers.
-In addition you cannot (easily) change the size of the array with methods like {\em append}.
-However what Numpy arrays {\em can} do is let you do mathematical operations on the entire array without having to use for-loops.
 
 \begin{enumerate}
-    \setcounter{enumi}{3}
-    \item Create the following list \code{a} and NumPy array \code{b}, and print them.
-        \begin{lstlisting}
-        a = range(0,5,1)
-        b = np.arange(0,5,1)
-        print a
-        print b
-        \end{lstlisting}
-
-    \item For \code{a}, try the following operations and understand the output. Do the same for \code{b}. \\
-        {\em Note}: Some of the operations will result in errors. Try to explain why.
-        \begin{lstlisting}
-        print a + 2
-        print a + a
-        print a * 2
-        print a ** 2
-        print np.cos(a)
-        \end{lstlisting}
-\end{enumerate}
-
-
-
-\begin{enumerate}
-  \setcounter{enumi}{5}
+  \setcounter{enumi}{3}
   \item Define the following function using \code{np.exp()}.
     \begin{align}
         h(x) = \frac{1}{x} + e^{5x}

@@ -118,6 +118,20 @@ In short it is a three-step procedure:
 
 The resulting forces, velocities and particle positions are then saved, and used as input for the next Velo-Verlet integration step.
 
+\section{Kinetic energy}
+
+The total kinetic energy of the system can be calculated as:
+
+\begin{equation}
+    E_{\mathrm{kin}} = \sum_i \frac{1}{2} m_i |\vec{v_i}|^2
+\end{equation}
+
+In our simulation $m_i$ is set to 1, so the above reduces to:
+
+\begin{equation}
+    E_{\mathrm{kin}} = \frac{1}{2} \sum_i |\vec{v_i}| \cdot |\vec{v_i}|
+\end{equation}
+
 \newpage
 \clearpage
 \section{Exercise}
@@ -134,8 +148,7 @@ Firstly, you will need to write the relevant code/functions to calculate the Len
 
 \end{enumerate}
 
-When you think you have written the Lennard-Jones energy function properly,
-it's time to test whether your function works correctly or not.
+When you think you have written the Lennard-Jones energy function properly, it's time to test whether your function works correctly or not.
 Define two lists:
 
 \begin{lstlisting}[language=python]
@@ -222,8 +235,8 @@ def initialize_particles(n_particles, box_width):
         Y[i] = (Y[i]) * 1.0/sqrt_npart * box_width * 0.8
 
     # Initialize particle velocities
-    Vx = [2 * (random.random() - 0.5) for i in range(n_particles)]
-    Vy = [2 * (random.random() - 0.5) for i in range(n_particles)]
+    Vx = [2 * (np.random.random() - 0.5) for i in range(n_particles)]
+    Vy = [2 * (np.random.random() - 0.5) for i in range(n_particles)]
 
     # Inititalize particle forces
     Fx, Fy, energy = lennard_jones(X, Y)
@@ -243,7 +256,7 @@ Now it's time to implement the Velo-Verlet solver.
 
     \item Create a new function and name it \code{velo\_verlet}.
         Have the function take positions, velocities, forces, number of particles and dt as arguments.
-        The new function should return the positions, velocities, forces and the energy of the system.
+        The new function should return the positions, velocities, forces and the potential energy of the system.
 
     \item Implement the three steps of the Velo-Verlet integration algorithm.
         Which means, implement the following code in your \code{velo\_verlet}-function.
@@ -297,11 +310,13 @@ Let's try and see how your simulation works.
 
 \begin{enumerate}[resume]
 
-    \item store the energy during the simulation in a file. Write the energy every 5th step.
-        
-    \item Plot the energy using another python script and see if the potential energy is roughly conserved over time.
+    \item We want also want to save the kinetic energy of the system. Write a function that calculates the kinetic energy given the velocities.
+
+    \item Store the steps and energies during the simulation in a file. Write the energy every 5th step.
+
+    \item Plot the energies using another python script and see if the total energy (kinetic + potential) is roughly conserved over time.
         If your time-step is too large or too small, this might not be the case.
-        A healthy simulation looks something like Figure \ref{fig:potential_energy}
+        A healthy simulation looks something like Figure \ref{fig:potential_energy}.
 
     \item Try and run the simulation with a small and a large $dt$ value. 
         Can you make the simulation break down this way?

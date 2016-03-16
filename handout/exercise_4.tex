@@ -27,7 +27,7 @@ The goals of this exercise:
 \begin{enumerate}
     \item Write a molecular-dynamics program in two dimension using the supplied module.
 
-    \item Implement a 3D Velo-Verlet solver, using Numpy Arrays.
+    \item Implement a 2D Velo-Verlet solver, using Numpy Arrays.
 
     \item Extend the program with functions to calculate the following properties:
 
@@ -183,10 +183,11 @@ Instead of this formulation it is more practical for our purpose to write the te
 
 where $N_\alpha$ is the number of degrees of freedoms, i.e. $N_\alpha = N_{\mathrm{dimensions}} \cdot N_{\mathrm{particles}}$. Note that we use fundamental units and simple masses, so $k_\mathrm{B} = 1$ and $m_i = 1$.\\
 
-If the simulation is run with constant temperature $T$, the velocities needs to be scaled with a factor $\gamma$ which is calculated from the desired temperature $T$ and the current temperature $T_\mathrm{kin}$.
+If the simulation is run with constant temperature $T$, the velocities needs to be scaled with a factor $\gamma$ which is calculated from the desired temperature $T$ and the current temperature $T_\mathrm{current}$.
 \begin{eqnarray}
-    \alpha = \sqrt{T/T_\mathrm{kin}}
+    \gamma = \sqrt{T/T_\mathrm{current}}\\
     \label{eq:temp_factor}
+    V_\mathrm{scaled} = \gamma \cdot V_\mathrm{current}
 \end{eqnarray}
 
 % \textbf{Hint:} If you do this in Numpy, this can be written easily as:
@@ -349,7 +350,7 @@ np.mean(num_vector)
 
    \item What does \code{np.random.uniform(0.0, 1.0)} do?
 
-   \item (Optional) How can you sample a random float from a normal distribution, using Numpy? \newline
+   \item How can you sample a random float from a normal distribution, using Numpy? \newline
        {\em Hint:} Use Google.
 
 \end{enumerate}
