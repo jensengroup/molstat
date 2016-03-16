@@ -242,5 +242,5 @@ if __name__ == "__main__":
         add_frame(np.array([np.random.random() for i in range(n_particles)]) * 10.0,
                   np.array([2 * (np.random.random() - 0.5) for i in range(n_particles)]) * 10.0)
 
-    save('random_particles', 10.0)
+    save('random_movie', 10.0)
 
