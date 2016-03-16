@@ -4,7 +4,7 @@
 
 \usepackage{multicol} % \begin{columns}
 \usepackage{array}
-
+\usepackage{hyperref}
 % ***************************************************
 % HEADER INFORMATION
 
@@ -16,13 +16,12 @@
 
 \begin{document}
 \newcommand{\ti}[1]{\texttt{\textit{#1}}}
-
+\renewcommand{\arraystretch}{2}
 
 % ***************************************************
 % BEGIN DOCUMENT
 % ***************************************************
-% from https://www.rain.org/~mkummel/unix.html
-% and https://rumorscity.com/wp-content/uploads/2014/08/10-Linux-Unix-Command-Cheat-Sheet-021.jpg
+
 \maketitle
 
 \section{Introduction}
@@ -90,4 +89,35 @@ Ctrl+R & Type to bring up recent command \\
 % END DOCUMENT
 % ***************************************************
 
+\subsection{Regular expressions}
+An expression is a string of characters.  A Regular Expression (RE) are sets of characters that match or specify a pattern. A RE contains one or more of the following
+
+\begin{itemize}
+\item \textit{A character set}. These are the characters retaining their literal meaning. The simplest type of Regular Expression consists only of a character set, with no metacharacters.
+\item \textit{An anchor}. These designate (anchor) the position in the line of text that the RE is to match. For example \$ is a anchor.
+\item \textit{Modifiers}. These expand or narrow (modify) the range of text the RE is to match. Modifiers include the asterisk, brackets, and the backslash.
+\end{itemize}
+
+\begin{tabular}{ll}
+* & matches anything preceeding it one ore more times \\ 
+Example & "1133*" matches 11 + one or more 3's \\ 
+. & matches any character except new line \\ 
+Example & "13." matches 13+ at least one of any character \\ 
+$\wedge$ & matches beginning of line \\ 
+\$ & matches end of line \\ 
+$[...]$ & encloses set of characters to match \\ 
+Example & [xyz] matches any one of the characters x,y or z \\ 
+$\backslash$ & escapes a special character - it is interpreted literally \\ 
+ $\backslash < ...\backslash >$ & marks word boundaries \\ 			
+Example &  $\backslash < \text{the} \backslash >$ matches "the" but not "them", "there", "other" etc. \\ 
+\end{tabular} 
+
+\vspace{50pt}
+
+
+
+References:\\
+\url{https://www.rain.org/~mkummel/unix.html} \\
+\url{https://rumorscity.com/wp-content/uploads/2014/08/10-Linux-Unix-Command-Cheat-Sheet-021.jpg}\\
+\url{http://tldp.org/LDP/abs/html/x17129.html}\\
 \end{document}
