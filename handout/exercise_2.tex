@@ -231,7 +231,7 @@ You can read and append file lines to a list with the following syntax
 f = open('long_list.txt')
 data_list = []
 for line in f:
-    data_list.append(int(line))
+    data_list.append(float(line))
 \end{lstlisting}
 
 \begin{enumerate}
@@ -428,8 +428,8 @@ plt.savefig('dist_histogram.png')
 \end{enumerate}
 
 \begin{figure}[htb]
-  \subfloat[Before equilibrium steps]{\includegraphics[width=0.5\textwidth]{images/partdist.eps}}
-  \subfloat[After equilibrium steps]{\includegraphics[width=0.5\textwidth]{images/partdisteq.eps}}
+  \subfloat[Before equilibrium steps]{\includegraphics[width=0.5\textwidth]{images/partdist.png}}
+  \subfloat[After equilibrium steps]{\includegraphics[width=0.5\textwidth]{images/partdisteq.png}}
   \label{fig:partdist}
   \caption{
      Count of the number of particles placed to the right in the container, a) before and b) after 10000 equilibrium steps.
