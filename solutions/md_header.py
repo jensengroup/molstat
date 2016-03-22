@@ -108,7 +108,8 @@ rc6i = rc2i*rc2i*rc2i
 ecut = rc6i*(rc6i-1.0)
 
 
-@jit(argtypes=[double[:,:], double, double[:,:]])
+#@jit(argtypes=[double[:,:], double, double[:,:]])
+@jit()
 def force(R, box_width, eps):
     """
     Calculate the force of U given a box, for periodic boundary conditions
