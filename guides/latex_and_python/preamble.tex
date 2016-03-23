@@ -1,0 +1,76 @@
+\usepackage[utf8]{inputenc}
+
+% Packages
+\usepackage{amsmath,amssymb}
+\usepackage{bm}% boldmath
+\usepackage{listings} % Code block (source code) \begin{lstlisting} 
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{lmodern}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage[textwidth=16cm,textheight=23cm]{geometry}
+
+%\usepackage{inconsolata} % New monospace font
+
+% URL
+\usepackage{url}
+\usepackage[colorlinks=true, a4paper=true, pdfstartview=FitV, linkcolor=blue, citecolor=blue, urlcolor=blue]{hyperref}
+
+% Figures
+\usepackage[font=small, labelfont=bf]{caption}
+\usepackage{subfig} % Subfigures. Uses \subfloat[captions text]{figure}
+
+% Tables
+\usepackage{booktabs}   % Allows the use of \toprule, \midrule and \bottomrule in tables for horizontal lines
+\newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}} % spaces in tables
+
+% Itemize
+\usepackage{enumitem}
+
+% Commands
+%\newcommand{\code}[1]{\texttt{#1}} % \code{inline code}
+\newcommand{\code}[1]{{\small\ttfamily #1}} % \code{inline code}
+\newcommand{\expval}[1]{\langle #1 \rangle} %
+\renewcommand{\theequation}{\arabic{section}.\arabic{equation}} % Book format equation
+\renewcommand{\thefigure}{\arabic{section}.\arabic{figure}} % Book format figure
+\renewcommand{\vec}[1]{{\bf #1}}
+
+% Set page attribution
+\setlength{\parindent}{0pt}
+
+
+% PSTRICKS
+\usepackage{pstricks,pst-node,pst-tree} % includes graph additions
+\usepackage{pst-pdf} % Compiles the pictures
+\usepackage{pst-node}
+\usepackage{pst-plot}
+\usepackage{pst-3dplot}
+%\usepackage{pstricks-add,babel}
+
+
+\definecolor{lbcolor}{rgb}{0.9,0.9,0.9}  
+
+\lstset{
+language=Python,                        % Code langugage
+commentstyle=\color{gray},              % Comments font
+basicstyle=\small\ttfamily,             % Code font, 
+keywordstyle=\bfseries\color{blue},
+stringstyle=\color{orange},
+numbers=left,                           % Line nums position
+numberstyle=\tiny,                      % Line-numbers fonts
+stepnumber=1,                           % Step between two line-numbers
+numbersep=5pt,                          % How far are line-numbers from code
+frame=none,                             % A frame around the code
+tabsize=4,                              % Default tab size
+captionpos=b,                           % Caption-position = bottom
+breaklines=true,                        % Automatic line breaking?
+breakatwhitespace=false,                % Automatic breaks only at whitespace?
+showspaces=false,                       % Dont make spaces visible
+showstringspaces=false,                 % Dont make spaces visible in strings
+showtabs=false,                         % Dont make tabls visible
+belowskip=8pt,
+morekeywords={range, xrange, as},
+backgroundcolor=\color{lbcolor},  
+showstringspaces=false
+}
+

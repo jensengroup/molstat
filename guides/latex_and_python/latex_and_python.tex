@@ -1,0 +1,100 @@
+\documentclass{article}
+
+\input{preamble}
+\usepackage{fancyhdr}
+\fancyhead[L]{MolStat2016}
+\fancyhead[R]{Group Members}
+\pagestyle{fancy}
+
+\usepackage{fancyvrb}
+\usepackage{color}
+
+% ***************************************************
+% HEADER INFORMATION
+
+\title{Writting Python-code in latex}
+\author{Molecular Statistics}
+\date{2016}
+
+% ***************************************************
+% ***************************************************
+% BEGIN DOCUMENT
+% ***************************************************
+
+
+\begin{document}
+\maketitle\thispagestyle{fancy}
+
+
+For your final exam you will need to write a report as well as the code associated with your study. 
+Some of you will probably want to write the report in \LaTeX. 
+We have made this little document to show how this can be done so that your report comes out looking nice and clean.
+
+When you have written up some Python code that you want to include in your report you can do this in the \verb+\lstlisting+ environment.
+
+\begin{Verbatim}[commandchars=+\(\)]
+\(+color(blue)begin){lstlisting}
+(+color(orange)# you can use comments under way to remind yourself later what the code should do.)
+(+color(orange)print "I want to print this statement" # you can also comment after a line )
+\(+color(blue)end){lstlisting}
+\end{Verbatim}
+
+The output of the above \LaTeX \ command is as follows:
+
+\begin{lstlisting}
+# you can use comments underway to remind yourself later what the code should do.
+print "I want to print this statement" # you can also comment after a line
+\end{lstlisting}
+
+This means that you can directly copy-paste the code from you Python program into you final-report.\\
+
+In order to help you set up the proper environment for the Python coding we provide the file \code{preamble.tex}, where the relevant \code{usepackages} have been imported.\\
+
+\begin{center}\large{The project report should include}\end{center}
+
+The report is done individually, should be written in either Danish or English and be ca. 10
+and no more than 20 pages long. The code associated with the study should be uploaded on the course
+website or emailed to the instructor.
+The report should be written with enough theoretical and technical background so any of your colleagues
+can understand what you have done, and be able to reproduce your results.
+
+
+\begin{abstract}
+An abstract is a brief \textbf{summary} of a research article, thesis,
+review, conference proceeding or any in-depth analysis of a particular subject or discipline, and is
+often used to help the reader quickly ascertain the paper’s purpose.
+\end{abstract}
+
+\section{Introduction and theory}
+ A theoretical introduction to the subject along with motivation for
+the work. This includes a description of the theory and algorithms, as well as figures that could
+help with the understanding of the subject.
+
+\section{Implementation}
+ Comment on what the code does and how you implemented the code. You are welcome to use code examples.
+ \section{Results and discussion}
+ Presentation of your results (use figures, pictures and tables). Discussion
+of the results. Do the results behave as expect, are there outliers and do you trust your results?
+\section{Conclusion} Summary of the most important findings. Perspective of your results.
+\begin{itemize}
+\item Did you achieve the goal described in the introduction?
+\item What would be the next step?
+\item Could one improve on your calculations?
+\end{itemize}
+
+\vspace{40pt}
+You can use Bib\TeX \ for creating the references. You should cite all books \cite{thinkPyhton} and web pages \cite{The_Listings_Package} that you've used in order to complete the report and code. 
+Example of how to write the \code{.bib} file will be on the web page. 
+
+\bibliography{ref.bib} %you need to download ref.bib in order to compile the referencesin this example
+\bibliographystyle{agsm}
+
+
+
+
+
+% ***************************************************
+% END DOCUMENT
+% ***************************************************
+
+\end{document}
