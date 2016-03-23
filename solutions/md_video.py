@@ -128,7 +128,7 @@ def save(filename, box_width=10.0, fps=25, grid=False, area=300, periodic_bounda
     # particles_dot, = ax.plot(x_frames[0], y_frames[0], 'ko', ms=6)
     particles = ax.scatter(x_frames[0], y_frames[0], s=area, c=c_frames[0], linewidth=0.6)
 
-    print mpl.colors.ColorConverter.colors['g']
+    print 'colors', (mpl.colors.ColorConverter.colors['g'])
 
 
     def init():
@@ -163,8 +163,8 @@ def save(filename, box_width=10.0, fps=25, grid=False, area=300, periodic_bounda
     ani = animation.FuncAnimation(fig, animate,
                                   frames=video_frames,
                                   interval=10,
-                                  blit=True,
                                   init_func=init)
+                                  #blit=True)
 
     # Save the animation to disk
     # Change fps for another framerate
@@ -227,20 +227,20 @@ def add_color(color):
 
 if __name__ == "__main__":
 
+    quit()
     # Testing and showing example of how to use module
-
     x = [0.0, 1.0]
     y = [0.0, 1.0]
 
     screenshot('random_screenshot', x, y)
 
-    quit()
+   
 
     n_particles = 20
 
-    for _ in xrange(600):
+    for _ in range(600):
         add_frame(np.array([np.random.random() for i in range(n_particles)]) * 10.0,
                   np.array([2 * (np.random.random() - 0.5) for i in range(n_particles)]) * 10.0)
 
     save('random_movie', 10.0)
-
+   
