@@ -5,6 +5,7 @@
 \usepackage{multicol} % \begin{columns}
 \usepackage{array}
 \usepackage{hyperref}
+\usepackage{longtable}
 % ***************************************************
 % HEADER INFORMATION
 
@@ -37,9 +38,10 @@ Using the terminal to navigate through directories and file trees as well as man
 \end{tabular}
 \end{table}
 
+
 \subsection{File Commands}
-\begin{table}[h]
-\begin{tabular}{>{\ttfamily}l l}
+%\begin{longtable}[H]
+\begin{longtable}{>{\ttfamily}l l}
 	ls & list directory \\
 	ls -al & list with hidden files \\
 	cd \textit{dir} & change directory to \texttt{\textit{dir}}\\
@@ -59,9 +61,10 @@ Using the terminal to navigate through directories and file trees as well as man
 	head \ti{file} & first 10 lines of \ti{file} \\
 	tail \ti{file} & last 10 lines of \ti{file} \\
 	tail -f \ti{file} & follow end of \ti{file} as it grows \\
-\end{tabular}
-\end{table}
+%\end{tabular}
+\end{longtable}
 
+\iffalse
 \subsection{Permissions and searching}
 \begin{tabular}{>{\ttfamily}ll}
 \texttt{chmod} \ti{octal} \ti{file} & change permission of \ti{file} to \ti{octal} \\ 
@@ -75,20 +78,23 @@ Examples &  \\
 grep \ti{pattern} \ti{files} & search for \ti{pattern} in \ti{files} \\ 
 comman | grep \ti{pattern} & search for \ti{pattern} in the outpu of \texttt{command} \\ 
 locate \ti{file} & find all instances of \ti{file} \\
-\end{tabular} 
+\end{longtable} 
+\fi
 
 \subsection{Shortcuts}
+\begin{table}[h]
 \begin{tabular}{ll}
 Ctrl+C & Stop curent command \\ 
 Ctrl+Z & Pause current command. Restart with \texttt{fg} to run in forground and \texttt{bg} in background \\ 
-Ctrl+D & log out - simlar to \texttt{exit} \\ 
+Ctrl+D & Log out - simlar to \texttt{exit} \\ 
 Ctrl+U & Erase line \\ 
 Ctrl+R & Type to bring up recent command \\ 
+up-arrow & Reprint the last typed line in terminal \\
 \end{tabular} 
-% ***************************************************
-% END DOCUMENT
-% ***************************************************
+\end{table}
 
+
+\iffalse
 \subsection{Regular expressions}
 An expression is a string of characters.  A Regular Expression (RE) are sets of characters that match or specify a pattern. A RE contains one or more of the following
 
@@ -111,10 +117,7 @@ $\backslash$ & escapes a special character - it is interpreted literally \\
  $\backslash < ...\backslash >$ & marks word boundaries \\ 			
 Example &  $\backslash < \text{the} \backslash >$ matches "the" but not "them", "there", "other" etc. \\ 
 \end{tabular} 
-
-\vspace{50pt}
-
-
+\fi
 
 References:\\
 \url{https://www.rain.org/~mkummel/unix.html} \\

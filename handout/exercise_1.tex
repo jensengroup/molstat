@@ -59,16 +59,37 @@ python example_program.py
 
 Is the output as expected? 
 
-\subsection{Python as a calculator}
+\subsection{Introduction to Python}
 
 % TODO Remove this section.
-
-Now, let's start by using Python as a calculator.
-Remember to print the result of your calculation using the \code{print} statement.
-We encourage you to have some sort of logical file system, saving all the exercises in
+Now, let's start by getting to know Python better - starting with some simple examples. Remember to use the \code{print} statement in you program to print the result of the following examples. We encourage you to have some sort of logical file system, saving all the exercises in
 different files and folders so you can find it again when needed. \\
 
-Some useful commands for navigating your filesystem can be found in the \textbf{linux cheat sheet} (found on the website): \\
+Some useful commands for navigating your filesystem can be found in the \textbf{linux cheat sheet} (found on the website). \\
+
+Imaging you are planning to bake a cake for the next exercise-session. Before you go to the shop you want to know exactly how much money you should bring. You look up a recipe and see that you need to buy:
+
+\vspace{10pt }
+ 
+\begin{center}
+\begin{tabular}{c l l}
+\hline
+Ingredient & Price & Weight/pcs \\
+\hline
+Flour & 8 kr. & 2 kg \\
+Eggs & 28 kr. & 10 pcs \\
+apple & 2 kr./pcs & 5 pcs \\
+Sugar & 10 kr. & 1 kg \\
+Icing sugar &  8 kr. & 0.5 kg \\
+Butter & 16 kr. & 200 g \\
+\end{tabular}
+\end{center}
+
+First you need to find out how much money to bring to the shop. Python can do this for you by working as a simple calculator.
+
+
+
+
 \iffalse
 \begin{lstlisting}
 cd <directory>                   # enter the folder called <directory>
@@ -82,21 +103,44 @@ mv <file1> <file2>               # move <file1> to <file2>
 \end{lstlisting}
 
 \fi
-\begin{enumerate}
-    \item Execute the following statements. Does it behave like your regular
-    calculator? If anything unusual happens try and explain why.
-    {\em Hint}; what is the difference between {\code{integer}} and {\code{ float}}?
 
-    \begin{centering}
-      \code{5+9, 5-9, 5*9, 5/9, 5+2*9, 5.0+2.0*9.0, 5.0/9 5**2, 5\%2}
-    \end{centering}
+\begin{enumerate}
+    \item Use Python  to calculate the total price of the items on you shopping list  
+
 \end{enumerate}
 
-Since manually entering numbers really does us no good, we might as well use a
+Once you've added up the total amount you realise that it might be worth it to simply buy a cake instead. In order to check that you must calculate the actual price of the cake you are making. In order to bake the cake you need:
+
+\begin{center}
+\begin{tabular}{c l l}
+\hline
+Ingredient & amount needed\\
+\hline
+Flour & 175 g \\
+Eggs & 1 pcs \\
+apple & 5 pcs \\
+Sugar & 100 g \\
+Icing sugar &  20 g \\
+Butter & 75 g \\
+\end{tabular}
+\end{center}
+
+\begin{enumerate}
+  \setcounter{enumi}{1}
+  \item Execute the following statements. Does Python behave like your regular calculator? If anything unusual happens try and explain why. {\em Hint}; what is the difference between {\code{integer}} and {\code{ float}}? 
+\code {28/10, 28.0/10.0}
+ \item Use Pyhton to calculate the total price of your cake. \\
+ 
+\end{enumerate}
+
+NOTE: Python also knows the more advanced functions found on a calculator. Try the following. \\
+\code{5**2, 5\%2} and explain the output.\\
+
+Manually entering numbers really does us no good, we might as well use a
 calculator. Instead, we want to utilize what programming languages can provide,
 namely storage of values in what is known as {\bf variables}. Variables can store
-anything that you can think of, i.e. numbers, strings, lists of numbers and so
-forth. Variables are assigned values by specifying a variable name and a value, e.g.
+anything that you can think of, i.e. integers, floats, strings, lists so
+forth. (If you are unsure what these different types corresponds to, then try Googling it.) Variables are assigned values by specifying a variable name and a value, e.g.
 
 \begin{lstlisting}
 my_first_variable = 5.0
@@ -105,19 +149,26 @@ my_first_variable = 5.0
 where a variable named \code{my\_first\_variable} has been assigned the value
 of $5.0$.
 Some restrictions apply for variable names (must start with a letter, can't have names of
-in-build functions etc.), but otherwise we are not restricted in the naming. We encourage you to give
-them useful names, such as \code{no\_particles} for representing number of
-particles. That way you can more easily remember what values are stored in the variable
-and it makes the code more readable for others. On the same note, it is always a good idea to leave short comments in your program to remind yourself/explain to others what each little section of code is used for. Commenting is done by starting the line with \#. Two examples of this is seen in \code{example\_program.py}, where commented text is printed in gray-tones \\
+in-build functions etc.), but otherwise we are not restricted in the naming. 
+
+\begin{enumerate}
+  \setcounter{enumi}{2}
+  \item Make 6 {\bf variables}, one for each ingredient, and assign a value equal to the price pr. g/pcs. e.g 
+\code{flour\_price\_pr\_g = 8.0/(2*10**3)}
+\end{enumerate}
+
+Give your {\bf variables} useful names, such as \code{no\_particles} for representing number of particles. That way you can more easily remember what values are stored in the variable and it makes the code more readable for others. On the same note, it is always a good idea to leave short comments in your program to remind yourself/explain to others what each little section of code is used for. Commenting is done by starting the line with \#. Two examples of this is seen in \code{example\_program.py}, where commented text is printed in gray-tones \\
 
 Since a variable can contain anything, a very useful function is \code{type(arg)},
 where \code{arg} is a variable. This function will return the type of value stored
 in the variable.
 
 \begin{enumerate}
-  \setcounter{enumi}{1}
-  \item Execute the same statements from task 1, but using variables to store
-    the values and results. Print the results.
+  \setcounter{enumi}{3}
+  \item Repeat task 2, but using the variables from task 3 to store the values and a new variable to store the total price. Print the price.
+\end{enumerate}
+In this way you could calculate the price of the cake when shopping in different stores simply but changing the variable containing the price pr. gram of the ingredients. 
+\begin{enumerate}[resume]
   \item Use \code{type} to print out the type of the variables used - did this help clarify the difference between \code{integer} and \code{float}?
 \end{enumerate}
 
@@ -127,10 +178,10 @@ of numbers.
 A list is defined with the same syntax as a float variable;
 
 \begin{lstlisting}
-simple_list = []
+prices_list = []
 \end{lstlisting}
 
-The above code creates an empty list named \code{simple\_list}.
+The above code creates an empty list named \code{prices\_list}.
 Even though the list is empty we can still print
 the content of the variable (try it).
 If you want to add an element to the list you can
@@ -139,21 +190,27 @@ append it using \code{list\_name.append(arg)} where \code{arg} is the element to
 For example if you want to append 2.0 to a list you write;
 
 \begin{lstlisting}
-simple_list.append(2.0)
+prices_list.append(2.0)
+\end{lstlisting}
+
+or if you want to append the value of a variable
+
+\begin{lstlisting}
+prices_list.append(flour_price_pr_g)
 \end{lstlisting}
 
 \begin{enumerate}
   \setcounter{enumi}{3}
-  \item Create an empty list.
+  \item Create an empty list called \code{price\_list}.
     Print the empty list.
-    Append a number and print it again.
+    Append \code{flour\_price\_pr\_g} and print the list again.
     What changed in the output?
 
   \item Print the type of the variable.
+  
+   \item Add the prices of all you ingredients to \code{price\_list}. Print the list again.
 
-  \item Add the following numbers to the list: -1.0, 1.5, 2.0, -2.0, -3.0, 3.0 and
-    print the content of the variable again.
-\end{enumerate}
+ \end{enumerate}
 
 
 Different variables have different attributes, which are called {\em methods}.
@@ -163,7 +220,7 @@ the variable of type list has the method \code{sort()},
 which can be called as follows;
 
 \begin{lstlisting}
-simple_list.sort()
+prices_list.sort()
 \end{lstlisting}
 
 For a list of floats, this results in the items of the list being sorted by value.\\
@@ -174,18 +231,17 @@ This is done almost the same way as when we created the empty list, except we
 provide the initial content right away. E.g.
 
 \begin{lstlisting}
-another_list = [1.0, 2.0, 3.0, 4.0, -2.0, -4.5, -1.0]
+another_price_list = [1.0, 2.0, 3.0, 4.0, -2.0, -4.5, -1.0]
 \end{lstlisting}
 
 
 \begin{enumerate}
   \setcounter{enumi}{6}
-  \item Define \code{another\_list} and repeat task 6.
-
-  \item Print the list. Sort the list. Print the sorted list.
+   \item Create \code{another\_price\_list} with the prices of you ingredients like in the above example.\\
+Print \code{another\_price\_list}. Sort the list. Print the sorted list. \\
   Does it provide the correct result?
 
-  \item Print \code{another\_list} in reverse sorted order.
+  \item Print \code{another\_price\_list} in reverse sorted order.
     Use Google to find out how.\footnote{Using Google is
     by far the most important tool as a programmer.}
 \end{enumerate}
@@ -193,38 +249,12 @@ another_list = [1.0, 2.0, 3.0, 4.0, -2.0, -4.5, -1.0]
 % >>> L = [0,10,20,40]
 % >>> L.reverse()
 
-We've now seen that python lists can be created in various ways and even be
-sorted, but it is quite tedious to enter all data manually. Especially if
-there is a lot of it.
-Luckily, Python provides us with the means to construct
-lists using other approaches.
-The \code{range()} command is one of them and is probably the
-command that you will spend the most time with during this course.
-
-\begin{enumerate}
-  \setcounter{enumi}{9}
-  \item Write the following commands in the python shell and explain the results
-    before moving on.
-
-    {\em Hint:} use the type command to get the data type of the commands,
-    i.e. \code{type(range(10))}
-
-\begin{lstlisting}
-print range(10)
-print range(3, 10)
-print range(-3, 10, 4)
-\end{lstlisting}
-
-  \item Understand how the range function works.
-\end{enumerate}
-
-
 If we want to access the i'th element in a list
 we use square brackets. To print the second element
 in the list from above you write;
 
 \begin{lstlisting}
-print another_list[1]
+print another_price_list[1]
 \end{lstlisting}
 
 Notice that we wrote 1 and not 2. This was not a typo!
@@ -235,19 +265,18 @@ where \code{arg} is the variable with the list.
 If you want the length of our example list, the syntax is
 
 \begin{lstlisting}
-print len(another_list)
+print len(another_price_list)
 \end{lstlisting}
 
 
-\begin{enumerate}
-  \setcounter{enumi}{11}
+\begin{enumerate}[resume]
   \item Initialize the following list and test your knowledge about
     lists with the following print-statements.
     Describe the result of every print-statement. Test your
     understanding of lists by guessing what the output will be before
     you run it. 
     {\em Hint;} one of the lines will give an error. Why?
-
+\end{enumerate}
 \begin{lstlisting}
 q_list=[45, 23, 56, 34, 76, 50]
 
@@ -258,10 +287,40 @@ print q_list[len(q_list)]
 print q_list[len(q_list)-1]
 \end{lstlisting}
 
+\begin{enumerate}[resume]
   \item What is the index of the first item in a list? What is the index of
     the last item?
 
 \end{enumerate}
+
+We've now seen that python lists can be created in various ways and even be
+sorted, but it is quite tedious to enter all data manually. Especially if
+there is a lot of it. Now we leave the example of cake making, and introduce a function that you will need during the course. \\
+
+Python provides us with the means to construct
+lists using other approaches.
+The \code{range()} command is one of them and is probably the
+command that you will spend the most time with during this course.
+
+\begin{enumerate}[resume]
+  \item Write the following commands in the python shell and explain the results
+    before moving on.
+
+    {\em Hint:} use the type command to get the data type of the commands,
+    i.e. \code{type(range(10))}
+\end{enumerate}
+
+
+\begin{lstlisting}
+print range(10)
+print range(3, 10)
+print range(-3, 10, 4)
+\end{lstlisting}
+
+\begin{enumerate}[resume]
+ \item Understand how the range function works.
+\end{enumerate}
+
 
 Creating lists from lists. Say that we have a list \code{x\_list}
 and we want to create $y$ values as a function of these $x$ values.
@@ -283,13 +342,10 @@ then we fill in $y$ values by iterating over
 all $x$ values in \code{x\_list}.
 As you might have guessed the above code is equivalent to 
 the function $f(x) = x^2$.\\
-
-\begin{enumerate}
-  \setcounter{enumi}{13}
+\begin{enumerate}[resume]
   \item Create a list of $x$ values from -5 to 5 (both included). Use this list
     to calculate values for another list, with the function $f(x) = -6x^2 + 6x$.
     Print the result.
-
 \end{enumerate}
 
 Another one-line way of working with lists is the following syntax;
@@ -302,9 +358,8 @@ which does exactly the same as the above example\footnote{This method is
 called ``list comprehension''. Knowing what methods are called makes
 it easier to get help from Google when you get stuck. }.
 
-\begin{enumerate}
-  \setcounter{enumi}{14}
-  \item Repeat exercise 14, but using the shorthand way of creating lists.
+\begin{enumerate}[resume]
+  \item Repeat exercise 13, but using the shorthand way of creating lists.
 \end{enumerate}
 
 What if we want to use math functions (or other modules)?
@@ -324,8 +379,7 @@ print math.cos(math.pi)
 print math.exp(math.pi)
 \end{lstlisting}
 
-\begin{enumerate}
-  \setcounter{enumi}{15}
+\begin{enumerate}[resume]
   \item Create a list of $x$ values from -5 to 5 (both included).
     Calculate sine values, $f(x) = \sin{x}$ using the math module,
     for the $x$-list.
