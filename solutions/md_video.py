@@ -128,8 +128,6 @@ def save(filename, box_width=10.0, fps=25, grid=False, area=300, periodic_bounda
     # particles_dot, = ax.plot(x_frames[0], y_frames[0], 'ko', ms=6)
     particles = ax.scatter(x_frames[0], y_frames[0], s=area, c=c_frames[0], linewidth=0.6)
 
-    print 'colors', (mpl.colors.ColorConverter.colors['g'])
-
 
     def init():
         """
@@ -169,8 +167,12 @@ def save(filename, box_width=10.0, fps=25, grid=False, area=300, periodic_bounda
     # Save the animation to disk
     # Change fps for another framerate
     # NOTE: Use mencoder, instead of ffmpeg
-    ani.save(filename+'.mp4', fps=fps, writer='mencoder')
-    # ani.save(filename+'.mp4', fps=fps)
+    # ani.save(filename+'.mp4', fps=fps, writer='mencoder')
+
+    Writer = animation.writers['ffmpeg']
+    writer = Writer(fps=15, metadata=dict(artist='Me'), bitrate=1800)
+
+    ani.save(filename+'.mp4', fps=fps, writer=writer)
 
     # Save as gif
     # ani.save(filename+'.gif', writer='imagemagick')
@@ -234,8 +236,11 @@ if __name__ == "__main__":
 
     screenshot('random_screenshot', x, y)
 
+<<<<<<< HEAD
+=======
    
 
+>>>>>>> 0386e34d455cd19172c767b4afacff446a2b9089
     n_particles = 20
 
     for _ in range(600):
