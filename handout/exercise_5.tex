@@ -160,16 +160,14 @@ where the columns are ID and binding energy in kcal/mol respectively.
     \end{align}
 
     \item As you might have noticed, there are two outliers with over 4.5 kcal deviation from the experimental value.
-        Use \code{plt} to highlight which of the ligands these are, in the plot.
+        Use \code{plt} to highlight which of the ligands - by their ID-number these are ,in the plot.
         {\bf Hint:} Use the method \code{plt.text()} as described in the matplotlib guide / internet.
 
 \end{enumerate}
 
-\newpage
-
 %Det her er helt uforståeligt. Kan ikke overskue det.
 
-If you are using Latex, you will want to print out data directly as a Latex table.
+If you are using \LaTeX, you will want to print out data directly as a \LaTeX table.
 This can be done with the method \code{.format()}.
 Some examples can be found at \href{http://ebeab.com/2012/10/10/python-string-format/}{http://ebeab.com/2012/10/10/python-string-format/}
 
@@ -181,6 +179,7 @@ Some examples can be found at \href{http://ebeab.com/2012/10/10/python-string-fo
 
 
 \newpage
+\iffalse
 \subsection{Random precision errors in assigned chemical shifts}
 
 When assigning measured chemical shifts of a protein to their respective amino-acids you will have to match the chemical shift measured by one experiment with another.
@@ -296,7 +295,7 @@ To test this a second simulation is usually run starting from the native structu
 
 \end{enumerate}
 
-
+\fi
 \newpage
 \subsection{3D Gaussian}
 
