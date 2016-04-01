@@ -236,11 +236,6 @@ if __name__ == "__main__":
 
     screenshot('random_screenshot', x, y)
 
-<<<<<<< HEAD
-=======
-   
-
->>>>>>> 0386e34d455cd19172c767b4afacff446a2b9089
     n_particles = 20
 
     for _ in range(600):
@@ -248,4 +243,4 @@ if __name__ == "__main__":
                   np.array([2 * (np.random.random() - 0.5) for i in range(n_particles)]) * 10.0)
 
     save('random_movie', 10.0)
-   
+

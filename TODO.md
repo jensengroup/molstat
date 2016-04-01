@@ -12,10 +12,13 @@
 
     - pip
         - matplotlib
+            - libpng-dev
+            - libfreetype6-dev
+            - libcairo2-dev
         - numpy
         - scipy
+            - libblas-dev liblapack-dev libatlas-base-dev gfortran
         - seaborn (depends on lapack & gfortran)
-
     - anaconda
         - anaconda pip ?
 
