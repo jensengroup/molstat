@@ -363,6 +363,49 @@ To test this a second simulation is usually run starting from the native structu
 
 \fi
 \newpage
+
+
+\subsection{Pendulum swing}
+
+{
+    \em
+    This exercise is stolen from the very relevant course \href{http://kurser.ku.dk/course/nfyk13011u/2016-2017}{Applied Statistics}.
+    It is highly recommend for all students to take this course.
+}\\
+
+The gravitational acceleration has long been up for discussion, and now it is time to calculate it, once and for all!
+%
+Using a pendulum, we present a simple experimental setup.
+The period $T$ of a swinging pendulum can be calculated by:
+%
+\begin{equation}
+T = 2\pi\sqrt{\frac{L}{g}} \label{eq:Pendul_T}
+\end{equation}
+%
+% \begin{equation}
+% g = \left( \frac{2\pi}{T} \right)^2 \cdot L \label{eq:Pendul_g}
+% \end{equation}
+%
+where $L$ is the length of the pendulum and $g$ is the gravitational acceleration.\\
+
+
+\begin{figure}[h]
+\includegraphics[scale=0.4]{images/week5_pendulum.png} 
+\centering
+\caption{The drawing shows the experimental setup, where the length is measured from the top of the line (attached to a hook in the ceiling) to center of mass of the bob.}
+\label{fig:pendulum}
+\end{figure}
+
+
+This data represents measurements from a pendulum swing.
+
+
+The first project in Applied Statistics is to measure the gravitational acceleration, g, with the greatest possible precision, using two different experiments
+
+Measure length and period of the pendulum. Length is measured
+with a measuring band and a laser, and time by your hand.
+
+\newpage
 \subsection{3D Gaussian}
 
 Instead of plotting data in 3 dimensions (which is also possible with matplotlib), we can use the \code{plt.imshow()} function that shows the extra plane with colors.
