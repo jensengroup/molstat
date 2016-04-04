@@ -14,18 +14,26 @@ sigmaeV=0.4 #full width half maximum
 sigmacm=sigmaeV*8065.544
 ###
 
+# TODO convert ev to nm. delete nm.
+
 k=(NA*e**2)/(np.log(10)*2*me*c**2*epsvac)*np.sqrt(np.log(2)/pi)*10**(-1)
 l="{:.3E}".format(k)
 print k,l
 
 N=500
-t=np.linspace(200, 700, N, endpoint=True)
+wavelengths = np.linspace(200, 700, N, endpoint=True)
+t=wavelengths
+
+# TODO functions up front, variables down low
 
 def uvvis(t,l,f):
+    Nw = len(wavelengths)
     lambda1=np.zeros(len(l))
     lambda_tot=np.zeros(len(t))
+    # TODO comments of what you are looping over
     for x in range(1,len(t)):
         for i in range(0,len(l)):
+            print i, (k/sigmacm)*f[i]*np.exp(-4*np.log(2)*((1/t[x]-1/l[i])/(10**(-7)*sigmacm))**2)
             lambda1[i]=(k/sigmacm)*f[i]*np.exp(-4*np.log(2)*((1/t[x]-1/l[i])/(10**(-7)*sigmacm))**2)
         lambda_tot[x]=sum(lambda1)
     return lambda_tot
@@ -43,16 +51,24 @@ for line in f:
 
 print lambda_list,oscillator_list
 
-y=uvvis(t,lambda_list,oscillator_list)
+# TODO spaces around equal sign
+y=uvvis(t,lambda_list,oscillator_list) # before
+y = uvvis(t,lambda_list,oscillator_list) # after
 
-plt.plot(t,y,label=r'$SubPc_1$', color='b')
+# TODO multiple datasets for plotting
+
+# TODO Call your datasets something easy for the students. Rename to strik og bomuld.
+
+plt.plot(t,y,label='SubPc$_1$', color='b')
 plt.legend()
 plt.grid(True)
 plt.title('UV-vis spectra',fontsize=20)
 plt.xlabel('Wavelength (nm)',fontsize=16)
 plt.ylabel(r'$\varepsilon$ (L/(mol cm))',fontsize=16)
 plt.savefig('uvvis.png')
-#plt.show()
+# plt.show()
+
+# TODO plot is really annoying for me
 
 '''
 Extra - plot with both epsilon and oscillator strength
