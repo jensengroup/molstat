@@ -9,66 +9,97 @@ e=1.60217662*10**(-19) #electron charge
 me=9.10938*10**(-31) #electron mass
 pi=math.pi
 epsvac=8.8541878176*10**(-12) #vacuum permittivity
-###
-sigmaeV=0.4 #full width half maximum
-sigmacm=sigmaeV*8065.544
-###
+h=4.13566733*10**(-15) #plancks constant in eV*s
 
-# TODO convert ev to nm. delete nm.
+def uvvis(wavelengths,transition_list,oscillator_list): #wavelengths, transistion energies and oscillator strengths
+    k = (NA*e**2)/(np.log(10)*2*me*c**2*epsvac)*np.sqrt(np.log(2)/pi)*10**(-1)
+    epsilon_whole_range= []   
+    for l in range(len(transition_list)):
+         transition_list[l] = 10**9*h*c/transition_list[l] #convert from eV to nm via e=hc/lambda
+    for i in range(len(wavelengths)):
+        epsilon_single_lambda = [] #list of intensities at the investigated wave length
+        for j in range(len(transition_list)):
+           #in the following the intensity pr. transistion at wavelengths[i] is calculated and appended to lidt epsilon_single_lambda
+            eps = k*(oscillator_list[j]/sigmacm)*np.exp(-4*np.log(2)*((1/wavelengths[i]-1/transition_list[j])/(sigmacm*10**(-7)))**2) #the total intensity at the wavelength lambda from all transistions
+            epsilon_single_lambda.append(eps) # list of the intensity pr. transition
+     #the sum of the calculated transistions
+        inten= sum(epsilon_single_lambda) # total intensity at wavelengths[i]
+        epsilon_whole_range.append(inten) # list of the total absorption intensities
+    return epsilon_whole_range
 
-k=(NA*e**2)/(np.log(10)*2*me*c**2*epsvac)*np.sqrt(np.log(2)/pi)*10**(-1)
-l="{:.3E}".format(k)
-print k,l
-
+### Set up parameters for spectra
+sigmaeV=0.4 #full width half maximum in eV
+sigmacm=sigmaeV*8065.544 # in reciprocal cm
 N=500
 wavelengths = np.linspace(200, 700, N, endpoint=True)
-t=wavelengths
+###
 
-# TODO functions up front, variables down low
 
-def uvvis(t,l,f):
-    Nw = len(wavelengths)
-    lambda1=np.zeros(len(l))
-    lambda_tot=np.zeros(len(t))
-    # TODO comments of what you are looping over
-    for x in range(1,len(t)):
-        for i in range(0,len(l)):
-            print i, (k/sigmacm)*f[i]*np.exp(-4*np.log(2)*((1/t[x]-1/l[i])/(10**(-7)*sigmacm))**2)
-            lambda1[i]=(k/sigmacm)*f[i]*np.exp(-4*np.log(2)*((1/t[x]-1/l[i])/(10**(-7)*sigmacm))**2)
-        lambda_tot[x]=sum(lambda1)
-    return lambda_tot
-
-f=open("data_uv_vis.dat","r")
-
-lambda_list = []
-oscillator_list = []
+### Load Data ###
+f=open("data1_uv_vis.dat","r")
+transition_list1 = []
+oscillator_list1 = []
 for line in f:
-  line=line.split() # split line (string) into a line (list) for every space
-  l=float(line[1])
-  o=float(line[2])
-  lambda_list.append(l)
-  oscillator_list.append(o)
+    line = line.split() # split line (string) into a line (list) for every space
+    t = float(line[0]) #load the transition energy
+    o = float(line[1]) # load the oscillator strength
+    transition_list1.append(t)
+    oscillator_list1.append(o)
+    
+g=open("data2_uv_vis.dat","r")
+transition_list2 = []
+oscillator_list2 = []
+for line in g:
+    line = line.split() # split line (string) into a line (list) for every space
+    t = float(line[0]) #load the transition energy
+    o = float(line[1]) # load the oscillator strength
+    transition_list2.append(t)
+    oscillator_list2.append(o)
+#print transition_list,oscillator_list
 
-print lambda_list,oscillator_list
+## Calculate using the function
+y1 = uvvis(wavelengths,transition_list1,oscillator_list1) 
+y2 = uvvis(wavelengths,transition_list2,oscillator_list2) 
 
-# TODO spaces around equal sign
-y=uvvis(t,lambda_list,oscillator_list) # before
-y = uvvis(t,lambda_list,oscillator_list) # after
+### Loops in order to break down the problem
 
-# TODO multiple datasets for plotting
+for i in range(len(transition_list1)):
+    transition_list1[i] = 10**9*h*c/transition_list1[i] #convert from eV to nm via e=hc/lambda
+    transition_list2[i]= 10**9*h*c/transition_list2[i] 
 
-# TODO Call your datasets something easy for the students. Rename to strik og bomuld.
+#calculation for single lambda at the time
 
-plt.plot(t,y,label='SubPc$_1$', color='b')
+k = (NA*e**2)/(np.log(10)*2*me*c**2*epsvac)*np.sqrt(np.log(2)/pi)*10**(-1)
+
+w = 200
+#w = 350
+#w = 500
+epsilonlist = [] #list of intensities at the investigated wave length
+for j in range(len(transition_list1)):
+    eps = k*(oscillator_list1[j]/sigmacm)*np.exp(-4*np.log(2)*((1/w-1/transition_list1[j])/(sigmacm*10**(-7)))**2) #the total intensity at the wavelength lambda from all transistions
+    epsilonlist.append(eps) # list of the intensity pr. transition
+intensity= sum(epsilonlist) # total intensity at lambda
+
+#calculate for all wavelengths via nested looping
+epsilon_whole_range= []
+for i in range(len(wavelengths)):
+    epsilon_single_lambda = [] #list of intensities at the investigated wave length
+    for j in range(len(transition_list1)):
+        #in the following the intensity pr. transistion at wavelengths[i] is calculated and appended to lidt epsilon_single_lambda
+        eps = k*(oscillator_list1[j]/sigmacm)*np.exp(-4*np.log(2)*((1/wavelengths[i]-1/transition_list1[j])/(sigmacm*10**(-7)))**2) #the total intensity at the wavelength lambda from all transistions
+        epsilon_single_lambda.append(eps) # list of the intensity pr. transition
+     #the sum of the calculated transistions
+    inten= sum(epsilon_single_lambda) # total intensity at wavelengths[i]
+    epsilon_whole_range.append(inten)
+
+plt.plot(wavelengths,y1,label='data1', color='b')
+plt.plot(wavelengths,y2,label='data2', color='r')
 plt.legend()
 plt.grid(True)
 plt.title('UV-vis spectra',fontsize=20)
 plt.xlabel('Wavelength (nm)',fontsize=16)
 plt.ylabel(r'$\varepsilon$ (L/(mol cm))',fontsize=16)
 plt.savefig('uvvis.png')
-# plt.show()
-
-# TODO plot is really annoying for me
 
 '''
 Extra - plot with both epsilon and oscillator strength
