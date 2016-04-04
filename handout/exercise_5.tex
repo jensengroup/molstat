@@ -112,48 +112,65 @@ Also look up what the command \code{continue} does in a for-loop and what the me
 \subsection{Simulated UV-Vis spectra}
 This data represent energy and oscillator strength of allowed transitions in a boron subphlatocyanine molecule. The data is structured like this:
 \begin{lstlisting}
-    2.4918 497.58 0.4790
+    2.4918 0.4790
 \end{lstlisting}
-where the first column is the transition energy in electron volt (eV), the second is the energy in nm/the wavelength of the transition and the third is the oscillator strength of the transition (unit less).\\
+where the first column is the transition energy in electron volt (eV), the second is the oscillator strength of the transition (unit less).\\
 
 Since the spectrum in most cases will be of more than one excitation the collected spectrum must be investigated for all wavelengths of interest, say form $200\si{nm}$ to $700\si{nm}$ and then summed over all the oscillator strengths found.
 
 \begin{equation}
-\epsilon(\tilde{\nu})=\sum_{j=1}^n \epsilon_j(\tilde{\nu})=\sum_{j=1}^n  \frac{\text{N}_A\si{e^2}}{2\ln(10) \text{m}_e \si{c^2}  \epsilon_0}\frac{f^j}{\sigma}\sqrt{\frac{\ln(2)}{\pi}} \exp{\Bigg(-4 \ln(2) \left[\frac{\left(\frac{1}{\lambda}-\frac{1}{\lambda_{if}^j}\right)}{\sigma\cdot 10^{-7}}\right]^2}\Bigg) \si{M^{-1}cm^{-1}} \label{eq_uv_vis}
+\epsilon(\lambda)=\sum_{j=1}^n \epsilon_j(\lambda)=\sum_{j=1}^n  \underbrace{\frac{\text{N}_A\si{e^2}}{2\ln(10) \text{m}_e \epsilon_0\si{c^2}} \sqrt{\frac{\ln(2)}{\pi}}}_\text{k x 10} \frac{f^j}{\sigma} \exp{\Bigg(-4 \ln(2) \left[\frac{\left(\frac{1}{\lambda}-\frac{1}{\lambda_{if}^j}\right)}{\sigma\cdot 10^{-7}}\right]^2}\Bigg) \si{M^{-1}cm^{-1}} \label{eq_uv_vis}
 \end{equation}
 
-where $f^j$ and $\lambda_{if}^j$ are the oscillator strength and wavelength related to the $\text{j}^{th}$ transition and $n$ is the total number of transitions in the dataset. Furthermore, $N_A$ is avogadros number, $e$ is the elemental charge, $m_e$ is the electron mass, $c$ is the speed of light and $\epsilon_0$ is the vacuum permittivity.  $\sigma$ is the full width half maximum of the Gaussian function used to convolute the UV-vis spectra. It defines the width of the absorption peaks. In this example we will use $\sigma = 3226 \si{cm^{-1}}$.
+where $f^j$ and $\lambda_{if}^j$ are the oscillator strength and wavelength related to the $\text{j}^{th}$ transition and $n$ is the total number of transitions in the dataset. The other constants are:
+
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline 
+$N_A$ & Avogadros Number \\ 
+\hline 
+$e$ & Elemental charge \\ 
+\hline 
+$m_e$ & Electron mass \\ 
+\hline 
+$\epsilon$ & Vacuum permittivity \\ 
+\hline 
+$c$ & Speed of light \\ 
+\hline 
+\end{tabular} 
+\end{center}
+
+
+
+$\sigma$ is the full width half maximum of the Gaussian function used to convolute the UV-vis spectra. It defines the width of the absorption peaks. In this example we will use $\sigma = 3226 \si{cm^{-1}}$.
 \begin{enumerate}
 \item Find the values in Si-units of all the natural constants needed to calculate the UV-vis spectra and define them as variables. e.g. \\
-\begin{lstlisting}
-NA=6.02214199*10**23 #avogadros number
-\end{lstlisting}
-\item Define a constant $k=\frac{\text{N}_A\si{e^2}}{2\ln(10) \text{m}_e \si{c^2}  \epsilon_0}\sqrt{\frac{\ln(2)}{\pi}}\cdot 10^{-1} \frac{\si{L}}{\si{mol}}\si{cm^{-2}}$ and use all the variables you just defined to calculate the value of $k$. Print the value of \code{k}. If you have done this correctly you should find
-\code{k=217512853.406}
+
+\item Define a constant $k=\frac{\text{N}_A\si{e^2}}{2\ln(10) \text{m}_e \si{c^2}  \epsilon_0}\sqrt{\frac{\ln(2)}{\pi}}\cdot 10^{-1} \frac{\si{L}}{\si{mol}}\si{cm^{-2}}$ and use all the variables you just defined to calculate the value of $k$. Print the value of $k$. If you have done this correctly you should find
+$k=217512853.406$
 \end{enumerate}
-In science we normally don't want to present a number with this many significant digits. 
+
+Now we are ready to calculate the UV-Vis spectra. 
 \begin{enumerate}[resume]
-\item Print k again, but this time in scientific notation as a 4 digit number using \code{.format(k)}. \textit{Hint} Use Google if you are not familiar with \code{.format()}
+\item Load all the transition energies from the file \code{data1\_uv\_vis.dat} into a list called \code{transition\_list}, and oscillator strengths into a list called \code{osillator\_list}
+\item Make a third list \code{wavelengths=[]} starting at 200 and ending at 700 with length 500 - these are all the points at which you want to calculated the total absorption, given as $\lambda$ in \eqref{eq_uv_vis}. \textit{Hint} use \code{np.linespace()}
 \end{enumerate}
-Now we are ready to calculate the UV-vis spectra. 
+
+In order to plot the UV-Vis spectra via \eqref{eq_uv_vis}, the transition energies must be converted to nano-meters instead.
+
 \begin{enumerate}[resume]
-\item Load all the wave lengths into a list called \code{lambda\_list}, and oscillator strengths into a list called \code{osillator\_list}
-\item Make a third list \code{x=[]} starting at 200 and ending at 700 with length 500 - these are all the points at which you want to calculated the total absorption, given as $\lambda$ in \eqref{eq_uv_vis}. \textit{Hint} use \code{np.linespace()}
-\item Define a function that calculates the total absorption are each $\lambda$. You can use the following bit of code as inspiration
-\begin{lstlisting}
-def uvvis(x,l,f):
-    lambda1=np.zeros(len(l))
-	lambda_tot=np.zeros(len(x))
-	for j in range(1,len(x)):
-		for i in range(0,len(l)):
-			lambda_1[i]=....
-		lambda_tot[j]=sum(lambda1)
-	return lambda_tot
+\item Convert all transition energies from eV to nm.
+\item Loop over all transitions and calculate the total intensity first at 200nm, then at 350nm and finally at 500nm
 
-\end{lstlisting}
+\item Make an outer loop to calculate the total absorption intensity at all wavelengths from 200nm to 700nm \label{outerloop}
+\item Plot the result - remember to add legend, labels and title to the plot with units on the axis, where the y-axis should include the symbol $\varepsilon$.
 
-\item Plot the result - remember to add legend, labels and title to the plot with units on the axis \textit{Hint} What is printet on the y-axis when you use \verb+plt.ylabel(r'$\varepsilon$')+ ?
+\end{enumerate}
 
+Next step is to plot two UV-Vis spectra in one. In order to do this you  must first define a function that takes as input transition energies in nm, oscillator strength and the wavelengths for which the spectra is to be plotted. The function should return total absorption intensity
+
+\begin{enumerate}[resume]
+\item Define a function that calculates the total absorption at each $\lambda$ based on the loop from exercise \ref{outerloop}
 \end{enumerate}
 
 
