@@ -22,13 +22,13 @@ N=500
 t=np.linspace(200, 700, N, endpoint=True)
 
 def uvvis(t,l,f):
-        lambda1=np.zeros(len(l))
-        lambda_tot=np.zeros(len(t))
-        for x in range(1,len(t)):
-                for i in range(0,len(l)):
-                        lambda1[i]=(k/sigmacm)*f[i]*np.exp(-4*np.log(2)*((1/t[x]-1/l[i])/(10**(-7)*sigmacm))**2)
-                lambda_tot[x]=sum(lambda1)
-        return lambda_tot
+    lambda1=np.zeros(len(l))
+    lambda_tot=np.zeros(len(t))
+    for x in range(1,len(t)):
+        for i in range(0,len(l)):
+            lambda1[i]=(k/sigmacm)*f[i]*np.exp(-4*np.log(2)*((1/t[x]-1/l[i])/(10**(-7)*sigmacm))**2)
+        lambda_tot[x]=sum(lambda1)
+    return lambda_tot
 
 f=open("data_uv_vis.dat","r")
 
@@ -52,7 +52,7 @@ plt.title('UV-vis spectra',fontsize=20)
 plt.xlabel('Wavelength (nm)',fontsize=16)
 plt.ylabel(r'$\varepsilon$ (L/(mol cm))',fontsize=16)
 plt.savefig('uvvis.png')
-plt.show()
+#plt.show()
 
 '''
 Extra - plot with both epsilon and oscillator strength
