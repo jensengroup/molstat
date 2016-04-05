@@ -370,40 +370,71 @@ To test this a second simulation is usually run starting from the native structu
 {
     \em
     This exercise is stolen from the very relevant course \href{http://kurser.ku.dk/course/nfyk13011u/2016-2017}{Applied Statistics}.
-    It is highly recommend for all students to take this course.
+    It is highly recommend for all students to take this course next semester.
 }\\
+
+\begin{center}
+\includegraphics[scale=0.4]{images/week5_pendulum.png}
+\end{center}
 
 The gravitational acceleration has long been up for discussion, and now it is time to calculate it, once and for all!
 %
 Using a pendulum, we present a simple experimental setup.
-The period $T$ of a swinging pendulum can be calculated by:
+By measuring the period $T$ of a swinging pendulum and the length of the cable to the center of mass of the pendulum, we can find the gravitational pull.
+The period $T$ of a swinging pendulum is defined as,
 %
 \begin{equation}
-T = 2\pi\sqrt{\frac{L}{g}} \label{eq:Pendul_T}
+T = 2\pi\sqrt{\frac{L}{g}} \label{eq:pendul_t}
 \end{equation}
-%
 % \begin{equation}
 % g = \left( \frac{2\pi}{T} \right)^2 \cdot L \label{eq:Pendul_g}
 % \end{equation}
 %
 where $L$ is the length of the pendulum and $g$ is the gravitational acceleration.\\
 
+% JCK TODO Experimental setup
 
-\begin{figure}[h]
-\includegraphics[scale=0.4]{images/week5_pendulum.png} 
-\centering
-\caption{The drawing shows the experimental setup, where the length is measured from the top of the line (attached to a hook in the ceiling) to center of mass of the bob.}
-\label{fig:pendulum}
-\end{figure}
+The provided datafile has two columns.
+The first is the datapoint id and the second is the time in seconds, at which the pendulum crosses the center.
+\begin{lstlisting}
+   1        62.8997
+\end{lstlisting}
 
+We have measured that the length of the pendulum to be $L = 50m$.
 
-This data represents measurements from a pendulum swing.
+\begin{enumerate}
 
+    \item Load in the datafile
 
-The first project in Applied Statistics is to measure the gravitational acceleration, g, with the greatest possible precision, using two different experiments
+    \item Plot the time vs datapoint id
 
-Measure length and period of the pendulum. Length is measured
-with a measuring band and a laser, and time by your hand.
+\end{enumerate}
+
+We want to fit the datapoints to a linear curve so we can get the best period $T/2$, which is the slope.
+
+\begin{enumerate}[resume]
+
+    \item Fit a linear curve to the data { {\bf Hint:} f.x. use \code{curve\_fit} from scipy}
+
+    \item Calculate the gravitational acceleration $g$.
+
+\end{enumerate}
+
+Next we should look at how the datapoints deviate from the fit.
+
+\begin{enumerate}[resume]
+
+    \item 
+
+\end{enumerate}
+
+% This data represents measurements from a pendulum swing.
+%
+%
+% The first project in Applied Statistics is to measure the gravitational acceleration, g, with the greatest possible precision, using two different experiments
+%
+% Measure length and period of the pendulum. Length is measured
+% with a measuring band and a laser, and time by your hand.
 
 \newpage
 \subsection{3D Gaussian}
