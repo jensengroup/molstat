@@ -1,16 +1,17 @@
 #!/usr/bin/env python
 
-# Calculate standard gravity g from pendulum data
-
 import numpy as np
 
+no_datapoints = 30
 
-no_datapoints = 5000
+# length of pendulum
+L = 12.188431786255023
+
+# period
 period = 7.0
 
-# noise = np.random.normal(0.0, 1.0, no_datapoints)
-
-time = 65.0
+# start time
+time = np.random.uniform(0.0, 100.0)
 
 print 1, time
 
