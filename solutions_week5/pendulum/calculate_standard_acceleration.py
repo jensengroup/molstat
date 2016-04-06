@@ -35,7 +35,7 @@ def linear(x, a, b):
 
 values, copt = opt.curve_fit(linear, xdata, times)
 
-xfit = np.linspace(0.0, 500)
+xfit = np.linspace(0.0, len(times))
 yfit = np.array([linear(x,  values[0], values[1]) for x in xfit])
 
 plt.plot(xfit, yfit, label='fit')
@@ -45,7 +45,7 @@ plt.savefig("test.png")
 a = values[0]
 b = values[1]
 T = values[0]*2
-L = 14.35
+L = 12.19
 
 # g = \left( \frac{2\pi}{T} \right)^2 \cdot L \label{eq:Pendul_g}
 g = (2*np.pi/T)**2*L
@@ -56,14 +56,19 @@ print "g = {0:5.2f}".format(g)
 
 # Error distribution
 
-time_error = []
+time_error = [0.0]
 
 # TODO JCK
 # hmm, wrong
 # we need to check if [i+1] - [i] == a ?
 
-for i, t in enumerate(times):
-    time_error.append(t - (i+1)*a - b)
+for i in xrange(1, len(times)):
+
+    error = times[i] - times[i-1] - a
+    time_error.append(error)
+
+# for i, t in enumerate(times):
+#     time_error.append(t - (i+1)*a - b)
 
 
 plt.clf()
@@ -79,7 +84,7 @@ print len(times)
 plt.savefig('hist')
 
 plt.clf()
-plt.plot(xdata, time_error)
+plt.plot(xdata, time_error, '.')
 plt.savefig('error.png')
 
 
