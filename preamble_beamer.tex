@@ -1,42 +1,45 @@
+\documentclass[12pt]{beamer}
 
-\usepackage{soul}
+% INCLUDE GRAPHICS
+\usepackage{graphicx}
 
 % TABLES
 \newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}} % spaces in tables
 \usepackage{booktabs}   % Allows the use of \toprule, \midrule and \bottomrule in tables for horizontal lines
 
-% LISTS
-% \usepackage{enumitem} % Changes the itemize and enumerate
-
-
-% PSTRICKS
-% \usepackage{pstricks,pst-node,pst-tree} % includes graph additions
-% \usepackage{pst-pdf} % Compiles the pictures
-% \usepackage{pst-node}
-% \usepackage{pst-plot}
-% \psset{xunit=1cm,yunit=1cm}
-
-
-% INCLUDE GRAPHICS
-\usepackage{graphicx}
-
-
-% LOGO POSITION
-\usepackage{pgf}
-% \usepackage[absolute,overlay]{textpos}
-
+% FONTS
+% PdfLatex
+% \usepackage[T1]{fontenc}
+% \usepackage{pgf}
+% \logo{\pgfputat{\pgfxy(-1,-0.435)}{\pgfbox[center,base]{\includegraphics[width=1.2cm,natwidth=610,natheight=642]{KUNATLogo.pdf}}}}
 
 % FONTS
-% \usefonttheme{serif}
-\usefonttheme[onlymath]{serif} % Standard font for math enviroments
-\usepackage[T1]{fontenc}
-%\usepackage{inconsolata} % Nice monospaced font
+% xelatex
+\usepackage{fontspec}
+% \fontspec[Path=../fonts/,]{
+%     UprightFont = *-regular,
+%     ItalicFont = *-italic,
+%     Boldfont = *-bold
+% }
 
+% NOTE
+% Add fonts to ~/.fonts for this to work
+% \setsansfont{TeX Gyre Heros}
+% \setsansfont{TeX Gyre Heros Cn}
+% \setsansfont{Liberation Sans}
+\setsansfont{Muli}
+% \setsansfont{Helvetica Neue}
 
+% Monospaces font
+\setmonofont{Monaco}
+
+% Use serif for Math environments
+\usefonttheme[onlymath]{serif}
+
+% TODO Use mono fonts
 
 % CODE
-\usepackage{listings} % Code block (source code) \begin{lstlisting} 
-
+\usepackage{listings} % Code block (source code) \begin{lstlisting}
 \lstset{
     language=Python,                        % Code langugage
     commentstyle=\color{gray},              % Comments font
@@ -48,7 +51,8 @@
     stepnumber=1,                           % Step between two line-numbers
     numbersep=5pt,                          % How far are line-numbers from code
     numbers=none,
-    frame=single,                             % A frame around the code
+    frame=lines,                             % A frame around the code
+    rulecolor=\color{gray},
     tabsize=4,                              % Default tab size
     captionpos=b,                           % Caption-position = bottom
     breaklines=true,                        % Automatic line breaking?
@@ -56,136 +60,166 @@
     showspaces=false,                       % Dont make spaces visible
     showstringspaces=false,                 % Dont make spaces visible in strings
     showtabs=false,                         % Dont make tabls visible
-    belowskip=8pt,
+    belowskip=5pt,
     morekeywords={range, xrange},
     backgroundcolor=\color{white}
     % emph={[2]root,base}
     % morekeywords={one,two,three,four,five,six,seven,eight,
 }
 
-
-
 \newcommand{\code}[1]{{\small\ttfamily #1}} % \code{inline code}
 
-
-% BEAMER COLORS
+%
+% COLORS
+%
 \definecolor{kugreen}{RGB}{50,93,61}
-\setbeamercolor{frametitle}{fg=black}
-\setbeamercolor{normal text}{fg=black}
-\setbeamercolor{structure}{fg=kugreen}
 
-% BEAMER STYLE
-\setbeamertemplate{itemize item}{$\bullet$}
+\definecolor{orange}{RGB}{255,127,0}
+\definecolor{green}{RGB}{0,153,51}
+\definecolor{blue}{RGB}{3,115,187}
+\definecolor{red}{RGB}{221,17,68}
+\definecolor{gray}{RGB}{55,55,55}
+\definecolor{black}{RGB}{0,0,0}
+
+\definecolor{offwhite}{RGB}{249,242,215}
+\definecolor{foreground}{RGB}{23,23,23}
+\definecolor{background}{RGB}{255,255,255}
+\definecolor{subtitle}{RGB}{102,255,204}
+\definecolor{hilight}{RGB}{102,255,204}
+\definecolor{vhilight}{RGB}{255,111,207}
+\definecolor{lolight}{RGB}{155,155,155}
+
+
+%
+% BEAMER STYLE COLORS
+%
+\setbeamercolor{titlelike}{fg=black}
+\setbeamercolor{subtitle}{fg=blue}
+\setbeamercolor{institute}{fg=gray}
+\setbeamercolor{normal text}{fg=foreground,bg=background}
+\setbeamercolor{item}{fg=foreground} % color of bullets
+\setbeamercolor{subitem}{fg=gray}
+\setbeamercolor{itemize/enumerate subbody}{fg=gray}
+
+\setbeamerfont{itemize/enumerate subbody}{size=\footnotesize}
+\setbeamerfont{itemize/enumerate subitem}{size=\footnotesize}
+
+\setbeamerfont{footnote}{size=\tiny}
+
 \setbeamersize{text margin left=10pt}
 \setbeamersize{text margin right=10pt}
 \setbeamersize{sidebar width right=0pt}
 \setbeamersize{sidebar width left=0pt}
-\setbeamercolor{block title}{fg=white,bg=kugreen}
-\setbeamercolor{block body}{fg=black,bg=white!95!black}
+
+%
+% REMOVES THE NAVIGATION BAR
+%
+\beamertemplatenavigationsymbolsempty
 
 
-% BEAMER HEADLINE
-\setbeamertemplate{headline}
-{%
-    % \vbox{
+% BEAMER TEMPLATES
 
-    % \vspace{2pt}
 
-    % \hspace{10pt}
-    % \tiny
-    % \rmfamily
-    % \expandafter\insertshortauthor
-    %     \vspace{1pt}
-    % }
+%
+% BEAMER BACKGROUND
+%
+\usebackgroundtemplate{
+
+    \rule{0pt}{0.97\paperheight}%
+    \hspace*{1.15\paperwidth}%
+    \makebox[0pt][r]{%
+        \includegraphics[width=100pt,natwidth=610,natheight=642]{KUNATLogo.pdf}
+    }
+
 }
 
 
+%
+% BEAMER HEADLINE
+%
+\setbeamertemplate{headline}{}
+
+
+%
 % BEAMER TITLE
+%
 \setbeamertemplate{frametitle}
 {
-    \color{kugreen}
-    \begin{centering}\medskip
-        \insertframetitle\par
+    \begin{centering}
+    \insertframetitle\par
     \end{centering}
 }
 
 
+%
 % BEAMER FOOTER
+%
 \setbeamertemplate{footline}[text line]
 {%
     \vbox{%
-        \tiny\ttfamily
         \insertvrule{0.5pt}{kugreen}
 
         \vspace{2pt}
 
         \strut{
-        \rmfamily\itshape
+        % \rmfamily\itshape
         \expandafter\insertshorttitle
-        \expandafter\insertauthor,
+        \expandafter\insertauthor
         \insertshortinstitute
         }
         \hfill\strut{
         }
         \hfill\strut{
             \insertframenumber\,/\,\inserttotalframenumber
-            % \includegraphics[width=20pt,natwidth=610,natheight=642]{KUNATLogo.pdf}
         }
 
         \vspace{1pt}
     }
 }
 
-\setbeamertemplate{background}{
-    % \hspace{330pt}\includegraphics[width=25pt,natwidth=610,natheight=642]{KUNATLogo.pdf}
-}
 
-% BEAMER Frontpage
-\setbeamertemplate{title page}
-{
-
-    \begin{beamercolorbox}[center]{beamer color}
-
-        {
-            \huge
-            \color{kugreen}
-            \inserttitle
-        }
-        \bigskip
-        \bigskip
-
-        \includegraphics[width=2cm]{KUNATLogo}
-
-        \bigskip
-        {
-            \bf
-            \rmfamily
-            {\large \insertauthor}
-        }
-
-        \smallskip
-        {
-            \rmfamily
-            \footnotesize
-            \insertinstitute
-        }
-
-        {
-            \rmfamily
-            \footnotesize
-            \insertdate
-        }
-
-    \end{beamercolorbox}
-
-
-    \addtocounter{framenumber}{-1}
-}
-
-% Removes the navigation bar
-\beamertemplatenavigationsymbolsempty
-
-% CONTENT
-
-\logo{\pgfputat{\pgfxy(-1,-0.435)}{\pgfbox[center,base]{\includegraphics[width=1.2cm,natwidth=610,natheight=642]{KUNATLogo.pdf}}}}
-
+%
+% TITLE PAGE
+%
+% \setbeamertemplate{title page}
+% {
+%     % Remove beamer background
+%     \setbeamertemplate{background}{}
+% 
+%     \begin{beamercolorbox}[center]{beamer color}
+% 
+%         {
+%             \huge
+%             \color{kugreen}
+%             \inserttitle
+%         }
+%         \bigskip
+%         \bigskip
+% 
+%         % \includegraphics[width=2cm]{KUNATLogo}
+% 
+%         \bigskip
+%         {
+%             \bf
+%             \rmfamily
+%             {\large \insertauthor}
+%         }
+% 
+%         \smallskip
+%         {
+%             \rmfamily
+%             \footnotesize
+%             \insertinstitute
+%         }
+% 
+%         {
+%             \rmfamily
+%             \footnotesize
+%             \insertdate
+%         }
+% 
+%     \end{beamercolorbox}
+% 
+%     % Do not count the title page
+%     \addtocounter{framenumber}{-1}
+% }
