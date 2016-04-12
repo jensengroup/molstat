@@ -1,15 +1,26 @@
-\documentclass{beamer}
+\input{../preamble_beamer}
 
-\input{../lecture_preamble}
+\usepackage{soul}
 
-\title[]{Molecular Statistics, Week 1}
-\institute[University of Copenhagen]{Department of Chemistry \\ University of Copenhagen}
-\author[Jimmy Charnley Kromann]{Jimmy Charnley Kromann}
-\date{}
+\title[]{Week 1\\Molecular Statistics}
+
+\input{me.tex}
+
+
+% ===============
+% begin slides
+% ===============
+
 
 \begin{document}
 
-\frame[plain]{\titlepage}
+{
+\usebackgroundtemplate{}
+\begin{frame}[plain]
+    \titlepage
+    \addtocounter{framenumber}{-1}
+\end{frame}
+}
 
 
 \begin{frame}[fragile]
@@ -225,8 +236,9 @@ print 3.0 / 2.0
 
 
 \begin{frame} 
+    \frametitle{15min break}
     \begin{center}
-        \includegraphics[width=0.7\textwidth]{images/indents.png}
+        \includegraphics[width=0.65\textwidth]{images/indents.png}
     \end{center}
 \end{frame}
 
