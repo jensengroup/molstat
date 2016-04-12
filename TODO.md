@@ -4,11 +4,18 @@
 
 ## New Virtual box
 
-    - Debian or Ubuntu ?
-        - set old gnome standard
+    # NOTE !!!!
+        If you are using 64bit virtual machine, you need to activate virtualization on the host machine, or it will not work!
+
+    - Debian
+        http://superuser.com/questions/771048/cant-start-seamless-mode-despite-installing-guest-additions
+        
 
     - mencoder
     https://www.vimp.com/en/web/faq-installation/items/how-to-install-the-transcoding-tools-on-debian-8-jessie.html
+
+    - openbabel
+        - sudo apt-get install swig
 
     - pip
         - matplotlib
