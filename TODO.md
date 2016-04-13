@@ -1,6 +1,13 @@
 
 # TODO list for molstat
 
+# TODO Before start
+
+ - Week 3 lecture seems empty?
+
+ - Week 4 is even more empty?
+    - more debug?
+    - implement numpy fractal?
 
 ## New Virtual box
 
