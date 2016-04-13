@@ -170,7 +170,7 @@ def save(filename, box_width=10.0, fps=25, grid=False, area=300, periodic_bounda
     # ani.save(filename+'.mp4', fps=fps, writer='mencoder')
 
     Writer = animation.writers['ffmpeg']
-    writer = Writer(fps=15, metadata=dict(artist='Me'), bitrate=1800)
+    writer = Writer(fps=fps, metadata=dict(artist='Me'), bitrate=1800)
 
     ani.save(filename+'.mp4', fps=fps, writer=writer)
 
