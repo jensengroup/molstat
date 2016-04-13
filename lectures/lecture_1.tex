@@ -22,20 +22,39 @@
 \end{frame}
 }
 
+{
+
+\usebackgroundtemplate{
+
+    \rule{0pt}{1.0\paperheight}%
+    \hspace*{1.15\paperwidth}%
+    \makebox[-8pt][r]{%
+        \includegraphics[width=250pt]{images/panic.png}%
+    }
+
+}
 
 \begin{frame}[fragile]
 
     \frametitle{Motivation}
 
-    \begin{center}
-        \includegraphics[width=0.47\textwidth]{images/panic.png}
+     Why, oh why. Do I really need to learn this?!
 
-        Programming?!
+     \bigskip
+     \bigskip
+     \bigskip
+     \bigskip
+     \bigskip
 
-    \end{center}
+     \begin{itemize}
+         \item Bachelor project
+         \item Master project
+         \item PhD project
+         \item Real life science
+     \end{itemize}
 
 \end{frame}
-
+}
 
 \begin{frame}[fragile]
 
@@ -64,9 +83,11 @@
 
         \column{0.5\linewidth}
 
-            \includegraphics[width=0.9\textwidth]{images/plot1.png}
+            \centering
 
-            \includegraphics[width=0.9\textwidth]{images/plot2.png}
+            \includegraphics[width=0.8\textwidth]{images/plot1.png}
+
+            \includegraphics[width=0.8\textwidth]{images/plot2.png}
 
     \end{columns}
 
@@ -337,36 +358,79 @@ import video  # imports video.py
 
 \begin{frame}[fragile]
 
-    \frametitle{Looping}
+    \frametitle{Looping and Double Looping}
 
-    \begin{align*}
-        K = \sum_{j=1}^{50} j^2
-    \end{align*}
+    \begin{center}
+        15 min
+    \end{center}
+
+    \begin{columns}[t]
+
+        \column{0.5\linewidth}
+
+            \begin{align*}
+                K = \sum_{j=1}^{50} j^2
+            \end{align*}
+
+
+        \column{0.5\linewidth}
+
+            \begin{align*}
+                K = \sum_{i=5}^{10} \sum_{j=1}^{42} i \cdot j^{1/2}
+            \end{align*}
+
+
+    \end{columns}
 
     \bigskip
     \bigskip
+
 \end{frame}
 
 \begin{frame}[fragile]
 
-    \frametitle{Looping}
+    \frametitle{Looping and Double Looping}
 
-    \begin{align*}
-        K = \sum_{j=1}^{50} j^2
-    \end{align*}
+    \begin{columns}[t]
 
-    \bigskip
-    \bigskip
+        \column{0.5\linewidth}
+
+            \begin{align*}
+                K = \sum_{j=1}^{50} j^2
+            \end{align*}
 
 \begin{lstlisting}
 j_list = range(1, 51)
-K = 0
+k = 0
 
-for j in my_list:
-    K = K + j**2 
+for j in j_list:
+    k = k + j**2 
 
-print K
+print k
 \end{lstlisting}
+
+
+        \column{0.5\linewidth}
+
+            \begin{align*}
+                K = \sum_{i=5}^{10} \sum_{j=1}^{42} i \cdot j^{1/2}
+            \end{align*}
+\scriptsize
+\begin{lstlisting}
+j_list = range(1, 42)
+i_list = range(5, 10)
+k = 0
+
+for i in i_list:
+    for j in j_list:
+        k = k + i * j**(1.0/2.0)
+
+print k
+\end{lstlisting}
+
+
+    \end{columns}
+
 
 
 \end{frame}
