@@ -215,6 +215,6 @@ write_list('test_list_eq', partdisteq)
 # plot_particles(X, Y, 'coordinates_end.png')
 
 
-video.save('solution_video3')
+video.save('video2')
 
 

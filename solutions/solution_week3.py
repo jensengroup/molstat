@@ -185,5 +185,5 @@ for n in range(n_steps):
 
 
 # Save video
-video.save("solution_week3_video", box_width)
+video.save("video3", box_width)
 

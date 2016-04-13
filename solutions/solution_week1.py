@@ -63,5 +63,5 @@ plt.savefig("coordinates_end.png")
 plt.clf()
 
 # Save video
-video.save('solution_week1_video')
+video.save('video1')
 

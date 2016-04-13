@@ -38,7 +38,7 @@ for i in range(n_atoms):
 ek_list, ep_list, et_list, te_list, r_list = sim.simulation(n_atoms, n_steps, rho, temperature, dt,
                eps = epss,
                save_freq=save_freq,
-               video_filename='week4simulation',
+               video_filename='video4',
                constant_temperature=True)
 
 
