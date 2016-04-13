@@ -24,7 +24,7 @@
 
 \begin{frame}[fragile]
 
-    \frametitle{Week 2, Lecture Goals}
+    \frametitle{Week 2, Lecture Goals and Life Goals}
 
     \begin{itemize}
         \item Functions
@@ -39,7 +39,7 @@
     Note:
     \begin{itemize}
 
-        \item Play around, and you learn
+        \item Play around and you learn
 
     \end{itemize}
 
@@ -158,6 +158,14 @@ print gaussian(0.0, 1.0)
 \end{frame}
 
 \begin{frame}[fragile]
+    \frametitle{15 min break}
+    \begin{center}
+        \includegraphics[width=0.65\textwidth]{images/barbie2.png}
+    \end{center}
+\end{frame}
+
+
+\begin{frame}[fragile]
 
     \frametitle{files}
 
@@ -187,28 +195,18 @@ for line in file:
         x_{n+1} = x_n^2 - r
     \end{equation*}
 
-\end{frame}
-
-
-\begin{frame}[fragile]
-
-    \frametitle{Week 1 problems}
-
-    What was the hardest part of week 1?\\
-
     \bigskip
 
-\begin{lstlisting}
-pos_x = [random.random() for i in range(n_particles)]
+    Simulate the iterative process
 
-for i in range(n_particles):
-    print pos_x[i]
+    \begin{itemize}
 
-\end{lstlisting}
+        \item Simulate equation with initial guess $x=0.1$ and $r$ between 0.0 and 2.0 (hint: use \code{np.linspace}) and dump the data into a csv file
+        \item Plot the csv data
 
+    \end{itemize}
 
 \end{frame}
-
 
 
 
@@ -221,19 +219,19 @@ for i in range(n_particles):
 
         \column{0.4\linewidth}
 
-    Typical errors:
+            Typical errors:
 
-    \begin{itemize}
-        \item Indentation error
-        \item Out of bounds
-        \item Object not callable
-        \item Invalid syntax
-    \end{itemize}
+            \begin{itemize}
+                \item Indentation error
+                \item Out of bounds
+                \item Object not callable
+                \item Invalid syntax
+            \end{itemize}
 
         \column{0.5\linewidth}
 
         
-            \includegraphics[width=0.8\linewidth]{flip.jpg}
+            \includegraphics[width=0.8\linewidth]{images/flip.jpg}
 
     \end{columns}
 
@@ -244,25 +242,32 @@ for i in range(n_particles):
 
 \begin{frame}[fragile]
 
-    \frametitle{Exercise Week 2}
+    \frametitle{Exercise Week 2 and program structure}
 
 \begin{lstlisting}
-
-import random
-
-...
-
+import numpy as np
+# ...
 def initialize_particles(n_particles):
-    """ Initialze particles , positions and velocities
-    """
-    return pos_x , pos_y , vel_x , vel_y
-
-...
-
+    """ Initialze particles positions and velocities """
+    return positions_x, positions_y, velocities_x, velocities_y
+# ...
 n_particles = 40
-n_steps = 10000
+# ...
+pos_x, pos_y, vel_x, vel_y = initialze_particles(n_particles)
 
 \end{lstlisting}
+
+    \begin{itemize}
+        \item import modules
+        \item define functions
+        \item define variables
+        \item use functions with variables
+    \end{itemize}
+
+    \begin{itemize}
+        \item Always keep functions in the beginning
+        \item don't use global variables in functions
+    \end{itemize}
 
 \end{frame}
 

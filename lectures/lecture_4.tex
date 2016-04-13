@@ -50,7 +50,7 @@
     Because compiling!
 
 \begin{lstlisting}
-@jit(argtypes=[double[:,:], double, double[:,:]])
+@jit()
 def force(R, box_width, eps):
     for i in range(n_part):
         for j in range(n_part):
@@ -76,19 +76,21 @@ def force(R, box_width, eps):
 
 \begin{frame}[fragile]
 
-    \frametitle{modules}
+    \frametitle{Making modules}
 
-file.py
+my\_functions.py
 \begin{lstlisting}
-def function_name(x):
+def square(x):
     return x**2
 
 \end{lstlisting}
 
+\bigskip
+
 anotherfile.py
 \begin{lstlisting}a
-import file
-print file.function_name(2)
+import my_fuctions
+print my_functions.square(2)
 \end{lstlisting}
 
 \end{frame}
