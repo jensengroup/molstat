@@ -6,8 +6,12 @@
  - Week 3 lecture seems empty?
 
  - Week 4 is even more empty?
+    - no code examples??
     - more debug?
     - implement numpy fractal?
+        - mandelbrot (imaginary number)
+        - all the others
+        
 
 ## New Virtual box
 
