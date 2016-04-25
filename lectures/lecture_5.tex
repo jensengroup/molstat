@@ -68,7 +68,7 @@
 
 \begin{frame}[fragile]
 
-    Data analysis
+    \frametitle{Analyse the data}
 
     \begin{itemize}
         \item Calculate the Root-mean-square deviation (RMSD)
@@ -83,17 +83,22 @@
         \item Calculate the Pearson Correlation factor r and corresponding p value.
     \end{itemize}
 
+    \bigskip
+
     Hint: search for the scipy module for a nice Pearson function
 
 \end{frame}
 
 
 \begin{frame}[fragile]
-    Print format
+
+    \frametitle{Print format}
 
 \begin{lstlisting}
 print "{0:5d}".format(42)
 \end{lstlisting}
+
+\bigskip
 
 \begin{lstlisting}
 "{0:5d}".format(42) # integer
@@ -101,7 +106,11 @@ print "{0:5d}".format(42)
 "{0:5s}".format("hello") # string
 \end{lstlisting}
 
+\bigskip
+
 https://docs.python.org/3/library/string.html\#formatspec
+
+\bigskip
 
 \begin{lstlisting}
 print "{0:5d} & {1:5.2f} & {2:5.2f} \\\\".format(i, list_Ge[i], list_G[i])
