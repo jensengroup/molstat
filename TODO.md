@@ -1,17 +1,31 @@
 
+# TODO TODAY
+
+    - exercise_1
+    - cheatsheet
+    - matplotlib
+    - md_video
+
+
 # TODO list for molstat
 
-# TODO Before start
+    - matplotlib header for slides
+    - lstlisting backgound in exercise is a bit dark
+    - look at exercise introductions
 
- - Week 3 lecture seems empty?
+    - Week 3 lecture seems empty?
 
- - Week 4 is even more empty?
-    - no code examples??
-    - more debug?
-    - implement numpy fractal?
-        - mandelbrot (imaginary number)
-        - all the others
-        
+    - Week 4 is even more empty?
+        - no code examples??
+        - more debug?
+        - implement numpy fractal?
+            - mandelbrot (imaginary number)
+            - all the others
+
+    - check old exams for cheat
+    
+    - add quantum wave ?
+        http://jakevdp.github.io/blog/2012/09/05/quantum-python/
 
 ## New Virtual box
 
@@ -116,7 +130,7 @@
     Lecture:
         - Motivation
             => Examples
-            => plots ?
+            => plots ? => take plots from matplotlib_examples.git
             => data
             => simulations
             ==> bachelor project, master project, phd ... REAL RESEARCH

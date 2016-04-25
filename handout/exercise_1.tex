@@ -23,14 +23,10 @@
 
 \section*{Introduction}
 
-%Hello Scientist. You need to learn how to program. It is important.\\
-
 The exercises are split into two parts: A general introduction to new concepts and programming tricks and the main part which is to simulate physical systems.
 It is very important that you go trough each exercise, type each example code in exactly and run it.
 That means, \textsc{do not copy-paste}.
-The point of the exercises is to train
-%your hands, brain and your mind 
-in how to write, read and debug code - the more work you put into getting the basics down the easier it will be to solve future exercises .\\
+The point of the exercises is to train in how to write, read and debug code - the more work you put into getting the basics down the easier it will be to solve future exercises .\\
 
 
 There is no Python curriculum, but two online books, namely
@@ -39,15 +35,14 @@ There is no Python curriculum, but two online books, namely
 contains all the concepts with examples.
 However, this being a programming course we require you to use Google for most information searching and debugging.
 
-\newpage
 \section{Python Introduction}
 
 First thing first, we want to create our very first program.
 To run programs with python we save a file with the extension \code{.py} and run it via the terminal window.
-Try to write the following python code and save it as \code{example\_program.py}
+Write the following python code and save it as \code{example\_program.py}
 
 \begin{lstlisting}
-# you can use comments underway to remind yourself later what the code should do.
+# you can use comments underway to remind yourself later what the code should do
 print "I want to print this statement" # you can also comment after a line
 \end{lstlisting}
 
@@ -57,124 +52,120 @@ run it as
 python example_program.py
 \end{lstlisting}
 
-Is the output as expected? 
+Is the output as expected?
+%
+Now, let's start by getting to know Python better - starting with some simple examples. Remember to use the \code{print} statement in you program to print the result of the following examples.
+We encourage you to have some sort of logical file system, saving all the exercises in different files and folders so you can find it again when needed. \\
+
+Some useful commands for navigating your filesystem can be found in the \textbf{linux cheat sheet}.
+Download it and keep it as reference for when working with the terminal.\\
 
 \subsection{Introduction to Python}
 
-% TODO Remove this section.
-Now, let's start by getting to know Python better - starting with some simple examples. Remember to use the \code{print} statement in you program to print the result of the following examples. We encourage you to have some sort of logical file system, saving all the exercises in
-different files and folders so you can find it again when needed. \\
-
-Some useful commands for navigating your filesystem can be found in the \textbf{linux cheat sheet} (found on the website). \\
-
-Imaging you are planning to bake a cake for the next exercise-session. Before you go to the shop you want to know exactly how much money you should bring. You look up a recipe and see that you need to buy:
+Imaging you are planning to bake a cake for the next exercise-class in molstat.
+Before you go to the shop you want to know exactly how much money you should bring.
+You look up a recipe and see that you need to buy:
 
 \vspace{10pt }
  
 \begin{center}
-\begin{tabular}{c l l}
-\hline
-Ingredient & Price & Weight/pcs \\
-\hline
-Flour & 8 kr. & 2 kg \\
-Eggs & 28 kr. & 10 pcs \\
-apple & 2 kr./pcs & 5 pcs \\
-Sugar & 10 kr. & 1 kg \\
-Icing sugar &  8 kr. & 0.5 kg \\
-Butter & 16 kr. & 200 g \\
-\end{tabular}
+    \begin{tabular}{c l l}
+    \hline
+    Ingredient & Price & Weight/pcs \\
+    \hline
+    Flour & 8 kr. & 2 kg \\
+    Eggs & 28 kr. & 10 pcs \\
+    apple & 2 kr./pcs & 5 pcs \\
+    Sugar & 10 kr. & 1 kg \\
+    Icing sugar &  8 kr. & 0.5 kg \\
+    Butter & 16 kr. & 200 g \\
+    \end{tabular}
 \end{center}
 
-First you need to find out how much money to bring to the shop. Python can do this for you by working as a simple calculator.
-
-
-
-
-\iffalse
-\begin{lstlisting}
-cd <directory>                   # enter the folder called <directory>
-cd ..                            # navigate to the parent directory.
-ls                               # print the contents of the current directory
-mkdir <directory>                # creates an empty folder called <directory>
-cp <file1> <file2>               # copy <file1> to <file2>
-cp <file> <directory>            # copy <file> to <directory>
-cp -r <directory1> <directory2>  # copy <directory1> to <directory2>.
-mv <file1> <file2>               # move <file1> to <file2>
-\end{lstlisting}
-
-\fi
+First you need to find out how much money to bring to the shop.
+Python can do this for you by working as a simple calculator.
 
 \begin{enumerate}
     \item Use Python  to calculate the total price of the items on you shopping list  
-
 \end{enumerate}
 
-Once you've added up the total amount you realise that it might be worth it to simply buy a cake instead. In order to check that you must calculate the actual price of the cake you are making. In order to bake the cake you need:
+Once you've added up the total amount you realise that it might be cheaper buy a cake instead.
+In order to check that you must calculate the actual price of the cake you are making.
+In order to bake the cake you need:
 
 \begin{center}
-\begin{tabular}{c l l}
-\hline
-Ingredient & amount needed\\
-\hline
-Flour & 175 g \\
-Eggs & 1 pcs \\
-apple & 5 pcs \\
-Sugar & 100 g \\
-Icing sugar &  20 g \\
-Butter & 75 g \\
-\end{tabular}
+    \begin{tabular}{c l l}
+    \hline
+    Ingredient & amount needed\\
+    \hline
+    Flour & 175 g \\
+    Eggs & 1 pcs \\
+    apple & 5 pcs \\
+    Sugar & 100 g \\
+    Icing sugar &  20 g \\
+    Butter & 75 g \\
+    \end{tabular}
 \end{center}
 
-\begin{enumerate}
-  \setcounter{enumi}{1}
-  \item Execute the following statements. Does Python behave like your regular calculator? If anything unusual happens try and explain why. {\em Hint}; what is the difference between {\code{integer}} and {\code{ float}}? 
-\code {28/10, 28.0/10.0}
- \item Use Pyhton to calculate the total price of your cake. \\
+\begin{enumerate}[resume]
+
+    \item Execute the following statements.
+\begin{lstlisting}
+print 5*6
+print 5.0*6.0
+print 28/10
+print 28.0/10.0
+\end{lstlisting}
+    Does Python behave like your regular calculator?
+    {\em Hint}; what is the difference between {\code{integer}} and {\code{ float}}? 
+
+    \item Use Pyhton to calculate the total price of your cake.
  
 \end{enumerate}
 
-NOTE: Python also knows the more advanced functions found on a calculator. Try the following. \\
-\code{5**2, 5\%2} and explain the output.\\
+% NOTE: Python also knows the more advanced functions found on a calculator. Try the following.
+% \code{5**2, 5\%2} and explain the output.\\
 
-Manually entering numbers really does us no good, we might as well use a
-calculator. Instead, we want to utilize what programming languages can provide,
-namely storage of values in what is known as {\bf variables}. Variables can store
-anything that you can think of, i.e. integers, floats, strings, lists so
-forth. (If you are unsure what these different types corresponds to, then try Googling it.) Variables are assigned values by specifying a variable name and a value, e.g.
+Manually entering numbers really does us no good, we might as well use a calculator.
+Instead, we want to utilize what programming languages can provide,
+namely storage of values in what is known as {\bf variables}.
+Variables can store anything that you can think of, i.e. integers, floats, strings, lists so forth.
+Variables are assigned values by specifying a variable name and a value, e.g.
 
 \begin{lstlisting}
-my_first_variable = 5.0
+variable_name = 5.0
 \end{lstlisting}
 
-where a variable named \code{my\_first\_variable} has been assigned the value
+where a variable named \code{variable\_name} has been assigned the value
 of $5.0$.
-Some restrictions apply for variable names (must start with a letter, can't have names of
-in-build functions etc.), but otherwise we are not restricted in the naming. 
+Some restrictions apply for variable names (must start with a letter, can't have names of in-build functions etc.), but otherwise we are not restricted in the naming.\\
 
-\begin{enumerate}
-  \setcounter{enumi}{2}
-  \item Make 6 {\bf variables}, one for each ingredient, and assign a value equal to the price pr. g/pcs. e.g 
-\code{flour\_price\_pr\_g = 8.0/(2*10**3)}
-\end{enumerate}
+Give your {\bf variables} useful names, such as \code{no\_particles} for representing number of particles.
+That way you can more easily remember what values are stored in the variable and it makes the code more readable for others.
 
-Give your {\bf variables} useful names, such as \code{no\_particles} for representing number of particles. That way you can more easily remember what values are stored in the variable and it makes the code more readable for others. On the same note, it is always a good idea to leave short comments in your program to remind yourself/explain to others what each little section of code is used for. Commenting is done by starting the line with \#. Two examples of this is seen in \code{example\_program.py}, where commented text is printed in gray-tones \\
-
-Since a variable can contain anything, a very useful function is \code{type(arg)},
-where \code{arg} is a variable. This function will return the type of value stored
-in the variable.
-
-\begin{enumerate}
-  \setcounter{enumi}{3}
-  \item Repeat task 2, but using the variables from task 3 to store the values and a new variable to store the total price. Print the price.
-\end{enumerate}
-In this way you could calculate the price of the cake when shopping in different stores simply but changing the variable containing the price pr. gram of the ingredients. 
 \begin{enumerate}[resume]
-  \item Use \code{type} to print out the type of the variables used - did this help clarify the difference between \code{integer} and \code{float}?
+    \item What does integers, floats and strings mean? If unsure, use google.
+    \item Make 6 {\bf variables}, one for each ingredient, and assign a value equal to the price pr. g/pcs. e.g 
+    \code{flour\_price\_pr\_g = 8.0/(2*10**3)}
 \end{enumerate}
 
-Usually when working with a program we work with a range of numbers
-that we need to manipulate, and for this it is fairly useful to create a Python {\bf list}
-of numbers.
+On the same note, it is always a good idea to leave short comments in your program to remind yourself/explain to others what each little section of code is used for.
+Commenting is done by starting the line with \#.
+
+Since a variable can contain anything, a very useful function is \code{type(arg)}, where \code{arg} is a variable.
+This function will return the type of value stored in the variable.
+
+\begin{enumerate}[resume]
+    \item Repeat task 2, but using the variables from task 3 to store the values and a new variable to store the total price. Print the price.
+\end{enumerate}
+
+In this way you could calculate the price of the cake when shopping in different stores simply but changing the variable containing the price pr. gram of the ingredients. 
+
+\begin{enumerate}[resume]
+    \item Use \code{type} to print out the type of the variables used - did this help clarify the difference between \code{integer} and \code{float}?
+\end{enumerate}
+
+Usually when working with a program we work with a range of numbers that we need to manipulate, and for this it is fairly useful to create a Python {\bf list} of numbers.
 A list is defined with the same syntax as a float variable;
 
 \begin{lstlisting}
@@ -182,10 +173,8 @@ prices_list = []
 \end{lstlisting}
 
 The above code creates an empty list named \code{prices\_list}.
-Even though the list is empty we can still print
-the content of the variable (try it).
-If you want to add an element to the list you can
-append it using \code{list\_name.append(arg)} where \code{arg} is the element to append the list.
+Even though the list is empty we can still print the content of the variable (try it).
+If you want to add an element to the list you can append it using \code{list\_name.append(arg)} where \code{arg} is the element to append the list.
 
 For example if you want to append 2.0 to a list you write;
 
@@ -199,25 +188,22 @@ or if you want to append the value of a variable
 prices_list.append(flour_price_pr_g)
 \end{lstlisting}
 
-\begin{enumerate}
-  \setcounter{enumi}{3}
-  \item Create an empty list called \code{price\_list}.
+\begin{enumerate}[resume]
+    \item Create an empty list called \code{price\_list}.
     Print the empty list.
     Append \code{flour\_price\_pr\_g} and print the list again.
     What changed in the output?
 
-  \item Print the type of the variable.
-  
-   \item Add the prices of all you ingredients to \code{price\_list}. Print the list again.
+    \item Print the type of the variable.
+
+    \item Add the prices of all you ingredients to \code{price\_list}. Print the list again.
 
  \end{enumerate}
 
 
 Different variables have different attributes, which are called {\em methods}.
 These methods are executed using 'dot'.
-For instance,
-the variable of type list has the method \code{sort()},
-which can be called as follows;
+For instance, the variable of type list has the method \code{sort()}, which can be called as follows;
 
 \begin{lstlisting}
 prices_list.sort()
@@ -225,8 +211,7 @@ prices_list.sort()
 
 For a list of floats, this results in the items of the list being sorted by value.\\
 
-Another way of populating a list with numbers is to do it directly when
-we create the list.
+Another way of populating a list with numbers is to do it directly when we create the list.
 This is done almost the same way as when we created the empty list, except we
 provide the initial content right away. E.g.
 
@@ -234,14 +219,12 @@ provide the initial content right away. E.g.
 another_price_list = [1.0, 2.0, 3.0, 4.0, -2.0, -4.5, -1.0]
 \end{lstlisting}
 
+\begin{enumerate}[resume]
+    \item Create \code{another\_price\_list} with the prices of you ingredients like in the above example.\\
+    Print \code{another\_price\_list}. Sort the list. Print the sorted list. \\
+    Does it provide the correct result?
 
-\begin{enumerate}
-  \setcounter{enumi}{6}
-   \item Create \code{another\_price\_list} with the prices of you ingredients like in the above example.\\
-Print \code{another\_price\_list}. Sort the list. Print the sorted list. \\
-  Does it provide the correct result?
-
-  \item Print \code{another\_price\_list} in reverse sorted order.
+    \item Print \code{another\_price\_list} in reverse sorted order.
     Use Google to find out how.\footnote{Using Google is
     by far the most important tool as a programmer.}
 \end{enumerate}
@@ -267,7 +250,6 @@ If you want the length of our example list, the syntax is
 \begin{lstlisting}
 print len(another_price_list)
 \end{lstlisting}
-
 
 \begin{enumerate}[resume]
   \item Initialize the following list and test your knowledge about
@@ -318,17 +300,16 @@ print range(-3, 10, 4)
 \end{lstlisting}
 
 \begin{enumerate}[resume]
- \item Understand how the range function works.
+    \item Understand how the range function works.
+        {\em Hint:} Use google or the \code{help()} function.
 \end{enumerate}
 
-
-Creating lists from lists. Say that we have a list \code{x\_list}
-and we want to create $y$ values as a function of these $x$ values.
+Creating lists from lists.
+Say that we have a list \code{x\_list} and we want to create $y$ values as a function of these $x$ values.
 To do this we want to iterate over the elements of \code{x\_list} to create the new list.
 This is where we want to use {\em for-loops}.
-Let's jump straight into the syntax. Say that we already
-have defined a variable containing the $x$-values, \code{x\_list},
-then \code{y\_list} is created as,
+Let's jump straight into the syntax.
+Say that we already have defined a variable containing the $x$-values, \code{x\_list}, then \code{y\_list} is created as,
 
 \begin{lstlisting}
 y_list = []
@@ -337,29 +318,25 @@ for x in x_list:
     y_list.append(y)
 \end{lstlisting}
 
-First we initialize a new list,
-then we fill in $y$ values by iterating over
-all $x$ values in \code{x\_list}.
-As you might have guessed the above code is equivalent to 
-the function $f(x) = x^2$.\\
+First we initialize a new list, then we fill in $y$ values by iterating over all $x$ values in \code{x\_list}.
+As you might have guessed the above code is equivalent to the function $f(x) = x^2$.
+
 \begin{enumerate}[resume]
-  \item Create a list of $x$ values from -5 to 5 (both included). Use this list
-    to calculate values for another list, with the function $f(x) = -6x^2 + 6x$.
+    \item Create a list of $x$ values from -5 to 5 (both included).
+    Use this list to calculate values for another list, with the function $f(x) = -6x^2 + 6x$.
     Print the result.
 \end{enumerate}
 
 Another one-line way of working with lists is the following syntax;
 
 \begin{lstlisting}
-  y_list = [x**2 for x in x_list]
+y_list = [x**2 for x in x_list]
 \end{lstlisting}
 
-which does exactly the same as the above example\footnote{This method is
-called ``list comprehension''. Knowing what methods are called makes
-it easier to get help from Google when you get stuck. }.
+which does exactly the same as the above example\footnote{This method is called ``list comprehension''. Knowing what methods are called makes it easier to get help from Google when you get stuck.}.
 
 \begin{enumerate}[resume]
-  \item Repeat exercise 13, but using the shorthand way of creating lists.
+    \item Repeat exercise 13, but using the shorthand way of creating lists.
 \end{enumerate}
 
 What if we want to use math functions (or other modules)?
@@ -367,25 +344,23 @@ We can import them! This is always done in the top of the
 python file using the syntax;
 
 \begin{lstlisting}
-import math
+import numpy as np
 \end{lstlisting}
 
-The math module has a lot of useful mathematical functions like \code{sin},
-\code{cos} and \code{exp}. When the math package has been imported it is used
-in the following way;
+The math module has a lot of useful mathematical functions like \code{sin}, \code{cos} and \code{exp}.
+When the math package has been imported it is used in the following way;
 
 \begin{lstlisting}
-print math.cos(math.pi)
-print math.exp(math.pi)
+print np.cos(np.pi)
+print np.exp(np.pi)
 \end{lstlisting}
 
 \begin{enumerate}[resume]
-  \item Create a list of $x$ values from -5 to 5 (both included).
+    \item Create a list of $x$ values from -5 to 5 (both included).
     Calculate sine values, $f(x) = \sin{x}$ using the math module,
     for the $x$-list.
     Print the result.
-  \item Use the \textbf{matplotlib-manual} (found on the website) to save plots of 
-    task 14 and 16.
+    \item Use the \textbf{matplotlib-manual} (found on the website) to save the plots.
 \end{enumerate}
 
 %
@@ -397,7 +372,8 @@ print math.exp(math.pi)
 
 The goal of today's simulation is to initialize particles with random coordinates and random velocities confined in a 2 dimensional box, and propagate the particle positions in time.
 %
-The code below is your starting point for today's exercise. Remember to save this code in a \code{name.py} file, and naming the files in a manner that will help yourself stay organised as the course progress at the program evolves.
+The code below is your starting point for today's exercise.
+Remember to save this code in a \code{name.py} file, and naming the files in a manner that will help yourself stay organised as the course progress at the program evolves\footnote{Also a folder structure is really nice!}.
 
 \begin{lstlisting}
 # import modules
@@ -433,10 +409,9 @@ Lastly we have defined the $x$- coordinates and $y$-coordinates for \code{n\_par
 See figure \ref{fig:firstbox} to see what we are trying to simulate.
 Now we want to change the code so that it looks like \ref{fig:secondbox}.
 
-% TODO figurene er [0,1],[-1,1] istedet for 10.
 \begin{enumerate}
-  \item Correct the $x$-coordinates of the particle positions by making them initialize in range $x \in [0, 10]$ instead if the standard $x \in [0,1]$
-  \item Correct the $y$-coordinates of the particle positions by making them initialize in the range $y \in [-10,10]$ instead of the standard $y \in [0,1]$.
+    \item Correct the $x$-coordinates of the particle positions by making them initialize in range $x \in [0, 10]$ instead if the standard $x \in [0,1]$
+    \item Correct the $y$-coordinates of the particle positions by making them initialize in the range $y \in [-10,10]$ instead of the standard $y \in [0,1]$.
 \end{enumerate}
 
 
@@ -449,16 +424,12 @@ Now we want to change the code so that it looks like \ref{fig:secondbox}.
   }
 \end{figure}
 
-
 \newpage
 
 When you have corrected the particle positions, it is time to give the particles random velocities to allow the particles to move around.
 
-\begin{enumerate}
-  \setcounter{enumi}{2}
-  \item Create
-    two new lists, \code{velocities\_x} and \code{velocities\_y}, which we shall use to
-    store the velocities for the particles.
+\begin{enumerate}[resume]
+    \item Create two new lists, \code{velocities\_x} and \code{velocities\_y}, which we shall use to store the velocities for the particles.
     The velocities should be a random number between -10 and 10.
 \end{enumerate}
 
@@ -470,8 +441,7 @@ plt.quiver(positions_x, positions_y, velocities_x, velocities_y)
 
 We are now ready to loop over each particle in our system, but before we do this, you should make it really clear to yourself how we can obtain the coordinates and velocities for the $i$'th particle.
 
-\begin{enumerate}
-  \setcounter{enumi}{3}
+\begin{enumerate}[resume]
   \item How do we access the value of the $i$'th element in the \code{positions\_x} list?
       {\em Hint;} check out task (12) from part 1 again.
 
@@ -486,8 +456,7 @@ particle at time $n$, the current time.
 
 That is, the $i$'th particle will be at its previous position plus its velocity $v_i$ times a time step $dt$.
 
-\begin{enumerate}
-  \setcounter{enumi}{4}
+\begin{enumerate}[resume]
   \item
     Modify your script to loop over each particle and update the $x$- and $y$-coordinates with the respective particle velocities.
     Plot the particle positions after you have changed them to a file called stepcoords.png.
