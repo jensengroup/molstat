@@ -1,12 +1,4 @@
 
-# TODO TODAY
-
-    - exercise_1
-    - cheatsheet
-    - matplotlib
-    - md_video
-
-
 # TODO list for molstat
 
     - matplotlib header for slides
