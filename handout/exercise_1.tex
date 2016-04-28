@@ -26,7 +26,7 @@
 The exercises are split into two parts: A general introduction to new concepts and programming tricks and the main part which is to simulate physical systems.
 It is very important that you go trough each exercise, type each example code in exactly and run it.
 That means, \textsc{do not copy-paste}.
-The point of the exercises is to train in how to write, read and debug code - the more work you put into getting the basics down the easier it will be to solve future exercises .\\
+The point of the exercises is to train in how to write, read and debug code - the more work you put into getting the basics down the easier it will be to solve future exercises.\\
 
 
 There is no Python curriculum, but two online books, namely
@@ -54,16 +54,16 @@ python example_program.py
 
 Is the output as expected?
 %
-Now, let's start by getting to know Python better - starting with some simple examples. Remember to use the \code{print} statement in you program to print the result of the following examples.
+Now, let's start by getting to know Python better - starting with some simple examples. Remember to use the \code{print} statement in your program to print the result of the following examples.
 We encourage you to have some sort of logical file system, saving all the exercises in different files and folders so you can find it again when needed. \\
 
-Some useful commands for navigating your filesystem can be found in the \textbf{linux cheat sheet}.
+Some useful commands for navigating your filesystem can be found in the \textbf{terminal cheatsheet}.
 Download it and keep it as reference for when working with the terminal.\\
 
 \subsection{Introduction to Python}
 
-Imaging you are planning to bake a cake for the next exercise-class in molstat.
-Before you go to the shop you want to know exactly how much money you should bring.
+Now, imaging that you are planning to bake a cake for the next exercise-class in molstat.
+Before you go to the shop you want to know how much money  to bring.
 You look up a recipe and see that you need to buy:
 
 \vspace{10pt }
@@ -89,18 +89,18 @@ Python can do this for you by working as a simple calculator.
     \item Use Python  to calculate the total price of the items on you shopping list  
 \end{enumerate}
 
-Once you've added up the total amount you realise that it might be cheaper buy a cake instead.
+Once you've added up the total amount you realise that it might be cheaper to buy a cake instead.
 In order to check that you must calculate the actual price of the cake you are making.
 In order to bake the cake you need:
 
 \begin{center}
     \begin{tabular}{c l l}
     \hline
-    Ingredient & amount needed\\
+    Ingredient & Amount needed\\
     \hline
     Flour & 175 g \\
     Eggs & 1 pcs \\
-    apple & 5 pcs \\
+    Apple & 5 pcs \\
     Sugar & 100 g \\
     Icing sugar &  20 g \\
     Butter & 75 g \\
@@ -141,15 +141,15 @@ of $5.0$.
 Some restrictions apply for variable names (must start with a letter, can't have names of in-build functions etc.), but otherwise we are not restricted in the naming.\\
 
 Give your {\bf variables} useful names, such as \code{no\_particles} for representing number of particles.
-That way you can more easily remember what values are stored in the variable and it makes the code more readable for others.
+That way you can easily remember what values are stored in the variable and it makes the code more readable for others.
 
 \begin{enumerate}[resume]
-    \item What does integers, floats and strings mean? If unsure, use google.
+    \item What does integer, float and string mean? If unsure, use Google.
     \item Make 6 {\bf variables}, one for each ingredient, and assign a value equal to the price pr. g/pcs. e.g 
     \code{flour\_price\_pr\_g = 8.0/(2*10**3)}
 \end{enumerate}
 
-On the same note, it is always a good idea to leave short comments in your program to remind yourself/explain to others what each little section of code is used for.
+On the same note, it is always a good idea to leave short comments in your program to remind yourself/ explain to others what each little section of code is used for.
 Commenting is done by starting the line with \#.
 
 Since a variable can contain anything, a very useful function is \code{type(arg)}, where \code{arg} is a variable.
@@ -174,7 +174,7 @@ prices_list = []
 
 The above code creates an empty list named \code{prices\_list}.
 Even though the list is empty we can still print the content of the variable (try it).
-If you want to add an element to the list you can append it using \code{list\_name.append(arg)} where \code{arg} is the element to append the list.
+If you want to add an element to the list you can append it using \code{list\_name.append(arg)} where \code{arg} is the element to be appended to the list.
 
 For example if you want to append 2.0 to a list you write;
 
@@ -257,8 +257,8 @@ print len(another_price_list)
     Describe the result of every print-statement. Test your
     understanding of lists by guessing what the output will be before
     you run it. 
-    {\em Hint;} one of the lines will give an error. Why?
-\end{enumerate}
+    {\em Hint;} one of the lines will give an error. Why? \label{list operations}
+\end{enumerate} 
 \begin{lstlisting}
 q_list=[45, 23, 56, 34, 76, 50]
 
@@ -324,7 +324,7 @@ As you might have guessed the above code is equivalent to the function $f(x) = x
 \begin{enumerate}[resume]
     \item Create a list of $x$ values from -5 to 5 (both included).
     Use this list to calculate values for another list, with the function $f(x) = -6x^2 + 6x$.
-    Print the result.
+    Print the result.\label{new y values}
 \end{enumerate}
 
 Another one-line way of working with lists is the following syntax;
@@ -336,7 +336,7 @@ y_list = [x**2 for x in x_list]
 which does exactly the same as the above example\footnote{This method is called ``list comprehension''. Knowing what methods are called makes it easier to get help from Google when you get stuck.}.
 
 \begin{enumerate}[resume]
-    \item Repeat exercise 13, but using the shorthand way of creating lists.
+    \item Repeat exercise \ref{new y values}, but using the shorthand way of creating lists.
 \end{enumerate}
 
 What if we want to use math functions (or other modules)?
@@ -373,7 +373,7 @@ print np.exp(np.pi)
 The goal of today's simulation is to initialize particles with random coordinates and random velocities confined in a 2 dimensional box, and propagate the particle positions in time.
 %
 The code below is your starting point for today's exercise.
-Remember to save this code in a \code{name.py} file, and naming the files in a manner that will help yourself stay organised as the course progress at the program evolves\footnote{Also a folder structure is really nice!}.
+Remember to save this code in a \code{name.py} file, and naming the files in a manner that will help yourself stay organised as the course progress and the program evolves\footnote{Also a folder structure is really nice!}.
 
 \begin{lstlisting}
 # import modules
@@ -396,9 +396,9 @@ plt.axis((-box_width, box_width, -box_width, box_width))
 plt.savefig('coordinates_start.png')
 \end{lstlisting}
 
-As you can see, variables have been already been declared such as \code{n\_particles}, which is the number of particles that we want to generate and simulate.
+As you can see, variables have already been declared such as \code{n\_particles}, which is the number of particles that we want to generate and simulate.
 \code{n\_steps} is the number of steps we want to take in the simulation and \code{dt} controls how large a time-step we will be taking.
-Lastly we have defined the $x$- coordinates and $y$-coordinates for \code{n\_particles} random particles using list-comprehensions.
+Lastly, we have defined the $x$- coordinates and $y$-coordinates for \code{n\_particles} random particles using list-comprehensions.
 
 \begin{enumerate}
   \item Inspect and understand all lines in the above code.
@@ -443,7 +443,7 @@ We are now ready to loop over each particle in our system, but before we do this
 
 \begin{enumerate}[resume]
   \item How do we access the value of the $i$'th element in the \code{positions\_x} list?
-      {\em Hint;} check out task (12) from part 1 again.
+      {\em Hint;} check out task \ref{list operations} from part 1 again.
 
 \end{enumerate}
 
