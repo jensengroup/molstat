@@ -69,16 +69,16 @@ You look up a recipe and see that you need to buy:
 \vspace{10pt }
  
 \begin{center}
-    \begin{tabular}{c l l}
+    \begin{tabular}{c r r r}
     \hline
-    Ingredient & Price & Weight/pcs \\
+    Ingredient & Price & Units/Pcs needed & Unit weight \\
     \hline
-    Flour & 8 kr. & 2 kg \\
-    Eggs & 28 kr. & 10 pcs \\
-    apple & 2 kr./pcs & 5 pcs \\
-    Sugar & 10 kr. & 1 kg \\
-    Icing sugar &  8 kr. & 0.5 kg \\
-    Butter & 16 kr. & 200 g \\
+    Flour & 8 kr. & 1  & 2 kg \\
+    Eggs & 28 kr. & 1  & 10 pcs \\
+    apple & 2 kr./pcs & 5   & N/A\\
+    Sugar & 10 kr.& 1  & 1 kg \\
+    Icing sugar &  8 kr. & 1   & 0.5 kg \\
+    Butter & 16 kr. & 1  & 200 g \\
     \end{tabular}
 \end{center}
 
@@ -86,6 +86,18 @@ First you need to find out how much money to bring to the shop.
 Python can do this for you by working as a simple calculator.
 
 \begin{enumerate}
+    \item Execute the following statements.
+\begin{lstlisting}
+print 2+3
+print 2.0*3.0+4.0
+print 5*6
+print 5.0*6.0
+print 28/10
+print 28.0/10.0
+\end{lstlisting}
+    Does Python behave like your regular calculator?
+    {\em Hint}; what is the difference between {\code{integer}} and {\code{ float}}? 
+    
     \item Use Python  to calculate the total price of the items on you shopping list  
 \end{enumerate}
 
@@ -108,16 +120,6 @@ In order to bake the cake you need:
 \end{center}
 
 \begin{enumerate}[resume]
-
-    \item Execute the following statements.
-\begin{lstlisting}
-print 5*6
-print 5.0*6.0
-print 28/10
-print 28.0/10.0
-\end{lstlisting}
-    Does Python behave like your regular calculator?
-    {\em Hint}; what is the difference between {\code{integer}} and {\code{ float}}? 
 
     \item Use Pyhton to calculate the total price of your cake.
  
@@ -144,26 +146,20 @@ Give your {\bf variables} useful names, such as \code{no\_particles} for represe
 That way you can easily remember what values are stored in the variable and it makes the code more readable for others.
 
 \begin{enumerate}[resume]
-    \item What does integer, float and string mean? If unsure, use Google.
     \item Make 6 {\bf variables}, one for each ingredient, and assign a value equal to the price pr. g/pcs. e.g 
     \code{flour\_price\_pr\_g = 8.0/(2*10**3)}
+    \item Use these variables to calculate the total price of the cake, and store the total price in the variable \code{price}.
+    \item Print the total price of the cake
+    \item Why would it be a good idea to calculate the total price with variables instead?
 \end{enumerate}
 
 On the same note, it is always a good idea to leave short comments in your program to remind yourself/ explain to others what each little section of code is used for.
 Commenting is done by starting the line with \#.
 
 Since a variable can contain anything, a very useful function is \code{type(arg)}, where \code{arg} is a variable.
-This function will return the type of value stored in the variable.
+This function will return the type of value stored in the variable.\\
 
-\begin{enumerate}[resume]
-    \item Repeat task 2, but using the variables from task 3 to store the values and a new variable to store the total price. Print the price.
-\end{enumerate}
-
-In this way you could calculate the price of the cake when shopping in different stores simply but changing the variable containing the price pr. gram of the ingredients. 
-
-\begin{enumerate}[resume]
-    \item Use \code{type} to print out the type of the variables used - did this help clarify the difference between \code{integer} and \code{float}?
-\end{enumerate}
+In this way you could calculate the price of the cake when shopping in different stores simply but changing the variable containing the price pr. gram of the ingredients. \\
 
 Usually when working with a program we work with a range of numbers that we need to manipulate, and for this it is fairly useful to create a Python {\bf list} of numbers.
 A list is defined with the same syntax as a float variable;
@@ -195,8 +191,6 @@ prices_list.append(flour_price_pr_g)
     What changed in the output?
 
     \item Print the type of the variable.
-
-    \item Add the prices of all you ingredients to \code{price\_list}. Print the list again.
 
  \end{enumerate}
 
@@ -233,8 +227,8 @@ another_price_list = [1.0, 2.0, 3.0, 4.0, -2.0, -4.5, -1.0]
 % >>> L.reverse()
 
 If we want to access the i'th element in a list
-we use square brackets. To print the second element
-in the list from above you write;
+we use square brackets. To print the \textbf{second element}
+in \code{another\_price\_list} you write;
 
 \begin{lstlisting}
 print another_price_list[1]
@@ -302,9 +296,10 @@ print range(-3, 10, 4)
 \begin{enumerate}[resume]
     \item Understand how the range function works.
         {\em Hint:} Use google or the \code{help()} function.
+    \item Create a list with all even numbers from 0 to 10
 \end{enumerate}
 
-Creating lists from lists.
+Now we are ready to create lists from lists.
 Say that we have a list \code{x\_list} and we want to create $y$ values as a function of these $x$ values.
 To do this we want to iterate over the elements of \code{x\_list} to create the new list.
 This is where we want to use {\em for-loops}.
