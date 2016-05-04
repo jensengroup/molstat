@@ -3,6 +3,7 @@
 # output
 *.mp4
 *.png
+*.csv
 
 
 # C extensions

@@ -1,5 +1,6 @@
+# TODO
 
-# TODO list for molstat
+list for molstat
 
     - matplotlib header for slides
     - lstlisting backgound in exercise is a bit dark
@@ -15,60 +16,27 @@
             - all the others
 
     - check old exams for cheat
-    
-    - add quantum wave ?
-        http://jakevdp.github.io/blog/2012/09/05/quantum-python/
 
-## New Virtual box
 
-    # NOTE !!!!
-        If you are using 64bit virtual machine, you need to activate virtualization on the host machine, or it will not work!
+## Examples
 
-    - Debian
-        http://superuser.com/questions/771048/cant-start-seamless-mode-despite-installing-guest-additions
-        
+ - Implement Monte-Carlo pi example
 
-    - mencoder
-    https://www.vimp.com/en/web/faq-installation/items/how-to-install-the-transcoding-tools-on-debian-8-jessie.html
+ - quantum wave
+     http://jakevdp.github.io/blog/2012/09/05/quantum-python/
 
-    - openbabel
-        - sudo apt-get install swig
+ - fractals
+     - 2d
+     - 3d
 
-    - pip
-        - matplotlib
-            - libpng-dev
-            - libfreetype6-dev
-            - libcairo2-dev
-        - numpy
-        - scipy
-            - libblas-dev liblapack-dev libatlas-base-dev gfortran
-        - seaborn (depends on lapack & gfortran)
-    - anaconda
-        - anaconda pip ?
-
-    - molcalc (updated)
-
-    - mencoder / matplotlib setup
-
-    - shared folder (guide for windows and mac)
-
-    - set `vlc` as standard video opener
-
-    - gedit settings
-        - tab => 4 spaces
-    
-    - clean user/home
-
-    - remove standard stuff (games, rythmplayer, libreoffice etc)
-
-    - stop locking / screensaver
-
+ - fitting
+    - fit to gaussian (histogram)
+    - fit to function (linearregression)
 
 ## General:
 
     - for each exercise, add "Goal of today"
     - remove introduction text? Who reads it anyway?
-
     - add the text WRITE EVERYTHING, DO NOT COPY-PASTE
 
     - plagarism
@@ -100,22 +68,6 @@
     (2) Compare with your neighbours
     (3) Ask me
 
-
-## Additions:
-
- - Multiple particles types
-    - follow up
-    - easier setup?
-
- - fractals
-    - 3d fractals 
-
- - monte carlo pi
-    - statistics of multiple simulations?
-
- - fitting
-    - fit to gaussian (histogram)
-    - fit to function (linearregression)
 
 ## Week 1:
 
@@ -171,7 +123,49 @@
 
     - other relevant exercises?
 
-## Other Examples
 
-    - Implement Monte-Carlo pi example
+
+## New Virtual box
+
+    # NOTE !!!!
+        If you are using 64bit virtual machine, you need to activate virtualization on the host machine, or it will not work!
+
+    - Debian
+        http://superuser.com/questions/771048/cant-start-seamless-mode-despite-installing-guest-additions
+        
+
+    - mencoder
+    https://www.vimp.com/en/web/faq-installation/items/how-to-install-the-transcoding-tools-on-debian-8-jessie.html
+
+    - openbabel
+        - sudo apt-get install swig
+
+    - pip
+        - matplotlib
+            - libpng-dev
+            - libfreetype6-dev
+            - libcairo2-dev
+        - numpy
+        - scipy
+            - libblas-dev liblapack-dev libatlas-base-dev gfortran
+        - seaborn (depends on lapack & gfortran)
+    - anaconda
+        - anaconda pip ?
+
+    - molcalc (updated)
+
+    - mencoder / matplotlib setup
+
+    - shared folder (guide for windows and mac)
+
+    - set `vlc` as standard video opener
+
+    - gedit settings
+        - tab => 4 spaces
+    
+    - clean user/home
+
+    - remove standard stuff (games, rythmplayer, libreoffice etc)
+
+    - stop locking / screensaver
 

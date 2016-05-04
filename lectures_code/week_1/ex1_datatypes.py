@@ -6,7 +6,7 @@ name = "Peter"
 print name
 
 # Integer
-age = 31
+age = 32
 print age
 
 # Float
