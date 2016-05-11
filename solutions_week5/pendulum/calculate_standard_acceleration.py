@@ -4,7 +4,9 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.mlab as mlab
 import scipy.optimize as opt
+from scipy.stats import norm
 
 
 datafile = open('timer_gen.dat', 'r')
@@ -71,20 +73,32 @@ for i in xrange(1, len(times)):
 #     time_error.append(t - (i+1)*a - b)
 
 
-plt.clf()
-num_bins = 15
-# the histogram of the data
-n, bins, patches = plt.hist(time_error, num_bins)
-# add a 'best fit' line
-# y = mlab.normpdf(bins, mu, sigma)
-# plt.plot(bins, y, 'r--')
+# def f(x, a, b, c):
+#     return a * np.exp(-(x - b)**2.0 / (2 * c**2))
+#
+# x = 
+# y = time_error
 
-print len(times)
-
-plt.savefig('hist')
 
 plt.clf()
 plt.plot(xdata, time_error, '.')
 plt.savefig('error.png')
+
+
+plt.clf()
+
+num_bins = 15
+n, bins, patches = plt.hist(time_error, num_bins, normed=1)
+
+# Add a guassian fit
+(mu, sigma) = norm.fit(time_error)
+y = mlab.normpdf(bins, mu, sigma)
+l = plt.plot(bins, y, 'g-', linewidth=2)
+
+plt.title("Histogram of time measurment: $\mu =$ {0:4.2f}, $\sigma =$ {1:4.2f}".format(mu, sigma))
+
+
+plt.grid(True)
+plt.savefig('hist')
 
 
