@@ -113,8 +113,6 @@ list for molstat
 
 ## Week 5:
 
-    - Add lecture?
-
     - Statistical exercise (pendulum)
         - fit gaussian, get sigma and value from fit
 
@@ -122,7 +120,6 @@ list for molstat
         - recode for scipy
 
     - other relevant exercises?
-
 
 
 ## New Virtual box

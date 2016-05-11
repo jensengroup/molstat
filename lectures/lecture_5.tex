@@ -24,24 +24,16 @@
 
 \begin{frame}[fragile]
 
-    \frametitle{Week "5", Overview}
+    \frametitle{Week 5, Overview}
 
-    todo for this week; useful tips for your bachelor/future science
-
-    \begin{itemize}
-        \item More plotting
-        \item Data analysis
-        \item print format
-        \item Monte Carlo pi
-        \item Debug
-    \end{itemize}
+    Useful python for bachelor/future science
 
 \end{frame}
 
 
 \begin{frame}[fragile]
 
-    \frametitle{Plotting stuff example}
+    \frametitle{Plot the data}
 
     \begin{align*}
         \Delta G^\circ = \Delta U - T \Delta S^\circ + \Delta W + \delta
@@ -51,13 +43,11 @@
 
         \column{0.5\linewidth}
 
-            \includegraphics[width=1.0\textwidth]{images/binding_energy.png}
+            \includegraphics[width=1.1\textwidth]{images/binding_energy.png}
 
         \column{0.4\linewidth}
 
-            2x files
-
-            The columns:\newline\newline ID, $\Delta U$, $\Delta W$, $\Delta S^\circ$\newline
+            Columns:\newline ID, $\Delta U$, $\Delta W$, $\Delta S^\circ$\newline
 
             $\delta = -5.83$, $T = 298.0$
 
@@ -80,25 +70,27 @@
     \end{itemize}
 
     \begin{itemize}
-        \item Calculate the Pearson Correlation factor r and corresponding p value.
+        \item Calculate the Pearson Correlation factor $r$ and corresponding $p$ value.
     \end{itemize}
 
     \bigskip
 
-    Hint: search for the scipy module for a nice Pearson function
+    Hint: There {\bf might} be a Pearson function in the \code{scipy} module.
 
 \end{frame}
 
 
 \begin{frame}[fragile]
 
-    \frametitle{Print format}
+    \frametitle{Print the data}
+
+    Format the output of the python script
 
 \begin{lstlisting}
 print "{0:5d}".format(42)
 \end{lstlisting}
 
-\bigskip
+\smallskip
 
 \begin{lstlisting}
 "{0:5d}".format(42) # integer
@@ -108,15 +100,26 @@ print "{0:5d}".format(42)
 
 \bigskip
 
-https://docs.python.org/3/library/string.html\#formatspec
+Format the output for a latex table
+
+\smallskip
+
+\begin{lstlisting}
+print "{0:5d} & {1:5.2f} & {2:5.2f} \\\\".format(i, G_exp[i], G_cal[i])
+\end{lstlisting}
 
 \bigskip
 
-\begin{lstlisting}
-print "{0:5d} & {1:5.2f} & {2:5.2f} \\\\".format(i, list_Ge[i], list_G[i])
-\end{lstlisting}
+https://docs.python.org/3/library/string.html\#formatspec
+
+\end{frame}
 
 
+\begin{frame} 
+    \frametitle{15min break}
+    \begin{center}
+        \includegraphics[width=0.6\textwidth]{images/barbie3.png}
+    \end{center}
 \end{frame}
 
 
@@ -155,34 +158,68 @@ print "{0:5d} & {1:5.2f} & {2:5.2f} \\\\".format(i, list_Ge[i], list_G[i])
     % about 10 times as many trials as to calculate the preceding
     % significant digit.
 
-    Monte Carlo simulation
+    \frametitle{Monte Carlo $\pi$}
 
-    \begin{align*}
-        % A_\text{circle} &= \pi \cdot r^2 \\
-        % A_\text{square} &= 4 \\
-        % r &= 1 \\
-        \pi &= 4 \cdot A_\text{circle} / A_\text{square}
-    \end{align*}
+    \begin{columns}[c]
 
-    \begin{equation*}
-        x^2 + y^2 < r^2
-    \end{equation*}
+        \column{0.5\linewidth}
 
-    \begin{itemize}
-        \item Calculate Pi (using Monte Carlo)
-        \item How many steps before converge?
-    \end{itemize}
+            \begin{align*}
+                % A_\text{circle} &= \pi \cdot r^2 \\
+                % A_\text{square} &= 4 \\
+                % r &= 1 \\
+                \pi &= 4 \cdot A_\text{circle} / A_\text{square}
+            \end{align*}
+
+            \begin{equation*}
+                x^2 + y^2 < r^2
+            \end{equation*}
+
+        \column{0.5\linewidth}
+
+            \includegraphics[width=1.1\textwidth]{images/circle.png}
+
+    \end{columns}
+
+        \begin{itemize}
+            \item Calculate Pi.
+            \item How many points before converge?
+        \end{itemize}
+
+    % \bigskip
+    %
+    % \small
+    % https://en.wikipedia.org/wiki/Monte\_Carlo\_integration
+
 
 \end{frame}
 
+{
+\usebackgroundtemplate{
+
+    \rule{0pt}{1.0\paperheight}%
+    \hspace*{1.15\paperwidth}%
+    \makebox[-8pt][r]{%
+        \includegraphics[width=250pt]{images/cry.jpg}%
+    }
+
+}
 
 \begin{frame}[fragile]
+    \frametitle{Debug}
 
-    More Debug
+    \begin{columns}[c]
 
+        \column{0.5\linewidth}
+            Let us do some more debug
+
+        \column{0.5\linewidth}
+
+    \end{columns}
 
 \end{frame}
 
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% END FRAMES
