@@ -198,7 +198,7 @@ Next let us plot something more complex. Use \code{np.sin()} and \code{np.cos()}
 
     \item With the $t$ values, save two new lists with the corresponding $p(t)$ and $q(t)$ values.
 
-    \item Make a plot using $p(t)$ values as $x$-values and $q(t)$ values as $y$-values.
+    \item Make a plot using $q(t)$ values as $x$-values and $p(t)$ values as $y$-values.
         {\em Hint:} Using a red line (\code{'r-'}) would be the most appropriate color to choose.
 
 
@@ -208,6 +208,9 @@ Next let us plot something more complex. Use \code{np.sin()} and \code{np.cos()}
 \section{Read/write files}
 
 %Working with files is pretty doupe. % Waiting to the mixtape
+
+% TODO Do something different than write a random number 1000 times
+% TODO A lot of trouble with what to do with this exercise. More example like exercise?
 
 To write data to a file you can use the following syntax
 \begin{lstlisting}
@@ -234,8 +237,7 @@ for line in f:
     data_list.append(float(line))
 \end{lstlisting}
 
-\begin{enumerate}
-    \setcounter{enumi}{12}
+\begin{enumerate}[resume]
 
     \item Create a list with random numbers from 1 to 1000 and save it to a file.
 
@@ -251,49 +253,40 @@ Goal of today
 
 \begin{itemize}
     \item Restructure the program from last week using functions.
-    \item Allow the particles to interact by measuring the distance from all
-        the other particles and if two particles are close make a reflection.
+    \item Allow the particles to interact by measuring the distance from all the other particles and if two particles are close make a reflection.
     \item Count particles and estimate when an equilibrium condition has been established.
 \end{itemize}
 
-As a starting point for your code, you should copy over your solution from last
-weeks exercise. If you didn't finish the exercises last week, download the file
-\code{week1\_solution.py} from Absalon. The following code should be seen as
-inspiration for how the code should be structured after this exercise is done.
+% As a starting point for your code, you should copy over your solution from last weeks exercise.
+If you didn't finish the exercises last week, download the file \code{week1\_solution.py}.
+The following code should be seen as inspiration for how the code should be structured after this exercise is done.
 
 \begin{lstlisting}
+# Import modules
 import numpy as np
 import matplotlib.pyplot as plt
-import md_video as video# 2d Video
+import md_video as video
 
+# Define functions
 def distance(x_i, y_i, x_j, y_j):
-    """
-    Return the distance between particle i and j
-    """
+    # Return the distance between particle i and j
     return d
 
-
 def initialize_particles(n_particles):
-    """
-    Initialze particles, positions and velocities
-    """
+    # Initialze particles, positions and velocities
     return positions_x, positions_y, velocities_x, velocities_y
-
 
 def simulate_step(positions_x, positions_y, velocities_x, velocities_y, dt):
-    """
-    Here we simulate a step dt for all particles.
-    """
+    # Simulate one step for all particles
     return positions_x, positions_y, velocities_x, velocities_y
 
-
-# Run the simulation
+# Inititlize variables
 n_particles = 40
 n_steps = 10000
 dt = 0.001
-X, Y, Vx, Vy = initialize_particles(n_particles)
 
-plot_particles(X, Y, 'coordinates_start.png')
+# Run the simulation
+X, Y, Vx, Vy = initialize_particles(n_particles)
 
 for n in range(n_steps):
     X, Y, Vx, Vy = simulate_step(X, Y, Vx, Vy, dt)
@@ -330,6 +323,9 @@ call them. This is different than e.g. variables, which have to be defined and h
 
 We need to get the interaction between all the possible particle pairs.
 This can be done by looping over each particle twice.
+
+% TODO People just copy this code into the code without thinking. At all.
+%      Maybe remove the code example all together, and make them think of WHEN to look at particle j.
 
 \begin{lstlisting}
 for i in range(n_particles):
