@@ -8,8 +8,7 @@ import matplotlib.mlab as mlab
 import scipy.optimize as opt
 from scipy.stats import norm
 
-
-datafile = open('timer_gen.dat', 'r')
+datafile = open('timer_gen2.dat', 'r')
 
 times = []
 
@@ -60,25 +59,9 @@ print "g = {0:5.2f}".format(g)
 
 time_error = [0.0]
 
-# TODO JCK
-# hmm, wrong
-# we need to check if [i+1] - [i] == a ?
-
 for i in xrange(1, len(times)):
-
     error = times[i] - times[i-1] - a
     time_error.append(error)
-
-# for i, t in enumerate(times):
-#     time_error.append(t - (i+1)*a - b)
-
-
-# def f(x, a, b, c):
-#     return a * np.exp(-(x - b)**2.0 / (2 * c**2))
-#
-# x = 
-# y = time_error
-
 
 plt.clf()
 plt.plot(xdata, time_error, '.')
@@ -86,19 +69,16 @@ plt.savefig('error.png')
 
 
 plt.clf()
-
 num_bins = 15
 n, bins, patches = plt.hist(time_error, num_bins, normed=1)
 
 # Add a guassian fit
-(mu, sigma) = norm.fit(time_error)
+mu, sigma = norm.fit(time_error)
 y = mlab.normpdf(bins, mu, sigma)
 l = plt.plot(bins, y, 'g-', linewidth=2)
 
 plt.title("Histogram of time measurment: $\mu =$ {0:4.2f}, $\sigma =$ {1:4.2f}".format(mu, sigma))
 
-
 plt.grid(True)
 plt.savefig('hist')
-
 

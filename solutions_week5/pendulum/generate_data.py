@@ -13,12 +13,11 @@ period = 7.0
 # start time
 time = np.random.uniform(0.0, 100.0)
 
-sigma = 1.0
+sigma = 1.9
 
 print 1, time
 
 for i in xrange(1, no_datapoints):
-
         time += np.random.normal(0.0, sigma)  + period/2.0
         print i, time
 
