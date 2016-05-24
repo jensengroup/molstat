@@ -47,22 +47,23 @@ The goals of this exercise:
 \subsection{Lennard-Jones potential and periodic boundary conditions}
 
 The potential we are using this week is almost the same Lennard-Jones potential as we saw last week.
-You may recall from your simulation last week, that the calculation of the particle pair-interactions took a long time to compute, even with only 10-20 particles.
+You may recall from your simulation last week, that the calculation of the particle pair-interactions took a long time to compute, even with only 40 particles.
+%
 To speed up the calculation time we can make the approximation that only particles closer than a certain minimum distance $r_{\mathrm{cut}}$ are interacting.
 This is a justified approximation, since particles that are far apart have weak interactions.
 Here we set $r_{\mathrm{cut}} = 2.5$.
 Using this approximation, we can define the potential energy between two interacting particles $i$ and $j$ by:
-\begin{eqnarray}
+%
+\begin{align}
     U_{ij} &= 
     \begin{cases}
         \ \ 4 \left[ \left(\frac{1}{r_{ij}} \right)^{12} - \left(\frac{1}{r_{ij}} \right)^6 \right] -E_{\mathrm{cut}} & \mathrm{if}\ \ r_{ij} < r_{\mathrm{cut}}\\
         \ \ 0 & \mathrm{if}\ \ r_{ij} \ge  r_{\mathrm{cut}}
     \end{cases}
-\end{eqnarray}
+\end{align}
 
-The derivatives of the potential energy are used to calculate the forces
-between particles:
-\begin{equation}
+The derivatives of the potential energy are used to calculate the forces between particles:
+\begin{align}
     \mathbf{F} = -\nabla U =
     -\left(
         \frac{\partial U}{\partial x_1},\
@@ -76,10 +77,9 @@ between particles:
         \frac{\partial U}{\partial y_n},\
         \frac{\partial U}{\partial z_n}
     \right)
-\end{equation}
+\end{align}
 
-The $x$-components of the force between two interacting particles $i$ and $j$
-are:
+The $x$-components of the force between two interacting particles $i$ and $j$ are:
 \begin{eqnarray}
     -\frac{\partial}{\partial x_i} U_{ij}&=& 
     \begin{cases}
@@ -161,21 +161,18 @@ If your simulation is successful the total energy will be conserved. That is:
 Conservation of energy can sometimes fail during a MD simulation.
 Often this is due to the timestep $dt$ being too large, which causes the numerical Velo-Verlet integration to fail.
 
-
 \subsection{Instantaneous temperature}
 
 The first thermodynamic property we will derive from our simulation is the instantaneous temperature.
 That is the temperature as a function of time, $T(t)$.
-You will sometimes see the temperature defined in terms of the average kinetic energy of the system:
-
+You will sometimes see the temperature defined in terms of the average kinetic energy of the system
 \begin{eqnarray}
-    \langle E_{\alpha} \rangle = \frac{1}{2} k_\mathrm{B} \ T,
+    \langle E_{\alpha} \rangle = \frac{1}{2} k_\mathrm{B} \ T
 \end{eqnarray}
 
 where $\alpha$ denotes the degrees of freedom in the system.
 The above states that each degree of freedom gives a contribution to the temperature which is proportional to the kinetic energy of the individual particles.
-Instead of this formulation it is more practical for our purpose to write the temperature in its instantaneous form:
-
+Instead of this formulation it is more practical for our purpose to write the temperature in its instantaneous form
 \begin{eqnarray}
     T(t) &=& 2 \frac{E_{kin}(t)}{k_\mathrm{B} \ N_\alpha }\\
          &=& \sum_i \frac{m_i|\vec{v_i}| \cdot |\vec{v_i}|}{k_\mathrm{B} \ N_\alpha}
@@ -242,14 +239,13 @@ If the simulation is run with constant temperature $T$, the velocities needs to 
 % shape
 % +=, -=, *=, /=
 
-
-When working with Python "in the real world" you will most often use Numerical Python (NumPy) and vectorization.
-This is because it is faster and easier to work with.
-Numpy is a fast library of functions and data types.
-It is mostly used for substituting the normal Python List for a new data type called \code{ndarray}.\\
+When working with Python and math (especially lists), it is a lot easier to use Numerical Python (numpy).
+This is because it is both easier and a lot faster to work with.
+The only limitation when working with arrays "numpy lists" is that the size allocation is permanent.
+It is therefore not possible to append elements to numpy arrays.
+The most common practise is then creating a lists, append the elements and then substituting the normal Python List to the new data type called \code{ndarray}.\\
 
 As an example, generating an empty list of zeros with the two different methods:
-
 \begin{lstlisting}
 import numpy as np
 list = [0.0 for i in range(5)] # Normal list
@@ -257,32 +253,13 @@ array = np.zeros(5)            # Numpy array (ndarray)
 \end{lstlisting}
 
 A huge advantage of using Numpy arrays is vectorization commands.
-In general you can change a float or integer variable by using commands like
-"\code{+=}",
-"\code{-=}",
-"\code{*=}",
-"\code{/=}". So the code
-
-\begin{lstlisting}
-a = 45
-a = a + 5
-\end{lstlisting}
-
-is equivalent too
-
-\begin{lstlisting}
-a = 45
-a += 5
-\end{lstlisting}
-
-With Numpy arrays, you can perform mathematical operations on every element at once,
-just like above.
+With Numpy arrays, you can perform mathematical operations on every element at once.
 \begin{lstlisting}
 V = np.zeros(5)
 V += 5
 \end{lstlisting}
 
-\begin{enumerate}[resume]
+\begin{enumerate}
     \item Execute and evaluate the above command.
         What is the result of V?
     \item This does not work with normal Python Lists. Why? 
@@ -361,12 +338,6 @@ np.mean(num_vector)
 
 \section{Molecular Dynamics using modules and anaconda}
 
-Before you begin the exercise make sure to download \code{md\_header.py} and \code{md\_video.py} from the course website.
-You will also need the Anaconda package, which can be installed by writing the following into a terminal
-\begin{lstlisting}
-wget -q -O - http://dgu.ki.ku.dk/molbox/setup.sh | bash
-\end{lstlisting}
-
 You will want to use \code{md\_header.py} for the initialization and calculation of the LJ forces, which is done by importing it:
 
 \begin{lstlisting}
@@ -377,7 +348,7 @@ import md_header as md
 
 The \code{initialize\_particles} function from the header takes as arguments
 the number of atoms, temperature, density (rho) and epsilon matrix (eps).
-Epsilon is now a matrix (of ones) because we will use differing epsilon values later.
+Epsilon is now a matrix (of ones). We will use differing epsilon values later.
 The function returns the positions, velocities, forces and box width, based on the temperature and density.
 
 \begin{lstlisting}
@@ -390,11 +361,7 @@ Likewise \code{V} and \code{F} holds the initial velocities and forces respectiv
 \code{box\_width} is the width of the scaled box, which today you cannot specify yourself,
 since it is based on the density of the particles.\\
 
-%\begin{enumerate} % Virker lidt ligegyldigt når du lige har skrevet det.
-%    \item Understand the variables R, V and F. What are the dimensions and data types of the variables?
-%\end{enumerate}
-
-The second function that you will use from the md module is \code{lennard\_jones} which takes as arguments positions, box width and eps (where eps is the matrix defined earlier).
+The second function that you will use from the \code{md} module is \code{lennard\_jones} which takes as arguments positions, box width and eps (where eps is the matrix defined earlier).
 It returns the potential energy and the force.
 
 \begin{lstlisting}
@@ -414,8 +381,7 @@ energy_potential, F = md.lennard_jones(R, box_width, eps)
         time step (dt).
 
 
-    \item In the simulation function implement the Velo-Verlet solver from last week,
-        but using the cool new Numpy tricks.
+    \item In the simulation function implement the Velo-Verlet solver from last week, but using the cool new Numpy tricks.
         You don't need to check if the particles exit the box since the \code{lennard\_jones} function uses periodic boundary conditions.
         Note, except for the loop over steps, there should not be any loops in the simulation function.
        {\em Hint:} See page 2 for the Velo-Verlet algorithm if you forgot it.
@@ -424,6 +390,7 @@ energy_potential, F = md.lennard_jones(R, box_width, eps)
     \item Create a new python file and import the module you just created. Call the simulation function with the following constants.
 \begin{lstlisting}
 temperature = 2.0
+n_atoms = 42
 rho = 0.2
 dt = 0.0005
 n_steps = 500000
@@ -459,9 +426,9 @@ Because these new particles interact differently with each other and the other p
 Instead of setting the epsilon values to 1, we set it differently for each individual interaction type.
 
 \begin{itemize}
-    \item type a - type a (eps = 0.8)
-    \item type a - type b (eps = 0.1)
-    \item type b - type b (eps = 0.1)
+    \item A - A Interaction (eps = 0.8)
+    \item A - B Interaction (eps = 0.1)
+    \item B - B Interaction (eps = 0.1)
 \end{itemize}
 
 This is done by the following code
@@ -521,9 +488,6 @@ d = np.sqrt(X**2 + Y**2)
     \item At what temperature will the particles rather be apart than together?
 
 \end{enumerate}
-
-
-
 
 
 % ***************************************************
