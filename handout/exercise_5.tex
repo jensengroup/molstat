@@ -109,70 +109,6 @@ Also look up what the command \code{continue} does in a for-loop and what the me
 
 \end{enumerate}
 
-\newpage
-\subsection{Simulated UV-Vis spectra}
-This data represent energy and oscillator strength of allowed transitions in a boron subphlatocyanine molecule. The data is structured like this:
-\begin{lstlisting}
-    2.4918 0.4790
-\end{lstlisting}
-where the first column is the transition energy in electron volt (eV), the second is the oscillator strength of the transition (unit less).\\
-
-Since the spectrum in most cases will be of more than one excitation the collected spectrum must be investigated for all wavelengths of interest, say form $200\si{nm}$ to $700\si{nm}$ and then summed over all the oscillator strengths found.
-\begin{equation}
-\epsilon(\lambda)=\sum_{j=1}^n \epsilon_j(\lambda)=\sum_{j=1}^n  \underbrace{\frac{\text{N}_A\si{e^2}}{2\ln(10) \text{m}_e \epsilon_0\si{c^2}} \sqrt{\frac{\ln(2)}{\pi}}}_\text{k x 10} \frac{f^j}{\sigma} \exp{\Bigg(-4 \ln(2) \left[\frac{\left(\frac{1}{\lambda}-\frac{1}{\lambda_{if}^j}\right)}{\sigma\cdot 10^{-7}}\right]^2}\Bigg) \si{M^{-1}cm^{-1}} \label{eq_uv_vis}
-\end{equation}
-
-where $f^j$ and $\lambda_{if}^j$ are the oscillator strength and wavelength related to the $\text{j}^{th}$ transition and $n$ is the total number of transitions in the dataset. The other constants are:
-
-\begin{center}
-\begin{tabular}{|c|c|}
-\hline 
-$N_A$ & Avogadros Number \\ 
-\hline 
-$e$ & Elemental charge \\ 
-\hline 
-$m_e$ & Electron mass \\ 
-\hline 
-$\epsilon$ & Vacuum permittivity \\ 
-\hline 
-$c$ & Speed of light \\ 
-\hline 
-\end{tabular} 
-\end{center}
-
-
-
-$\sigma$ is the full width half maximum of the Gaussian function used to convolute the UV-vis spectra. It defines the width of the absorption peaks. In this example we will use $\sigma = 3226 \si{cm^{-1}}$.
-\begin{enumerate}
-\item Find the values in Si-units of all the natural constants needed to calculate the UV-vis spectra and define them as variables. e.g. \\
-
-\item Define a constant $k=\frac{\text{N}_A\si{e^2}}{2\ln(10) \text{m}_e \si{c^2}  \epsilon_0}\sqrt{\frac{\ln(2)}{\pi}}\cdot 10^{-1} \frac{\si{L}}{\si{mol}}\si{cm^{-2}}$ and use all the variables you just defined to calculate the value of $k$. Print the value of $k$. If you have done this correctly you should find
-$k=217512853.406$
-\end{enumerate}
-
-Now we are ready to calculate the UV-Vis spectra. 
-\begin{enumerate}[resume]
-\item Load all the transition energies from the file \code{data1\_uv\_vis.dat} into a list called \code{transition\_list}, and oscillator strengths into a list called \code{osillator\_list}
-\item Make a third list \code{wavelengths=[]} starting at 200 and ending at 700 with length 500 - these are all the points at which you want to calculated the total absorption, given as $\lambda$ in \eqref{eq_uv_vis}. \textit{Hint} use \code{np.linespace()}
-\end{enumerate}
-
-In order to plot the UV-Vis spectra via \eqref{eq_uv_vis}, the transition energies must be converted to nano-meters instead.
-
-\begin{enumerate}[resume]
-\item Convert all transition energies from eV to nm.
-\item Loop over all transitions and calculate the total intensity first at 200nm, then at 350nm and finally at 500nm
-
-\item Make an outer loop to calculate the total absorption intensity at all wavelengths from 200nm to 700nm \label{outerloop}
-\item Plot the result - remember to add legend, labels and title to the plot with units on the axis, where the y-axis should include the symbol $\varepsilon$.
-
-\end{enumerate}
-
-Next step is to plot two UV-Vis spectra in one. In order to do this you  must first define a function that takes as input transition energies in nm, oscillator strength and the wavelengths for which the spectra is to be plotted. The function should return total absorption intensity
-
-\begin{enumerate}[resume]
-\item Define a function that calculates the total absorption at each $\lambda$ based on the loop from exercise \ref{outerloop}
-\end{enumerate}
-
 
 \newpage
 \subsection{Binding free energies}
@@ -243,129 +179,72 @@ This can be done with the method \code{.format()}.
 \end{enumerate}
 
 
-
-
 \newpage
-\iffalse
-\subsection{Random precision errors in assigned chemical shifts}
+\subsection{Simulated UV-Vis spectra}
+This data represent energy and oscillator strength of allowed transitions in a boron subphlatocyanine molecule. The data is structured like this:
+\begin{lstlisting}
+    2.4918 0.4790
+\end{lstlisting}
+where the first column is the transition energy in electron volt (eV), the second is the oscillator strength of the transition (unit less).\\
 
-When assigning measured chemical shifts of a protein to their respective amino-acids you will have to match the chemical shift measured by one experiment with another.
-Due to experimental error these values are not exactly the same, even though they should be in theory.
-Because of this it can be difficult to be sure that the two matched chemical shifts actually origin from the same amino-acid.
-To avoid making assignment errors it is thus informative to know how well the measured chemical shifts 'should' match.\\
+Since the spectrum in most cases will be of more than one excitation the collected spectrum must be investigated for all wavelengths of interest, say form $200\si{nm}$ to $700\si{nm}$ and then summed over all the oscillator strengths found.
+\begin{equation}
+\epsilon(\lambda)=\sum_{j=1}^n \epsilon_j(\lambda)=\sum_{j=1}^n  \underbrace{\frac{\text{N}_A\si{e^2}}{2\ln(10) \text{m}_e \epsilon_0\si{c^2}} \sqrt{\frac{\ln(2)}{\pi}}}_\text{k x 10} \frac{f^j}{\sigma} \exp{\Bigg(-4 \ln(2) \left[\frac{\left(\frac{1}{\lambda}-\frac{1}{\lambda_{if}^j}\right)}{\sigma\cdot 10^{-7}}\right]^2}\Bigg) \si{M^{-1}cm^{-1}} \label{eq_uv_vis}
+\end{equation}
 
-The file \code{chemical\_shift\_errors.txt} obtained from the course website contains all differences (or errors) in assigned chemical shifts of all amide protons for a single protein in a single column format.
+where $f^j$ and $\lambda_{if}^j$ are the oscillator strength and wavelength related to the $\text{j}^{th}$ transition and $n$ is the total number of transitions in the dataset. The other constants are:
+
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline 
+$N_A$ & Avogadros Number \\ 
+\hline 
+$e$ & Elemental charge \\ 
+\hline 
+$m_e$ & Electron mass \\ 
+\hline 
+$\epsilon$ & Vacuum permittivity \\ 
+\hline 
+$c$ & Speed of light \\ 
+\hline 
+\end{tabular} 
+\end{center}
 
 
+
+$\sigma$ is the full width half maximum of the Gaussian function used to convolute the UV-vis spectra. It defines the width of the absorption peaks. In this example we will use $\sigma = 3226 \si{cm^{-1}}$.
 \begin{enumerate}
+\item Find the values in Si-units of all the natural constants needed to calculate the UV-vis spectra and define them as variables. e.g. \\
 
-    \item Load the file containing the data and store it a variable.
+\item Define a constant $k=\frac{\text{N}_A\si{e^2}}{2\ln(10) \text{m}_e \si{c^2}  \epsilon_0}\sqrt{\frac{\ln(2)}{\pi}}\cdot 10^{-1} \frac{\si{L}}{\si{mol}}\si{cm^{-2}}$ and use all the variables you just defined to calculate the value of $k$. Print the value of $k$. If you have done this correctly you should find
+$k=217512853.406$
+\end{enumerate}
 
-    \item Plot a histogram of the data using Matplotlib.
+Now we are ready to calculate the UV-Vis spectra. 
+\begin{enumerate}[resume]
+\item Load all the transition energies from the file \code{data1\_uv\_vis.dat} into a list called \code{transition\_list}, and oscillator strengths into a list called \code{osillator\_list}
+\item Make a third list \code{wavelengths=[]} starting at 200 and ending at 700 with length 500 - these are all the points at which you want to calculated the total absorption, given as $\lambda$ in \eqref{eq_uv_vis}. \textit{Hint} use \code{np.linespace()}
+\end{enumerate}
+
+In order to plot the UV-Vis spectra via \eqref{eq_uv_vis}, the transition energies must be converted to nano-meters instead.
+
+\begin{enumerate}[resume]
+\item Convert all transition energies from eV to nm.
+\item Loop over all transitions and calculate the total intensity first at 200nm, then at 350nm and finally at 500nm
+
+\item Make an outer loop to calculate the total absorption intensity at all wavelengths from 200nm to 700nm \label{outerloop}
+\item Plot the result - remember to add legend, labels and title to the plot with units on the axis, where the y-axis should include the symbol $\varepsilon$.
 
 \end{enumerate}
 
-When plotting a histogram you can select the number of bins to present the data with by giving the argument \code{bins=10}. (10 is the default value in Matplotlib).
-%If you try changing the number of bins you can severely affect how the data 'looks', especially if your number of datapoints are relatively low.
-%% put this in since all this shouldn't take long for the students to do.
-%The Freedman-Diaconis Rule can be used to select the number of bins automatically.
-%The following code takes as argument the data and returns the optimal number of bins according to the Freedman-Diaconis Rule.
-%
-%\begin{lstlisting}
-%def bins(data):
-%    data.sort()
-%    n=len(data)
-%    width = 2*(data[3*n/4]-data[n/4])*n**(-1./3)
-%    return int((data[-1]-data[0])/width)
-%\end{lstlisting}
-
-%\begin{enumerate}[resume]
-%
-%    \item Plot the histogram again using the Freedman-Diaconis Rule to select number of bins.
-%
-%\end{enumerate}
-
-If these errors are completely random, they should approximately follow a normal distribution (also known as a Gaussian distribution).
-We can use the module \code{scipy.stats} to fit a distribution to a dataset.
-Import this in your program as follows:
-
-\begin{lstlisting}
-import scipy.stats as ss
-\end{lstlisting}
-
-We will begin by fitting a normal distribution to our data.
-The command \code{ss.norm.fit(data)} returns the mean and standard deviation that best describes the data.
-To draw this curve we will need a set of $x$ and $y$-values that cover our data range.
+Next step is to plot two UV-Vis spectra in one. In order to do this you  must first define a function that takes as input transition energies in nm, oscillator strength and the wavelengths for which the spectra is to be plotted. The function should return total absorption intensity
 
 \begin{enumerate}[resume]
-
-    \item Use \code{np.arange()} together with the \code{max()} and \code{min()} functions to generate $x$-values that range from the lowest data point to the highest in steps of \code{1e{-3}}. Store these in a variable called \code{x}.
-
-\end{enumerate}
-
-The function \code{ss.norm.pdf(x, param\_1, param\_2)} returns the probability densities for a normal distribution for all values of \code{x}.
-\code{param\_1} and \code{param\_2} are the mean and standard deviation you obtained from the fit.
-
-%Fitting more complicated distributions will return more than two parameters.
-%To avoid having to adjust the number of arguments for each distribution you look at, the following works for every distribution in the \code{scipy.stats} package:
-
-\begin{lstlisting}
-param_1, param_2 = ss.norm.fit(data)
-y = ss.norm.pdf(x, param_1, param_2)
-\end{lstlisting}
-
-
-\begin{enumerate}[resume]
-
-    \item Fit a normal distribution to your data.
-
-    \item Try to plot the fitted distribution together with the histogram. \emph{Hint!} Use \code{normed=1} as argument to your histogram.
-
-    %\item Try fitting other popular distributions such as the Cauchy/Lorenz distribution \code{ss.cauchy} or the Student's t-distribution \code{ss.t}.
-
+\item Define a function that calculates the total absorption at each $\lambda$ based on the loop from exercise \ref{outerloop}
 \end{enumerate}
 
 
 \newpage
-\subsection{Protein structure determination}
-
-Not all protein structures can easily be determined experimentally.
-These kinds of proteins will often have their structure determined by simulation where a force-field is used to describe how the atoms interact with each other.
-If a good force-field is used, the correct (also called native) structure should correspond to the lowest energy of the force-field.
-When developing new force-fields you want to see how well the energy correlate with the deviation from the native structure.\\
-
-The file \code{rmsd\_energy\_unfolded.txt} obtained from the course website, contains the energies, in units of $kcal/(mol\cdot RT)$ at $300K$, of several proposed structures as well as the atomic root mean square deviation (rmsd) in Å from the native structure.
-You will never get an rmsd of zero for structures proposed by simulation, since the force-field will never fully describe all interactions correctly, however rmsds under 3-5 Å is usually considered accurate.\\
-
-\emph{Note:} The first column contain the rmsds and the second one the energies.
-
-
-\begin{enumerate}[start=1]
-
-    \item Load the datafile in Python and put the rmsds in one list, and the energies in another.
-
-    \item Plot the rmsds vs. energies using small black dots. Does the force-field used seem to be good in this case?
-
-\end{enumerate}
-
-Since the local energy minimum is not exactly at 0 Å it can be hard to know if you have achieved the correct structure and the non-zero rmsd stems from the force-field, or if an incorrect structure is found.
-To test this a second simulation is usually run starting from the native structure to what the structure relaxes to with the given force-field.
-
-
-\begin{enumerate}[resume]
-
-    \item Download and load the file \code{rmsd\_energy\_native.txt}.
-
-    \item Plot this together with the data from before, using a red colour. \emph{Note!} Change the border colour of the dots to red as well.
-
-    \item Based on this second simulation, would you say that the force-field performs well?
-
-\end{enumerate}
-
-\fi
-\newpage
-
-
 \subsection{Pendulum swing}
 
 {
@@ -393,12 +272,7 @@ T = 2\pi\sqrt{\frac{L}{g}} \label{eq:pendul_t}
 %
 where $L$ is the length of the pendulum and $g$ is the gravitational acceleration.\\
 
-% JCK TODO Experimental setup
-% JCK TODO More datafiles? Who is the best fit?
-%          Add multiple datafiles with different names.
-%          Fit gaussian and get spread
-
-The provided datafile has two columns.
+The provided datafiles has two columns.
 The first is the datapoint id and the second is the time in seconds, at which the pendulum crosses the center.
 \begin{lstlisting}
    1        62.8997
@@ -408,11 +282,11 @@ We have measured that the length of the pendulum to be $L = 12.19$ meter.
 
 \begin{enumerate}
 
-    \item Load in the datafile and plot the time.
+    \item Load in the datafile and plot datapoints vs time.
 
 \end{enumerate}
 
-We want to fit the datapoints to a linear curve so we can get the best period $T/2$, which is the slope.
+We want to fit the datapoints to a linear curve so we can get the best period $T/2$, which is the slope of the linear function.
 
 \begin{enumerate}[resume]
 
@@ -422,16 +296,20 @@ We want to fit the datapoints to a linear curve so we can get the best period $T
 
 \end{enumerate}
 
+The time is measured when the pendulum swings by center, with eyes, not a laser, so there might be some error in the timings.
 Let us check out how the datapoints deviates from the fit.
 
 \begin{enumerate}[resume]
 
-    \item Find the deviation between the datapoints and the found $T/2$. 
+    \item Find the deviation (error) between the datapoints and the found $T/2$. 
           Plot the result.
 
-    \item The time is taking by eyes when the pendulum crosses the center. 
-          What kind of error distribution do we expect the error to follow?
+    \item What kind of error distribution do we expect the error to follow?
           Make a histogram of the time deviations using \code{plt.hist()}. 
+
+    \item Fit and plot a Gaussian to the histogram.
+          {Hint: use \code{mlab.normpdf} and \code{norm.fit}.}
+          
 
 \end{enumerate}
 

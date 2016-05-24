@@ -32,7 +32,7 @@ Figure \ref{fig:potentials} shows the three different potentials we've encounter
 
 \begin{figure}[h!]
 \begin{center}
-    \includegraphics[width=0.75\textwidth]{images/potentials.png}
+    \includegraphics[width=0.7\textwidth]{images/potentials.png}
     \caption{The three different potentials we've encountered so far.}
     \label{fig:potentials}
 \end{center}
@@ -82,14 +82,14 @@ First, recall how we are able to calculate the force \textbf{F} using the energy
 \begin{equation}
     \mathbf{F} = -\nabla U = -\left( \frac{\partial U}{\partial x_1},\ \frac{\partial U}{\partial y_1},\  \frac{\partial U}{\partial x_2},\ \frac{\partial U}{\partial y_2},\ \ldots\ ,\frac{\partial U}{\partial x_n},\ \frac{\partial U}{\partial y_n}\right)
     \label{eq:force}
-\end{equation}
+\end{equation}\\
 
 The $x$-components of the force between two interacting particles $i$ and $j$ are:
 
 \begin{align}
     -\frac{\partial}{\partial x_i} U_{ij} &= -48\ \frac{x_j - x_i}{r^2_{ij}}\left[ \left(\frac{1}{r_{ij}} \right)^{12} - 0.5 \left(\frac{1}{r_{ij}} \right)^6 \right] \\
     -\frac{\partial}{\partial x_j} U_{ij} &=  48\ \frac{x_j - x_i}{r^2_{ij}}\left[ \left(\frac{1}{r_{ij}} \right)^{12} - 0.5 \left(\frac{1}{r_{ij}} \right)^6 \right]
-\end{align}
+\end{align}\\
 
 The $y$-components are, of course, defined the same way.
 
@@ -104,7 +104,8 @@ The Velo-Verlet equations for integrating the positions ($r$) and velocities ($v
     v_x(t + dt) &=& v_x(t) + 0.5 \cdot dt \cdot \left [ a_x(t) + a_x(t+dt) \right ] \label{eq:velo_vel}
 \end{eqnarray}
 
-In our simulation, we will set the mass of the particles to $1$, so the acceleration is equal to the force (Newtons 2nd law).
+In our simulation, we will set the mass of the particles to $1$, so the acceleration is equal to the force (Newtons 2nd law).\\
+
 Let's recap: The Velo-Verlet algorithm uses the forces,
 velocities and positions from the current time step to calculate the forces,
 velocities and positions for the next time-step.
@@ -120,43 +121,35 @@ The resulting forces, velocities and particle positions are then saved, and used
 
 \section{Kinetic energy}
 
-The total kinetic energy of the system can be calculated as:
-
+The total kinetic energy of the system can be calculated as the sum of velocities squared times the mass, and in our simulation we set the mass to 1, so this reduces to
 \begin{equation}
     E_{\mathrm{kin}} = \sum_i \frac{1}{2} m_i |\vec{v_i}|^2
-\end{equation}
-
-In our simulation $m_i$ is set to 1, so the above reduces to:
-
-\begin{equation}
-    E_{\mathrm{kin}} = \frac{1}{2} \sum_i |\vec{v_i}| \cdot |\vec{v_i}|
+= \frac{1}{2} \sum_i |\vec{v_i}| \cdot |\vec{v_i}|
 \end{equation}
 
 \newpage
 \clearpage
 \section{Exercise}
 
-Goals of the day:
+Exercise goals of the day:
 \begin{itemize}
-\item Implement Lennard-Jones potential to calculate forces and potential energy
-\item Use the Velo-Verlet solcer to integrate the motion of the particles in the LJ potential
-\item Use conservation of energy to convince yourself that the functions have been implemented correctly
+    \item Implement Lennard-Jones potential to calculate forces and potential energy
+    \item Use the Velo-Verlet solcer to integrate the motion of the particles in the LJ potential
+    \item Use conservation of energy to convince yourself that the functions have been implemented correctly
 \end{itemize}
 
-
 Firstly, you will need to write the relevant code/functions to calculate the Lennard-Jones {\bf potential energy} for a given system.
+{\bf Important:} Do not just copy the code from last exercise. Create a new file and start from scratch.
 
 \begin{enumerate}
 
-\item Create a new file called \code{week3.py}.
+    \item Define a function called \code{lennard\_jones()}, that takes positions and number of particles as parameters and returns potential energy.
 
-\item Define a function called \code{lennard\_jones()}, that takes positions and number of particles as parameters and returns potential energy.
-
-\item Loop over all particle interaction (double loop over $i$ and $j$ particles) and calculate the total energy using eq. \ref{eq:total_energy}.
+    \item Loop over all particle interaction (e.i. a double loop over $i$ and $j$ particles) and calculate the total energy using eq. \ref{eq:total_energy}.
 
 \end{enumerate}
 
-When you think you have written the Lennard-Jones energy function properly, it's time to test whether your function works correctly or not.
+When you think you have written the Lennard-Jones energy function properly, test whether your function works correctly or not.
 Define two lists:
 
 \begin{lstlisting}[language=python]
@@ -167,20 +160,20 @@ pos_y_test = [0.0, 1.4]
 
 \begin{enumerate}[resume]
 
-    \item Now call the Lennard-Jones function with the two lists and number of particles as arguments and print the result.
-        If your energy function works, {\bf the resulting energy should be -0.4607}.
+    \item Call the Lennard-Jones function with the two lists and number of particles as arguments and print the result.
+        If your energy function works, the resulting energy should be -0.4607.
 
 \end{enumerate}
 
-\vspace{20pt}
-
 Next, we will extend the Lennard-Jones (LJ) function to also {\bf calculate the forces}. \\
+
 In our 2D system the force has $x$- and $y$-components for each particle.
 So for this it would be natural to extend your code to store the $x$- and $y$-components in two lists called \code{force\_x} and \code{force\_y}, just like the velocities.
 
 \begin{enumerate}[resume]
 
-    \item In the LJ function, initialize two new lists for the forces, \code{force\_x} and \code{force\_y}, containing only zeros, with the length equal to the number of particles - {\em Hint:} remember "list comprehension"?
+    \item In the LJ function, initialize two new lists for the forces, \code{force\_x} and \code{force\_y}, containing only zeros, with the length equal to the number of particles
+% {\em Hint:} remember "list comprehension"?
 %    {\em Hint:}
 %
 %\begin{lstlisting}
@@ -217,13 +210,12 @@ Your code already initializes the velocities and positions, but doesn't calculat
 Last week we used random $x$- and $y$-coordinates, within a (-10, 10) box.
 However, when we are working with a potential it is not a good idea to use completely random coordinates, as the initial gradient might be unphysically large.
 %And because we are working with a potential with $\sigma = 1$, we will need to expand the box by setting \code{box\_width = 10.0} instead of 1 since if two particles end up starting with $r_{ij} < 1$ (see figure \ref{fig:potential_energy}), the system would 'explode'.\\
-Because of this we want to re-write the \code{initialize\_particles}-function from last week to initialize the particles in a nice grid, instead of random positions. \\
+Because of this we want to re-write the \code{initialize\_particles}-function from last week to initialize the particles in a nice grid, instead of random positions.
 We have completed the following code for your convenience.
 
 \begin{lstlisting}
 def initialize_particles(n_particles, box_width):
-    """ Initialize particles in a grid
-    """
+    """ Initialize particles in a grid """
     
     # Get the smallest grid that all particles will fit in.
     sqrt_npart = int(np.ceil(np.sqrt(n_particles)))
@@ -269,6 +261,8 @@ Now it's time to implement the Velo-Verlet solver.
         Have the function take positions, velocities, forces, number of particles and dt as arguments.
         The new function should return the positions, velocities, forces and the potential energy of the system.
 
+    \newpage
+
     \item Implement the three steps of the Velo-Verlet integration algorithm.
         Which means, implement the following code in your \code{velo\_verlet}-function.
 
@@ -291,7 +285,8 @@ for i in range(n_particles):
 
 \end{lstlisting}
 
-    \item Correct the particle positions and velocities if they collide with the wall (just like week 1 and 2) i.e. add the proper \code{if} statements.
+    \item Correct the particle positions and velocities if they collide with the wall (just like week 1 and 2)
+
 \end{enumerate}
 
 After completing the \code{velo\_verlet} function your program/code should now contain all the functions need to run the simulation of the 2D Lennard-Jones gas.
@@ -299,7 +294,7 @@ After completing the \code{velo\_verlet} function your program/code should now c
 \begin{enumerate}[resume]
 
     \item After the initialization of the particles, insert the loop over \code{range(n\_steps)}.
-        This time with the \code{velo\_verlet} function, instead of \code{simulate\_step}.
+        This time with the \code{velo\_verlet} function.
         This should look something like:
 
 \begin{lstlisting}
@@ -320,7 +315,8 @@ dt = 0.001
 
 \end{enumerate}
 
-\vspace{20pt}
+
+\newpage
 
 Let's try and see how your simulation works.
 
