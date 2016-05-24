@@ -1,4 +1,3 @@
-
 # Example: Operator
 
 # example floats
@@ -23,7 +22,6 @@ n_particles = 3
 for i in range(n_particles):
 
     x_list[i] = x_list[i] + 1.0
-
     x_list[i] += 1.0
 
 print x_list

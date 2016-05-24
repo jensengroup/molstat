@@ -1,4 +1,3 @@
-
 # Example: More functions
 
 # slide example
