@@ -1,9 +1,24 @@
 
 from numpy import *
+from numba import jit
 
 def mandel(n, m, itermax, xmin, xmax, ymin, ymax):
+    """
+        Create a mandelbrot plot
+
+        @value n,
+        @value m,
+        @value itermax,
+        @value xmin,
+        @value xmax,
+        @value ymin,
+        @value ymax,
+
+        @return img
+    """
     ix, iy = mgrid[0:n, 0:m]
     x = linspace(xmin, xmax, n)[ix]
+    print x.shape
     y = linspace(ymin, ymax, m)[iy]
     c = x+complex(0,1)*y
     del x, y

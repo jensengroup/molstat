@@ -22,52 +22,89 @@
 \end{frame}
 }
 
+% please stop that overview stuff jimmy
+% \begin{frame}[fragile]
+%
+%     \frametitle{Week 4, Overview}
+%
+%     \begin{itemize}
+%
+%         \item anaconda / compile
+%
+%         \item modules
+%
+%         \item Numpy Tricks
+%
+%         % \item Diffusion, random walk Monte Carlo
+%
+%     \end{itemize}
+%
+% \end{frame}
+%
+
 \begin{frame}[fragile]
 
-    \frametitle{Week 4, Overview}
+    \frametitle{Interpret Vs. Compiling}
 
-    \begin{itemize}
+    \centering
 
-        \item anaconda / compile
+    Today we use anaconda. Why?
 
-        \item modules
+    \includegraphics[width=0.7\textwidth]{images/term-compiler.jpg}
 
-        \item Numpy Tricks
+% \begin{lstlisting}
+% @jit()
+% def force(R, box_width, eps):
+%     for i in range(n_part):
+%         for j in range(n_part):
+%             if i > j:
+%                 X  = R[0, j] - R[0, i]
+%                 Y  = R[1, j] - R[1, i]
+%                 X  -= box_width * np.rint(X/box_width)
+%                 Y  -= box_width * np.rint(Y/box_width)
+%                 ...
+% \end{lstlisting}
+%
+%     becomes
+%
+% \begin{lstlisting}
+% 0100101001100100101010000010001110
+% 1110101001010101001010100101000111
+% 0100100100110101100101001101010101
+% \end{lstlisting}
+%
 
-        % \item Diffusion, random walk Monte Carlo
-
-    \end{itemize}
+    {
+        \scriptsize
+        picture source: http://skillcrush.com/2012/06/13/compiling/
+    }
 
 \end{frame}
 
 
 \begin{frame}[fragile]
 
-    \frametitle{Compiling}
-
-    Today we use anaconda. Why?\newline
-    Because it is much faster! Why?\newline
-    Because compiling!
+    \frametitle{Interpret Vs. Compiling}
 
 \begin{lstlisting}
 @jit()
-def force(R, box_width, eps):
-    for i in range(n_part):
-        for j in range(n_part):
-            if i > j:
-                X  = R[0, j] - R[0, i]
-                Y  = R[1, j] - R[1, i]
-                X  -= box_width * np.rint(X/box_width)
-                Y  -= box_width * np.rint(Y/box_width)
-                ...
+def force(R, box_width):
+    for i in range(n_particles):
+        for j in range(n_particles):
+            if i>j:
+                rij = distance(x_positions[i],
+                energy += 4*(1.0/rij**12 - 1.0/
+                fx = -48*(x_positions[j] - x_po
+                fy = -48*(y_positions[j] - y_po
+                x_forces[i] = x_forces[i] + fx
+                y_forces[i] = y_forces[i] + fy
 \end{lstlisting}
 
     becomes
 
 \begin{lstlisting}
-0100101001100100101010000010001110
-1110101001010101001010100101000111
-0100100100110101100101001101010101
+01001010011001001010100000100011101110101001010101001010100101000
+11101001001001101011001010011010101011110100100100110101100101001
 \end{lstlisting}
 
 

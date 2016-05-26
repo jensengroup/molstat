@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 
 n_steps = 500000
 
-# temperature = 0.05
+# temperature = 0.05 # stuck forever
 # temperature = 0.1
 temperature = 0.13
 # temperature = 2.0
@@ -32,8 +32,6 @@ for i in range(n_atoms):
 
             if i <= 1 and j <= 1:
                 epss[i,j] = 0.8
-
-
 
 ek_list, ep_list, et_list, te_list, r_list = sim.simulation(n_atoms, n_steps, rho, temperature, dt,
                eps = epss,
