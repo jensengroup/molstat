@@ -1,6 +1,12 @@
-\documentclass{beamer}
-\usepackage{etex}
-\input{../../lecture_preamble}
+\input{../../preamble_beamer}
+
+% PSTRICKS
+\usepackage{pstricks,pst-node,pst-tree} % includes graph additions
+% \usepackage{pst-pdf}	% Compiles the pictures
+\usepackage{pst-node}
+\usepackage{pst-plot}
+\usepackage{pst-3dplot}
+\usepackage{pstricks-add}
 
 
 % TITLE AND OTHER STUFF GOES HERE
@@ -11,7 +17,7 @@
     % Lars A. Bratholm - larsbratholm@gmail.com\\
 }
 
-\date{2015}
+\date{}
 
 \begin{document}
 
@@ -27,10 +33,9 @@
     \frametitle{Projects}
 
     \begin{enumerate}
-      \item Diffusion Coefficient of the Lennard-Jones Fluid {\bf (JCK)}
-      \item Genetic Algorithm {\bf (JCK)}
-      \item Ising Spin-Lattice {\bf (LAB)}
-      \item Chemical Shifts Study {\bf (LAB)}
+      \item Diffusion Coefficient of the Lennard-Jones Fluid
+      \item Genetic Algorithm
+      \item Ising Spin-Lattice
     \end{enumerate}
 }
 
@@ -40,26 +45,25 @@
     \centering
 
     Self-diffusion in Lennard-Jones Fluid.
-    \newline
 
     \includegraphics[width=0.2\textwidth]{images/diffusion_illustration.png}
 
-    \begin{columns}[c]
-      \column{0.5\textwidth}
-      \centering
-
-        Mean-Square Displacement
-
-        \includegraphics[width=0.8\textwidth]{images/diffusion_msd.eps}
-
-      \column{0.5\textwidth}
-      \centering
-
-        Velocity Auto-Correlation Function
-
-        \includegraphics[width=0.8\textwidth]{images/diffusion_vacf.eps}
-
-    \end{columns}
+    % \begin{columns}[c]
+    %   \column{0.5\textwidth}
+    %   \centering
+    %
+    %     Mean-Square Displacement
+    %
+    %     \includegraphics[width=0.8\textwidth]{images/diffusion_msd.eps}
+    %
+    %   \column{0.5\textwidth}
+    %   \centering
+    %
+    %     Velocity Auto-Correlation Function
+    %
+    %     \includegraphics[width=0.8\textwidth]{images/diffusion_vacf.eps}
+    %
+    % \end{columns}
 
     \begin{align*}
         D \ \ = \ \ \lim_{t\rightarrow \infty} \frac{\mathrm{MSD}(t)}{4t}
@@ -215,15 +219,15 @@
         \column{0.5\textwidth}
 
             \centering
-        
-            \includegraphics[width=0.9\linewidth]{temperatures.jpg}
+
+            \includegraphics[width=0.7\textwidth]{images/temperatures.png}
 
 
         \column{0.5\textwidth}
 
             \centering
 
-            \includegraphics[width=0.8\linewidth]{lattice.jpg}
+            \includegraphics[width=0.7\linewidth]{images/lattice.png}
 
     \end{columns}
 
@@ -254,60 +258,6 @@
 
 }
 
-\frame
-{
-    \frametitle{Project 4: Chemical Shifts Study}
-
-    \begin{center}
-        Using chemical shifts to determine protein structures.
-    \end{center}
-
-    \bigskip
-
-%    \begin{columns}[c]
-%
-%        \column{0.5\textwidth}
-
-            \centering
-        
-            \includegraphics[width=0.6\linewidth]{protein}\\
-            \includegraphics[width=0.6\linewidth]{chemical_shift}
-
-
-%        \column{0.5\textwidth}
-%
-%            \centering
-%
-%            \includegraphics[width=0.8\linewidth]{lattice.jpg}
-
-%    \end{columns}
-
-}
-
-
-\frame
-{
-    \frametitle{Project 4: Chemical Shifts Study}
-
-    \textbf{Project description:}
-
-    \bigskip
-
-    \begin{itemize}
-
-        \item Parse and analyze simulation data.
-
-        \bigskip
-
-        \item Look for correlations between observables and suggest improvements to model.
-
-        \bigskip
-
-        \item Fit statistical models.
-
-    \end{itemize}
-
-}
 
 \frame
 {
@@ -328,25 +278,14 @@
 
     \bigskip
 
-    \textbf{Supervisor:}
-
-    \begin{itemize}
-
-        \item Jimmy is supervisor for {\bf Genetic Algorithm} and {\bf Diffusion}.
-
-        \item Lars is supervisor for {\bf Ising-model} and {\bf Chemical Shifts Study}.
-
-    \end{itemize}
-
-    \bigskip
 
     \textbf{\code{if stuck}:}
 
     \begin{enumerate}
 
-        \item Collaborate with other groups.
+        \item Collaborate with other groups
 
-        \item Write an email and make an appointment to meet with\newline the supervisor.
+        \item Write an email and make an appointment to meet with a TA
 
     \end{enumerate}
 
