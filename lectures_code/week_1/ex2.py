@@ -2,6 +2,7 @@
 import matplotlib.pyplot as plt
 
 # Indentation and looping
+# Point out that [] are for list and () for "functions"
 
 a = 5
 # a = 5 # error

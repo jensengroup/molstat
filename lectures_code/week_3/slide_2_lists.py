@@ -1,7 +1,7 @@
 # Example: Copy of lists
 
 # TODO
-# Explain 'view' on whiteboard
+# Explain 'numpy view' on whiteboard
 # Explain 'pointer'/ID to RAM
 
 # float example

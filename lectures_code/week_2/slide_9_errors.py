@@ -3,7 +3,7 @@
 
 x = [2, 4, 6, 8, 10]
 y = [1, 3, 5, 7, 9]
-z = x + y
+z = x + y #what is the expected result of this expression 
 print z[1]
 
 
@@ -27,6 +27,7 @@ def calculate(ri rj):
     return y
 
 calculate = calculate(2, 2)
+#print type(calculate)
 calculate = calculate(2, 3)
 
 

@@ -19,7 +19,7 @@ import matplotlib.pyplot as plt
 
 plt.plot(x_list, y_list)
 plt.savefig('the_square_function.png')
-plt.clf()
+plt.clf() #clear figure
 
 
 
@@ -43,7 +43,7 @@ plt.clf()
 
 
 
-# THE GAUSSIAN FUNCTION
+# THE GAUSSIAN FUNCTION (EXERCISE)
 
 def gaussian(x):
 
