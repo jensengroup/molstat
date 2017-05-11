@@ -9,4 +9,4 @@ all: lecture_1.pdf lecture_2.pdf lecture_3.pdf lecture_4.pdf lecture_5.pdf
 	$(TEX) $<
 
 clean:
-	rm -f *.dvi *.ps *.log *.aux *~ *-pics.pdf *.toc *.out *.vrb *.snm *.nav
+	rm -f *.dvi *.ps *.log *.aux *~ *-pics.pdf *.toc *.out *.vrb *.snm *.nav *.synctex.gz
