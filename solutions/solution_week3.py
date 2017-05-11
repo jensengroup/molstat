@@ -2,7 +2,7 @@
 # python modules
 import numpy as np
 import copy
-
+import matplotlib.pyplot as plt
 # local modules
 import md_video as video
 

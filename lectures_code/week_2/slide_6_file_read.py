@@ -17,7 +17,7 @@ y = []
 
 for line in f:
 
-    line = line.split(',')
+    line = line.split(',') #remember that this is updating the variable line
     x.append(float(line[0]))
     y.append(float(line[1]))
 
