@@ -347,13 +347,13 @@ import md_header as md
 \end{lstlisting}
 
 The \code{initialize\_particles} function from the header takes as arguments
-the number of atoms, temperature, density (rho) and epsilon matrix (eps).
+the number of particles, temperature, density (rho) and epsilon matrix (eps).
 Epsilon is now a matrix (of ones). We will use differing epsilon values later.
 The function returns the positions, velocities, forces and box width, based on the temperature and density.
 
 \begin{lstlisting}
 eps = np.ones((n_atoms, n_atoms)) # eps is still 1
-R, V, F, box_width = md.initialize_particles(n_atoms, temp, rho, eps)
+R, V, F, box_width = md.initialize_particles(n_particles, temp, rho, eps)
 \end{lstlisting}
 
 \code{R} is an $N\times2$ array, which holds the $x$ and $y$ coordinates for all $N$ particles.
@@ -374,7 +374,7 @@ energy_potential, F = md.lennard_jones(R, box_width, eps)
 
  
     \item Create a function called "simulation" that takes the following parameters as input:
-        number of atoms,
+        number of particles,
         number of steps,
         particle density (rho),
         temperature and
@@ -397,7 +397,8 @@ n_steps = 500000
 \end{lstlisting}
 
 
-    \item Create a movie using the video module.
+    \item Create a movie using the video module. In order to include the periodic boundaries, the video must be saved with the command 
+    \code{video.save('video\_filename', periodic\_boundary=True)}. Since we now have a very large number of step, only save a frame for every 1000 steps.
 
     \item Save the kinetic energy, potential energy and total energy.
         Plot the energies vs steps.

@@ -242,7 +242,7 @@ def initialize_particles(n_particles, box_width):
     Vy = [2 * (np.random.random() - 0.5) for i in range(n_particles)]
 
     # Inititalize particle forces
-    Fx, Fy, energy = lennard_jones(X, Y)
+    energy,Fx, Fy = lennard_jones(X, Y)
 
     return X, Y, Vx, Vy, Fx, Fy
 
