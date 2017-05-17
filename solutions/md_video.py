@@ -173,7 +173,7 @@ def save(filename, box_width=10.0, fps=25, grid=False, area=300, periodic_bounda
     writer = Writer(fps=fps, metadata=dict(artist='Me'), bitrate=1800)
 
     ani.save(filename+'.mp4', fps=fps, writer=writer)
-
+    #ani.save(filename+'.mp4', writer=writer) #use with matplotlib 2.0.0
     # Save as gif
     # ani.save(filename+'.gif', writer='imagemagick')
 
