@@ -43,14 +43,14 @@
 %
 
 \begin{frame}[fragile]
-
+% Anaconda includes over 100 prepackaged scientific packages
     \frametitle{Interpret Vs. Compiling}
 
     \centering
 
     Today we use anaconda. Why?
 
-    \includegraphics[width=0.7\textwidth]{images/term-compiler.jpg}
+ \includegraphics[width=0.7\textwidth]{images/anaconda.png}
 
 % \begin{lstlisting}
 % @jit()
@@ -76,8 +76,7 @@
 
     {
         \scriptsize
-        picture source: http://skillcrush.com/2012/06/13/compiling/
-    }
+        picture source: https://www.continuum.io/downloads}
 
 \end{frame}
 
@@ -85,7 +84,16 @@
 \begin{frame}[fragile]
 
     \frametitle{Interpret Vs. Compiling}
+%An intepret language is run "on the fly" - as the program is run each bit of the program is "translated" into native machine language - a compiled language needs to be compiled before it can be run - this oftens makes the program faster
+\begin{center}
+ \includegraphics[width=0.4\textwidth]{images/numba.png}
+\end{center} 
+\end{frame}
+ 
+\begin{frame}[fragile]
 
+    \frametitle{Interpret Vs. Compiling}
+    
 \begin{lstlisting}
 @jit()
 def force(R, box_width):
