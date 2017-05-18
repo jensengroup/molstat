@@ -87,12 +87,15 @@ def initialize_particles(n_particles, box_width):
     # Remove excess particles.
     X = X[:n_particles]
     Y = Y[:n_particles]
-
+    print 'X', X
+    print 'Y', Y
+    Y_old = copy.copy(Y)
     # Rescale particle positions to fit box.
     for i in range(n_particles):
-        X[i] = (X[i] - 0.5*(sqrt_npart-1))*1.0/sqrt_npart*box_width*1.8
-        Y[i] = (Y[i]) * 1.0/sqrt_npart*box_width*0.8
-
+        X[i] = (X[i])*box_width/(sqrt_npart-1)*0.9
+        Y[i] = (Y[i] - 0.5*Y_old[-1]) * (1.0/Y_old[-1])*box_width*1.8
+    print 'X',X
+    print 'Y',Y
 
     # Initialize particle velocities
     Vx = [2*(np.random.random() - 0.5) for i in range(n_particles)]
