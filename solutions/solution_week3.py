@@ -87,6 +87,7 @@ def initialize_particles(n_particles, box_width):
     # Remove excess particles.
     X = X[:n_particles]
     Y = Y[:n_particles]
+<<<<<<< 665e871ce50158a23459834c26521564b2744731
     print 'X', X
     print 'Y', Y
     Y_old = copy.copy(Y)
@@ -96,6 +97,15 @@ def initialize_particles(n_particles, box_width):
         Y[i] = (Y[i] - 0.5*Y_old[-1]) * (1.0/Y_old[-1])*box_width*1.8
     print 'X',X
     print 'Y',Y
+=======
+    Y_old = copy.copy(Y)
+    
+    # Rescale particle positions to fit box.
+    for i in range(n_particles):
+        X[i] = (X[i]) * 1.0/(sqrt_npart-1)*box_width*0.9
+        Y[i] = (Y[i] - 0.5*(Y_old[-1]))*box_width/(0.5*(Y_old[-1]))*0.9
+    print Y, sqrt_npart
+>>>>>>> new starting grid
 
     # Initialize particle velocities
     Vx = [2*(np.random.random() - 0.5) for i in range(n_particles)]
@@ -148,8 +158,8 @@ def velo_verlet(x_positions, y_positions, x_velocities, y_velocities,
 
 ## Simulation Initialization
 box_width = 10.0
-n_particles = 42
-n_steps = 10000
+n_particles = 60
+n_steps = 1000
 dt = 0.001
 
 # x_test = [0.0, 0.0]
@@ -160,7 +170,9 @@ dt = 0.001
 ## Initialize particles
 X, Y, Vx, Vy, Fx, Fy, energy = initialize_particles(n_particles, box_width)
 
-
+plt.plot(X,Y,'ro')
+plt.axis((-box_width,box_width, -box_width,box_width))
+plt.savefig('start.png')
 ## Create file for saving energy
 f = open('simulation_energy', 'w')
 
@@ -180,7 +192,7 @@ for n in range(n_steps):
         f.write(line)
         f.write('\n')
 
-    if n % 20 == 0:
+    if n % 30 == 0:
        video.add_frame(X, Y)
 
     if n % 100 == 0:
