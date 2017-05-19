@@ -1,4 +1,4 @@
-\documentclass{article}
+ \documentclass{article}
 
 \input{../preamble_handout}
 
@@ -42,6 +42,7 @@ The goals of this exercise:
 
 \end{enumerate}
 
+This will be done by creating two files - on .py file with all the function definition, but none of the functions being called, and an other where all variables are set and the functions are called to run the simulation.
 %You should read the Numpy handout available on the course website. %% Er den lavet?
 
 \subsection{Lennard-Jones potential and periodic boundary conditions}
@@ -275,7 +276,8 @@ V = np.zeros((3,5))
 \end{lstlisting}
 
 \begin{enumerate}[resume]
-    \item What is the result of V?
+    \item Print V to make sure you understand the structure
+    \item Try using \code{np.shape(V)} - how is this output related to the structure of V?
 \end{enumerate}
 
 If you are not sure how big your array is going to be, you can create a list, append elements,
@@ -352,7 +354,7 @@ Epsilon is now a matrix (of ones). We will use differing epsilon values later.
 The function returns the positions, velocities, forces and box width, based on the temperature and density.
 
 \begin{lstlisting}
-eps = np.ones((n_atoms, n_atoms)) # eps is still 1
+eps = np.ones((n_particles, n_particles)) # eps is still 1
 R, V, F, box_width = md.initialize_particles(n_particles, temp, rho, eps)
 \end{lstlisting}
 
@@ -360,6 +362,18 @@ R, V, F, box_width = md.initialize_particles(n_particles, temp, rho, eps)
 Likewise \code{V} and \code{F} holds the initial velocities and forces respectively.
 \code{box\_width} is the width of the scaled box, which today you cannot specify yourself,
 since it is based on the density of the particles.\\
+
+\begin{enumerate}[resume]
+\item Using the variables below, initialize the particles and print the first and second element of \code{R} \label{item:print R}
+\end{enumerate}
+\begin{lstlisting}
+temp = 2.0
+n_particles = 42
+rho = 0.2
+dt = 0.0005
+n_steps = 500000
+\end{lstlisting}
+ 
 
 The second function that you will use from the \code{md} module is \code{lennard\_jones} which takes as arguments positions, box width and eps (where eps is the matrix defined earlier).
 It returns the potential energy and the force.
@@ -370,34 +384,27 @@ energy_potential, F = md.lennard_jones(R, box_width, eps)
 
 \begin{enumerate}[resume]
     \item Understand the return values of the two functions.
-        What are the dimensions and data types of the variables?
+        What are the \textbf{dimensions} and \textbf{data types} of the variables - both arguments and returned from the functions?
 
- 
     \item Create a function called "simulation" that takes the following parameters as input:
         number of particles,
         number of steps,
         particle density (rho),
         temperature and
         time step (dt).
+  This function should run the entire simulation - this means that it should first initialize the particles, and then update the positions, velocities and forces for all n-steps. This should be in the .py files without any variables - the function will be called and run in the other script.
 
 
-    \item In the simulation function implement the Velo-Verlet solver from last week, but using the cool new Numpy tricks.
+    \item In the simulation function implement the Velo-Verlet solver from last week, but using the cool new Numpy tricks - this should shorten the code considerably.
         You don't need to check if the particles exit the box since the \code{lennard\_jones} function uses periodic boundary conditions.
         Note, except for the loop over steps, there should not be any loops in the simulation function.
        {\em Hint:} See page 2 for the Velo-Verlet algorithm if you forgot it.
 
 
-    \item Create a new python file and import the module you just created. Call the simulation function with the following constants.
-\begin{lstlisting}
-temperature = 2.0
-n_atoms = 42
-rho = 0.2
-dt = 0.0005
-n_steps = 500000
-\end{lstlisting}
+    \item Create a new python file and import the module you just created. Include the variables from exercise \ref{item:print R}. Call the simulation function.
 
 
-    \item Create a movie using the video module. In order to include the periodic boundaries, the video must be saved with the command 
+    \item In the function include the code to create a movie using the video module. In order to include the periodic boundaries, the video must be saved with the command 
     \code{video.save('video\_filename', periodic\_boundary=True)}. Since we now have a very large number of step, only save a frame for every 1000 steps.
 
     \item Save the kinetic energy, potential energy and total energy.
@@ -436,7 +443,7 @@ This is done by the following code
 
 % change values
 \begin{lstlisting}
-eps = np.ones((n_atoms, n_atoms))
+eps = np.ones((n_particles, n_particles))
 eps = eps/10.0
 eps[0,1] = 0.8
 eps[1,0] = 0.8
@@ -451,7 +458,7 @@ To display the first two particles with a different color, use the video module 
 % add colors
 \begin{lstlisting}
 # set particle 1 and 2 to other color
-colors = ['#4daf4a' for x in range(n_atoms)]
+colors = ['#4daf4a' for x in range(n_particles)]
 colors[0] = "#377eb8"
 colors[1] = "#377eb8"
 video.add_color(colors)
