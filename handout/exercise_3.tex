@@ -23,7 +23,28 @@
 
 
 \section{Introduction and Theory}
+A quick reminder, last week we worked with functions. These are important in order to create scripts with a nice flow to them, and in order to keep the number of lines in the code to a minimum. 
+We will continue to use functions, and it is therefore important that you all remember the few important rules:
 
+\begin{enumerate}
+        \item A function is defined with:
+            \begin{lstlisting}
+            def function(x,y):
+                #some function 
+                z = x +y
+                return z
+            \end{lstlisting}
+        \item Defining a function only tells python the 'recipe', nothing has actually been computed yet.
+        \item In order to use a function, the function is called with suitable variables
+            \begin{lstlisting}
+            h = 10.0
+            i = 5.0
+            
+            k = funtion(h,i)
+            \end{lstlisting}
+            This then save the output (returned values) of the function in the variable k
+\end{enumerate}
+As seen in the example above, the local variables might be called one thing (x,y) and the global another (h,i), but as long as the local variables are defined within the function that is no problem. 
 %Hello \code{for n in range(2)} \code{print "again"} Scientist.
 
 
@@ -43,13 +64,13 @@ Figure \ref{fig:potentials} shows the three different potentials we've encounter
 
 The Lennard-Jones potential energy between two interacting particles $i$ and $j$ is given by:
 \begin{equation}
-    U_{ij} = 4 \epsilon \left[ \left(\frac{\sigma}{r_{ij}} \right)^{12} - \left(\frac{\sigma}{r_{ij}} \right)^6 \right]
+    U_{ij} = 4 \epsilon \left[ \left(\frac{\sigma}{r_{ij}} \right)^{12} - \left(\frac{\sigma}{r_{ij}} \right)^6 \right]  \label{eq:lennard_jones}
 \end{equation}
 
 Here $r_{ij}$ is the distance between the two particles.
 For simplicity, we set $\epsilon = 1$ and $\sigma = 1$, in which case the energy is reduced to:
 \begin{equation}
-    U_{ij} = 4 \left[ \left(\frac{1}{r_{ij}} \right)^{12} - \left(\frac{1}{r_{ij}} \right)^6 \right]
+    U_{ij} = 4 \left[ \left(\frac{1}{r_{ij}} \right)^{12} - \left(\frac{1}{r_{ij}} \right)^6 \right]\label{eq:potential_energy}
 \end{equation}
 
 The total potential energy of the system is then;
@@ -143,9 +164,9 @@ Firstly, you will need to write the relevant code/functions to calculate the Len
 
 \begin{enumerate}
 
-    \item Define a function called \code{lennard\_jones()}, that takes positions and number of particles as parameters and returns potential energy.
+    \item Define a function called \code{lennard\_jones()}, that takes positions and number of particles as parameters and returns potential energy. In order to do this you need to use equation \ref{eq:lennard_jones}
 
-    \item Loop over all particle interaction (e.i. a double loop over $i$ and $j$ particles) and calculate the total energy using eq. \ref{eq:total_energy}.
+    \item Loop over all particle interaction (e.i. a double loop over $i$ and $j$ particles) and calculate the total energy using eq. \ref{eq:total_energy}. That is, the function \code{lennard\_jones} should return the total potential energy
 
 \end{enumerate}
 
@@ -161,7 +182,7 @@ pos_y_test = [0.0, 1.4]
 \begin{enumerate}[resume]
 
     \item Call the Lennard-Jones function with the two lists and number of particles as arguments and print the result.
-        If your energy function works, the resulting energy should be -0.4607.
+        If your energy function works, the resulting energy should be -0.4607.\footnote{Remember that when calling a function the result should be saved in a variable eq. var = function(x,y)}
 
 \end{enumerate}
 
@@ -172,8 +193,7 @@ So for this it would be natural to extend your code to store the $x$- and $y$-co
 
 \begin{enumerate}[resume]
 
-    \item In the LJ function, initialize two new lists for the forces, \code{force\_x} and \code{force\_y}, containing only zeros, with the length equal to the number of particles
-% {\em Hint:} remember "list comprehension"?
+    \item In the LJ function, initialize two new lists for the forces, \code{force\_x} and \code{force\_y}, containing only zeros, with the length equal to the number of particles {\em Hint:} remember "list comprehension"?
 %    {\em Hint:}
 %
 %\begin{lstlisting}
@@ -324,7 +344,7 @@ Let's try and see how your simulation works.
 
 \begin{enumerate}[resume]
 
-    \item We want also want to save the kinetic energy of the system. Write a function that calculates the kinetic energy given the velocities.
+    \item We also want to save the kinetic energy of the system. Write a function that calculates the kinetic energy given the velocities.
 
     \item Store the steps and energies during the simulation in a file. Write the energy every 5th step.
 
