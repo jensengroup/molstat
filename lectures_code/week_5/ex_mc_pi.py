@@ -45,9 +45,9 @@ def calculate_pi(n_steps, save_lists):
 count, x_red, y_red, x_green, y_green = calculate_pi(1000, True)
 
 
-circle1 = plt.Circle((0,0), 1.0, color='k', fill=False)
-fig = plt.gcf()
-fig.gca().add_artist(circle1)
+#circle1 = plt.Circle((0,0), 1.0, color='k', fill=False)
+#fig = plt.gcf()
+#fig.gca().add_artist(circle1)
 
 plt.plot(x_red, y_red, 'gx')
 plt.plot(x_green, y_green, 'bx')

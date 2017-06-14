@@ -1,4 +1,3 @@
-
 # ex 1
 def f1(x):
     y = 5*x
@@ -41,9 +40,9 @@ def foo():
     print x
 foo()
 
-
+"""
 # ex 6
-print "{0:2d} {0:3.3f}".format(12, 56.789)
+print "{0:2d} {1:.3f}".format(12, 56.789)
 
 
 
