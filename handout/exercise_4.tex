@@ -23,6 +23,20 @@
 
 \section{Introduction}
 
+
+%TODO Reformulate to make it clear what goes into the function and what is in the simulation script
+
+%TODO Problems with understanding what the function simulate should do
+
+%TODO Make it more clear how R is shaped - how do one use this to save the video frames
+
+%TODO Numpy tricks needs to be clearified
+
+%TODO lennard_jones should give the new updated forces
+
+%TODO examples of what the simulate function should ultimately return - the energy lists
+
+
 The goals of this exercise:
 \begin{enumerate}
     \item Write a molecular-dynamics program in two dimension using the supplied module.
@@ -352,7 +366,7 @@ Epsilon is now a matrix (of ones). We will use differing epsilon values later.
 The function returns the positions, velocities, forces and box width, based on the temperature and density.
 
 \begin{lstlisting}
-eps = np.ones((n_atoms, n_atoms)) # eps is still 1
+eps = np.ones((n_particles, n_particles)) # eps is still 1
 R, V, F, box_width = md.initialize_particles(n_particles, temp, rho, eps)
 \end{lstlisting}
 
@@ -368,6 +382,8 @@ It returns the potential energy and the force.
 energy_potential, F = md.lennard_jones(R, box_width, eps)
 \end{lstlisting}
 
+and lennard\_jones is thus used to re-calculate the potential energy and the
+forces as the position matrix R is updated
 \begin{enumerate}[resume]
     \item Understand the return values of the two functions.
         What are the dimensions and data types of the variables?
@@ -379,15 +395,29 @@ energy_potential, F = md.lennard_jones(R, box_width, eps)
         particle density (rho),
         temperature and
         time step (dt).
+        This function should run the entire simulation, and it will therefore
+        be a function with other functions beeing called inside it
 
-
-    \item In the simulation function implement the Velo-Verlet solver from last week, but using the cool new Numpy tricks.
+    \item In the simulation function implement the Velo-Verlet solver from last
+        week, but using the cool new Numpy tricks, that is use the np.arrays
+        instead of list to speed up the script.
         You don't need to check if the particles exit the box since the \code{lennard\_jones} function uses periodic boundary conditions.
         Note, except for the loop over steps, there should not be any loops in the simulation function.
        {\em Hint:} See page 2 for the Velo-Verlet algorithm if you forgot it.
 
 
-    \item Create a new python file and import the module you just created. Call the simulation function with the following constants.
+
+    \item Create a movie inside the simulation function using the video module. Since the x and y coordinates
+        are both in the position matrix R, the frames for the video should be
+        saved as\\
+        \code{video.add\_frame(R[0],R[1])}.\\
+        In order to include the
+        periodic boundaries, the video must be saved with the command\\
+        \code{video.save('video\_filename', periodic\_boundary=True)}.\\
+        Since we now have a very large number of step, only save a frame for every 1000 steps.
+
+    \item Save the kinetic energy, potential energy and total energy.
+    \item Create a new python file "run\_sim.py" and import the module you just created. Call the simulation function with the following constants.
 \begin{lstlisting}
 temperature = 2.0
 n_atoms = 42
@@ -396,17 +426,13 @@ dt = 0.0005
 n_steps = 500000
 \end{lstlisting}
 
-
-    \item Create a movie using the video module. In order to include the periodic boundaries, the video must be saved with the command 
-    \code{video.save('video\_filename', periodic\_boundary=True)}. Since we now have a very large number of step, only save a frame for every 1000 steps.
-
-    \item Save the kinetic energy, potential energy and total energy.
-        Plot the energies vs steps.
+    \item    Plot the energies vs steps.
 
     \item Find out when the system reaches equilibrium, and make sure the system is in equilibrium before plotting data. In order to do this you need to save the data from you simulation at smaller intervals than the video frames - for example every 60th step.
 
-    \item Calculate and save the temperature.
-        Plot the temperature vs steps.
+    \item Add the the function simulation a way to calculate and save the
+        temperature.
+    \item Plot the temperature vs steps in run\_sim.py.
 
     \item Why is the temperature not constant?
 
@@ -436,7 +462,7 @@ This is done by the following code
 
 % change values
 \begin{lstlisting}
-eps = np.ones((n_atoms, n_atoms))
+eps = np.ones((n_particles, n_particles))
 eps = eps/10.0
 eps[0,1] = 0.8
 eps[1,0] = 0.8
@@ -451,7 +477,7 @@ To display the first two particles with a different color, use the video module 
 % add colors
 \begin{lstlisting}
 # set particle 1 and 2 to other color
-colors = ['#4daf4a' for x in range(n_atoms)]
+colors = ['#4daf4a' for x in range(n_particles)]
 colors[0] = "#377eb8"
 colors[1] = "#377eb8"
 video.add_color(colors)
