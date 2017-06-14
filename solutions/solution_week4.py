@@ -76,7 +76,7 @@ def simulation(n_atoms, n_steps, rho, temperature, dt,
 
         # if temperture is set to constant, then scale the velocities
         if constant_temperature:
-            V = md.scale_temp(V, temperature)
+            V = md.scaletemp(V, temperature)
 
 
         # for every save_freq steps

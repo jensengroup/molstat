@@ -77,7 +77,7 @@ def initialize_velocities(R, T):
     Vm = np.sum(V,1)/n
     V -= np.reshape(Vm, (d,1))
 
-    V = scale_temp(V, T)
+    V = scaletemp(V, T)
 
     # # the dot product of the velocities divided by the number of particles
     # fs = np.dot( np.ravel(V), np.ravel(V) ) / n
@@ -154,7 +154,7 @@ def force(R, box_width, eps):
 
 
 
-def scale_temp(V, temp):
+def scaletemp(V, temp):
     """
     Scale velocities V to a certain temperature temp
     """
