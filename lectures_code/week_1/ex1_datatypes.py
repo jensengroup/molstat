@@ -15,6 +15,15 @@ print height
 
 # List
 s_list = [2, 4 ,8, 16]
+# Tuple
+#If using () a tuple is created instead
+s_tuple = (2,4,8,19)
+
+#The type can be tested using type(arg)
+
+print "s_list", type(s_list)
+print "s_tuple", type(s_tuple)
+
 print s_list
 print s_list[0]
 print s_list[1]
